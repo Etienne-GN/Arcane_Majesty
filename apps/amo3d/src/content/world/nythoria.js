@@ -125,6 +125,8 @@ export function createNythoriaWorld({ quality } = {}) {
       const glow = new THREE.PointLight(0x8a5aff, 18, 60, 1.6); glow.position.set(0, y0 + 4, 0); g.add(glow);
       world.scene.add(g);
       world.spawns.ravenspire = { x: C.x, z: C.z + R + 10, facing: Math.PI };
+      world.stations.push({ mode: 'sign', id: 'ravenspire_ruins', title: 'An inscription', pos: new THREE.Vector3(C.x + 6, H(6, 0) + 1.2, C.z + 4),
+          text: 'Cut deep into a fallen lintel of the great hall, half under the vines: "WE HELD UNTIL THE LIGHT WENT OUT." Below it, smaller and newer, scratched by another hand: names, dozens of them, and a date counted from the Darkness. Something has walked through the hall since — the ash on the floor is marked with long, clawed prints.' });
       const upd2 = world.update; world.update = (t2, dt, ctx) => { upd2(t2, dt, ctx); g.visible = Math.hypot(ctx.player.pos.x - C.x, ctx.player.pos.z - C.z) < 1100; };
     }
     return world;

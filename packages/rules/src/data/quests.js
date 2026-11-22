@@ -399,4 +399,77 @@ export const QUESTS = {
         ],
         reward: { glint: 0, xp: 10, items: [] },
     },
+
+    // ── The starters and the bands (docs/3d/WORLD_PLAN.md) ──────────────────────────────────────
+    // givers: a region's people by '<region id>_<name slug>' (content/actors/villagers.js)
+
+    starter_fields_work: {
+        id: 'starter_fields_work', title: 'Work for Willing Hands', type: 'side', giver: 'emerald_fields_village_elder',
+        offer: 'Beasts come into the fields at night — they trample the crops and frighten the herds. Put a few of them down, and come and tell me.',
+        description: 'The elder of the Fields\' village asked you to deal with the beasts troubling the farms, then report back.',
+        steps: [
+            { id: 'beasts', type: 'kill', target: 'any', label: 'Defeat creatures round the Fields (0/4)', required: 4 },
+            { id: 'report', type: 'talk', target: 'emerald_fields_village_elder', label: 'Report to the village elder', required: 1 },
+        ],
+        reward: { xp: 90, gold: 20, items: ['health_potion'] },
+    },
+    starter_fields_yard: {
+        id: 'starter_fields_yard', title: "The Yard's First Lesson", type: 'side', giver: 'emerald_fields_yard_trainer',
+        offer: 'Posts don\'t hit back. Go and find three things that do — and on your way, touch the Monolith by the Fields\' gate, so you can always find your way home.',
+        description: 'The yard trainer wants you to test your stance against real foes, and to attune to the Fields\' Monolith.',
+        steps: [
+            { id: 'foes', type: 'kill', target: 'any', label: 'Defeat three foes (0/3)', required: 3 },
+            { id: 'monolith', type: 'attune', target: 'any', label: "Touch the Monolith by the Fields' gate", required: 1 },
+        ],
+        reward: { xp: 110, gold: 15, items: ['mana_potion'] },
+    },
+    starter_fields_road: {
+        id: 'starter_fields_road', title: 'The Road to the Crossroads', type: 'side', giver: 'emerald_fields_village_elder', requires: ['starter_fields_work'],
+        offer: 'You\'ve outgrown our fields, I think. Follow the road north to the Crossroads — the innkeeper of the Worn Stone knows everyone, and there\'s more work there than here.',
+        description: 'The elder sends you on to the Crossroads, to the innkeeper of the Worn Stone — the wider world begins there.',
+        steps: [
+            { id: 'innkeeper', type: 'talk', target: 'the_crossroads_innkeeper_of_the_worn_stone', label: 'Meet the innkeeper of the Worn Stone at the Crossroads', required: 1 },
+        ],
+        reward: { xp: 160, gold: 30, items: [] },
+    },
+    starter_vale_stayed: {
+        id: 'starter_vale_stayed', title: 'Those Who Stayed', type: 'side', giver: 'shadow_vale_elder_of_the_vale',
+        offer: 'The shadow beasts come down from the hills after the dark hours. Show the Vale you can stand with us: drive five of them off, then come back to me.',
+        description: 'The elder of the Shadow-Vale asks you to prove yourself against the shadow beasts, then return.',
+        steps: [
+            { id: 'beasts', type: 'kill', target: 'any', label: 'Defeat shadow beasts round the Vale (0/5)', required: 5 },
+            { id: 'report', type: 'talk', target: 'shadow_vale_elder_of_the_vale', label: 'Return to the elder of the Vale', required: 1 },
+        ],
+        reward: { xp: 100, gold: 18, items: ['health_potion'] },
+    },
+    starter_vale_watch: {
+        id: 'starter_vale_watch', title: 'The Watch Before the Dark Hours', type: 'side', giver: 'shadow_vale_vale_warden',
+        offer: 'Void-stalkers hunt along the Vale\'s edges. Three of them, and the watch sleeps easier tonight.',
+        description: 'The Vale\'s warden wants three Void-Stalkers put down before the dark hours.',
+        steps: [
+            { id: 'stalkers', type: 'kill', target: 'void_stalker', label: 'Defeat Void-Stalkers (0/3)', required: 3 },
+        ],
+        reward: { xp: 140, gold: 25, items: [] },
+    },
+    starter_vale_ruins: {
+        id: 'starter_vale_ruins', title: 'The Broken Silhouette', type: 'side', giver: 'shadow_vale_elder_of_the_vale', requires: ['starter_vale_stayed'],
+        offer: 'Old Ravenspire stands broken on the cliff to the north-east, where the Resistance held out before the Great Darkness. Go and see it with your own eyes — then tell me what walks there now.',
+        description: "The elder asks you to see old Ravenspire's ruins for yourself and report what you find.",
+        steps: [
+            { id: 'see', type: 'read_signs', target: 'ravenspire_ruins', label: "Find the inscription in old Ravenspire's hall", required: 1 },
+            { id: 'report', type: 'talk', target: 'shadow_vale_elder_of_the_vale', label: 'Tell the elder what you found', required: 1 },
+        ],
+        reward: { xp: 260, gold: 40, items: [] },
+    },
+    ravenspire_rift_bounty: {
+        id: 'ravenspire_rift_bounty', title: 'What Crawls from the Rift', type: 'side', giver: 'new_ravenspire_herald_of_the_legion',
+        offer: 'The Rift still bleeds things into our land. The Legion pays well for each one put down — six stalkers and two of the beaked things, and the purse is yours.',
+        description: 'The Herald of the Legion offers a bounty on the creatures leaking from the Great Rift.',
+        steps: [
+            { id: 'stalkers', type: 'kill', target: 'void_stalker', label: 'Defeat Void-Stalkers near the Rift (0/6)', required: 6 },
+            { id: 'beaks', type: 'kill', target: 'gloom_beak', label: 'Defeat Gloom-Beaks (0/2)', required: 2 },
+            { id: 'report', type: 'talk', target: 'new_ravenspire_herald_of_the_legion', label: 'Claim the bounty from the Herald', required: 1 },
+        ],
+        reward: { xp: 950, gold: 140, items: [] },
+    },
 };
