@@ -1,4 +1,5 @@
 // Shared helpers: materials, rng, procedural textures, colliders, particles.
+import { pickQuality } from './quality.js';
 import * as THREE from 'three';
 
 // ---------- noise ----------
@@ -23,8 +24,14 @@ export function fbm(x, z, oct = 5) {
 export const smoothstep = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 
 
-export const flat = (color, extra = {}) =>
-    new THREE.MeshStandardMaterial({ color, flatShading: true, roughness: 0.9, ...extra });
+// On the low preset (phones) the flat-shaded surfaces are Lambert, not PBR: the same colours and facets for a fraction
+// of the cost per pixel (2026-11-22: ~2400 of them in the glade and in Thaloria). PBR-only options are left out.
+export const LITE = (() => { try { return pickQuality().name === 'low'; } catch { return false; } })();
+export const flat = (color, extra = {}) => {
+    if (!LITE) return new THREE.MeshStandardMaterial({ color, flatShading: true, roughness: 0.9, ...extra });
+    const { roughness, metalness, envMapIntensity, ...rest } = extra; void roughness; void metalness; void envMapIntensity;
+    return new THREE.MeshLambertMaterial({ color, flatShading: true, ...rest });
+};
 
 export function mulberry32(seed) {
     return () => {

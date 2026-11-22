@@ -8,11 +8,12 @@
 //   · one water plane follows the player;
 //   · no floating origin: at Eldoria's planned size (±3.75 km) float precision stays ~0.5 mm — not needed yet.
 // The map object has the same shape as a region's, so the player, the camera and the HUD use it unchanged.
+import { createLightPool } from './lightPool.js';
 import { setLevelContext } from '../content/actors/enemyCore.js';
 import * as THREE from 'three';
 import { settings } from './settings.js';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
-import { flat, mulberry32, colliderAt, pushOut, fbm } from './lib.js';
+import { flat, mulberry32, colliderAt, pushOut, fbm, LITE } from './lib.js';
 import { createOutdoorShell } from './outdoor.js';
 import { treeKinds } from '../content/models/flora.js';
 import { coreOf, registerCore } from '../content/actors/enemyCore.js';
@@ -107,6 +108,7 @@ export function stampHeights(worldH, stamps, B = 60, keepAt = null) {   // keepA
 export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], stamps = [], chart = null, mood = null, biomeAt = null, spawnWild = null, extraGather = [], walls = [], levelAt = null, quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
     const scene = new THREE.Scene();
     const shell = createOutdoorShell(scene, { quality, mood: mood ?? { fog: '#c8d4d8', fogNear: 160, fogFar: 700, fogMix: 0.55 } });
+    const lights = createLightPool(scene, quality.name === 'low' ? 4 : 8);   // only the nearest lamps really light (a phone can't afford them all on every pixel)
     const half = size / 2, NT = Math.ceil(size / TILE);
     // the world's own walls (barriers along mountain crests, a lighthouse…): bucketed by tile once; add() for later ones
     const wallB = new Map();
@@ -205,7 +207,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             let mat = list[0].material;
             if (plain) {
                 const mk = key.split('|').slice(0, 4).join('|');
-                mat = plainMats.get(mk) ?? plainMats.set(mk, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: list[0].material.flatShading, side: list[0].material.side, roughness: list[0].material.roughness, metalness: list[0].material.metalness })).get(mk);
+                mat = plainMats.get(mk) ?? plainMats.set(mk, LITE ? new THREE.MeshLambertMaterial({ vertexColors: true, flatShading: list[0].material.flatShading, side: list[0].material.side }) : new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: list[0].material.flatShading, side: list[0].material.side, roughness: list[0].material.roughness, metalness: list[0].material.metalness })).get(mk);   // (Lambert on phones: LITE)
                 if (st && list[0].material.userData.shapeClip) shapeClip(mat, st);   // the merged ground still cut to the outline (it showed beyond it, floating, at every place's edge)
             }
             const m = new THREE.Mesh(merged, mat); m.castShadow = list.some(o => o.castShadow); m.receiveShadow = list.some(o => o.receiveShadow);
@@ -607,7 +609,11 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         addWall,
         camera: { maxDist: 30, pitch: 0.38, dist: 9 },
         // Swimming (Phase 13, first pass): deep water no longer stops you — you float, head and shoulders above it.
-        groundAt: (x, z) => Math.max(heightAt(x, z), WATER - SWIM_DEPTH),
+        groundAt: (x, z) => {   // the land, or a place's own deck above it (the bridge by Eldrin's Tower…), or the water's surface to swim at
+            let g = Math.max(heightAt(x, z), WATER - SWIM_DEPTH);
+            for (const st of stamps) if (st.built && st.map.deckAt && inRect(st, x, z)) { const d = st.map.deckAt(x - st.ox, z - st.oz); if (d != null && d + st.oy > g) g = d + st.oy; }
+            return g;
+        },
         wading: (x, z) => heightAt(x, z) < WATER - 0.05,
         swimming: (x, z) => heightAt(x, z) < WATER - SWIM_DEPTH + 0.05,
         blockedAt(x, z, r, y = heightAt(x, z)) {
@@ -627,6 +633,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         treesIn(x0, z0, x1, z1) { const out = []; for (const t of tiles.values()) for (const p of t.treePts ?? []) if (p[0] > x0 && p[0] < x1 && p[1] > z0 && p[1] < z1) out.push(p); return out; },
         stamps, streamStats: () => ({ tiles: tiles.size, queue: queue.length, built: stats.built, lastMs: +stats.lastMs.toFixed(1), maxMs: +stats.maxMs.toFixed(1), fps, worstFrameMs: +worst.toFixed(1) }),
         update(t, dt, ctx) {
+            lights.update(dt, ctx.player.pos);
             frame++;
             const P = ctx.player.pos;
             stream(P.x, P.z);

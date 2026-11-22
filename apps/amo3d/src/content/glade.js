@@ -402,6 +402,7 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
     const map = {
         name: 'Thaloria Glade', scene, heightAt, terrain: true, colliders,
         camera: { maxDist: 22, pitch: 0.38, dist: 8 },
+        deckAt: (x, z) => bridgeDeck(x, z, heightAt),   // (the open world stands you on it: engine/stream.js groundAt)
         groundAt(x, z) {
             const g = heightAt(x, z), deck = bridgeDeck(x, z, heightAt);
             return deck !== null && deck > g ? deck : g;
