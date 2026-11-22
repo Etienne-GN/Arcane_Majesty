@@ -47,6 +47,7 @@ import { umbralTwin } from './engine/umbralTwin.js';
 import { createStreamWorld } from './engine/stream.js';
 import { createEldoriaWorld } from './content/world/eldoria.js';
 import { createNythoriaWorld } from './content/world/nythoria.js';
+import './game/theme.js';   // one look for every menu and panel
 import { updateEnemyMagic, debugMagic } from './content/actors/enemyMagic3d.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createBountyBoard } from './game/bounty.js';

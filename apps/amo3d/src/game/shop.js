@@ -8,7 +8,6 @@ import { sfx } from '../engine/sfx.js';
 // basket (tap again for more, − / + on the ledger), read the totals and your purse after the trade, then confirm.
 // Selling pays for buying in the same trade.
 import '@fontsource/im-fell-english/400.css';
-import '@fontsource/caveat/500.css';
 import { items as itemRules, economy as E, stations as St } from '@rules';
 import { itemIconSVG, kindOf } from './itemIcons.js';
 
@@ -40,10 +39,10 @@ export function createShop({ stats, hud, save }) {
 #shop .ware .in { position: absolute; right: -4px; top: -4px; min-width: 20px; height: 20px; border-radius: 10px; background: #b8301a; color: #fff4dc; font: bold 12px Georgia, serif; display: grid; place-items: center; box-shadow: 0 0 0 2px #24140a; }
 #shop .ware.poor .iicon { opacity: .45; }
 #shop .ware.sel .iicon { box-shadow: 0 0 0 3px #f3d88b; border-radius: 4px; }
-#shop .none { font-family: Caveat, cursive; font-size: calc(19px * var(--ui, 1)); color: #d8c09a; }
+#shop .none { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(16px * var(--ui, 1)); color: #d8c09a; }
 #shop .ledger { border-radius: 10px; padding: 10px 12px; background: radial-gradient(ellipse at 50% 30%, #f6ead0, #e6d3a8 80%, #d8c08e); color: #2e2010; box-shadow: inset 0 0 18px #8a6a3a55; min-height: 100%; box-sizing: border-box; display: flex; flex-direction: column; }
 #shop .ledger h4 { margin: 6px 0 2px; font-weight: normal; font-style: italic; font-size: calc(16px * var(--ui, 1)); color: #6a3a1a; border-bottom: 1px solid #8a6a3a55; }
-#shop .about { font-family: Caveat, cursive; font-size: calc(18px * var(--ui, 1)); color: #4a3a2a; line-height: 1.1; min-height: 2.2em; }
+#shop .about { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(15px * var(--ui, 1)); color: #4a3a2a; line-height: 1.1; min-height: 2.2em; }
 #shop .about b { font-family: 'IM Fell English', Georgia, serif; font-weight: normal; color: #3a1e0a; font-size: calc(17px * var(--ui, 1)); }
 #shop .line { display: flex; align-items: center; gap: 6px; padding: 3px 0; font-size: calc(15px * var(--ui, 1)); }
 #shop .line .nm { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -52,12 +51,12 @@ export function createShop({ stats, hud, save }) {
 #shop .qty { min-width: 1.4em; text-align: center; font-family: Georgia, serif; }
 #shop .tot { margin-top: 8px; padding-top: 6px; border-top: 2px solid #8a6a3a77; font-size: calc(15px * var(--ui, 1)); }
 #shop .tot .r { display: flex; justify-content: space-between; } #shop .tot .r.after { font-size: calc(16px * var(--ui, 1)); color: #3a1e0a; }
-#shop .warn { font-family: Caveat, cursive; font-size: calc(18px * var(--ui, 1)); color: #a8301a; margin-top: 4px; }
+#shop .warn { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(15px * var(--ui, 1)); color: #a8301a; margin-top: 4px; }
 #shop .acts { margin-top: auto; padding: 8px 0 2px; display: flex; flex-direction: column; gap: 6px; position: sticky; bottom: -10px; background: linear-gradient(transparent, #e2cfa2 22%); }   /* Confirm stays in reach on a long basket */
 #shop .ledger button.go { font: calc(17px * var(--ui, 1)) 'IM Fell English', Georgia, serif; padding: 9px 12px; border-radius: 8px; cursor: pointer; color: #fff0d0; border: 1px solid #4a1e0a; background: linear-gradient(#8a3a1a, #5a200c); }
 #shop .ledger button.go[disabled] { opacity: .45; cursor: default; }
 #shop .ledger button.ghost { font: calc(15px * var(--ui, 1)) 'IM Fell English', Georgia, serif; padding: 6px 10px; border-radius: 8px; cursor: pointer; color: #3a2010; background: #fff6; border: 1px solid #8a6a3a88; }
-#shop .done { font-family: Caveat, cursive; font-size: calc(19px * var(--ui, 1)); color: #3a6a2a; }
+#shop .done { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(16px * var(--ui, 1)); color: #3a6a2a; }
 @media (max-width: 760px) { #shop .cols { grid-template-columns: 1fr; } #shop .col { overflow: visible; } #shop .counter { height: auto; max-height: calc(100vh - 16px); overflow: auto; } }`;
     document.head.append(css);
     const root = document.createElement('div');

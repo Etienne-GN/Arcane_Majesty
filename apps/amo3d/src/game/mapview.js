@@ -56,12 +56,12 @@ export function createMapView({ stats, hud }) {
 #worldmap .bar { flex: none; min-height: calc(36px * var(--ui, 1)); box-sizing: border-box; display: flex; align-items: center; gap: 10px; padding: 0 46px 8px 6px; flex-wrap: wrap; }
 #worldmap h2 { margin: 0; line-height: 1.25; font-weight: normal; font-size: calc(24px * var(--ui, 1)); color: #f3d88b; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #worldmap .bar button { font: calc(14px * var(--ui, 1)) 'IM Fell English', Georgia, serif; padding: 5px 11px; border-radius: 12px; border: 1px solid #c8965a77; background: #0004; color: #f1e4c8; cursor: pointer; }
-#worldmap .wp { font-family: Caveat, cursive; font-size: calc(18px * var(--ui, 1)); color: #f3d88b; }
+#worldmap .wp { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(15px * var(--ui, 1)); color: #f3d88b; }
 #worldmap .stage { position: relative; flex: 1; min-height: 0; border-radius: 6px; overflow: hidden; box-shadow: inset 0 0 0 2px #2a140a; background: rgb(${PARCH.join(',')}); touch-action: none; cursor: grab; }
 #worldmap canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 #worldmap .close { position: absolute; right: 8px; top: 6px; width: 40px; height: 40px; border-radius: 50%; border: 0; cursor: pointer; color: #f4d8b0; font: bold 16px Georgia, serif;
     background: radial-gradient(circle at 40% 35%, #b8342a, #6a1410); box-shadow: 0 2px 6px #000a; z-index: 2; }
-#worldmap .hint { flex: none; font-family: Caveat, cursive; font-size: calc(17px * var(--ui, 1)); color: #d8c09a; padding: 6px 6px 0; }
+#worldmap .hint { flex: none; font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(14px * var(--ui, 1)); color: #d8c09a; padding: 6px 6px 0; }
 body.title-on #minimap { display: none; }
 @media (max-height: 480px) { #worldmap .frame { padding: 6px 8px; } #worldmap .bar { padding-bottom: 4px; } #worldmap h2 { font-size: calc(19px * var(--ui, 1)); } #worldmap .hint { display: none; } #worldmap .bar button { padding: 3px 9px; } }`;
     document.head.append(css);

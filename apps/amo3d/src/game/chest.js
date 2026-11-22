@@ -85,7 +85,7 @@ export function createChests({ stats, hud }) {
     function render() {
         root.textContent = '';
         const panel = el('div', 'panel');
-        const close = el('button', null, 'Close ✕');
+        const close = el('button', 'close', 'Close ✕');
         close.onclick = () => toggle();
         panel.append(close, el('h2', null, title));
         const cols = el('div', 'cols');

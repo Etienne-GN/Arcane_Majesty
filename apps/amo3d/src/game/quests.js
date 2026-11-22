@@ -4,8 +4,6 @@ import { sfx } from '../engine/sfx.js';
 // (kills, gathering, attuning, pickups, cooking, talking), rewards are amo's. The journal (J / touch QST)
 // is a pocket notebook: handwritten notes on ruled paper, steps ticked and crossed out as they are done,
 // finished quests struck through (questRules.questSteps for each step's progress).
-import '@fontsource/caveat/500.css';
-import '@fontsource/caveat/700.css';
 import { QuestManager as QM, questRules as QR, quests as Q } from '@rules';
 
 const { questManager } = QM;
@@ -16,19 +14,19 @@ export function createQuests({ stats, hud }) {
     // A pocket notebook: ruled paper, a red margin, a pencil hand; steps get ticked and crossed out, finished
     // quests are struck through with a heavier stroke.
     css.textContent = `
-#journal { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #05060acc; color: #2a2014; font-family: Caveat, 'Segoe Script', cursive; }
+#journal { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #05060acc; color: #2a2014; font-family: 'IM Fell English', Georgia, serif; }
 #journal.open { display: grid; }
 #journal .nb { position: relative; width: min(460px, 92vw); height: min(620px, calc(100vh - 40px)); margin-top: 14px; border-radius: 6px 12px 12px 6px; padding: 10px 10px 10px 18px; box-sizing: border-box;
   background: linear-gradient(90deg, #2a1a10, #4a2e1a 8%, #3a2414); box-shadow: 0 12px 34px #000c, inset 0 0 0 2px #1a0e06; transform: rotate(-.6deg); }
 #journal .band { position: absolute; top: -6px; bottom: -6px; right: 34px; width: 12px; background: linear-gradient(90deg, #5a1a14, #8a2a20, #5a1a14); border-radius: 3px; box-shadow: 0 0 4px #0008; z-index: 2; }
 #journal .paper { position: relative; height: 100%; overflow: auto; touch-action: pan-y; border-radius: 2px 8px 8px 2px; padding: 8px 54px 22px 50px; box-sizing: border-box;
   background-color: #f4ecd6; background-image: linear-gradient(90deg, transparent 38px, #d0645a99 38px, #d0645a99 40px, transparent 40px), repeating-linear-gradient(transparent 0, transparent calc(30px * var(--ui, 1) - 1px), #8aa4c855 calc(30px * var(--ui, 1) - 1px), #8aa4c855 calc(30px * var(--ui, 1)));
-  background-attachment: local; box-shadow: inset 10px 0 14px -10px #0006; line-height: calc(30px * var(--ui, 1)); font-size: calc(22px * var(--ui, 1)); scrollbar-width: thin; scrollbar-color: #8a6a3a transparent; }
-#journal h2 { margin: 0; font: 700 calc(30px * var(--ui, 1)) Caveat, cursive; line-height: calc(60px * var(--ui, 1)); color: #3a2410; }
-#journal h3 { margin: 0; font: 700 calc(20px * var(--ui, 1)) Caveat, cursive; line-height: calc(30px * var(--ui, 1)); color: #8a3a1a; text-transform: lowercase; letter-spacing: .04em; }
+  background-attachment: local; box-shadow: inset 10px 0 14px -10px #0006; line-height: calc(30px * var(--ui, 1)); font-size: calc(17px * var(--ui, 1)); scrollbar-width: thin; scrollbar-color: #8a6a3a transparent; }
+#journal h2 { margin: 0; font: 700 calc(30px * var(--ui, 1)) 'IM Fell English', Georgia, serif; line-height: calc(60px * var(--ui, 1)); color: #3a2410; }
+#journal h3 { margin: 0; font: 700 calc(20px * var(--ui, 1)) 'IM Fell English', Georgia, serif; line-height: calc(30px * var(--ui, 1)); color: #8a3a1a; text-transform: lowercase; letter-spacing: .04em; }
 #journal .q { margin: 0 0 calc(30px * var(--ui, 1)); }
-#journal .t { position: relative; font-weight: 700; font-size: calc(24px * var(--ui, 1)); color: #1e1a3a; }
-#journal .t small { font-weight: 500; font-size: calc(16px * var(--ui, 1)); color: #6a5a4a; margin-left: 8px; }
+#journal .t { position: relative; font-weight: 400; font-size: calc(20px * var(--ui, 1)); color: #1e1a3a; }
+#journal .t small { font-weight: 400; font-style: italic; font-size: calc(13px * var(--ui, 1)); color: #6a5a4a; margin-left: 8px; }
 #journal .d { color: #4a3a2a; }
 #journal .s { position: relative; color: #1e1a3a; }
 #journal .s::before { content: '☐'; position: absolute; left: -26px; color: #5a4a3a; }

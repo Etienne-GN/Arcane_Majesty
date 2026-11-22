@@ -6,11 +6,9 @@
 //   Skills  — amo's skills (skill points) and masteries (Resonance Insights)
 //   Styles  — amo's fighting styles: progress, manuals, lessons, each skill and whether it is ready
 // Each spell has its own icon (spellIcons.js: the element's colour and motif, the spell's glyph) and an inked
-// drawing of what it does; descriptions are handwritten (Caveat), headings in IM Fell English.
+// drawing of what it does; descriptions in IM Fell English italic, headings in IM Fell English.
 import '@fontsource/im-fell-english/400.css';
 import '@fontsource/im-fell-english/400-italic.css';
-import '@fontsource/caveat/500.css';
-import '@fontsource/caveat/700.css';
 import { PlayerStats as PS, spells as SP, styleData, styles as styleRules, weapons as weaponRules } from '@rules';
 import { CASTABLE as CAST_LIST } from './fireball.js';
 import { ELEMENTS, iconSVG, drawingSVG } from './spellIcons.js';
@@ -49,14 +47,14 @@ export function createBook({ stats, hud, save, hands = null, kind = 'spells' }) 
 #book h2 { margin: 0 0 4px; font-weight: normal; font-size: calc(26px * var(--ui, 1)); color: #4a1e0a; display: flex; align-items: center; gap: 10px; }
 #book h2 .sicon { width: calc(34px * var(--ui, 1)); height: calc(34px * var(--ui, 1)); flex: none; }
 #book h3 { margin: 14px 0 4px; font-weight: normal; font-style: italic; font-size: calc(17px * var(--ui, 1)); color: #6a3a1a; border-bottom: 1px solid #8a6a3a55; }
-#book .hand { font-family: Caveat, 'Segoe Script', cursive; font-weight: 500; font-size: calc(21px * var(--ui, 1)); line-height: 1.15; color: #2e2010; }
-#book .sub { font-family: Caveat, cursive; font-size: calc(18px * var(--ui, 1)); color: #5a4228; margin-bottom: 6px; }
+#book .hand { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-weight: 400; font-size: calc(17px * var(--ui, 1)); line-height: 1.15; color: #2e2010; }
+#book .sub { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(15px * var(--ui, 1)); color: #5a4228; margin-bottom: 6px; }
 #book .row { display: flex; align-items: center; gap: 10px; padding: 5px 6px; border-radius: 6px; cursor: pointer; }
 #book .row:hover { background: #8a6a3a1a; } #book .row.sel { background: #8a5a2a2e; box-shadow: inset 3px 0 0 #8a3a1a; }
 #book .row.dim { opacity: .55; }
 #book .row .sicon { width: calc(34px * var(--ui, 1)); height: calc(34px * var(--ui, 1)); flex: none; }
 #book .row .nm { flex: 1; min-width: 0; font-size: calc(18px * var(--ui, 1)); }
-#book .row .nm small { display: block; font-family: Caveat, cursive; font-size: calc(16px * var(--ui, 1)); color: #6a5236; }
+#book .row .nm small { display: block; font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(14px * var(--ui, 1)); color: #6a5236; }
 #book .pips { letter-spacing: 2px; color: #a0602a; font-size: calc(13px * var(--ui, 1)); white-space: nowrap; }
 #book .star { color: #b8801a; font-size: calc(16px * var(--ui, 1)); }
 #book .sdraw { width: 100%; max-height: 38vh; display: block; margin: 0 auto 4px; }
@@ -71,7 +69,7 @@ export function createBook({ stats, hud, save, hands = null, kind = 'spells' }) 
 #book .favmenu button.rep { display: flex; align-items: center; gap: 8px; } #book .favmenu button.rep .sicon { width: 26px; height: 26px; flex: none; }
 #book .favmenu button.on { background: #f3d88b; border-color: #8a3a1a; }
 #book .btn[disabled] { opacity: .45; cursor: default; }
-#book .tag { display: inline-block; font-family: Caveat, cursive; font-size: calc(19px * var(--ui, 1)); color: #3a6a2a; margin-top: 8px; white-space: nowrap; }
+#book .tag { display: inline-block; font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(16px * var(--ui, 1)); color: #3a6a2a; margin-top: 8px; white-space: nowrap; }
 #book .e { padding: 6px 0 8px; border-bottom: 1px dotted #8a6a3a55; display: flex; gap: 10px; align-items: flex-start; }
 #book .e .body { flex: 1; } #book .e.dimmed { opacity: .55; }
 #book .t { font-size: calc(18px * var(--ui, 1)); color: #4a1e0a; } #book .t small { font-size: calc(13px * var(--ui, 1)); color: #7a5a3a; margin-left: 8px; }

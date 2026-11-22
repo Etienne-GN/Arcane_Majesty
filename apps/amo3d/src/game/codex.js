@@ -7,7 +7,6 @@
 // stats.skills.field_notes, when it exists, makes every note go straight onto the page.)
 //   stats.flags.codex = { notes: { [kind]: { kills, places: [], drops: { id: n } } }, written: { same, as of the last write-up } }
 import '@fontsource/im-fell-english/400.css';
-import '@fontsource/caveat/500.css';
 import { bestiary as BE, items as itemRules } from '@rules';
 import { sketchSVG } from './creatureSketch.js';
 
@@ -31,21 +30,21 @@ export function createCodex({ stats, hud, getPlace = () => null }) {
 #codex .rib.on { transform: none; opacity: 1; height: 36px; }
 #codex .close { position: absolute; right: 10px; top: -24px; width: 44px; height: 44px; border-radius: 50%; border: 0; cursor: pointer; color: #f4d8b0; font: bold 18px Georgia, serif; background: radial-gradient(circle at 40% 35%, #b8342a, #6a1410); box-shadow: 0 2px 6px #000a; }
 #codex h2 { margin: 0 0 2px; font-weight: normal; font-size: calc(26px * var(--ui, 1)); color: #24381e; }
-#codex .sub { font-family: Caveat, cursive; font-size: calc(18px * var(--ui, 1)); color: #5a4228; margin-bottom: 6px; }
+#codex .sub { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(15px * var(--ui, 1)); color: #5a4228; margin-bottom: 6px; }
 #codex .row { display: flex; align-items: center; gap: 10px; padding: 4px 6px; border-radius: 6px; cursor: pointer; }
 #codex .row:hover { background: #8a6a3a1a; } #codex .row.sel { background: #4a6a3a2e; box-shadow: inset 3px 0 0 #3a5a2a; }
 #codex .row .thumb { width: calc(64px * var(--ui, 1)); height: calc(38px * var(--ui, 1)); flex: none; }
 #codex .row .thumb .sketch { width: 100%; height: 100%; }
-#codex .row .nm { flex: 1; font-size: calc(18px * var(--ui, 1)); } #codex .row .nm small { display: block; font-family: Caveat, cursive; font-size: calc(16px * var(--ui, 1)); color: #6a5236; }
+#codex .row .nm { flex: 1; font-size: calc(18px * var(--ui, 1)); } #codex .row .nm small { display: block; font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(14px * var(--ui, 1)); color: #6a5236; }
 #codex .row.todo .nm { color: #8a7a6a; }
-#codex .pen { font-family: Caveat, cursive; font-size: calc(16px * var(--ui, 1)); color: #8a3a1a; white-space: nowrap; }
+#codex .pen { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(14px * var(--ui, 1)); color: #8a3a1a; white-space: nowrap; }
 #codex .big .sketch { width: 100%; max-height: 40vh; display: block; }
 #codex .name { font-size: calc(26px * var(--ui, 1)); color: #24381e; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-#codex .threat { font-family: Caveat, cursive; font-size: calc(18px * var(--ui, 1)); color: #8a3a1a; }
-#codex .hand { font-family: Caveat, cursive; font-size: calc(20px * var(--ui, 1)); line-height: 1.15; color: #2e2010; margin: 4px 0; white-space: pre-line; }
+#codex .threat { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(15px * var(--ui, 1)); color: #8a3a1a; }
+#codex .hand { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(17px * var(--ui, 1)); line-height: 1.15; color: #2e2010; margin: 4px 0; white-space: pre-line; }
 #codex .facts { font-size: calc(14px * var(--ui, 1)); color: #4a3a2a; border-top: 1px dashed #8a6a3a77; border-bottom: 1px dashed #8a6a3a77; padding: 4px 0; margin: 6px 0; white-space: pre-line; }
 #codex h4 { margin: 8px 0 2px; font-weight: normal; font-style: italic; font-size: calc(16px * var(--ui, 1)); color: #3a5a2a; }
-#codex .todoBox { margin: 8px 0; padding: 8px 10px; border: 1px dashed #8a3a1a; border-radius: 8px; background: #f3d88b33; font-family: Caveat, cursive; font-size: calc(19px * var(--ui, 1)); color: #6a2a10; }
+#codex .todoBox { margin: 8px 0; padding: 8px 10px; border: 1px dashed #8a3a1a; border-radius: 8px; background: #f3d88b33; font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(16px * var(--ui, 1)); color: #6a2a10; }
 @media (max-height: 480px) { #codex .tome { height: calc(100vh - 30px); margin-top: 28px; } #codex .page { padding: 10px 14px; } #codex .big .sketch { max-height: 32vh; } }`;
     document.head.append(css);
     const root = document.createElement('div');
@@ -142,7 +141,7 @@ export function createCodex({ stats, hud, getPlace = () => null }) {
         const tome = el('div', 'tome'), pages = el('div', 'pages'), L = el('div', 'page left'), R = el('div', 'page right');
         const close = el('button', 'close', '✕'); close.title = 'Close'; close.onclick = () => toggle();
         const rb = el('div', 'ribbons');
-        for (const [id, label, col] of [['creatures', 'Creatures', '#3a5a2a'], ['places', 'Places', '#5a4a2a']]) { const b = el('button', `rib${tab === id ? ' on' : ''}`, label); b.style.setProperty('--rc', col); b.onclick = () => { tab = id; render(); }; rb.append(b); }
+        for (const [id, label, col] of [['creatures', 'Creatures', '#6a4a22'], ['places', 'Places', '#4a3218']]) { const b = el('button', `rib${tab === id ? ' on' : ''}`, label); b.style.setProperty('--rc', col); b.onclick = () => { tab = id; render(); }; rb.append(b); }
         (tab === 'places' ? places : creatures)(L, R);
         pages.append(L, el('div', 'spine'), R);
         tome.append(rb, pages, close);

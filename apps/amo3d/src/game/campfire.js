@@ -119,7 +119,7 @@ export function createCampfire({ stats, hud, onRest, onCraft, codexPending = () 
             const n = codexPending();   // notes on creatures met, to write up in the codex by the fire
             if (n && onWriteCodex) { const w = el('button', null, `Write up the codex (${n} page${n > 1 ? 's' : ''})`); w.onclick = () => { onWriteCodex(); render(); }; top.append(w); }
         }
-        const close = el('button', 'ghost', 'Close ✕');
+        const close = el('button', 'close', 'Close ✕');
         close.onclick = () => toggle();
         top.append(close);
         const meta = M.kind ? `${M.kind === 'cooking' ? 'Cooking' : 'Alchemy'} rank ${St.craftRank(stats.craftCounts?.[M.kind] ?? 0)} · ${stats.craftCounts?.[M.kind] ?? 0} made` : 'Gear, tools, arrows and quivers';

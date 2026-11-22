@@ -4,7 +4,6 @@
 // and big buttons for what you can do with it. Every action is amo's: PlayerStats.equipItem (either hand,
 // refuses if what comes off would not fit), unequipItem, useItem, removeItem.
 import '@fontsource/im-fell-english/400.css';
-import '@fontsource/caveat/500.css';
 import { items as itemRules, weapons as weaponRules } from '@rules';
 import { itemIconSVG, glyphSVG, kindOf, groupOf } from './itemIcons.js';
 
@@ -52,20 +51,20 @@ const CSS = `
 #inv .item .iicon { width: 100%; height: 100%; display: block; }
 #inv .item .qty { position: absolute; right: 3px; bottom: 1px; font: bold calc(14px * var(--ui, 1)) Georgia, serif; color: #fff4dc; text-shadow: 0 1px 2px #000, 0 0 3px #000; }
 #inv .item.free { cursor: default; border: 2px dashed #c8965a33; box-sizing: border-box; }
-#inv .nothing { font-family: Caveat, cursive; font-size: calc(20px * var(--ui, 1)); color: #d8c09a; padding: 10px; }
+#inv .nothing { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(17px * var(--ui, 1)); color: #d8c09a; padding: 10px; }
 #inv .card { border-radius: 10px; padding: 12px 14px; background: radial-gradient(ellipse at 50% 30%, #f6ead0, #e6d3a8 80%, #d8c08e); color: #2e2010; box-shadow: inset 0 0 18px #8a6a3a55; min-height: 100%; box-sizing: border-box; }
 #inv .card .top { display: flex; gap: 10px; align-items: center; }
 #inv .card .big { width: calc(64px * var(--ui, 1)); height: calc(64px * var(--ui, 1)); flex: none; } #inv .card .big .iicon { width: 100%; height: 100%; }
 #inv .card .name { font-size: calc(21px * var(--ui, 1)); color: #3a1e0a; line-height: 1.1; }
-#inv .card .kind { font-family: Caveat, cursive; font-size: calc(17px * var(--ui, 1)); color: #6a4a2a; }
-#inv .card .desc { font-family: Caveat, cursive; font-size: calc(20px * var(--ui, 1)); line-height: 1.15; margin: 8px 0; }
+#inv .card .kind { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(14px * var(--ui, 1)); color: #6a4a2a; }
+#inv .card .desc { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(17px * var(--ui, 1)); line-height: 1.15; margin: 8px 0; }
 #inv .card .stats { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 6px; }
 #inv .card .stat { font-size: calc(14px * var(--ui, 1)); padding: 1px 8px; border-radius: 10px; background: #3a6a2a22; color: #2a5a1a; border: 1px solid #3a6a2a55; }
-#inv .card .worth { font-family: Caveat, cursive; font-size: calc(17px * var(--ui, 1)); color: #6a4a2a; margin-bottom: 8px; }
+#inv .card .worth { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(14px * var(--ui, 1)); color: #6a4a2a; margin-bottom: 8px; }
 #inv .card .acts { display: flex; flex-direction: column; gap: 6px; }
 #inv .card button { font: calc(17px * var(--ui, 1)) 'IM Fell English', Georgia, serif; padding: 8px 12px; border-radius: 8px; cursor: pointer; text-align: center; color: #fff0d0; border: 1px solid #4a1e0a; background: linear-gradient(#8a3a1a, #5a200c); }
 #inv .card button.ghost { color: #3a2010; background: #fff6; border-color: #8a6a3a88; }
-#inv .card .hint { font-family: Caveat, cursive; font-size: calc(19px * var(--ui, 1)); color: #6a4a2a; }
+#inv .card .hint { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(16px * var(--ui, 1)); color: #6a4a2a; }
 @media (max-width: 760px) { #inv .cols { grid-template-columns: 1fr; } #inv .col { overflow: visible; } #inv .bag { height: auto; max-height: calc(100vh - 16px); overflow: auto; } }
 @media (max-height: 480px) { #inv .worn { grid-auto-rows: calc(76px * var(--ui, 1)); } #inv .slot .tile { width: calc(52px * var(--ui, 1)); height: calc(52px * var(--ui, 1)); } }`;
 

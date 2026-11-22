@@ -4,7 +4,6 @@
 // their icons; the fighting styles of what you hold, and which one you practise. Spells live in the Spellbook.
 // Pauses the game while open, like the satchel.
 import '@fontsource/im-fell-english/400.css';
-import '@fontsource/caveat/500.css';
 import { mastery as M, weapons as weaponRules, styles as styleRules, styleData, items as itemRules } from '@rules';
 import { glyphSVG } from './itemIcons.js';
 import { ELEMENTS, iconSVG } from './spellIcons.js';
@@ -40,8 +39,8 @@ const CSS = `
 #sheet .lvl small { display: block; font-size: calc(9px * var(--ui, 1)); letter-spacing: .1em; text-align: center; }
 #sheet h2 { margin: 0; font-weight: normal; font-size: calc(30px * var(--ui, 1)); color: #3a1e0a; }
 #sheet .xp { flex: 1; min-width: 200px; }
-#sheet .xp .lab { font-family: Caveat, cursive; font-size: calc(17px * var(--ui, 1)); color: #5a4228; }
-#sheet .pts { font-family: Caveat, cursive; font-weight: 500; font-size: calc(19px * var(--ui, 1)); color: #fff4dc; background: #8a3a1a; border-radius: 12px; padding: 2px 10px; animation: pts 1.6s infinite; }
+#sheet .xp .lab { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(14px * var(--ui, 1)); color: #5a4228; }
+#sheet .pts { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-weight: 500; font-size: calc(19px * var(--ui, 1)); color: #fff4dc; background: #8a3a1a; border-radius: 12px; padding: 2px 10px; animation: pts 1.6s infinite; }
 @keyframes pts { 50% { box-shadow: 0 0 10px #d86a3a; } }
 #sheet .cols { display: grid; grid-template-columns: 1fr 1fr 1.15fr; gap: 18px; }
 #sheet h3 { margin: 6px 0 6px; font-weight: normal; font-style: italic; font-size: calc(18px * var(--ui, 1)); color: #6a3a1a; border-bottom: 1px solid #8a6a3a55; }
@@ -49,7 +48,7 @@ const CSS = `
 #sheet .attr .ic { width: calc(34px * var(--ui, 1)); height: calc(34px * var(--ui, 1)); flex: none; border-radius: 50%; background: #3a2414; display: grid; place-items: center; }
 #sheet .attr .ic svg { width: 64%; height: 64%; fill: #f3d88b; stroke: #f3d88b; stroke-width: .6; }
 #sheet .attr .nm { flex: 1; min-width: 0; font-size: calc(17px * var(--ui, 1)); }
-#sheet .attr .nm small { display: block; font-family: Caveat, cursive; font-size: calc(17px * var(--ui, 1)); color: #5a4228; line-height: 1.05; }
+#sheet .attr .nm small { display: block; font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(14px * var(--ui, 1)); color: #5a4228; line-height: 1.05; }
 #sheet .attr .v { font: calc(24px * var(--ui, 1)) Georgia, serif; color: #3a1e0a; min-width: 1.6em; text-align: right; }
 #sheet .plus { width: calc(34px * var(--ui, 1)); height: calc(34px * var(--ui, 1)); border-radius: 50%; border: 0; cursor: pointer; font: bold calc(20px * var(--ui, 1)) Georgia, serif; color: #fff4dc; background: radial-gradient(circle at 40% 35%, #c8642a, #7a2a10); box-shadow: 0 2px 4px #0006; flex: none; }
 #sheet .vital { margin: 6px 0; }
@@ -62,15 +61,15 @@ const CSS = `
 #sheet .m .ic.w { border-radius: 8px; background: #3a2414; display: grid; place-items: center; } #sheet .m .ic.w svg { width: 76%; height: 76%; }
 #sheet .m .body { flex: 1; min-width: 0; }
 #sheet .m .row1 { display: flex; justify-content: space-between; font-size: calc(16px * var(--ui, 1)); }
-#sheet .m .sub { font-family: Caveat, cursive; font-size: calc(16px * var(--ui, 1)); color: #5a4228; }
+#sheet .m .sub { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(14px * var(--ui, 1)); color: #5a4228; }
 #sheet .style { padding: 6px 0 8px; border-bottom: 1px dotted #8a6a3a66; }
 #sheet .style .row1 { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: calc(17px * var(--ui, 1)); }
-#sheet .style .blurb { font-family: Caveat, cursive; font-size: calc(18px * var(--ui, 1)); color: #3a2a1a; }
-#sheet .style .sk { font-family: Caveat, cursive; font-size: calc(16px * var(--ui, 1)); color: #5a4228; }
+#sheet .style .blurb { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(15px * var(--ui, 1)); color: #3a2a1a; }
+#sheet .style .sk { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(14px * var(--ui, 1)); color: #5a4228; }
 #sheet .style .sk.ready { color: #2a5a1a; }
-#sheet .tag { font-family: Caveat, cursive; font-size: calc(17px * var(--ui, 1)); color: #3a6a2a; white-space: nowrap; }
+#sheet .tag { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(14px * var(--ui, 1)); color: #3a6a2a; white-space: nowrap; }
 #sheet .btn { font: calc(15px * var(--ui, 1)) 'IM Fell English', Georgia, serif; padding: 5px 12px; border-radius: 7px; cursor: pointer; color: #fff0d0; border: 1px solid #4a1e0a; background: linear-gradient(#8a3a1a, #5a200c); }
-#sheet .note { font-family: Caveat, cursive; font-size: calc(17px * var(--ui, 1)); color: #6a5236; margin-top: 8px; }
+#sheet .note { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: calc(14px * var(--ui, 1)); color: #6a5236; margin-top: 8px; }
 @media (max-width: 760px) { #sheet .cols { grid-template-columns: 1fr; } }`;
 
 export function createSheet({ stats, name = 'Eldrin' }) {
