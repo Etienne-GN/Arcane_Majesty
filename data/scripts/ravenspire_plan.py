@@ -133,7 +133,7 @@ def build(mode):
     # ---------- the region file ----------
     half = 205 if mode == 'new' else 195
     def ry(a): return round(-a + math.pi / 2, 3)   # a plot's front normal angle → the region's building rotation (its front, +z local, facing the street)
-    out = {'id': f'{mode}_ravenspire', 'name': 'New Ravenspire' if mode == 'new' else 'Ravenspire (the ruins)', 'seed': 1292 if mode == 'new' else 165, 'half': half, 'water': -8,
+    out = {'id': f'{mode}_ravenspire', 'name': 'New Ravenspire' if mode == 'new' else 'Ravenspire (held by Malakar)', 'seed': 1292 if mode == 'new' else 165, 'half': half, 'water': -8,
            'lore': "The Shadow Legion's fortified capital, founded by Seraphina in Eldoria after the Great Darkness." if mode == 'new' else 'The Resistance\'s stronghold before the Great Darkness; it fell at 0 GD.',
            'terrain': {'scale': 0.012, 'relief': 1.2, 'base': 0.6, 'rim': 0},
            'features': [{'type': 'clearing', 'x': 0, 'z': 0, 'r': half - 8}, {'type': 'hill', 'x': CROWN[0], 'z': CROWN[1], 'r': 120, 'h': 9}],
@@ -149,9 +149,15 @@ def build(mode):
         for k, n, x, z, w, d, a in LM[1:]: out['buildings'].append({'x': x, 'z': z, 'w': w, 'd': d, 'h': 7.5 if k == 'hall' else 6, 'ry': ry(a), 'stone': True, 'roof': '#1e1a26', 'wall': '#3a3644', 'timber': '#16121c', 'name': n})
     else:
         RW = ['#6a6674', '#5e5a68', '#726e7c', '#625e6c']
-        for i, p in enumerate(PLOTS):   # a broken shell: its walls standing to uneven heights, roofless; a heap of its fallen stone now and then
-            out['buildings'].append({'x': p['x'], 'z': p['z'], 'w': p['w'], 'd': p['d'], 'h': round(p['storeys'] * 3.1, 1), 'ry': ry(p['a']), 'roofType': 'ruin', 'wall': RW[i % 4], 'timber': '#3a3640', 'seed': i + 1})
-            if i % 6 == 0: out['props'].append({'type': 'heap', 'x': p['x'], 'z': p['z']})
+        # not destroyed: battered, held by Malakar's forces (2026-11-22) — most houses still stand, roofs dark and patched,
+        # the rest are broken shells; nearer the crown more of them stand (the garrison's quarter)
+        for i, p in enumerate(PLOTS):
+            near = math.hypot(p['x'] - CROWN[0], p['z'] - CROWN[1]) < 100
+            if R.random() < (0.75 if near else 0.55):
+                out['buildings'].append({'x': p['x'], 'z': p['z'], 'w': p['w'], 'd': p['d'], 'h': round(p['storeys'] * 3.0, 1), 'ry': ry(p['a']), 'stone': True, 'roof': ['#1e1a24', '#26222c', '#2c2630'][i % 3], 'wall': RW[i % 4], 'timber': '#2a2630', 'chimney': i % 4 == 0})
+            else:
+                out['buildings'].append({'x': p['x'], 'z': p['z'], 'w': p['w'], 'd': p['d'], 'h': round(p['storeys'] * 3.1, 1), 'ry': ry(p['a']), 'roofType': 'ruin', 'wall': RW[i % 4], 'timber': '#3a3640', 'seed': i + 1})
+                if i % 3 == 0: out['props'].append({'type': 'heap', 'x': p['x'], 'z': p['z']})
     # the wall ring: stretches between towers (breached in the old city), towers, gatehouses
     acc, prev, segs = 0.0, WALL[0], []
     pts = WALL + WALL[:1]
@@ -182,7 +188,19 @@ def build(mode):
         for a in range(10): out['props'].append({'type': 'umbral_column', 'x': round(PALACE_SQ[0] + 17 * math.cos(a * math.pi / 5), 1), 'z': round(PALACE_SQ[1] + 17 * math.sin(a * math.pi / 5), 1), 'len': 3})
     else:
         for (x, z, l) in [(0, -10, 4), (-16, -2, 3), (16, -2, 2)]: out['props'].append({'type': 'umbral_column', 'x': cx + x, 'z': cz + z, 'len': l})
-        for (x, z, w, d, h) in [(0, -6, 40, 28, 22), (-26, 10, 12, 12, 30), (26, 10, 12, 12, 26), (0, -26, 14, 10, 34)]: out['buildings'].append({'x': cx + x, 'z': cz + z, 'w': w, 'd': d, 'h': h, 'ry': 0, 'roofType': 'ruin', 'wall': '#625e6e', 'timber': '#3a3640', 'seed': 777 + h})   # the palace and its towers, fallen
+        # the palace: its great hall still roofed (Malakar's captains hold it), one tower whole, the others broken off
+        out['buildings'].append({'x': cx, 'z': cz - 6, 'w': 36, 'd': 22, 'h': 12, 'ry': 0, 'stone': True, 'roof': '#1a1620', 'wall': '#4a4654', 'timber': '#1a1620', 'chimney': False, 'name': 'The fallen palace (held by Malakar)'})
+        out['props'].append({'type': 'umbral_spire', 'x': cx - 26, 'z': cz + 10, 'len': 6, 'scale': 2.2, 'clear': 8})
+        for (x, z, w, d, h) in [(26, 10, 12, 12, 24), (0, -26, 14, 10, 30), (-30, -20, 10, 10, 18)]: out['buildings'].append({'x': cx + x, 'z': cz + z, 'w': w, 'd': d, 'h': h, 'ry': 0, 'roofType': 'ruin', 'wall': '#5a5664', 'timber': '#3a3640', 'seed': 777 + h})
+        # Malakar's garrison: lamps (their fires) along the great streets and the squares, and his soldiers
+        for sq in SQUARES:
+            for k in range(5): out['props'].append({'type': 'lamp', 'x': round(sq['x'] + (sq['r'] - 2) * math.cos(k * 1.256), 1), 'z': round(sq['z'] + (sq['r'] - 2) * math.sin(k * 1.256), 1)})
+        posts = lambda pts: [{'x': round(x, 1), 'z': round(z, 1)} for x, z in pts]
+        out['actors'] = [
+            {'type': 'beasts', 'kind': 'cursed_knight', 'posts': posts([(PALACE_SQ[0] - 8, PALACE_SQ[1] - 4), (PALACE_SQ[0] + 8, PALACE_SQ[1] - 4), (MARKET[0], MARKET[1] - 8), (gates[gl[0]]['x'] * 0.85, gates[gl[0]]['z'] * 0.85), (gates[gl[1]]['x'] * 0.85, gates[gl[1]]['z'] * 0.85)])},
+            {'type': 'beasts', 'kind': 'grave_wraith', 'posts': posts([(LM[1][2], LM[1][3]), (LM[2][2], LM[2][3] + 12), (-40, -60), (70, 90)])},
+            {'type': 'shadows', 'posts': posts([(MARKET[0] + 10, MARKET[1] + 10), (-90, 60), (100, -30)])},
+        ]
         for i in range(8): out['props'].append({'type': 'heap', 'x': round(cx + R.uniform(-22, 22), 1), 'z': round(cz + R.uniform(-18, 22), 1)})
         hx, hz = LM[1][2], LM[1][3]
         out['signs'].append({'id': 'ravenspire_ruins', 'x': hx, 'z': hz, 'text': 'Cut deep into a fallen lintel of the great hall, half under the vines: "WE HELD UNTIL THE LIGHT WENT OUT." Below it, smaller and newer, scratched by another hand: names, dozens of them, and a date counted from the Darkness. Something has walked through the hall since — the ash on the floor is marked with long, clawed prints.'})

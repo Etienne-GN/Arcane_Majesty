@@ -70,14 +70,14 @@ export function createOutdoorShell(scene, { quality, mood = {} }) {
         setMood(m) { Object.assign(M, m); if (m.fog) moodFog.set(m.fog); },
         // Returns the sky state (for anything else that wants the hour: lamps, windows…).
         update(dt, ctx) {
-            const S = skyState(ctx.hour ?? 9, umbral ? 'clear' : (ctx.weather ?? 'clear'), M.plane ?? null);
+            const S = skyState(ctx.hour ?? 9, ctx.weather ?? 'clear', M.plane ?? null);
             tt += dt;
-            const flash = weatherFx.update(dt, S, umbral ? 'clear' : (ctx.weather ?? 'clear'), ctx.camera);   // the Umbral Plane: ash, not rain
+            const flash = weatherFx.update(dt, S, ctx.weather ?? 'clear', ctx.camera, umbral);   // Nythoria: black rain, ash falls, violet storms
             const dim = M.light ?? 1;
             sun.color.copy(S.sun);
             sun.intensity = S.sunI * dim;
             hemi.intensity = Math.max(S.hemiI * (0.4 + 0.6 * dim), (M.nightFloor ?? 0) * S.night) + flash;   // never pitch black
-            fogCol.copy(moodFog).multiplyScalar(umbral ? 0.95 : 0.25 + 0.75 * S.day);   // the Umbral Plane: a grey that never goes black
+            fogCol.copy(moodFog).multiplyScalar(umbral ? 0.35 + 0.75 * S.day : 0.25 + 0.75 * S.day);   // Nythoria: a grey by day, near black by night
             scene.fog.color.copy(S.bottom).lerp(fogCol, M.fogMix ?? 0.6);
             scene.background.copy(scene.fog.color);
             scene.fog.far = (M.fogFar ?? 200) * quality.fogFar * S.fogMul;
@@ -91,7 +91,10 @@ export function createOutdoorShell(scene, { quality, mood = {} }) {
             if (umbral) {
                 eclipse.position.copy(ctx.camera.position).addScaledVector(S.dir.clone().normalize(), 380);
                 eclipse.lookAt(ctx.camera.position);
-                eclipse.children[0].material.opacity = 0.85 + Math.sin(tt * 0.7) * 0.08;
+                eclipse.children[0].material.opacity = (0.85 + Math.sin(tt * 0.7) * 0.08) * (1 - 0.35 * S.night);
+                eclipse.children[0].material.color.setRGB(1, 1, 1).lerp(new THREE.Color(0xc04050), S.night);   // the eclipsed moon: ringed in dull red
+                eclipse.scale.setScalar(1 - 0.35 * S.night);
+                ash.pts.material.size = 0.06 * (ctx.weather === 'snow' ? 2.2 : ctx.weather === 'storm' ? 1.5 : 1);   // ash storms
                 const c = ctx.camera.position;
                 for (let i = 0; i < ash.N; i++) {   // ash drifting down and sideways, round the camera
                     const sx = ash.seed[i * 4], sy = ash.seed[i * 4 + 1], sz = ash.seed[i * 4 + 2], sp = 0.25 + ash.seed[i * 4 + 3] * 0.5;

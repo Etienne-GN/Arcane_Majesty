@@ -21,16 +21,24 @@ const GREY = C(0x7d848c);
 
 // The Umbral Plane (Nythoria — DB: "the Umbral Plane of shadow and silence"): no true day, a sun forever eclipsed — a
 // black disc in a silver corona — high in a grey sky; the light breathes a little over the hours, never warm.
-function umbralState(hour) {
-    const k = 0.5 + 0.5 * Math.sin((hour - 6) / 24 * Math.PI * 2);   // its slow tide: a little brighter at "noon"
-    return {
-        top: C(0x14151c).lerp(C(0x23242e), k), bottom: C(0x3a3c47).lerp(C(0x4c4e5a), k), sun: C(0xc4cce6), sunI: 0.95 + 0.35 * k, hemiI: 0.62 + 0.15 * k,
-        fogMul: 1, day: 0.35 + 0.25 * k, night: 0.65 - 0.25 * k, dir: new THREE.Vector3(-44, 21, -50),   // low over the horizon: in view, long shadows
+// Nythoria (2026-11-22: "its own day/night cycle with weather; the day a bit lighter to contrast with the night, keep the
+// mood; the moon eclipsed too"): by day the eclipsed sun crosses the sky — a cold grey light, never bright; at night the
+// eclipsed moon, ringed in dull red, and a much darker land. Its weather: ash storms (black rain, violet lightning).
+function umbralState(hour, weather = 'clear') {
+    const arc = Math.PI * (hour - 6) / 12, el = Math.sin(arc), d = Math.max(0, Math.min(1, (el + 0.2) / 0.4));
+    const s = {
+        top: C(0x08080c).lerp(C(0x2a2c38), d), bottom: C(0x1c1820).lerp(C(0x62646f), d),
+        sun: C(0x9a7080).lerp(C(0xc8d0e8), d), sunI: 0.3 + 1.7 * d, hemiI: 0.3 + 0.85 * d, fogMul: 1,
+        day: 0.12 + 0.6 * d, night: 1 - d,
+        dir: el > -0.05 ? new THREE.Vector3(Math.cos(arc) * 50, Math.max(0.25, el) * 48 + 12, -42) : new THREE.Vector3(36, 46, -34),   // the eclipsed sun by day, the eclipsed moon by night
     };
+    const wet = weather === 'rain' ? 0.5 : weather === 'storm' ? 0.8 : weather === 'snow' ? 0.6 : 0;
+    if (wet) { s.top.lerp(C(0x101014), wet * 0.6); s.bottom.multiplyScalar(1 - 0.35 * wet); s.sunI *= 1 - 0.5 * wet; s.hemiI *= 1 - 0.2 * wet; s.fogMul = 1 - 0.45 * wet; }
+    return s;
 }
 
 export function skyState(hour, weather = 'clear', plane = null) {
-    if (plane === 'nythoria') return umbralState(hour);
+    if (plane === 'nythoria') return umbralState(hour, weather);
     let i = 0;
     while (i < KEYS.length - 2 && hour >= KEYS[i + 1].h) i++;
     const a = KEYS[i], b = KEYS[i + 1], k = (hour - a.h) / (b.h - a.h);
@@ -89,15 +97,15 @@ export function createWeather(scene, quality = { particles: 1 }) {
     let flash = 0, nextFlash = 6, t = 0;
     return {
         // Returns extra ambient light from lightning (0 most of the time).
-        update(dt, s, weather, camera) {
+        update(dt, s, weather, camera, umbral = false) {   // umbral: Nythoria — black rain, ash for snow, no plain moon
             t += dt;
             stars.position.copy(camera.position);
             stars.material.opacity = Math.max(0, s.night - (weather === 'clear' ? 0 : 0.8)) * 0.9;
             moon.position.copy(camera.position).add(new THREE.Vector3(-150, 260, -170));
-            moon.material.opacity = stars.material.opacity;
+            moon.material.opacity = umbral ? 0 : stars.material.opacity;
             const snow = weather === 'snow';
             const wet = weather === 'rain' ? 0.55 : weather === 'storm' ? 0.8 : snow ? 0.9 : 0;
-            rain.material.color.setHex(snow ? 0xffffff : 0xaab8c8);
+            rain.material.color.setHex(umbral ? (snow ? 0x7a7880 : 0x4a4856) : snow ? 0xffffff : 0xaab8c8);
             rain.material.opacity += (wet - rain.material.opacity) * Math.min(1, dt * 0.8);
             rain.visible = rain.material.opacity > 0.01;
             if (rain.visible) {
