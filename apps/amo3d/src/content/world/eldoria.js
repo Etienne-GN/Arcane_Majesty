@@ -20,6 +20,7 @@ import { createSanctuary } from '../sanctuary.js';
 import { createAnimals, NAMES as ANIMAL_NAMES } from '../actors/animals.js';
 import { createDeer } from '../actors/deer.js';
 import { buildSailboat, buildBoat } from '../models/horse.js';
+import { STAIR_BASE, ELDRIN } from '../eldrinVale.js';
 import { flat } from '../../engine/lib.js';
 import { createBeasts, NAMES as BEAST_NAMES } from '../actors/beast.js';
 import { buildRegion, regionHeight, buildArch } from '../../engine/region.js';
@@ -689,6 +690,9 @@ export function createEldoriaWorld({ quality } = {}) {
       world.wading = (x, z) => pierAt(x, z) == null && baseWade(x, z);
       const upd = world.update; world.update = (t2, dt, ctx) => { upd(t2, dt, ctx); if (Math.hypot(ctx.player.pos.x - PORT.x, ctx.player.pos.z - PORT.z) < 500) for (const b of moored) b.update(dt, 0); g.visible = Math.hypot(ctx.player.pos.x - PORT.x, ctx.player.pos.z - PORT.z) < 900; };
     }
+    // Eldrin's Tower by name (a place's spawn, god mode's travel): at the foot of its stairs, facing it — not on the mountain behind
+    { const gl = world.stamps?.find(s2 => s2.id === 'outdoor'); if (gl) { const dx = STAIR_BASE.x - ELDRIN.T.x, dz = STAIR_BASE.z - ELDRIN.T.z, L = Math.hypot(dx, dz) || 1;
+        world.spawns["place:Eldrin's Tower"] = { x: gl.ox + STAIR_BASE.x + dx / L * 3, z: gl.oz + STAIR_BASE.z + dz / L * 3, facing: Math.atan2(-dx, -dz) }; } }
     // ---------- Thaloria's waterfalls hung on the Citadel's real cliff (the gorge was widened and the plateau raised since
     // they were placed: they stood half in the rock, white panels) — once the city is built, each refitted from rim to water ----------
     { let done = false; const upd0 = world.update;
