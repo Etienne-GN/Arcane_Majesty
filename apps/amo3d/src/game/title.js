@@ -128,7 +128,21 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         menu.style.display = 'none';
     }
     // New Game: the campaigns (only Eldrin's for now — more will join the list), or a hero of your own.
-    const CAMPAIGNS = [{ id: 'eldrin', title: "Eldoria's Prophecy", sub: 'Campaign — play Eldrin Nightshade, from the tower to the Heartstone' }];
+    const CAMPAIGNS = [
+        { id: 'eldrin', title: "Eldoria's Prophecy", sub: 'Play Eldrin Nightshade, from the tower to the Heartstone' },
+        { id: 'tapestry', title: 'A Tapestry of Souls', sub: 'Before Eldoria\'s Prophecy — the Great Darkness, in the Underworld' },
+    ];
+    // A Tapestry of Souls: whose story (the album's two heroines)
+    function showTapestry() {
+        panel.textContent = '';
+        const h = document.createElement('div'); h.className = 'ph'; h.textContent = 'A TAPESTRY OF SOULS'; panel.append(h);
+        const intro = document.createElement('div'); intro.className = 'cs'; intro.style.cssText = 'text-align:center;margin:0 0 6px'; intro.textContent = 'Nyktoros awakens; the balance shatters. Choose whose thread to follow.'; panel.append(intro);
+        const pick = (title, sub, id) => { const b = document.createElement('button'); b.className = 'choice'; b.innerHTML = '<span class="ct"></span><span class="cs"></span>'; b.querySelector('.ct').textContent = title; b.querySelector('.cs').textContent = sub; b.onclick = () => onNewGame(id); panel.append(b); return b; };
+        const first = pick('Seraphina — the Queen of Carnage', 'Nythorian. Her story begins near Ravenspire, in Nythoria.', 'seraphina');
+        pick('Anya — the Void-Echo', 'Aurorian, a Void-Echo. Her story begins near Ravenspire, in Nythoria.', 'anya');
+        const back = document.createElement('button'); back.className = 'back'; back.textContent = 'BACK'; back.onclick = () => showNewGame(); panel.append(back);
+        first.focus();
+    }
     function showNewGame() {
         panel.textContent = '';
         const h = document.createElement('div'); h.className = 'ph'; h.textContent = 'NEW GAME'; panel.append(h);
@@ -139,7 +153,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
             b.onclick = fn; panel.append(b); return b;
         };
         const g1 = document.createElement('div'); g1.className = 'pg'; g1.textContent = 'CAMPAIGNS'; panel.append(g1);
-        const first = CAMPAIGNS.map(c => choice(c.title, c.sub, () => onNewGame(c.id)))[0];
+        const first = CAMPAIGNS.map(c => choice(c.title, c.sub, () => (c.id === 'tapestry' ? showTapestry() : onNewGame(c.id))))[0];
         const g2 = document.createElement('div'); g2.className = 'pg'; g2.textContent = 'FREE PLAY'; panel.append(g2);
         choice('Your Own Hero', 'Make a character in the Forge, then begin in the Emerald Fields, the Shadow-Vale of Nythoria, or Thaloria', () => onNewGame('hero'));
         const back = document.createElement('button'); back.className = 'back'; back.textContent = 'BACK';

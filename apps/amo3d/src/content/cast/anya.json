@@ -1,0 +1,101 @@
+{
+ "id": "anya",
+ "name": "Anya",
+ "lore": "An Aurorian scholar torn from Auroria by Vorgos into the Underworld at the Great Darkness \u2014 a Void-Echo; she joins the Nythorian Resistance.",
+ "look": {
+  "body": {
+   "preset": "adult_female",
+   "race": "aurorian",
+   "height": 0.98,
+   "width": 0.9,
+   "skin": "#f4e8dc"
+  },
+  "face": {
+   "eyes": "#e8c070"
+  },
+  "hair": {
+   "style": "long",
+   "color": "#ece6dc"
+  },
+  "facialHair": {
+   "style": "none"
+  },
+  "parts": {
+   "torso": {
+    "id": "leather_jerkin",
+    "colors": {
+     "primary": "#2a1e1a",
+     "collar": "#3a2420",
+     "trim": "#b89a5a",
+     "shirt": "#e8e2d8"
+    }
+   },
+   "legs": {
+    "id": "skirt",
+    "colors": {
+     "primary": "#e2ddd2",
+     "trim": "#9a8a6a"
+    }
+   },
+   "feet": {
+    "id": "riding_boots",
+    "colors": {
+     "primary": "#2a1e18",
+     "dark": "#1a1210"
+    }
+   },
+   "arms": {
+    "id": "gloves",
+    "colors": {
+     "primary": "#2a1e1a",
+     "sleeve": "#2a1e1a"
+    }
+   },
+   "shoulders": {
+    "id": "none"
+   },
+   "waist": {
+    "id": "belt",
+    "colors": {
+     "primary": "#3a2820",
+     "trim": "#b89a5a",
+     "dark": "#1a1210"
+    }
+   },
+   "neck": {
+    "id": "necklace",
+    "colors": {
+     "primary": "#d8b860",
+     "trim": "#f0e0a0"
+    }
+   },
+   "headgear": {
+    "id": "circlet",
+    "colors": {
+     "primary": "#d8b860",
+     "trim": "#f0e0a0"
+    }
+   },
+   "cape": {
+    "id": "travelling_cloak",
+    "colors": {
+     "primary": "#22142e",
+     "trim": "#6a4a9a"
+    }
+   },
+   "back": {
+    "id": "none"
+   },
+   "accessory": {
+    "id": "none"
+   },
+   "left": {
+    "id": "none"
+   },
+   "right": {
+    "id": "wand",
+    "accent": "#ffd870"
+   }
+  }
+ }
+}

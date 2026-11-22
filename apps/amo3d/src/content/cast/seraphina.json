@@ -1,0 +1,104 @@
+{
+ "id": "seraphina",
+ "name": "Seraphina",
+ "lore": "The Queen of Carnage \u2014 Nythorian, leader of the Nythorian Resistance with Valen, later founder of the Shadow Legion and New Ravenspire.",
+ "look": {
+  "body": {
+   "preset": "adult_female",
+   "race": "nythorian",
+   "height": 1.02,
+   "width": 0.92,
+   "skin": "#dcd4e0"
+  },
+  "face": {
+   "eyes": "#3a2a3a"
+  },
+  "hair": {
+   "style": "ponytail",
+   "color": "#0e0c12"
+  },
+  "facialHair": {
+   "style": "none"
+  },
+  "parts": {
+   "torso": {
+    "id": "gown",
+    "colors": {
+     "primary": "#141a30",
+     "collar": "#0a0a12",
+     "trim": "#a8aab4"
+    }
+   },
+   "legs": {
+    "id": "skirt",
+    "colors": {
+     "primary": "#10142a",
+     "trim": "#6a1a22"
+    }
+   },
+   "feet": {
+    "id": "boots",
+    "colors": {
+     "primary": "#16141a",
+     "dark": "#0c0a10"
+    }
+   },
+   "arms": {
+    "id": "gauntlets",
+    "colors": {
+     "primary": "#2a2832",
+     "sleeve": "#141a30"
+    }
+   },
+   "shoulders": {
+    "id": "steel_pauldrons",
+    "colors": {
+     "primary": "#1c1a22",
+     "trim": "#a8aab4"
+    }
+   },
+   "waist": {
+    "id": "belt",
+    "colors": {
+     "primary": "#1a1820",
+     "trim": "#a8aab4",
+     "dark": "#0c0a10"
+    }
+   },
+   "neck": {
+    "id": "necklace",
+    "colors": {
+     "primary": "#a8aab4",
+     "trim": "#8a1a2a"
+    }
+   },
+   "headgear": {
+    "id": "crown",
+    "colors": {
+     "primary": "#b0b2bc",
+     "trim": "#7a1a2a"
+    }
+   },
+   "cape": {
+    "id": "travelling_cloak",
+    "colors": {
+     "primary": "#0e1226",
+     "trim": "#6a1a22"
+    }
+   },
+   "back": {
+    "id": "none"
+   },
+   "accessory": {
+    "id": "none"
+   },
+   "left": {
+    "id": "none"
+   },
+   "right": {
+    "id": "sword",
+    "accent": "#c03a4a"
+   }
+  }
+ }
+}

@@ -8,7 +8,7 @@ const { ITEMS } = itemRules;
 const hex = c => `#${(c ?? 0x888888).toString(16).padStart(6, '0')}`;
 const shade = (c, k) => hex([16, 8, 0].reduce((n, sh) => n | (Math.round(((c >> sh) & 255) * k) << sh), 0));
 
-export function wornLook(base, equipment) {
+export function wornLook(base, equipment, { ownOutfit = false } = {}) {   // ownOutfit: a campaign hero's clothes are their look (nothing on the body: still theirs)
     const look = JSON.parse(JSON.stringify(base));
     look.outfit ??= {};
     const head = ITEMS[equipment.head], body = ITEMS[equipment.body];
@@ -20,7 +20,8 @@ export function wornLook(base, equipment) {
         else if (/hat|cap/.test(n)) look.headgear = { type: 'hat', color: hex(head.color) };
     }
     // Nothing on the body: the linen under-things (shirt and three-quarter trousers).
-    if (!body) Object.assign(look.outfit, { style: 'linen', coat: '#d8ccb0', collar: '#c4b896', pants: '#cfc2a4', pantsDark: '#9a8e74', trim: '#c4b896' });
+    if (!body && ownOutfit) { /* their own clothes */ }
+    else if (!body) Object.assign(look.outfit, { style: 'linen', coat: '#d8ccb0', collar: '#c4b896', pants: '#cfc2a4', pantsDark: '#9a8e74', trim: '#c4b896' });
     else if (body.keepsLook) { /* an outfit that is the character's own (Eldrin's coat): the base look */ }
     else if (body) {
         const n = `${equipment.body} ${body.name}`.toLowerCase();

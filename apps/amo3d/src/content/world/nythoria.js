@@ -32,7 +32,7 @@ const PLACES = [
     ['The Obsidian Gate', at('The Obsidian Gate')], ['The Great Rift', at('The Great Rift')],
     ['The Shadow-Vale', at('The Crossroads')], ['The Black Well', at('Lake Aethera')],
     ['The Obsidian Citadel', at('Inferno Labyrinth')], ['Ravenspire (the ruins)', at('The Citadel of Thaloria')],
-].filter(([, p]) => p).map(([name, p]) => ({ name, x: p.x, z: p.z, noMarker: name !== 'The Great Rift' && name !== 'The Shadow-Vale' }));   // (the built ones carry no marker)
+].filter(([, p]) => p).map(([name, p]) => ({ name, x: p.x, z: p.z, noMarker: true }));   // (the built ones carry no marker)
 
 export function createNythoriaWorld({ quality } = {}) {
     // the Shadow-Vale's free town: the Crossroads' twin, its own people (Nythorians who stayed)
@@ -130,7 +130,8 @@ export function createNythoriaWorld({ quality } = {}) {
       world.gates = NYTHORIA_GATES;
       const updG = world.update; let tg = 0; world.update = (t2, dt, ctx) => { updG(t2, dt, ctx); tg += dt; for (const { g, m } of mons) if (Math.hypot(ctx.player.pos.x - g.x, ctx.player.pos.z - g.z) < 200) m.update(tg, (ctx.attunedGates ?? []).includes(g.id)); };
     }
-    world.spawns.ravenspire = (() => { const C = at('The Citadel of Thaloria'); return { x: C.x, z: C.z + 178, facing: Math.PI }; })();   // (old Ravenspire's city: a stamp — see above)
+    world.spawns.ravenspire = (() => { const C = at('The Citadel of Thaloria'); return { x: C.x, z: C.z + 178, facing: Math.PI }; })();
+    world.spawns.ravenspire_east = (() => { const C = at('The Citadel of Thaloria'); return { x: C.x + 175, z: C.z + 60, facing: -Math.PI / 2 }; })();   // (Anya's start: near the ruins too)   // (old Ravenspire's city: a stamp — see above)
     // ---------- the Black Well: the demonic sanctuary where Acheron discarded the Forbidden Tome (DB), on the Black Lake's shore ----------
     { const W0 = at('Lake Aethera'), W = (() => { for (let r = 0; r < 160; r += 4) for (let a2 = 0; a2 < 6.28; a2 += 0.3) { const x = W0.x + Math.cos(a2) * r, z = W0.z + Math.sin(a2) * r; if (heightAt(x, z) > 0.8 && heightAt(x + 14, z) > 0.3 && heightAt(x - 14, z) > 0.3 && heightAt(x, z + 14) > 0.3 && heightAt(x, z - 14) > 0.3) return { x, z }; } return W0; })();   // (on dry ground by the Black Lake's shore)
       const y0 = heightAt(W.x, W.z), g = new THREE.Group(); g.position.set(W.x, y0, W.z);

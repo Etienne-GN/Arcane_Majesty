@@ -62,6 +62,8 @@ import { createPause } from './game/pause.js';
 import { createChests } from './game/chest.js';
 import { createCharacter } from './content/models/character.js';
 import eldrinCast from './content/cast/eldrin.json';
+import seraphinaCast from './content/cast/seraphina.json';
+import anyaCast from './content/cast/anya.json';
 import { setPlatesVisible } from './content/actors/enemyCore.js';
 import { createTitle } from './game/title.js';
 import { ELDRIN as ELDRIN_V, toWorld as vToWorld } from './content/eldrinVale.js';
@@ -244,7 +246,7 @@ const inventory = createInventory({
 const BASE_LOOK = heroDef?.look ?? eldrinCast.look;   // the campaign plays the lore cast
 // A werewolf hero (Forge race) can take the wolf form: V / R3 / the WOLF button (stats.flags.wolfForm).
 const WEREWOLF = BASE_LOOK?.body?.race === 'werewolf';
-const heroLook = () => wornLook(BASE_LOOK, { ...stats.equipment, _wolf: WEREWOLF && !!stats.flags?.wolfForm });
+const heroLook = () => wornLook(BASE_LOOK, { ...stats.equipment, _wolf: WEREWOLF && !!stats.flags?.wolfForm }, { ownOutfit: !!heroDef?.campaign });
 let model = createCharacter(heroLook());
 const hero = {
     get root() { return model.root; },
@@ -606,7 +608,12 @@ createPadNav();   // gamepad: D-pad / stick moves through any open menu, A press
 // Save slots: a new journey goes into the active slot if it is empty, else the first empty one; when all
 // three are full the slots screen asks which to replace.
 let newKind = 'eldrin';
-const beginNew = () => { location.href = newKind === 'hero' ? 'forge.html?mode=create' : `${location.pathname}?new=1&play=1`; };
+const CAMPAIGN_HEROES = { seraphina: { cast: seraphinaCast, classId: 'shadowblade', start: 'ravenspire' }, anya: { cast: anyaCast, classId: 'mage', start: 'ravenspire_east' } };   // A Tapestry of Souls
+const beginNew = () => {
+    const ch = CAMPAIGN_HEROES[newKind];
+    if (ch) { try { localStorage.setItem('amo3d.newHero', JSON.stringify({ name: ch.cast.name, classId: ch.classId, look: ch.cast.look, start: ch.start, campaign: 'tapestry', id: ch.cast.id })); } catch { /* storage blocked */ } location.href = `${location.pathname}?new=1&play=1&hero=new`; return; }
+    location.href = newKind === 'hero' ? 'forge.html?mode=create' : `${location.pathname}?new=1&play=1`;
+};
 const slots = createSlots({ onPlay: () => { location.href = `${location.pathname}?play=1`; }, onNew: () => { newKind = 'eldrin'; title?.showNewGame?.() ?? beginNew(); } });
 function startNewJourney(kind) {
     newKind = kind;
@@ -883,6 +890,9 @@ else if (CUSTOM) {   // a hero of your own begins where they chose in the Forge 
     const where = heroDef.start ?? 'thaloria';
     if (where === 'fields') { stats.respawnPoint ??= { map: 'emerald_fields', spawn: 'village', label: "The Fields' village" }; world.enter('emerald_fields', 'village'); }
     else if (where === 'vale') { stats.respawnPoint ??= { map: 'nythoria', spawn: 'vale', label: 'The Shadow-Vale' }; world.enter('nythoria', 'vale'); }
+    else if (where === 'ravenspire') { stats.respawnPoint ??= { map: 'nythoria', spawn: 'ravenspire', label: 'Ravenspire' }; world.enter('nythoria', 'ravenspire'); }   // Seraphina (A Tapestry of Souls)
+    else if (where === 'ravenspire_east') { stats.respawnPoint ??= { map: 'nythoria', spawn: 'ravenspire_east', label: 'Near old Ravenspire' }; world.enter('nythoria', 'ravenspire_east'); }
+    else if (where === 'rift') { stats.respawnPoint ??= { map: 'nythoria', spawn: 'place:The Great Rift', label: 'The Great Rift' }; world.enter('nythoria', 'place:The Great Rift'); }   // Anya: where Vorgos's tear cast her
     else world.enter('thaloria_inn', 'enter');   // wakes at the inn (the newcomer's story)
 }
 else world.enter('outdoor', 'start');
