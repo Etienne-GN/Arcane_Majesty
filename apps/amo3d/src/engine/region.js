@@ -3,7 +3,7 @@
 // neighbouring regions; the builder returns the same map interface the glade has (heightAt,
 // colliders, nav, mapInfo, spawns, triggers, update with sky and weather…).
 import * as THREE from 'three';
-import { flat, mulberry32, colliderAt, pushOut, fbm, smoothstep, radialTexture } from './lib.js';
+import { flat, mulberry32, colliderAt, pushOut, fbm, smoothstep, radialTexture, LITE } from './lib.js';
 import { createOutdoorShell } from './outdoor.js';
 import { createNav } from './nav.js';
 import { bakeStatic } from './batch.js';
@@ -126,7 +126,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     }
 
     // ---------- ruins (an umbral twin's ruinsAuto: black-stone walls, columns, arches, a broken spire) ----------
-    const props = [...(def.props ?? [])];
+    const props = (def.props ?? []).filter(p => !(LITE && p.type === 'flowers'));   // (low graphics: no flower props)
     if (def.ruinsAuto) {
         const R0 = def.ruinsAuto, want = [['umbral_spire', R0.spires ?? 0, 30], ['umbral_arch', R0.arches ?? 0, 12], ['ruin_wall', R0.walls ?? 0, 7], ['umbral_column', R0.columns ?? 0, 6]];
         for (const [type, n, gap] of want) {
@@ -217,7 +217,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     rocks.castShadow = rocks.receiveShadow = true;
     scene.add(rocks);
     const ferns = [];
-    for (let i = 0; i < 6000 && ferns.length < 2500 * quality.foliage * (def.undergrowth ?? 1); i++) {   // undergrowth: 0 for barren places
+    for (let i = 0; i < (LITE ? 0 : 6000) && ferns.length < 2500 * quality.foliage * (def.undergrowth ?? 1); i++) {   // (low graphics: no undergrowth)   // undergrowth: 0 for barren places
         const x = (rng() - 0.5) * SIZE * 0.9, z = (rng() - 0.5) * SIZE * 0.9, h = heightAt(x, z);
         if (h < WATER + 0.3 || h > 6 || (trailDist(x, z) < 1.4) || roadInfo(def, x, z) || (def.buildings ?? []).some(b => rectDist(b, x, z) < 0.6)) continue;   // nothing growing through roads, paving or floors
         ferns.push([x, h, z]);

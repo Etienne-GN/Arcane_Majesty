@@ -4,7 +4,7 @@
 // Everything here is laid out in a local frame: u = right, v = away from the start point.
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { flat, faceShade, fbm, smoothstep, Particles, radialTexture } from '../engine/lib.js';
+import { flat, faceShade, fbm, smoothstep, Particles, radialTexture, LITE } from '../engine/lib.js';
 
 const T = { x: -60, z: -44 };
 const F = new THREE.Vector2(T.x, T.z).normalize();          // forward (away from spawn)
@@ -503,7 +503,7 @@ export function buildEldrin({ scene, heightAt, addCollider, rng }) {
         scene.add(bm2);
     }
     const lupinPts = [];
-    for (let i = 0; i < 1400 && lupinPts.length < 260; i++) {
+    for (let i = 0; i < (LITE ? 0 : 1400) && lupinPts.length < 260; i++) {   // (low graphics: no lupins)
         const u = -20 + rng() * 34, v = -14 + rng() * 16;
         const p = W(u, v);
         const y = heightAt(p.x, p.z);

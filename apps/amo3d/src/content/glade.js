@@ -5,7 +5,7 @@
 // (the vocabulary of amo's movementRules.hopLanding).
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { flat, mulberry32, colliderAt, pushOut, fbm, smoothstep } from '../engine/lib.js';
+import { flat, mulberry32, colliderAt, pushOut, fbm, smoothstep, LITE } from '../engine/lib.js';
 import { valeHeight, valeReserved, valeColor, valeTreeOK, bridgeDeck, inStream, buildEldrin, STAIR_BASE, ELDRIN } from './eldrinVale.js';
 import { createDeer } from './actors/deer.js';
 import { createShadows } from './actors/shadowSoldier.js';
@@ -241,7 +241,7 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
         const h = heightAt(x, z);
         if (h < WATER + 0.4 || h > 6 || reserved(x, z)) continue;
         if (bushList.length < 220 * quality.foliage && fbm(x * 0.035 + 7, z * 0.035 - 3, 3) > 0.47 && rng() < 0.3) bushList.push({ x, z, h, s: 0.5 + rng() * 0.6 });
-        else if (flowerList.length < 900 * quality.foliage && Math.hypot(x, z) < 60) flowerList.push({ x, z, h });
+        else if (!LITE && flowerList.length < 900 * quality.foliage && Math.hypot(x, z) < 60) flowerList.push({ x, z, h });
     }
     const bushes = new THREE.InstancedMesh(
         mergeGeometries([new THREE.IcosahedronGeometry(0.7, 1).translate(0, 0.45, 0), new THREE.IcosahedronGeometry(0.5, 1).translate(0.5, 0.35, 0.2)]),
@@ -285,7 +285,7 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
 
     // ---------- grass tufts ----------
     const tufts = [];
-    for (let i = 0; i < 9000 && tufts.length < 5000 * quality.foliage; i++) {
+    for (let i = 0; i < (LITE ? 0 : 9000) && tufts.length < 5000 * quality.foliage; i++) {   // (low graphics: no grass tufts)
         const x = (rng() - 0.5) * 150, z = (rng() - 0.5) * 150;
         const h = heightAt(x, z);
         if (h < WATER + 0.4 || h > 6 || valeReserved(x, z, -1)) continue;
