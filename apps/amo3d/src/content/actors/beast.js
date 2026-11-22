@@ -11,6 +11,8 @@ import { flat } from '../../engine/lib.js';
 import { elites as EL } from '@rules';
 
 import { body2, NAMES2, FLYERS2, PLATE2 } from './bodies2.js';
+import { buildHound } from '../models/hound.js';
+import { buildRobed } from '../models/robed.js';
 export const NAMES = { ...NAMES2, grave_wraith: 'Grave-Wraith', cursed_knight: 'Cursed Knight', lava_elemental: 'Magma-Eater', ember_imp: 'Cinder-Soul', stone_golem: 'Obsidian Golem', cave_bat: 'Cave Bat', blind_stalker: 'Blind Stalker', deep_horror: 'Deep Horror', gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
 const TUNE = { sight: 2.6, reach: 2, speed: 1.4 };
 
@@ -18,13 +20,11 @@ function body(type) {
     const b2 = body2(type); if (b2) return b2;   // the newer families (bodies2.js)
     const root = new THREE.Group(), parts = {};
     const add = (geo, m, x = 0, y = 0, z = 0, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; parent.add(o); return o; };
-    if (type === 'grave_wraith') {   // a pale hooded ghost of the old vigil, trailing into mist
+    if (type === 'grave_wraith') {   // a pale hooded ghost of the old vigil, its ragged robe trailing into mist
         const M = new THREE.MeshStandardMaterial({ color: 0xd8e0f0, emissive: 0x8a9ac8, emissiveIntensity: 0.5, transparent: true, opacity: 0.55, flatShading: true, depthWrite: false });
         parts.mat = M;
-        add(new THREE.ConeGeometry(0.4, 1.5, 8, 1, true).translate(0, 0.75, 0), M);
-        add(new THREE.SphereGeometry(0.22, 8, 6, 0, Math.PI * 2, 0, Math.PI * 0.6), M, 0, 1.55, 0);   // the hood
-        for (const s of [1, -1]) { const a = add(new THREE.ConeGeometry(0.07, 0.75, 5), M, s * 0.36, 1.1, 0.15); a.rotation.set(-0.6, 0, s * 2.3); }
-        parts.eyes = add(new THREE.BoxGeometry(0.16, 0.03, 0.02), new THREE.MeshBasicMaterial({ color: 0xbfe0ff, toneMapped: false, transparent: true }), 0, 1.5, 0.2);
+        const f = buildRobed({ robe: M, trim: 0xa8b4d0, skin: 0xd8e0f0, eyeColor: 0xbfe0ff, tattered: true, height: 1.9 });
+        root.add(f.root); f.armL.rotation.x = -0.5; f.armR.rotation.x = -0.4; parts.eyes = f.eyes;
     } else if (type === 'cursed_knight') {   // a knight of the vigil who never lay down: rusted plate, a broken helm, a notched sword
         const steel = flat(0x5a5650), rust = flat(0x6a4a34), dark = flat(0x1a1818);
         add(new THREE.BoxGeometry(0.62, 0.75, 0.38), steel, 0, 1.35, 0);
@@ -83,15 +83,9 @@ function body(type) {
             parts[s > 0 ? 'wingL' : 'wingR'] = pivot;
         }
         parts.eyes = add(new THREE.BoxGeometry(0.1, 0.025, 0.02), new THREE.MeshBasicMaterial({ color: 0xff3a2a, toneMapped: false }), 0, 0.06, 0.18);
-    } else if (type === 'blind_stalker') {   // a pale eyeless hound that hunts by sound: long skull, a glowing maw
-        const M = flat(0xb8b0a4), dark = flat(0x7a726a);
-        const b = add(new THREE.CylinderGeometry(0.26, 0.2, 1.1, 7).rotateX(Math.PI / 2), M, 0, 0.7, 0); b.scale.set(0.85, 0.75, 1);
-        add(new THREE.ConeGeometry(0.2, 0.7, 6).rotateX(Math.PI / 2), M, 0, 0.75, 0.8);
-        for (let i = 0; i < 6; i++) add(new THREE.BoxGeometry(0.05, 0.06, 0.04), dark, 0, 0.9, -0.4 + i * 0.16);   // the knuckled spine
-        for (const [x, z] of [[0.17, 0.38], [-0.17, 0.38], [0.17, -0.38], [-0.17, -0.38]]) add(new THREE.CylinderGeometry(0.05, 0.035, 0.6, 5), M, x, 0.3, z);
-        add(new THREE.ConeGeometry(0.05, 0.5, 4).rotateX(-1.9), M, 0, 0.78, -0.7);
-        parts.eyes = add(new THREE.BoxGeometry(0.14, 0.05, 0.05), new THREE.MeshBasicMaterial({ color: 0xd8ff8a, toneMapped: false }), 0, 0.66, 1.1);   // no eyes — the maw glows
-        parts.legs = root.children.filter(o => o.position.y === 0.3);
+    } else if (type === 'blind_stalker') {   // a pale eyeless hound that hunts by sound: a long blind skull, a knuckled spine, a glowing maw
+        const h = buildHound({ coat: 0xb8b0a4, belly: 0x9a9286, dark: 0x5a524a, mawColor: 0xd8ff8a, eyeless: true, knuckles: true, scale: 1.05 });
+        root.add(h.root); Object.assign(parts, { legs: h.legs, lowers: h.lowers, jaw: h.jaw, tail: h.tail, eyes: h.eyes });
     } else if (type === 'deep_horror') {   // a mass of grey flesh and tentacles from below the deepest workings, one great eye
         const M = flat(0x8a7484), dark = flat(0x5a4858), eye = new THREE.MeshBasicMaterial({ color: 0xffe060, toneMapped: false });
         const b = add(new THREE.IcosahedronGeometry(0.9, 1), M, 0, 1.2, 0); b.scale.set(1.1, 0.9, 1);
@@ -123,15 +117,9 @@ function body(type) {
         add(new THREE.SphereGeometry(0.2, 8, 6), M, 0, 1.65, 0);
         for (const s of [1, -1]) { const a = add(new THREE.ConeGeometry(0.08, 0.8, 5), M, s * 0.38, 1.1, 0.1); a.rotation.z = s * 2.4; }
         parts.eyes = add(new THREE.BoxGeometry(0.2, 0.03, 0.02), new THREE.MeshBasicMaterial({ color: 0x9ae8ff, toneMapped: false, transparent: true }), 0, 1.68, 0.18);
-    } else if (type === 'void_stalker') {   // a low, lean shadow-hound with violet spines
-        const M = flat(0x1e1828), spine = new THREE.MeshStandardMaterial({ color: 0x5a2a8a, emissive: 0x6a2aaa, emissiveIntensity: 0.8, flatShading: true });
-        const b = add(new THREE.CylinderGeometry(0.28, 0.22, 1.2, 7).rotateX(Math.PI / 2), M, 0, 0.75, 0); b.scale.set(0.9, 0.8, 1);
-        add(new THREE.ConeGeometry(0.22, 0.6, 6).rotateX(Math.PI / 2), M, 0, 0.82, 0.8);
-        for (let i = 0; i < 5; i++) add(new THREE.ConeGeometry(0.06, 0.32, 4), spine, 0, 1.02, -0.45 + i * 0.22).rotation.x = -0.4;
-        for (const [x, z] of [[0.18, 0.4], [-0.18, 0.4], [0.18, -0.4], [-0.18, -0.4]]) add(new THREE.CylinderGeometry(0.06, 0.04, 0.6, 5), M, x, 0.3, z);
-        add(new THREE.ConeGeometry(0.08, 0.6, 4).rotateX(-1.9), M, 0, 0.85, -0.75);
-        parts.eyes = add(new THREE.BoxGeometry(0.22, 0.03, 0.02), new THREE.MeshBasicMaterial({ color: 0xc86aff, toneMapped: false }), 0, 0.92, 1.0);
-        parts.legs = root.children.filter(o => o.position.y === 0.3);
+    } else if (type === 'void_stalker') {   // a lean shadow-hound with glowing violet spines and eyes
+        const h = buildHound({ coat: 0x1e1828, belly: 0x2a2236, dark: 0x0e0a14, eyeColor: 0xc86aff, mawColor: 0x9a4aff, spines: 0x6a2aaa, scale: 1.1 });
+        root.add(h.root); Object.assign(parts, { legs: h.legs, lowers: h.lowers, jaw: h.jaw, tail: h.tail, eyes: h.eyes });
     } else if (type === 'blight_ent') {   // an ancient tree fused with rot: grey-brown trunk, sick canopy, branch arms
         const bark = flat(0x5a4a3a), rot = flat(0x4a5a2a), spot = new THREE.MeshStandardMaterial({ color: 0x8a4aaa, emissive: 0x5a2a7a, emissiveIntensity: 0.6, flatShading: true });
         add(new THREE.CylinderGeometry(0.42, 0.62, 2.2, 7), bark, 0, 1.1, 0);
@@ -330,6 +318,8 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
             root.position.y = pos.y - (tell ? 0.15 : 0);
             root.rotation.x = ai.state === 'strike' ? -0.2 : tell ? 0.15 : 0;
             parts.legs.forEach((l, i) => { l.rotation.x = Math.sin(ai.t * 10 + i * Math.PI / 2) * 0.5 * Math.min(1, ai.speed / 2); });
+            if (parts.jaw) { parts.jaw.rotation.x = tell || ai.state === 'strike' ? 0.55 : 0.06 + Math.sin(ai.t * 3) * 0.03; parts.tail.rotation.y = Math.sin(ai.t * (ai.speed > 0.5 ? 9 : 2.5)) * 0.35; }
+            parts.lowers?.forEach((l, i) => { l.rotation.x += (Math.max(0, Math.sin(ai.t * 10 + i * Math.PI / 2 + 0.9)) * 0.6 * Math.min(1, ai.speed / 2) - (l.userData.bent ?? 0)); l.userData.bent = Math.max(0, Math.sin(ai.t * 10 + i * Math.PI / 2 + 0.9)) * 0.6 * Math.min(1, ai.speed / 2); });   // the knees bend on the stride
         } else if (type === 'root_wraith') {   // drift low and spin; coil up before the lash
             root.position.y = pos.y + 0.15 + Math.sin(ai.t * 4) * 0.08;
             parts.knot.rotation.y += dt * (tell ? 9 : 3);

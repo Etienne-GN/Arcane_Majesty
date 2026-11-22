@@ -8,6 +8,7 @@
 //   hover — a floating construct; its rings (parts.spin) turn faster on the wind-up
 // parts.eyes glow brighter on the wind-up (beast.js).
 import * as THREE from 'three';
+import { buildRobed } from '../models/robed.js';
 
 const flat = (c, o = {}) => new THREE.MeshStandardMaterial({ color: c, flatShading: true, roughness: 0.8, ...o });
 const glow = c => new THREE.MeshBasicMaterial({ color: c, toneMapped: false });
@@ -70,14 +71,13 @@ export function body2(type) {
         for (const s of [1, -1]) add(new THREE.CylinderGeometry(0.15, 0.17, 0.85, 6), fur, s * 0.32, 0.42, -0.5);
         parts.eyes = add(new THREE.BoxGeometry(0.26, 0.04, 0.02), glow(0x8ad8ff), 0, 1.33, 1.25);
         parts.kind = 'brute';
-    } else if (type === 'ice_revenant') {   // the frozen dead: a hooded figure of blue ice and frost-mist, a shard for a blade
+    } else if (type === 'ice_revenant') {   // the frozen dead: a hooded figure of blue ice and frost-mist, a crown of icicles, a shard for a blade
         const M = new THREE.MeshStandardMaterial({ color: 0xb8e4ff, emissive: 0x4a8ac8, emissiveIntensity: 0.6, transparent: true, opacity: 0.7, flatShading: true, depthWrite: false });
         parts.mat = M;
-        add(new THREE.ConeGeometry(0.42, 1.55, 7, 1, true).translate(0, 0.78, 0), M);
-        add(new THREE.OctahedronGeometry(0.24, 0), M, 0, 1.6, 0);
-        for (let i = 0; i < 5; i++) add(new THREE.ConeGeometry(0.05, 0.35, 4), M, Math.cos(i * 1.25) * 0.2, 1.85, Math.sin(i * 1.25) * 0.2);   // a crown of icicles
-        const sh = add(new THREE.OctahedronGeometry(0.12, 0), M, 0.4, 1.0, 0.25); sh.scale.set(0.5, 3.5, 0.5);
-        parts.eyes = add(new THREE.BoxGeometry(0.16, 0.03, 0.02), glow(0xe0f6ff), 0, 1.62, 0.2);
+        const f = buildRobed({ robe: M, trim: 0xe0f4ff, skin: 0xd0ecff, eyeColor: 0xe0f6ff, crown: M, height: 1.9 });
+        root.add(f.root); parts.eyes = f.eyes;
+        const sh = add(new THREE.OctahedronGeometry(0.12, 0), M, 0, -0.95, 0.08, f.armL); sh.scale.set(0.45, 3.6, 0.45);   // the shard blade in its hand
+        f.armL.rotation.x = -0.35;
         parts.kind = 'drift';
     } else if (type === 'glacier_crab') {   // a crab the size of a cart, a shell of blue ice, two great claws
         const shell = flat(0x8ab8d8, { emissive: 0x1a4a6a, emissiveIntensity: 0.3 }), leg = flat(0x5a7a94);
@@ -150,14 +150,11 @@ export function body2(type) {
         legRing(4, 0.25, 0.75, 0.35, skin);
         parts.eyes = add(new THREE.BoxGeometry(0.32, 0.03, 0.02), glow(0xe8e05a), 0, 0.73, 0.6);
         parts.kind = 'legs';
-    } else if (type === 'dark_druid') {   // a druid gone wrong: a ragged green-black robe, a deer-skull mask, a crooked staff
-        const robe = flat(0x1e2a1a), bone = flat(0xe0d8c0), wood = flat(0x3a2a1a);
-        add(new THREE.ConeGeometry(0.45, 1.5, 8).translate(0, 0.75, 0), robe);
-        add(new THREE.SphereGeometry(0.2, 7, 5), robe, 0, 1.62, 0);
-        add(new THREE.SphereGeometry(0.15, 6, 5), bone, 0, 1.6, 0.1).scale.set(0.8, 1, 1.3);
-        for (const s of [1, -1]) { const a = add(new THREE.CylinderGeometry(0.015, 0.025, 0.4, 4), bone, s * 0.15, 1.85, 0.05); a.rotation.z = -s * 0.7; }
-        arms(1.4, 0.3, 0.65, 0.07, robe, (arm, s) => { if (s > 0) { const st = add(new THREE.CylinderGeometry(0.025, 0.03, 1.6, 5), wood, 0, -0.55, 0.1, arm); add(new THREE.SphereGeometry(0.08, 6, 5), glow(0x6aff6a), 0, 0.25, 0.1, arm); st.rotation.x = 0.1; } });
-        parts.eyes = add(new THREE.BoxGeometry(0.12, 0.025, 0.02), glow(0x7aff5a), 0, 1.63, 0.28);
+    } else if (type === 'dark_druid') {   // a druid gone wrong: a ragged green-black robe, a deer-skull mask with antlers, a crooked staff
+        const f = buildRobed({ robe: 0x1e2a1a, trim: 0x4a3a22, skin: 0x8a9a7a, eyeColor: 0x7aff5a, mask: 0xe0d8c0, height: 1.9 });
+        root.add(f.root); parts.eyes = f.eyes; parts.armL = f.armL; parts.armR = f.armR;
+        add(new THREE.CylinderGeometry(0.025, 0.035, 1.75, 5), flat(0x3a2a1a), 0, -0.6, 0.12, f.armL);   // the staff
+        add(new THREE.SphereGeometry(0.08, 6, 5), glow(0x6aff6a), 0, 0.3, 0.12, f.armL);
         parts.kind = 'brute';
     } else if (type === 'mushroom_shaman') {   // a walking toadstool with a spotted cap, a beard of gills, a staff hung with spores
         const stem = flat(0xe8dcc4), cap = flat(0x9a2a2a), spot = flat(0xf4eee0), spore = new THREE.MeshStandardMaterial({ color: 0xc8a8ff, emissive: 0x7a4ac8, emissiveIntensity: 1, flatShading: true });

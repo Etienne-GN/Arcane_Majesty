@@ -12,11 +12,21 @@ export function buildHorse({ coat = 0x6a4a32, mane = 0x2a1e16 } = {}) {
     const torso = add(new THREE.BoxGeometry(0.6, 0.62, 1.55), C, 0, 1.18, 0); torso.geometry.translate(0, 0, 0);
     add(new THREE.BoxGeometry(0.56, 0.5, 0.5), C, 0, 1.28, 0.62);   // chest
     add(new THREE.BoxGeometry(0.58, 0.5, 0.5), C, 0, 1.22, -0.6);   // haunch
-    const neck = new THREE.Group(); neck.position.set(0, 1.42, 0.78); neck.rotation.x = -0.75; body.add(neck);
-    add(new THREE.BoxGeometry(0.32, 0.36, 0.78), C, 0, 0, 0.32, neck);
-    const head = add(new THREE.BoxGeometry(0.26, 0.28, 0.62), C, 0, 0.22, 0.78, neck); head.rotation.x = 1.0;
-    add(new THREE.BoxGeometry(0.06, 0.34, 0.7), M, 0, 0.2, 0.25, neck);   // mane
-    for (const s of [-1, 1]) add(new THREE.ConeGeometry(0.05, 0.16, 4), C, s * 0.08, 0.42, 0.62, neck);   // ears
+    // the neck (asked 2026-11-22: the head looked wrong): thick at the shoulders, arching up and forward; a real head on it
+    const neck = new THREE.Group(); neck.position.set(0, 1.36, 0.72); neck.rotation.x = -0.95; body.add(neck);
+    add(new THREE.CylinderGeometry(0.15, 0.24, 0.8, 7).rotateX(Math.PI / 2).translate(0, 0, 0.34), C, 0, 0, 0, neck).scale.set(0.8, 1.15, 1);
+    for (let i = 0; i < 6; i++) add(new THREE.BoxGeometry(0.07, 0.12 - i * 0.006, 0.15), M, 0, 0.17 - i * 0.012, 0.06 + i * 0.13, neck);   // the mane along its crest
+    const head = new THREE.Group(); head.position.set(0, 0.02, 0.76); head.rotation.x = 1.55; neck.add(head);   // hangs down and forward from the poll
+    add(new THREE.BoxGeometry(0.24, 0.22, 0.26), C, 0, 0, 0.04, head);                                              // the cranium, broad between the eyes
+    const muzzle = add(new THREE.CylinderGeometry(0.085, 0.12, 0.46, 6).rotateX(Math.PI / 2).translate(0, -0.03, 0.36), C, 0, 0, 0, head); muzzle.scale.set(1, 1.15, 1);
+    add(new THREE.BoxGeometry(0.15, 0.08, 0.3), C, 0, -0.12, 0.2, head);                                           // the jaw line, deep at the cheek
+    add(new THREE.BoxGeometry(0.17, 0.12, 0.08), flat(0x4a3428), 0, -0.04, 0.6, head);                              // the soft nose
+    for (const s of [-1, 1]) {
+        add(new THREE.SphereGeometry(0.018, 5, 4), H, s * 0.05, -0.01, 0.645, head);                                // nostrils
+        add(new THREE.SphereGeometry(0.03, 6, 5), H, s * 0.125, 0.04, 0.08, head);                                   // eyes, on the sides
+        const ear = add(new THREE.ConeGeometry(0.045, 0.17, 4), C, s * 0.08, 0.15, -0.06, head); ear.rotation.set(-0.35, 0, s * -0.15);
+    }
+    add(new THREE.BoxGeometry(0.1, 0.06, 0.12), M, 0, 0.12, 0.05, head);   // the forelock
     const tail = add(new THREE.BoxGeometry(0.1, 0.62, 0.1), M, 0, 1.12, -0.88); tail.rotation.x = 0.4;
     add(new THREE.BoxGeometry(0.66, 0.08, 0.62), S, 0, 1.52, 0.05);   // saddle
     add(new THREE.BoxGeometry(0.64, 0.24, 0.06), S, 0, 1.42, -0.24);
@@ -36,7 +46,7 @@ export function buildHorse({ coat = 0x6a4a32, mane = 0x2a1e16 } = {}) {
         for (const L of legs) { const a = Math.sin(t * k + L.ph); L.g.rotation.x = a * 0.55 * gait; L.low.rotation.x = Math.max(0, -Math.cos(t * k + L.ph)) * 0.7 * gait; }
         body.position.y = Math.abs(Math.sin(t * k)) * 0.06 * gait;
         body.rotation.x = Math.sin(t * k * 2) * 0.03 * gait;
-        neck.rotation.x = -0.75 + Math.sin(t * k) * 0.08 * gait;
+        neck.rotation.x = -0.95 + Math.sin(t * k) * 0.08 * gait;
         tail.rotation.x = 0.4 + Math.sin(t * 0.7) * 0.1 + gait * 0.4;
     }
     return { root, update };
