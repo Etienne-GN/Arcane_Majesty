@@ -75,6 +75,7 @@ jobs:
         with:
           name: ArcaneMajesty3D-${{ env.AMO_VERSION_NAME }}
           path: apps/amo3d/ArcaneMajesty3D-*.apk
+          retention-days: 1   # (only carries the build to the publishing job; the release keeps the file)
 
   # Publishing: the only job (with desktop-release) that holds a write token. It installs and builds nothing — it takes
   # the APK the build job left and writes the release notes from the git history (tools/changelog.mjs, node builtins only).
@@ -174,6 +175,7 @@ jobs:
             apps/amo3d/desktop/release/ArcaneMajesty3D-*.AppImage
             apps/amo3d/desktop/release/desktop.png
           if-no-files-found: error
+          retention-days: 1
 
   desktop-release:
     needs: [desktop, publish]
