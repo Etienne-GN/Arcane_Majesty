@@ -129,5 +129,44 @@ export function createNythoriaWorld({ quality } = {}) {
           text: 'Cut deep into a fallen lintel of the great hall, half under the vines: "WE HELD UNTIL THE LIGHT WENT OUT." Below it, smaller and newer, scratched by another hand: names, dozens of them, and a date counted from the Darkness. Something has walked through the hall since — the ash on the floor is marked with long, clawed prints.' });
       const upd2 = world.update; world.update = (t2, dt, ctx) => { upd2(t2, dt, ctx); g.visible = Math.hypot(ctx.player.pos.x - C.x, ctx.player.pos.z - C.z) < 1100; };
     }
+    // ---------- the Black Well: the demonic sanctuary where Acheron discarded the Forbidden Tome (DB), on the Black Lake's shore ----------
+    { const W0 = at('Lake Aethera'), W = (() => { for (let r = 0; r < 160; r += 4) for (let a2 = 0; a2 < 6.28; a2 += 0.3) { const x = W0.x + Math.cos(a2) * r, z = W0.z + Math.sin(a2) * r; if (heightAt(x, z) > 0.8 && heightAt(x + 14, z) > 0.3 && heightAt(x - 14, z) > 0.3 && heightAt(x, z + 14) > 0.3 && heightAt(x, z - 14) > 0.3) return { x, z }; } return W0; })();   // (on dry ground by the Black Lake's shore)
+      const y0 = heightAt(W.x, W.z), g = new THREE.Group(); g.position.set(W.x, y0, W.z);
+      const bas = new THREE.MeshStandardMaterial({ color: 0x141018, roughness: 0.35, metalness: 0.2, flatShading: true }), red = new THREE.MeshBasicMaterial({ color: 0xa02040, transparent: true, opacity: 0.8 });
+      const mk = (geo, m, x, y, z) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; g.add(o); return o; };
+      mk(new THREE.CylinderGeometry(13, 14, 0.8, 12), bas, 0, 0, 0);   // the platform
+      for (let i = 0; i < 16; i++) { const a2 = i / 16 * Math.PI * 2; mk(new THREE.BoxGeometry(2.6, 1.6, 1.2), bas, Math.cos(a2) * 6.5, 1.1, Math.sin(a2) * 6.5).rotation.y = -a2; }   // the well's ring
+      mk(new THREE.CylinderGeometry(5.6, 5.6, 0.2, 24), new THREE.MeshBasicMaterial({ color: 0x050307 }), 0, 0.55, 0);   // the shaft, black
+      const deep = mk(new THREE.CylinderGeometry(4.8, 4.8, 0.1, 24), new THREE.MeshBasicMaterial({ color: 0x6a1a3a, transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending }), 0, 0.5, 0);   // its glow from far below
+      for (let i = 0; i < 4; i++) { const a2 = i * Math.PI / 2 + Math.PI / 4, x = Math.cos(a2) * 10.5, z = Math.sin(a2) * 10.5; mk(new THREE.CylinderGeometry(0.6, 1.1, 7, 4), bas, x, 3.9, z);
+          for (const sd of [-1, 1]) { const h = mk(new THREE.ConeGeometry(0.3, 1.8, 4), bas, x + sd * 0.5, 7.9, z); h.rotation.z = -sd * 0.6; } }   // horned obelisks
+      const sig = mk(new THREE.RingGeometry(8.4, 8.9, 32), red, 0, 0.42, 0); sig.rotation.x = -Math.PI / 2;   // the sigil ring
+      for (let i = 0; i < 6; i++) { const a2 = i / 6 * Math.PI * 2, l = mk(new THREE.PlaneGeometry(0.4, 4.5), red, Math.cos(a2) * 10.6, 0.43, Math.sin(a2) * 10.6); l.rotation.set(-Math.PI / 2, 0, -a2); }
+      const light = new THREE.PointLight(0xc02040, 30, 50, 1.6); light.position.set(0, 3, 0); g.add(light);
+      world.scene.add(g); world.addWall({ x: W.x, z: W.z, r: 5.4, kind: 'wall', y0: y0 - 2, y1: y0 + 3 });
+      world.stations.push({ mode: 'sign', id: 'black_well', title: 'The Black Well', pos: new THREE.Vector3(W.x + 8, y0 + 1, W.z), text: 'The well has no bottom you can see. Far down, a dull red light breathes. They say a sorcerer of the old days threw a book down here to be rid of it — and that another, later, went down after it.' });
+      const upd3 = world.update; let tt = 0; world.update = (t2, dt, ctx) => { upd3(t2, dt, ctx); tt += dt; deep.material.opacity = 0.4 + Math.sin(tt * 0.9) * 0.15; light.intensity = 24 + Math.sin(tt * 0.9) * 8; };
+    }
+    // ---------- the Obsidian Citadel: Malakar's fortress-palace of basalt and bone (DB), in the fire mountain's crater ----------
+    { const C = at('Inferno Labyrinth'), y0 = heightAt(C.x, C.z), g = new THREE.Group(); g.position.set(C.x, y0, C.z);
+      const bas = new THREE.MeshStandardMaterial({ color: 0x18141c, roughness: 0.3, metalness: 0.25, flatShading: true }), bone = flat(0xd8cfb8), glowM = new THREE.MeshBasicMaterial({ color: 0xc03a5a });
+      const mk = (geo, m, x, y, z) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; g.add(o); return o; };
+      const fg = at('Fire Gate'), toGate = Math.atan2(fg.z - C.z, fg.x - C.x);
+      // the curtain wall in the crater, a gate towards the Fire Gate's gorge
+      const R = 46;
+      for (let i = 0; i < 20; i++) { const a2 = (i + 0.5) / 20 * Math.PI * 2; if (Math.abs(Math.atan2(Math.sin(a2 - toGate), Math.cos(a2 - toGate))) < 0.18) continue;
+          const x = Math.cos(a2) * R, z = Math.sin(a2) * R, w = mk(new THREE.BoxGeometry(15, 11, 3.2), bas, x, 5.5, z); w.rotation.y = -a2 + Math.PI / 2;
+          for (let k = 0; k < 6; k++) world.addWall({ x: C.x + x + Math.cos(a2 + Math.PI / 2) * (k - 2.5) * 3, z: C.z + z + Math.sin(a2 + Math.PI / 2) * (k - 2.5) * 3, r: 1.8, kind: 'wall', y0: y0 - 2, y1: y0 + 14 }); }
+      for (let i = 0; i < 8; i++) { const a2 = i / 8 * Math.PI * 2, x = Math.cos(a2) * R, z = Math.sin(a2) * R; mk(new THREE.CylinderGeometry(3.4, 4.2, 20, 7), bas, x, 10, z); mk(new THREE.ConeGeometry(3.6, 8, 7), bas, x, 24, z); }
+      // the palace: three stepped tiers of basalt, spires, bone ribs arching along its walls, the throne hall glowing
+      for (const [w, h, y] of [[34, 14, 7], [24, 12, 20], [14, 10, 31]]) mk(new THREE.BoxGeometry(w, h, w), bas, 0, y, 0);
+      for (const [x, z, h] of [[0, 0, 34], [9, 9, 22], [-9, 9, 22], [9, -9, 22], [-9, -9, 22]]) { mk(new THREE.CylinderGeometry(1.4, 2.6, h, 6), bas, x, 36 + h / 2 - 8, z); mk(new THREE.ConeGeometry(1.6, 6, 6), bas, x, 36 + h - 5, z); }
+      for (let i = 0; i < 10; i++) { const a2 = i / 10 * Math.PI * 2, rib = mk(new THREE.TorusGeometry(4, 0.4, 5, 10, Math.PI), bone, Math.cos(a2) * 17.6, 6, Math.sin(a2) * 17.6); rib.rotation.y = -a2 + Math.PI / 2; }   // bone ribs round the lowest tier
+      for (const s2 of [-1, 1]) mk(new THREE.BoxGeometry(3, 7, 0.4), glowM, Math.cos(toGate) * 17.3 + s2 * Math.sin(toGate) * 4, 4.5, Math.sin(toGate) * 17.3 - s2 * Math.cos(toGate) * 4);   // the throne hall's doors, glowing
+      const light = new THREE.PointLight(0xc03a5a, 50, 140, 1.4); light.position.set(Math.cos(toGate) * 30, 8, Math.sin(toGate) * 30); g.add(light);
+      world.addWall({ x: C.x, z: C.z, r: 18, kind: 'wall', y0: y0 - 2, y1: y0 + 60 });
+      world.scene.add(g);
+      const upd4 = world.update; world.update = (t2, dt, ctx) => { upd4(t2, dt, ctx); g.visible = Math.hypot(ctx.player.pos.x - C.x, ctx.player.pos.z - C.z) < 1800; };
+    }
     return world;
 }
