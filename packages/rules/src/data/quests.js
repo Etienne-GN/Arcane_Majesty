@@ -472,4 +472,97 @@ export const QUESTS = {
         ],
         reward: { xp: 950, gold: 140, items: [] },
     },
+
+    // ── Bands 2 and 3, and Nythoria's towns (docs/3d/WORLD_PLAN.md) ──
+    band2_crossroads_roads: {
+        id: 'band2_crossroads_roads', title: 'Trouble on the Roads', type: 'side', giver: 'the_crossroads_guard',
+        offer: "Every road out of here has teeth on it lately. Thin out what's hunting the travellers, then come and tell me.",
+        description: "The Crossroads' guard wants the creatures preying on travellers thinned out.",
+        steps: [
+            { id: 'beasts', type: 'kill', target: 'any', label: 'Defeat creatures on the roads (0/6)', required: 6 },
+            { id: 'report', type: 'talk', target: 'the_crossroads_guard', label: 'Report to the guard', required: 1 },
+        ],
+        reward: { xp: 320, gold: 45, items: ['health_potion'] },
+    },
+    band2_temple_lights: {
+        id: 'band2_temple_lights', title: 'Lights Beneath the Water', type: 'side', giver: 'the_crossroads_well_keeper',
+        offer: "The fishermen on the lake swear there's light under the water by the old ruins at dusk. Go and look — and if there's writing, copy it in your head for me.",
+        description: 'The well-keeper asks you to visit the Sunken Temple on Lake Aethera and read its carvings.',
+        steps: [
+            { id: 'carvings', type: 'read_signs', target: 'sunken_temple', label: 'Read the carvings at the Sunken Temple', required: 1 },
+            { id: 'report', type: 'talk', target: 'the_crossroads_well_keeper', label: 'Tell the well-keeper what you saw', required: 1 },
+        ],
+        reward: { xp: 380, gold: 30, items: ['ancient_scroll'] },
+    },
+    band2_port_quays: {
+        id: 'band2_port_quays', title: 'Rats and Worse on the Quays', type: 'side', giver: 'port_silver_harbour_master',
+        offer: "Something's coming up from the bay at night and getting into the stores. Clear the shore round the port, and I'll see you paid.",
+        description: 'The harbour master wants the shore round Port Silver cleared of what comes up from the bay.',
+        steps: [
+            { id: 'beasts', type: 'kill', target: 'any', label: 'Defeat creatures round the port (0/6)', required: 6 },
+            { id: 'report', type: 'talk', target: 'port_silver_harbour_master', label: 'Report to the harbour master', required: 1 },
+        ],
+        reward: { xp: 420, gold: 60, items: [] },
+    },
+    band3_iron_knocks: {
+        id: 'band3_iron_knocks', title: 'The Deep Knocks', type: 'side', giver: 'iron_hollow_foreman',
+        offer: "The men won't go past the third gallery. Something out there in the hills keeps them up at night. Put a few of those things down and they'll work again.",
+        description: "Iron Hollow's foreman needs the creatures round the mines dealt with.",
+        steps: [
+            { id: 'beasts', type: 'kill', target: 'any', label: 'Defeat creatures round Iron Hollow (0/8)', required: 8 },
+            { id: 'report', type: 'talk', target: 'iron_hollow_foreman', label: 'Report to the foreman', required: 1 },
+        ],
+        reward: { xp: 700, gold: 80, items: [] },
+    },
+    band3_dusk_spiders: {
+        id: 'band3_dusk_spiders', title: 'Lamps Against the Dark', type: 'side', giver: 'duskmeet_old_woman',
+        offer: "The spiders come closer every year. My lamps can't keep them off alone, dearie. Four of the big ones, and we'll all sleep.",
+        description: "Duskmeet's old woman asks you to kill the giant spiders creeping out of Whisper-Wood.",
+        steps: [
+            { id: 'spiders', type: 'kill', target: 'giant_spider', label: 'Defeat Giant Spiders (0/4)', required: 4 },
+            { id: 'report', type: 'talk', target: 'duskmeet_old_woman', label: 'Return to the old woman', required: 1 },
+        ],
+        reward: { xp: 820, gold: 70, items: ['health_potion'] },
+    },
+    band3_shadow_touched: {
+        id: 'band3_shadow_touched', title: 'Shadow-Touched', type: 'side', giver: 'graywatch_sergeant_of_the_watch',
+        offer: "Druids gone wrong, and the spiders that follow them. They're coming out of Whisper-Wood bolder every week. Two druids, four spiders — the Watch will remember it.",
+        description: "Graywatch's sergeant wants the shadow-touched druids and their spiders put down.",
+        steps: [
+            { id: 'druids', type: 'kill', target: 'dark_druid', label: 'Defeat Dark Druids (0/2)', required: 2 },
+            { id: 'spiders', type: 'kill', target: 'giant_spider', label: 'Defeat Giant Spiders (0/4)', required: 4 },
+            { id: 'report', type: 'talk', target: 'graywatch_sergeant_of_the_watch', label: 'Report to the sergeant', required: 1 },
+        ],
+        reward: { xp: 980, gold: 110, items: [] },
+    },
+    band3_vault_door: {
+        id: 'band3_vault_door', title: 'The Door That Breathes', type: 'side', giver: 'duskmeet_lamplighter',
+        offer: "South of here there's a stair into the ground and a red door at the bottom. My lamp gutters when I pass it. Go and look, if you've the nerve, and tell me I'm a fool.",
+        description: "Duskmeet's lamplighter asks you to find the sealed door of the Sanguine Vaults to the south.",
+        steps: [
+            { id: 'door', type: 'read_signs', target: 'sanguine_vaults', label: 'Find the red door of the Sanguine Vaults', required: 1 },
+            { id: 'report', type: 'talk', target: 'duskmeet_lamplighter', label: 'Tell the lamplighter what you found', required: 1 },
+        ],
+        reward: { xp: 900, gold: 50, items: [] },
+    },
+    nythoria_black_water: {
+        id: 'nythoria_black_water', title: 'What the Black Water Gives', type: 'side', giver: 'shadow_harbour_harbour_mistress',
+        offer: "Things crawl out of the black water at the quays' end. The fishers won't land their catch while they're there. Clear the shore.",
+        description: 'The harbour-mistress of the shadow harbour wants the shore cleared of what crawls from the black water.',
+        steps: [
+            { id: 'beasts', type: 'kill', target: 'any', label: 'Defeat creatures round the harbour (0/6)', required: 6 },
+            { id: 'report', type: 'talk', target: 'shadow_harbour_harbour_mistress', label: 'Report to the harbour-mistress', required: 1 },
+        ],
+        reward: { xp: 600, gold: 60, items: [] },
+    },
+    nythoria_deep_knock: {
+        id: 'nythoria_deep_knock', title: 'Something Knocks Back', type: 'side', giver: 'deep_miners_mine_foreman',
+        offer: "We sealed two shafts. Whatever knocked behind them is out in the hills now. Eight of those things, and I'll open my own purse.",
+        description: "The deep-miners' foreman wants the creatures loose in the northern hills put down.",
+        steps: [
+            { id: 'beasts', type: 'kill', target: 'any', label: 'Defeat creatures in the hills (0/8)', required: 8 },
+            { id: 'report', type: 'talk', target: 'deep_miners_mine_foreman', label: 'Report to the foreman', required: 1 },
+        ],
+        reward: { xp: 900, gold: 90, items: [] },
+    },
 };

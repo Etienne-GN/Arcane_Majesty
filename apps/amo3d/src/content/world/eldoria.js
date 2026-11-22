@@ -118,7 +118,8 @@ const riftT = (x, z) => { let best = 0, bd = Infinity, acc = 0, tot = 0; for (le
     for (let i = 0; i < RIFT.length - 1; i++) { const [ax, az] = RIFT[i], [bx, bz] = RIFT[i + 1], L = Math.hypot(bx - ax, bz - az), u = Math.max(0, Math.min(1, ((x - ax) * (bx - ax) + (z - az) * (bz - az)) / (L * L))), d = Math.hypot(x - ax - (bx - ax) * u, z - az - (bz - az) * u); if (d < bd) { bd = d; best = (acc + u * L) / tot; } acc += L; }
     return best; };
 const OGATE = place('The Obsidian Gate');
-let OGATE_Y = 0;   // (set once the land round it is known: below)
+let OGATE_Y = 0;
+const VAULT = { x: -270, z: 1856 }; let VAULT_Y = 0;   // the Sanguine Vaults' gatehouse: a levelled terrace on the hillside   // (set once the land round it is known: below)
 // ---------- the continent's shape (asked 2026-11-20: not a square) and the Sunward Isles ----------
 // The coast at each angle round the land's middle: beyond every place there (+320 m), bulging into peninsulas and bending
 // into bays (never nearer a place than ~170 m), smoothed; the ocean beyond it. Off the south-east, an archipelago.
@@ -311,6 +312,7 @@ export function eldoriaHeight(x, z) {
     } }
     // the Obsidian Gate's pad: level ground round it
     { const dg = Math.hypot(x - OGATE.x, z - OGATE.z); if (dg < 90) h = h + (OGATE_Y - h) * smooth(90, 30, dg); }
+    { const dv = Math.hypot(x - VAULT.x, z - VAULT.z); if (dv < 55) h = h + (VAULT_Y - h) * smooth(55, 16, dv); }
     // The Great Rift (docs/3d/WORLD_PLAN.md): the planar scar Vorgos tore at 0 GD — a long jagged chasm across the
     // Scarlands, its floor just above the water (the world's sea would fill it), crags along its lips
     { const d = polyDist(RIFT, x, z); if (d < 90) {
@@ -599,6 +601,7 @@ function biomeLabels(stamps) {
     for (const st of stamps) { const id = BIOME_MAP.places?.[st.id]; if (!id || !BIOMES[id]) continue; const a = acc[id] ??= { x: 0, z: 0, n: 0 }; a.x += st.cx; a.z += st.cz; a.n++; }
     return Object.entries(acc).map(([id, a]) => ({ name: BIOMES[id].name, x: a.x / a.n, z: a.z / a.n }));
 }
+VAULT_Y = (() => { const keep = VAULT.x; VAULT.x = 1e9; let m = 0, n = 0; for (let a = 0; a < 6.28; a += 0.5) { m += eldoriaHeight(keep + Math.cos(a) * 30, VAULT.z + Math.sin(a) * 30); n++; } VAULT.x = keep; return m / n; })();
 OGATE_Y = (() => { const keep = OGATE.x; OGATE.x = 1e9; let m = 0, n = 0; for (let a = 0; a < 6.28; a += 0.5) { m += eldoriaHeight(keep + Math.cos(a) * 40, OGATE.z + Math.sin(a) * 40); n++; } OGATE.x = keep; return m / n; })();   // the pad at the land's mean height round it
 // The open world's ground: the land, the places set into it, the roads graded in last (also used by tools/node_world.mjs).
 // (a place's blend ring never fills a river or open water: the land keeps its own height there, fading back over the banks)
@@ -609,7 +612,10 @@ export function createEldoriaWorld({ quality } = {}) {
     const heightAt = worldHeights(stamps);
     const biomeAt = makeBiomes(stamps);
     const BUILT_HERE = new Set(['The Obsidian Gate', 'The Great Rift']);   // (built as features, not stamped places: no marker)
-    const places = LAYOUT.places.map(p => ({ name: p.name, x: p.world[0], z: p.world[1], noMarker: BUILT_HERE.has(p.name) }));
+    const BUILT_IN_FIELDS = { 'The Hidden Cabin': [-50, -28], 'The Weeping Stones': [8, 40] };   // (built inside the Emerald Fields' map: their labels on them)
+    const FIELDS_AT = place('The Emerald Fields');
+    BUILT_HERE.add('The Sunken Temple'); BUILT_HERE.add('Sanguine Vaults');
+    const places = LAYOUT.places.map(p => { const f = BUILT_IN_FIELDS[p.name]; return { name: p.name, x: f ? FIELDS_AT.x + f[0] : p.world[0], z: f ? FIELDS_AT.z + f[1] : p.world[1], noMarker: BUILT_HERE.has(p.name) }; });
     const toCity = Math.atan2(CITY.x - GLADE.x, CITY.z - GLADE.z);
     const gl = stamps.find(st => st.id === 'outdoor'), gs = gl?.map.spawns?.start;
     const gladeStart = gs ? { ...gs, x: gs.x + gl.ox, z: gs.z + gl.oz } : null;   // the glade's own arrival point
@@ -740,6 +746,43 @@ export function createEldoriaWorld({ quality } = {}) {
       world.update = (t2, dt, ctx) => { updR(t2, dt, ctx); tt += dt; const P = ctx.player.pos, near = Math.hypot(P.x - RIFT_C.x, P.z - RIFT_C.z) < 1500 || Math.hypot(P.x - OGATE.x, P.z - OGATE.z) < 1200; g.visible = near; if (!near) return;
           portalTex.rotation = tt * 0.4; portalTex.center.set(0.5, 0.5); portalMat.opacity = 0.75 + Math.sin(tt * 2) * 0.1; glowMat.opacity = 0.42 + Math.sin(tt * 1.3) * 0.1;
           const p = motes.geometry.attributes.position; for (let i = 0; i < p.count; i++) { let y = p.getY(i) + dt * 1.6; const base = heightAt(p.getX(i), p.getZ(i)); if (y > base + 22) y = base; p.setY(i, y); } p.needsUpdate = true; };
+    }
+    // ---------- the Sunken Temple (DB: ancient ruins half-submerged in Lake Aethera's shallows, older than the Crimson Covenant,
+    // carved in a forgotten script; lights beneath the water at dusk) ----------
+    { const M0 = place('The Sunken Temple'); let T = null;
+      for (let r = 0; r < 160 && !T; r += 3) for (let a2 = 0; a2 < 6.28 && !T; a2 += 0.2) { const x = M0.x + Math.cos(a2) * r, z = M0.z + Math.sin(a2) * r, h = heightAt(x, z); if (h < WATER - 0.3 && h > WATER - 1.2) T = { x, z }; }
+      if (T) {
+        const g = new THREE.Group(), st = flat(0xa8a090), mos = flat(0x6a7a5a), glowW = new THREE.MeshBasicMaterial({ color: 0x5ad8c8, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false });
+        const a0 = Math.atan2(M0.z - T.z, M0.x - T.x); g.position.set(T.x, WATER - 1.2, T.z); g.rotation.y = -a0;
+        const mk = (geo, m, x, y, z) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; g.add(o); return o; };
+        mk(new THREE.BoxGeometry(18, 1.2, 12), st, 0, 0, 0);   // the drowned floor
+        for (let i = 0; i < 4; i++) mk(new THREE.BoxGeometry(12 - i * 2.5, 0.5, 2), st, 9 + i * 1.2, 0.5 + i * 0.5, 0);   // steps rising out of the water towards the island
+        for (const [x, z, h] of [[-7, -5, 6], [-2.3, -5, 4.2], [2.3, -5, 6.5], [7, -5, 3], [-7, 5, 5.5], [-2.3, 5, 6.5], [2.3, 5, 2.4], [7, 5, 6]]) { mk(new THREE.CylinderGeometry(0.55, 0.65, h, 8), (x + z) % 3 ? st : mos, x, h / 2, z); }
+        const ped = mk(new THREE.ConeGeometry(7, 2.2, 3), st, 0, 7.6, -5); ped.scale.set(1, 1, 0.15); ped.rotation.z = 0.12;   // a broken pediment
+        mk(new THREE.BoxGeometry(14, 0.7, 1.4), st, 0, 6.6, -5);
+        for (let i = 0; i < 5; i++) { const q = mk(new THREE.CircleGeometry(1.4 + i * 0.3, 8), glowW, -6 + i * 3, 0.65, (i % 2 ? 2 : -2)); q.rotation.x = -Math.PI / 2; }   // lights beneath the water
+        world.scene.add(g);
+        for (const [x, z] of [[-7, -5], [-2.3, -5], [2.3, -5], [7, -5], [-7, 5], [-2.3, 5], [2.3, 5], [7, 5]]) { const c = Math.cos(-a0), sn = Math.sin(-a0); world.addWall({ x: T.x + x * c + z * sn, z: T.z - x * sn + z * c, r: 0.7, kind: 'wall', y0: WATER - 2, y1: WATER + 7 }); }
+        world.stations.push({ mode: 'sign', id: 'sunken_temple', title: 'Carvings', pos: new THREE.Vector3(T.x, heightAt(T.x, T.z), T.z), text: 'Carvings run round the drowned columns in a script nobody living can read: rows of small figures facing a great circle, and waves. Water laps at the lowest line. At dusk, the fishermen say, the circle glows from below.' });
+        const upd5 = world.update; let tt = 0; world.update = (t2, dt, ctx) => { upd5(t2, dt, ctx); tt += dt; glowW.opacity = 0.2 + 0.18 * (0.5 + 0.5 * Math.sin(tt * 0.6)); };
+      }
+    }
+    // ---------- the Sanguine Vaults' entrance (DB: a deep subterranean region built by Acheron for the Crimson Covenant) ----------
+    { const V = VAULT;
+      const y0 = heightAt(V.x, V.z), g = new THREE.Group(); g.position.set(V.x, y0, V.z);
+      const st = flat(0x4a3438), dk = flat(0x2a1a1e), crim = flat(0x7a1a22), door = new THREE.MeshStandardMaterial({ color: 0x5a0a14, emissive: 0x3a0008, emissiveIntensity: 0.6, flatShading: true });
+      const mk = (geo, m, x, y, z) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; g.add(o); return o; };
+      // a squat gatehouse over the stair (the stair itself goes down inside it, out of sight): walls, the blood-red door
+      for (const s2 of [-1, 1]) mk(new THREE.BoxGeometry(1.4, 4, 10), st, s2 * 4, 2, -2.5);
+      mk(new THREE.BoxGeometry(9.4, 7, 1.6), st, 0, 3.5, -7.2); mk(new THREE.BoxGeometry(4.2, 4.6, 0.3), door, 0, 2.3, -6.35);   // the sealed vault door, blood-red
+      mk(new THREE.BoxGeometry(5.4, 0.6, 1.8), crim, 0, 5.1, -7.1); mk(new THREE.BoxGeometry(9.4, 0.8, 11), dk, 0, 7.2, -2.5);   // its lintel, the roof
+      for (let i = 0; i < 3; i++) mk(new THREE.BoxGeometry(6, 0.3, 1.2), dk, 0, 0.15 + i * 0.01, 2 - i * 1.2);   // worn flags before it
+      for (const s2 of [-1, 1]) { const tw = mk(new THREE.CylinderGeometry(1.6, 1.9, 5 + (s2 > 0 ? 2.5 : 0), 7), st, s2 * 9, 2.5, -3); tw.rotation.z = s2 * 0.05;
+          const ban = mk(new THREE.PlaneGeometry(1.2, 3.2), crim, s2 * 4.3, 1.6, 5.2); ban.material.side = THREE.DoubleSide; }
+      world.scene.add(g);
+      for (const s2 of [-1, 1]) for (let k = -3; k <= 2; k++) world.addWall({ x: V.x + s2 * 4, z: V.z - 2.5 + k * 1.6, r: 0.8, kind: 'wall', y0: y0 - 1, y1: y0 + 5 });
+      for (let k = -2; k <= 2; k++) world.addWall({ x: V.x + k * 2, z: V.z - 7.2, r: 0.9, kind: 'wall', y0: y0 - 1, y1: y0 + 8 });
+      world.stations.push({ mode: 'sign', id: 'sanguine_vaults', title: 'The vault door', pos: new THREE.Vector3(V.x, y0, V.z - 4.5), text: 'A squat gatehouse of dark stone over a stair into the earth; at its back, a door of blood-red stone, sealed with no handle and no keyhole. Something below breathes cold air through the seams. Scratched over the lintel in an old hand: "THE COVENANT KEEPS WHAT IT TAKES."' });
     }
     // ---------- the Sunward Isles: a fishing hamlet (huts, a pier with boats, drying racks) and a ruin on the tallest isle ----------
     if (ISLE_HAMLET && ISLE_RUIN) {

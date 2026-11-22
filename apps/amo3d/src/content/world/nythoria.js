@@ -46,6 +46,31 @@ export function createNythoriaWorld({ quality } = {}) {
     DEF.signs = [{ x: 4, z: 10, text: 'THE SHADOW-VALE — a free town of those who stayed. The inn takes any coin; the warden keeps the peace. North-east, on the cliff: old Ravenspire, in ruins. East: the Obsidian Gate.' }];
     const H = regionHeight(DEF), H0 = H(0, 0);
     const stamps = [prepStamp({ id: 'shadow_vale', make: () => buildRegion(DEF, { quality }), heightAt: H, ox: vale.x, oy: Math.max(WATER + 3 - H0, eldoriaHeight(vale.x, vale.z) - H0), oz: vale.z, rect: [-60, -60, 60, 60], blend: 110 })];
+    // Nythoria's own free towns (WORLD_PLAN: a port in the same spot, villages wherever they suit): an old map's houses in
+    // umbral colours, their own people. Labels are descriptive until the canon check names them.
+    function freeTown(srcId, id, name, place, people, sign) {
+        const src = REGION_DEFS[srcId], at2 = at(place); if (!src || !at2) return null;
+        const D = umbralTwin(src, { id, name, ruins: 0, spires: 1 });
+        D.buildings = (src.buildings ?? []).map(({ name: n, sign: sg, ...b }, i) => ({ ...b, wall: ['#5a5664', '#4e4a58', '#625e6c'][i % 3], roof: '#2e2a3a', timber: '#1e1a24' }));
+        D.props = (src.props ?? []).filter(p => ['lamp', 'stall', 'well', 'bench', 'barrel', 'crate', 'cart', 'fence', 'pier', 'boat', 'mine', 'heap', 'rails', 'chimney'].includes(p.type)).map(p => ({ ...p }));
+        D.people = people; D.signs = [{ x: 4, z: 10, text: sign }];
+        const Hh = regionHeight(D), h0 = Hh(0, 0), lake = (src.features ?? []).some(f2 => f2.type === 'lake'), half = src.half ?? 80;
+        const oy = lake ? WATER - (src.water ?? -1.2) : Math.max(WATER + 3 - h0, eldoriaHeight(at2.x, at2.z) - h0);
+        return prepStamp({ id, make: () => buildRegion(D, { quality }), heightAt: Hh, ox: at2.x, oy, oz: at2.z, rect: [-half * 0.75, -half * 0.75, half * 0.75, half * 0.75], blend: 110 });
+    }
+    for (const t of [
+        freeTown('port_silver', 'shadow_harbour', 'The shadow harbour', 'Port Silver', [
+            { name: 'Harbour Innkeeper', role: 'innkeeper', price: 9, x: 3, z: -8, facing: 0, greeting: 'Sailors drink here, and the boats that still go out under the eclipse. A room, traveller?' },
+            { name: 'Net-Mender', role: 'merchant', x: 18, z: -8, facing: 0, greeting: 'Rope, nets, lamp-oil, black salt from the shore. The sea still feeds those who know it.' },
+            { name: 'Harbour-Mistress', role: 'civilian', x: 10, z: 4, facing: 3.14, lines: ['The black water gives up its fish, but not easily. And not always fish.', 'The Legion sends a boat now and then, from the Gate\'s side. We take their coin and keep our counsel.'] },
+        ], 'THE SHADOW HARBOUR — a free town of those who stayed. The inn takes any coin; the net-mender sells what the sea needs. Mind the black water at the quays.'),
+        freeTown('iron_hollow', 'deep_miners', "The deep-miners' village", 'Iron Hollow', [
+            { name: 'Miners\' Innkeeper', role: 'innkeeper', price: 8, x: -6, z: 4, facing: 0, greeting: 'Dust on your boots already? Sit — the deep-miners don\'t ask where you\'re from.' },
+            { name: 'Ore-Trader', role: 'merchant', catalog: 'armourer', x: 6, z: 4, facing: 0, greeting: 'Black iron from under the hills. It holds an edge in the dark like nothing else.' },
+            { name: 'Mine-Foreman', role: 'civilian', archetype: 'soldier', x: 0, z: -6, facing: 3.14, lines: ['We dig because the hills give iron, and iron buys bread. Under the eclipse, that\'s enough.', 'Something knocks back in the deep tunnels. We\'ve sealed two shafts this year.'] },
+        ], "THE DEEP-MINERS' VILLAGE — free miners under the northern hills. Inn, ore-trader, and work for strong arms. The lower shafts are sealed: keep out."),
+    ]) if (t) stamps.push(t);
+    PLACES.push(...[['The shadow harbour', 'Port Silver'], ["The deep-miners' village", 'Iron Hollow']].map(([n, p]) => ({ name: n, ...at(p) })).filter(p => p.x != null));
     const heightAt = (x, z) => eldoriaHeight(x, z);   // (the twin's relief; the town's ground blended in by the engine)
     const biomes = makeBiomes(stamps, NYTHORIA_MAP), biomeAt = (x, z) => biomes(x, z);
     const gate = at('The Obsidian Gate');

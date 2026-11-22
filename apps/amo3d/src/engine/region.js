@@ -156,7 +156,10 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
 
     // ---------- links (archways to other regions) and reserved ground ----------
     const links = def.links ?? [];
-    const reserved = (x, z, m = 0) => links.some(l => Math.hypot(l.x - x, l.z - z) < 7 + m) || (trailDist(x, z) < 2.2 + m)
+    const archClear = (l, x, z, m) => { const dx = x - l.x, dz = z - l.z, f = l.facing ?? 0, along = dx * Math.sin(f) + dz * Math.cos(f), across = dx * Math.cos(f) - dz * Math.sin(f);
+        return Math.hypot(dx, dz) < 11 + m || (Math.abs(across) < 4 + m && Math.abs(along) < 22);   // round an archway, and a lane through it: no crown over the stone (Duskmeet, 2026-11-22)
+    };
+    const reserved = (x, z, m = 0) => links.some(l => archClear(l, x, z, m)) || (trailDist(x, z) < 2.2 + m)
         || (def.buildings ?? []).some(b => rectDist(b, x, z) < 3 + m) || (def.roads ?? []).some(r => segDist(x, z, r.pts) < (r.w ?? 3) / 2 + 1.5 + m)
         || props.some(pr => Math.hypot(pr.x - x, pr.z - z) < (pr.clear ?? 2) + m)   // clear: keep trees back from a prop (a pier's view)
         || (def.features ?? []).some(f => f.type === 'clearing' && Math.hypot(f.x - x, f.z - z) < f.r * 0.6);
