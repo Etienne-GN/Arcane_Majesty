@@ -85,11 +85,12 @@ export function createDeer({ home, stag = false, rng, map }) {
     const dir = new THREE.Vector3();
     const prev = new THREE.Vector3();
 
+    const wet = (x, z) => !!map.swimming?.(x, z) || map.heightAt(x, z) < (map.waterAt ? map.waterAt(x, z) : (map.mapInfo?.water ?? -2)) - 0.4;   // (no walking into the lake)
     function pickTarget() {
         for (let i = 0; i < 12; i++) {
             const a = rng() * Math.PI * 2, r = 4 + rng() * 14;
             const x = home.x + Math.cos(a) * r, z = home.z + Math.sin(a) * r;
-            if (!map.blockedAt(x, z, 0.6, map.heightAt(x, z))) return new THREE.Vector3(x, 0, z);
+            if (!map.blockedAt(x, z, 0.6, map.heightAt(x, z)) && !wet(x, z)) return new THREE.Vector3(x, 0, z);
         }
         return new THREE.Vector3(home.x, 0, home.z);
     }
@@ -159,7 +160,7 @@ export function createDeer({ home, stag = false, rng, map }) {
             pos.addScaledVector(dir, s.speed * dt);
             pos.y = map.heightAt(pos.x, pos.z);
             map.resolve(pos, 0.55);
-            if (map.blockedAt(pos.x, pos.z, 0.5, pos.y) === 'wall' || Math.hypot(pos.x, pos.z) > 90) {
+            if (map.blockedAt(pos.x, pos.z, 0.5, pos.y) === 'wall' || Math.hypot(pos.x - home.x, pos.z - home.z) > 90 || wet(pos.x, pos.z)) {   // (a leash round its home — it was round the map's centre: in the open world every step was undone, the deer spun in place)
                 pos.copy(prev);
                 s.heading += (rng() < 0.5 ? 1 : -1) * (0.8 + rng());
                 if (s.state === 'walk') s.target = pickTarget();
