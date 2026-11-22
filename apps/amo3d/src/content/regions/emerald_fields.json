@@ -1,382 +1,796 @@
 {
-  "id": "emerald_fields",
-  "name": "The Emerald Fields",
-  "lore": "A remote, untamed wilderness of the south where Kael and Anya hid in exile after emerging from the Underworld; the Hidden Cabin, their sanctuary of peace before tragedy struck; and in the south the Weeping Stones, seven monoliths with weeping faces worn smooth by the wind, raised by no one remembers whom, where locals leave wildflowers (lore DB: The Emerald Fields, The Hidden Cabin, The Weeping Stones). The noble werewolf pack, the Guardians of the Wild, roams here (they come with the races).",
-  "seed": 8181,
-  "half": 90,
-  "water": -1.6,
-  "terrain": {
-    "scale": 0.014,
-    "relief": 9,
-    "base": 0.8,
-    "rim": 18
+ "id": "emerald_fields",
+ "name": "The Emerald Fields",
+ "lore": "A remote, untamed wilderness of the south where Kael and Anya hid in exile after emerging from the Underworld; the Hidden Cabin, their sanctuary of peace before tragedy struck; and in the south the Weeping Stones, seven monoliths with weeping faces worn smooth by the wind, raised by no one remembers whom, where locals leave wildflowers (lore DB: The Emerald Fields, The Hidden Cabin, The Weeping Stones). The noble werewolf pack, the Guardians of the Wild, roams here (they come with the races).",
+ "seed": 8181,
+ "half": 90,
+ "water": -1.6,
+ "terrain": {
+  "scale": 0.014,
+  "relief": 9,
+  "base": 0.8,
+  "rim": 18
+ },
+ "palette": {
+  "grassA": "#3e8a3a",
+  "grassB": "#7ab84a",
+  "dirt": "#6a5a3a",
+  "rock": "#7a786c",
+  "shore": "#8a7a5a",
+  "road": "#7a6a48",
+  "water": "#2a5a5a"
+ },
+ "mood": {
+  "fog": "#d8e8d0",
+  "fogNear": 50,
+  "fogFar": 240,
+  "fogMix": 0.25,
+  "light": 1.08,
+  "motes": "#f0f0b0",
+  "nightFloor": 0.5
+ },
+ "features": [
+  {
+   "type": "clearing",
+   "x": 8,
+   "z": 40,
+   "r": 26
   },
-  "palette": {
-    "grassA": "#3e8a3a",
-    "grassB": "#7ab84a",
-    "dirt": "#6a5a3a",
-    "rock": "#7a786c",
-    "shore": "#8a7a5a",
-    "road": "#7a6a48",
-    "water": "#2a5a5a"
+  {
+   "type": "clearing",
+   "x": -48,
+   "z": -30,
+   "r": 18
   },
-  "mood": {
-    "fog": "#d8e8d0",
-    "fogNear": 50,
-    "fogFar": 240,
-    "fogMix": 0.25,
-    "light": 1.08,
-    "motes": "#f0f0b0",
-    "nightFloor": 0.5
+  {
+   "type": "hill",
+   "x": 40,
+   "z": -20,
+   "r": 30,
+   "h": 7
   },
-  "features": [
-    {
-      "type": "clearing",
-      "x": 8,
-      "z": 40,
-      "r": 26
-    },
-    {
-      "type": "clearing",
-      "x": -48,
-      "z": -30,
-      "r": 18
-    },
-    {
-      "type": "hill",
-      "x": 40,
-      "z": -20,
-      "r": 30,
-      "h": 7
-    },
-    {
-      "type": "hill",
-      "x": -30,
-      "z": 20,
-      "r": 26,
-      "h": 5
-    },
-    {
-      "type": "lake",
-      "x": 50,
-      "z": 50,
-      "r": 14,
-      "depth": 3
-    }
-  ],
-  "tints": [
-    {
-      "x": 8,
-      "z": 40,
-      "r": 14,
-      "color": "#8ab860",
-      "k": 0.5
-    },
-    {
-      "x": -10,
-      "z": -10,
-      "r": 30,
-      "color": "#b8d070",
-      "k": 0.25
-    }
-  ],
-  "path": [
-    [
-      0,
-      -84
-    ],
-    [
-      -4,
-      -64
-    ],
-    [
-      -18,
-      -48
-    ],
-    [
-      -40,
-      -34
-    ],
-    [
-      -48,
-      -30
-    ]
-  ],
-  "branches": [
-    [
-      [
-        -4,
-        -64
-      ],
-      [
-        6,
-        -40
-      ],
-      [
-        4,
-        -10
-      ],
-      [
-        8,
-        20
-      ],
-      [
-        8,
-        31
-      ]
-    ]
-  ],
-  "buildings": [
-    {
-      "x": -50,
-      "z": -28,
-      "w": 5,
-      "d": 4,
-      "h": 2.6,
-      "ry": 0.6,
-      "wall": "#8a6a44",
-      "roof": "#4a5a3a",
-      "timber": 5913122,
-      "chimney": true,
-      "name": "The Hidden Cabin"
-    }
-  ],
-  "props": [
-    {
-      "type": "weeping_stone",
-      "x": 17.0,
-      "z": 40.0,
-      "ry": -1.571,
-      "clear": 9
-    },
-    {
-      "type": "flowers",
-      "x": 15.6,
-      "z": 40.0
-    },
-    {
-      "type": "weeping_stone",
-      "x": 13.61,
-      "z": 47.04,
-      "ry": -2.468,
-      "clear": 9
-    },
-    {
-      "type": "flowers",
-      "x": 12.74,
-      "z": 45.94
-    },
-    {
-      "type": "weeping_stone",
-      "x": 6.0,
-      "z": 48.77,
-      "ry": 2.917,
-      "clear": 9
-    },
-    {
-      "type": "flowers",
-      "x": 6.31,
-      "z": 47.41
-    },
-    {
-      "type": "weeping_stone",
-      "x": -0.11,
-      "z": 43.9,
-      "ry": 2.02,
-      "clear": 9
-    },
-    {
-      "type": "flowers",
-      "x": 1.15,
-      "z": 43.3
-    },
-    {
-      "type": "weeping_stone",
-      "x": -0.11,
-      "z": 36.1,
-      "ry": 1.122,
-      "clear": 9
-    },
-    {
-      "type": "flowers",
-      "x": 1.15,
-      "z": 36.7
-    },
-    {
-      "type": "weeping_stone",
-      "x": 6.0,
-      "z": 31.23,
-      "ry": 0.224,
-      "clear": 9
-    },
-    {
-      "type": "flowers",
-      "x": 6.31,
-      "z": 32.59
-    },
-    {
-      "type": "weeping_stone",
-      "x": 13.61,
-      "z": 32.96,
-      "ry": -0.673,
-      "clear": 9
-    },
-    {
-      "type": "flowers",
-      "x": 12.74,
-      "z": 34.06
-    },
-    {
-      "type": "fence",
-      "x": -47,
-      "z": -22,
-      "ry": 0.6,
-      "len": 8
-    },
-    {
-      "type": "bench",
-      "x": -46,
-      "z": -31,
-      "ry": 2.2
-    },
-    {
-      "type": "flowers",
-      "x": -48,
-      "z": -25
-    },
-    {
-      "type": "flowers",
-      "x": -45,
-      "z": -27
-    },
-    {
-      "type": "barrel",
-      "x": -53,
-      "z": -25
-    },
-    {
-      "type": "flowers",
-      "x": 8,
-      "z": 40,
-      "clear": 12
-    },
-    {
-      "type": "flowers",
-      "x": -50,
-      "z": -28.5,
-      "clear": 10
-    }
-  ],
-  "signs": [
-    {
-      "x": -45.5,
-      "z": -29,
-      "text": "Carved small into the door frame, two names worn almost smooth: K \u00b7 A. The cabin is swept, as if someone still comes back."
-    }
-  ],
-  "trees": {
-    "count": 360,
-    "gaps": 0.62,
-    "sizeVar": 1.0,
-    "kinds": {
-      "broad": 0.6,
-      "birch": 0.3,
-      "pine": 0.1
-    },
-    "colors": {
-      "broad": "#2e6a2a"
-    }
+  {
+   "type": "hill",
+   "x": -30,
+   "z": 20,
+   "r": 26,
+   "h": 5
   },
-  "rocks": 50,
-  "gather": {
-    "herb": 9,
-    "berry": 7,
-    "mushroom": 4,
-    "wood": 4
-  },
-  "gates": [
-    {
-      "id": "fields_monolith",
-      "label": "Monolith of the Emerald Fields",
-      "x": 4,
-      "z": -70
-    }
-  ],
-  "actors": [
-    {
-      "type": "deer",
-      "homes": [
-        {
-          "x": 30,
-          "z": -30
-        },
-        {
-          "x": -40,
-          "z": 40
-        },
-        {
-          "x": 50,
-          "z": 20
-        }
-      ]
-    },
-    {
-      "type": "werewolves",
-      "den": {
-        "x": 44,
-        "z": -36
-      },
-      "count": 5
-    },
-    {
-      "type": "beasts",
-      "kind": "void_stalker",
-      "posts": [
-        {
-          "x": 66,
-          "z": -12
-        },
-        {
-          "x": 70,
-          "z": -58
-        }
-      ]
-    }
-  ],
-  "landmarks": [
-    {
-      "name": "The Weeping Stones",
-      "x": 8,
-      "z": 40,
-      "icon": "stones"
-    },
-    {
-      "name": "The Emerald Fields",
-      "x": 20,
-      "z": -10,
-      "icon": "dot"
-    },
-    {
-      "name": "The Guardians' ground",
-      "x": 44,
-      "z": -36,
-      "icon": "den"
-    }
-  ],
-  "links": [
-    {
-      "label": "To Lake Aethera",
-      "x": 0,
-      "z": -84,
-      "facing": 0,
-      "spawn": "from_lake",
-      "to": "lake_aethera",
-      "toSpawn": "from_fields"
-    }
-  ],
-  "start": {
-    "x": 0,
-    "z": -78,
-    "facing": 0
+  {
+   "type": "lake",
+   "x": 50,
+   "z": 50,
+   "r": 14,
+   "depth": 3
   }
+ ],
+ "tints": [
+  {
+   "x": 8,
+   "z": 40,
+   "r": 14,
+   "color": "#8ab860",
+   "k": 0.5
+  },
+  {
+   "x": -10,
+   "z": -10,
+   "r": 30,
+   "color": "#b8d070",
+   "k": 0.25
+  }
+ ],
+ "path": [
+  [
+   0,
+   -84
+  ],
+  [
+   -4,
+   -64
+  ],
+  [
+   -18,
+   -48
+  ],
+  [
+   -40,
+   -34
+  ],
+  [
+   -48,
+   -30
+  ]
+ ],
+ "branches": [
+  [
+   [
+    -4,
+    -64
+   ],
+   [
+    6,
+    -40
+   ],
+   [
+    4,
+    -10
+   ],
+   [
+    8,
+    20
+   ],
+   [
+    8,
+    31
+   ]
+  ]
+ ],
+ "buildings": [
+  {
+   "x": -50,
+   "z": -28,
+   "w": 5,
+   "d": 4,
+   "h": 2.6,
+   "ry": 0.6,
+   "wall": "#8a6a44",
+   "roof": "#4a5a3a",
+   "timber": 5913122,
+   "chimney": true,
+   "name": "The Hidden Cabin"
+  },
+  {
+   "x": 50,
+   "z": 8,
+   "w": 9,
+   "d": 6,
+   "h": 4.2,
+   "ry": 0,
+   "stone": false,
+   "roof": "#6a2e22",
+   "wall": "#d8ccb0",
+   "timber": "#4a3220",
+   "name": "The inn",
+   "tag": "village"
+  },
+  {
+   "x": 66,
+   "z": 7,
+   "w": 7,
+   "d": 5,
+   "h": 3.4,
+   "ry": 0,
+   "stone": false,
+   "roof": "#7a3a2a",
+   "wall": "#d8ccb0",
+   "timber": "#4a3220",
+   "name": "The general store",
+   "tag": "village"
+  },
+  {
+   "x": 74,
+   "z": 20,
+   "w": 6,
+   "d": 6,
+   "h": 3.4,
+   "ry": -1.5708,
+   "stone": true,
+   "roof": "#3a3430",
+   "name": "The armourer's smithy",
+   "tag": "village"
+  },
+  {
+   "x": 46,
+   "z": 24,
+   "w": 6,
+   "d": 5,
+   "h": 3.2,
+   "ry": 1.5708,
+   "stone": false,
+   "roof": "#7a3a2a",
+   "wall": "#d8ccb0",
+   "timber": "#4a3220",
+   "name": "The elder's house",
+   "tag": "village"
+  },
+  {
+   "x": 62,
+   "z": 32,
+   "w": 7,
+   "d": 5,
+   "h": 3.2,
+   "ry": 3.1416,
+   "stone": false,
+   "roof": "#8a5a2a",
+   "wall": "#d8ccb0",
+   "timber": "#4a3220",
+   "tag": "village"
+  },
+  {
+   "x": 56,
+   "z": 40,
+   "w": 6,
+   "d": 5,
+   "h": 3.0,
+   "ry": 3.1416,
+   "stone": false,
+   "roof": "#8a5a2a",
+   "wall": "#d8ccb0",
+   "timber": "#4a3220",
+   "tag": "village"
+  }
+ ],
+ "props": [
+  {
+   "type": "weeping_stone",
+   "x": 17.0,
+   "z": 40.0,
+   "ry": -1.571,
+   "clear": 9
+  },
+  {
+   "type": "flowers",
+   "x": 15.6,
+   "z": 40.0
+  },
+  {
+   "type": "weeping_stone",
+   "x": 13.61,
+   "z": 47.04,
+   "ry": -2.468,
+   "clear": 9
+  },
+  {
+   "type": "flowers",
+   "x": 12.74,
+   "z": 45.94
+  },
+  {
+   "type": "weeping_stone",
+   "x": 6.0,
+   "z": 48.77,
+   "ry": 2.917,
+   "clear": 9
+  },
+  {
+   "type": "flowers",
+   "x": 6.31,
+   "z": 47.41
+  },
+  {
+   "type": "weeping_stone",
+   "x": -0.11,
+   "z": 43.9,
+   "ry": 2.02,
+   "clear": 9
+  },
+  {
+   "type": "flowers",
+   "x": 1.15,
+   "z": 43.3
+  },
+  {
+   "type": "weeping_stone",
+   "x": -0.11,
+   "z": 36.1,
+   "ry": 1.122,
+   "clear": 9
+  },
+  {
+   "type": "flowers",
+   "x": 1.15,
+   "z": 36.7
+  },
+  {
+   "type": "weeping_stone",
+   "x": 6.0,
+   "z": 31.23,
+   "ry": 0.224,
+   "clear": 9
+  },
+  {
+   "type": "flowers",
+   "x": 6.31,
+   "z": 32.59
+  },
+  {
+   "type": "weeping_stone",
+   "x": 13.61,
+   "z": 32.96,
+   "ry": -0.673,
+   "clear": 9
+  },
+  {
+   "type": "flowers",
+   "x": 12.74,
+   "z": 34.06
+  },
+  {
+   "type": "fence",
+   "x": -47,
+   "z": -22,
+   "ry": 0.6,
+   "len": 8
+  },
+  {
+   "type": "bench",
+   "x": -46,
+   "z": -31,
+   "ry": 2.2
+  },
+  {
+   "type": "flowers",
+   "x": -48,
+   "z": -25
+  },
+  {
+   "type": "flowers",
+   "x": -45,
+   "z": -27
+  },
+  {
+   "type": "barrel",
+   "x": -53,
+   "z": -25
+  },
+  {
+   "type": "flowers",
+   "x": 8,
+   "z": 40,
+   "clear": 12
+  },
+  {
+   "type": "flowers",
+   "x": -50,
+   "z": -28.5,
+   "clear": 10
+  },
+  {
+   "type": "well",
+   "x": 60,
+   "z": 16,
+   "tag": "village"
+  },
+  {
+   "type": "stall",
+   "x": 57,
+   "z": 21,
+   "ry": 0,
+   "tag": "village"
+  },
+  {
+   "type": "stall",
+   "x": 64,
+   "z": 21,
+   "ry": 0,
+   "tag": "village"
+  },
+  {
+   "type": "cart",
+   "x": 69,
+   "z": 14,
+   "ry": 0.6,
+   "tag": "village"
+  },
+  {
+   "type": "chimney",
+   "x": 76,
+   "z": 22,
+   "tag": "village"
+  },
+  {
+   "type": "lamp",
+   "x": 70.5,
+   "z": 19.3,
+   "tag": "village"
+  },
+  {
+   "type": "lamp",
+   "x": 62.4,
+   "z": 26.7,
+   "tag": "village"
+  },
+  {
+   "type": "lamp",
+   "x": 51.9,
+   "z": 23.5,
+   "tag": "village"
+  },
+  {
+   "type": "lamp",
+   "x": 49.5,
+   "z": 12.7,
+   "tag": "village"
+  },
+  {
+   "type": "lamp",
+   "x": 57.6,
+   "z": 5.3,
+   "tag": "village"
+  },
+  {
+   "type": "lamp",
+   "x": 68.1,
+   "z": 8.5,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 70.0,
+   "z": -6.0,
+   "ry": 1.571,
+   "len": 6,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 67.7,
+   "z": -0.3,
+   "ry": 0.785,
+   "len": 6,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 62.0,
+   "z": 2.0,
+   "ry": 0.0,
+   "len": 6,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 56.3,
+   "z": -0.3,
+   "ry": -0.785,
+   "len": 6,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 54.0,
+   "z": -6.0,
+   "ry": -1.571,
+   "len": 6,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 56.3,
+   "z": -11.7,
+   "ry": -2.356,
+   "len": 6,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 62.0,
+   "z": -14.0,
+   "ry": -3.142,
+   "len": 6,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 67.7,
+   "z": -11.7,
+   "ry": -3.927,
+   "len": 6,
+   "tag": "village"
+  },
+  {
+   "type": "column",
+   "x": 59,
+   "z": -8,
+   "tag": "village"
+  },
+  {
+   "type": "column",
+   "x": 62,
+   "z": -4,
+   "tag": "village"
+  },
+  {
+   "type": "column",
+   "x": 65,
+   "z": -8,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 79.0,
+   "z": 46.0,
+   "ry": 1.571,
+   "len": 14,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 72.0,
+   "z": 53.0,
+   "ry": 0.0,
+   "len": 14,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 65.0,
+   "z": 46.0,
+   "ry": -1.571,
+   "len": 14,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 72.0,
+   "z": 39.0,
+   "ry": -3.142,
+   "len": 14,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 41.0,
+   "z": 42.0,
+   "ry": 1.571,
+   "len": 14,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 34.0,
+   "z": 49.0,
+   "ry": 0.0,
+   "len": 14,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 27.0,
+   "z": 42.0,
+   "ry": -1.571,
+   "len": 14,
+   "tag": "village"
+  },
+  {
+   "type": "fence",
+   "x": 34.0,
+   "z": 35.0,
+   "ry": -3.142,
+   "len": 14,
+   "tag": "village"
+  }
+ ],
+ "signs": [
+  {
+   "x": -45.5,
+   "z": -29,
+   "text": "Carved small into the door frame, two names worn almost smooth: K \u00b7 A. The cabin is swept, as if someone still comes back."
+  },
+  {
+   "x": 56,
+   "z": 0,
+   "text": "THE FIELDS' VILLAGE \u2014 rest at the inn, gear at the store and the smithy, practice at the training yard. North: the road to the Crossroads. West: the Weeping Stones (let them be).",
+   "tag": "village"
+  }
+ ],
+ "trees": {
+  "count": 360,
+  "gaps": 0.62,
+  "sizeVar": 1.0,
+  "kinds": {
+   "broad": 0.6,
+   "birch": 0.3,
+   "pine": 0.1
+  },
+  "colors": {
+   "broad": "#2e6a2a"
+  }
+ },
+ "rocks": 50,
+ "gather": {
+  "herb": 9,
+  "berry": 7,
+  "mushroom": 4,
+  "wood": 4
+ },
+ "gates": [
+  {
+   "id": "fields_monolith",
+   "label": "Monolith of the Emerald Fields",
+   "x": 4,
+   "z": -70
+  }
+ ],
+ "actors": [
+  {
+   "type": "deer",
+   "homes": [
+    {
+     "x": 30,
+     "z": -30
+    },
+    {
+     "x": -40,
+     "z": 40
+    },
+    {
+     "x": 50,
+     "z": 20
+    }
+   ]
+  },
+  {
+   "type": "werewolves",
+   "den": {
+    "x": 44,
+    "z": -36
+   },
+   "count": 5
+  },
+  {
+   "type": "beasts",
+   "kind": "void_stalker",
+   "posts": [
+    {
+     "x": 66,
+     "z": -12
+    },
+    {
+     "x": 70,
+     "z": -58
+    }
+   ]
+  }
+ ],
+ "landmarks": [
+  {
+   "name": "The Weeping Stones",
+   "x": 8,
+   "z": 40,
+   "icon": "stones"
+  },
+  {
+   "name": "The Emerald Fields",
+   "x": 20,
+   "z": -10,
+   "icon": "dot"
+  },
+  {
+   "name": "The Guardians' ground",
+   "x": 44,
+   "z": -36,
+   "icon": "den"
+  }
+ ],
+ "links": [
+  {
+   "label": "To Lake Aethera",
+   "x": 0,
+   "z": -84,
+   "facing": 0,
+   "spawn": "from_lake",
+   "to": "lake_aethera",
+   "toSpawn": "from_fields"
+  }
+ ],
+ "start": {
+  "x": 0,
+  "z": -78,
+  "facing": 0
+ },
+ "people": [
+  {
+   "name": "Innkeeper",
+   "role": "innkeeper",
+   "price": 6,
+   "x": 50,
+   "z": 11.6,
+   "facing": 3.1416,
+   "greeting": "Welcome, traveller \u2014 first night's half price for anyone new to the Fields. Rest up; the road wants you fresh.",
+   "tag": "village"
+  },
+  {
+   "name": "Storekeeper",
+   "role": "merchant",
+   "x": 66,
+   "z": 10.1,
+   "facing": 3.1416,
+   "greeting": "Rope, rations, a good knife. Everything a new adventurer forgets until they need it.",
+   "tag": "village"
+  },
+  {
+   "name": "Village Armourer",
+   "role": "merchant",
+   "catalog": "armourer",
+   "x": 70.6,
+   "z": 20,
+   "facing": -1.5708,
+   "greeting": "Padded, leather, a little mail for the brave. Start light; you'll learn what you need.",
+   "tag": "village"
+  },
+  {
+   "name": "Yard Trainer",
+   "role": "soldier",
+   "archetype": "soldier",
+   "x": 62,
+   "z": -1,
+   "facing": 3.1416,
+   "lines": [
+    "Every adventurer starts here. Strike the posts, learn your stance \u2014 your style grows with every blow you land.",
+    "Two hands, two tools: a blade and a shield, a staff and a spell, a bow and a quiver. Try them all before you choose.",
+    "When the posts bore you, the wolves in the eastern woods won't. Go carefully past the lake.",
+    "The road north leads to the Crossroads and the wider world. Come back when you've earned a few scars."
+   ],
+   "tag": "village"
+  },
+  {
+   "name": "Village Elder",
+   "role": "civilian",
+   "x": 49.6,
+   "z": 24,
+   "facing": -1.5708,
+   "lines": [
+    "New to the Fields? Then listen: the stones in the circle west of here weep for something old. Don't disturb them.",
+    "A cabin stands alone in the north-west, swept clean though nobody lives there. Leave it be \u2014 some stories are not ours.",
+    "Farmers need help with the beasts that come at night. Ask around; there's always work for willing hands.",
+    "When you're ready, the Monolith by the Fields' gate will carry you further \u2014 once you've touched it."
+   ],
+   "tag": "village"
+  },
+  {
+   "name": "Farmer",
+   "role": "farmer",
+   "x": 72,
+   "z": 41,
+   "facing": 0,
+   "wander": 4,
+   "lines": [
+    "Rabbits in the cabbages again. If you've a sling, I've a copper or two.",
+    "Good soil, the Fields. Better than the Scarlands, they say."
+   ],
+   "tag": "village"
+  },
+  {
+   "name": "Farmer",
+   "role": "farmer",
+   "x": 36,
+   "z": 36,
+   "facing": 0,
+   "wander": 4,
+   "lines": [
+    "The Guardians of the Wild keep the woods. Don't mistake them for beasts \u2014 and don't let them mistake you."
+   ],
+   "tag": "village"
+  }
+ ],
+ "roads": [
+  {
+   "pts": [
+    [
+     0,
+     -70
+    ],
+    [
+     20,
+     -46
+    ],
+    [
+     40,
+     -22
+    ],
+    [
+     56,
+     2
+    ],
+    [
+     60,
+     16
+    ]
+   ],
+   "w": 3,
+   "tag": "village"
+  }
+ ]
 }

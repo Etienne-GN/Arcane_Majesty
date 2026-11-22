@@ -88,6 +88,7 @@ try {
         console.error('loading…'); const N = await vite.ssrLoadModule('/src/content/world/nythoria.js'); console.error('loaded; creating…'); const w = N.createNythoriaWorld({ quality: { foliage: 0.3, shadows: false, particles: 0.5, fogFar: 0.75 } });
         console.log('stations', w.stations.map(s => s.mode + '→' + (s.to ?? '')).join(', '), '· spawns', Object.keys(w.spawns).slice(0, 12).join(', '), '· stamps', w.stamps.map(s => s.id).join(','), '· places', (w.mapInfo?.places ?? []).map(p => p.name).join(' / ')); process.exit(0);
     }
+    else if (cmd === 'rect') { for (const st of stamps) if (!args[0] || st.id === args[0]) console.log(st.id, 'rect', JSON.stringify(st.rect), 'world x', Math.round(st.X0), '…', Math.round(st.X1), 'z', Math.round(st.Z0), '…', Math.round(st.Z1)); }
     else if (cmd === 'places') {   // each place on the map: a real map set in there, or only a marker
         const L = (await import('../src/content/world/eldoria_layout.json', { with: { type: 'json' } })).default;
         for (const p of L.places) { if (p.plane && p.plane !== 'Eldoria') continue; const [x, z] = p.world; const st = stamps.map(s => [s.id, edgeDist(s, x, z)]).sort((a, b) => a[1] - b[1])[0];
