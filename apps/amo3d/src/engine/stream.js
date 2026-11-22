@@ -253,6 +253,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             if (st.dropWater && box.max.y - box.min.y < 0.05 && mats.some(m => m.transparent)) { drop.push(o); return; }   // (a place whose own water no longer has anywhere to lie)
             // a flat sheet of water at the world's water level: the world's own water covers it
             if (box.max.y - box.min.y < 0.05 && Math.abs(box.min.y - WATER) < 0.6 && mats.some(m => m.transparent)) { drop.push(o); return; }
+            if (o.isInstancedMesh) return;   // (trees and rocks are never cut: those standing on the outline are taken away whole below — a crown half-cut showed as a sliced round tree)
             if (box.min.x < st.X0 - 0.5 || box.max.x > st.X1 + 0.5 || box.min.z < st.Z0 - 0.5 || box.max.z > st.Z1 + 0.5 || o.userData.ground || (box.max.x - box.min.x) * (box.max.z - box.min.z) > st.ha * st.hb)
                 for (const m of mats) { if (m.isShaderMaterial) { m.clippingPlanes = planes; m.needsUpdate = true; } else shapeClip(m, st); }   // its ground cut to the rounded footprint
         });
