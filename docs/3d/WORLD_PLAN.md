@@ -35,6 +35,14 @@ through the canon check before it is presented as lore.
 | Bands (approved draft) | **1–10** starters (the Emerald Fields, the Shadow-Vale, Eldrin's glade). **11–20** Eldoria's heartlands, the lake, the coast; Nythoria's twins of them. **21–30** the western woods (Whisper-Wood, Duskmeet), Iron Hollow, the isles; Nythoria's forests. **31–40** the Scarlands, the Great Rift's edges, beyond the Divide; Nythoria's harsher lands. **41–50** the Obsidian Citadel, the Rift's depths, the Inferno, the Underworld. Quests follow the bands. |
 | Auroria | Its map later, not yet. |
 
+## Status (2026-11-22, releases 0.45.0–0.45.1)
+- [x] 1. The Scarlands: New Ravenspire (region map, tools/gen_new_ravenspire.py), the Great Rift (chasm + glow + rift_scar biome), the Obsidian Gate (portal station both ways).
+- [x] 2. Nythoria (content/world/nythoria.js): the twin relief, eclipse sky, umbral biomes (biome_maps/nythoria.json), the Gate's twin, the Shadow-Vale's town (the Crossroads' houses in umbral colours, Nythorian people), place markers.
+- [x] 3. Old Ravenspire's ruins (procedural, in nythoria.js).
+- [x] 4. The Emerald Fields' village (tools/gen_fields_village.py), unnamed.
+- [ ] 5. Level bands and quests; the start-world choice at character creation (a new adventurer starting in the Fields or the Shadow-Vale).
+- [ ] 6. The map bake (user's go). Nythoria's map too.
+
 ## Build order
 1. **The Scarlands**: the Great Rift, New Ravenspire (friendly), the Obsidian Gate; the wounded land between (ash heath,
    dead trees, shadow creatures thicker near the Rift).
