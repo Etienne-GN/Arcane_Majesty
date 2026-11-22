@@ -21,6 +21,7 @@ import { createAnimals, NAMES as ANIMAL_NAMES } from '../actors/animals.js';
 import { createDeer } from '../actors/deer.js';
 import { buildSailboat, buildBoat } from '../models/horse.js';
 import { STAIR_BASE, ELDRIN } from '../eldrinVale.js';
+import { levelAtEldoria } from './bands.js';
 import { flat } from '../../engine/lib.js';
 import { createBeasts, NAMES as BEAST_NAMES } from '../actors/beast.js';
 import { buildRegion, regionHeight, buildArch } from '../../engine/region.js';
@@ -613,7 +614,7 @@ export function createEldoriaWorld({ quality } = {}) {
     const gladeStart = gs ? { ...gs, x: gs.x + gl.ox, z: gs.z + gl.oz } : null;   // the glade's own arrival point
     let world = null;
     world = createStreamWorld({
-        walls: divideWalls(),
+        walls: divideWalls(), levelAt: levelAtEldoria,
         id: 'eldoria', name: 'Eldoria — the open world', seed: 501, size: 11200, heightAt, quality, stamps,
         spawn: gladeStart ?? { x: GLADE.x + 30, z: GLADE.z + 20, facing: toCity },
         mood: { fog: '#c8d2d8', fogNear: 180, fogFar: 760, fogMix: 0.5 },

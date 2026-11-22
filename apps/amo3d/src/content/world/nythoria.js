@@ -13,6 +13,7 @@ import { createBeasts, NAMES as BEAST_NAMES } from '../actors/beast.js';
 import { createAnimals, NAMES as ANIMAL_NAMES } from '../actors/animals.js';
 import { createDeer } from '../actors/deer.js';
 import { flat } from '../../engine/lib.js';
+import { levelAtNythoria } from './bands.js';
 
 const WATER = -2;
 const REGION_DEFS = Object.fromEntries(Object.values(import.meta.glob('../regions/*.json', { eager: true, import: 'default' })).map(d => [d.id, d]));
@@ -50,7 +51,7 @@ export function createNythoriaWorld({ quality } = {}) {
     const gate = at('The Obsidian Gate');
     let world = null;
     world = createStreamWorld({
-        walls: divideWalls(),
+        walls: divideWalls(), levelAt: levelAtNythoria,
         id: 'nythoria', name: 'Nythoria — the shadow world', seed: 777, size: 11200, heightAt, quality, stamps,
         spawn: { x: gate.x - 18, z: gate.z, facing: -Math.PI / 2 },
         mood: { plane: 'nythoria', fog: '#4a4458', fogNear: 70, fogFar: 520, fogMix: 0.55, crows: 14, crowsAt: { x: gate.x, z: gate.z } },   // the eclipse sky (N-4): the black sun in its silver corona, falling ash, crows

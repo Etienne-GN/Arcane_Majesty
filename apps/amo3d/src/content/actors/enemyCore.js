@@ -1,3 +1,4 @@
+import { scaleToLevel } from '../world/bands.js';
 import { sfx } from '../../engine/sfx.js';
 // Shared enemy core: everything an enemy does with amo's rules, apart from its body and its AI.
 //   stats      — ENEMY_TYPES[type] (health, damage, speed, sight, attackRange, xpReward, lootTable)
@@ -42,8 +43,12 @@ export function setPlatesVisible(v) { if (plateLayer) plateLayer.style.display =
 // a second loot roll and a rare regional drop, a gold nameplate; swift = permanently hastened, warded = a mana
 // ward every 20 s, vampiric = heals 30% of what it deals (onDealt); arcane fires a bolt every 6 s at whoever it fights, thorned turns 15% of every blow back on the striker (amo's
 // 3D creatures have no spell kits yet).
+// The level of the land where a creature is made (the open world sets it while it builds a place or spawns wildlife: bands.js)
+let levelCtx = null;
+export function setLevelContext(fn) { levelCtx = fn; }
 export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS = 20, def = null, elite = null }) {
-    const BASE = def ?? ENEMY_TYPES[type];   // def: a creature amo keeps outside ENEMY_TYPES (its boss)
+    const BASE0 = def ?? ENEMY_TYPES[type], L = BASE0 && levelCtx ? levelCtx(pos.x, pos.z) : null;
+    const BASE = L ? scaleToLevel(BASE0, Math.max(1, Math.min(50, L + Math.round((rng() - 0.5) * 2)))) : BASE0;   // (±1 round the land's level)   // def: a creature amo keeps outside ENEMY_TYPES (its boss)
     const DEF = elite ? { ...BASE, ...EL.eliteStats({ health: BASE.health, damage: BASE.damage, xpReward: BASE.xpReward, goldDrop: BASE.goldDrop ?? 0 }) } : BASE;
     const family = affinityOf(type);
     const s = { hp: DEF.health, fx: {}, dead: false, deadT: 0, flash: 0, seen: false, engaged: false, by: new Set(), byMe: false };
@@ -54,6 +59,7 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
     const label = document.createElement('div');
     label.style.cssText = 'font:calc(15px * var(--ui, 1)) Georgia,serif;color:#f0e6d2;text-shadow:0 1px 3px #000;letter-spacing:.06em';
     label.textContent = (elite?.boss ? (elite.affixes.length ? `${name} (${elite.affixes.map(a => EL.AFFIX_LABELS[a]).join(', ')})` : name) : elite ? `Elite ${name} — ${elite.affixes.map(a => EL.AFFIX_LABELS[a]).join(', ')}` : name) + (family.family ? ` · ${family.family[0].toUpperCase()}${family.family.slice(1)}` : '');
+    if (DEF.level) label.textContent = `Lv ${DEF.level} · ${label.textContent}`;
     if (elite) { label.style.color = '#ffd76a'; }
     const barBox = document.createElement('div');
     barBox.style.cssText = `width:${elite ? 130 : 100}px;height:6px;margin:3px auto 0;border:1px solid ${elite ? '#ffd76a' : '#eee6d288'};border-radius:4px;background:#0009;overflow:hidden`;

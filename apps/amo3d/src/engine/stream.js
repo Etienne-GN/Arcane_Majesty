@@ -8,6 +8,7 @@
 //   · one water plane follows the player;
 //   · no floating origin: at Eldoria's planned size (±3.75 km) float precision stays ~0.5 mm — not needed yet.
 // The map object has the same shape as a region's, so the player, the camera and the HUD use it unchanged.
+import { setLevelContext } from '../content/actors/enemyCore.js';
 import * as THREE from 'three';
 import { settings } from './settings.js';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
@@ -103,7 +104,7 @@ export function stampHeights(worldH, stamps, B = 60, keepAt = null) {   // keepA
 // Hooks for a real world (content/world/eldoria.js): spawn {x,z,facing}; clearAt(x,z) — no trees here (roads, a town's
 // plateau); groundColor(x,z,h,col) — paint a road or a place (return true when painted); places [{name,x,z}] — markers
 // standing where a place will be built (W2.1), named when you come near.
-export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], stamps = [], chart = null, mood = null, biomeAt = null, spawnWild = null, extraGather = [], walls = [], quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
+export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], stamps = [], chart = null, mood = null, biomeAt = null, spawnWild = null, extraGather = [], walls = [], levelAt = null, quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
     const scene = new THREE.Scene();
     const shell = createOutdoorShell(scene, { quality, mood: mood ?? { fog: '#c8d4d8', fogNear: 160, fogFar: 700, fogMix: 0.55 } });
     const half = size / 2, NT = Math.ceil(size / TILE);
@@ -233,7 +234,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     function integrate(st) {
         if (st.built) return st;
         const t0 = performance.now();
-        if (!st.map) st.map = st.make();
+        if (!st.map) { setLevelContext(levelAt ? (x, z) => levelAt(x + st.ox, z + st.oz) : null); try { st.map = st.make(); } finally { setLevelContext(null); } }   // (its creatures at the level of the land: bands.js)
         const g = new THREE.Group(); g.position.set(st.ox, st.oy, st.oz); g.name = 'stamp:' + st.id;
         st.group = g; st.off = new THREE.Vector3(st.ox, st.oy, st.oz); st.lpos = new THREE.Vector3(); st.lcam = new THREE.PerspectiveCamera();
         for (const o of [...st.map.scene.children]) if (!o.userData.shell) g.add(o);
@@ -358,7 +359,8 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
                 if (type) {
                     const n = beast ? 1 + Math.floor(wildRng() * 2) : 1 + Math.floor(wildRng() * 3), posts = [];
                     for (let k = 0; k < n; k++) posts.push({ x: x + (wildRng() - 0.5) * 8, z: z + (wildRng() - 0.5) * 8 });
-                    for (const hh of spawnWild(beast ? 'beast' : 'animal', type, posts, wildRng) ?? []) { if (hh.root) hh.root.userData.dynamic = true; wild.push({ h: hh, kind: beast ? 'beast' : 'animal' }); changed = true; }
+                    setLevelContext(levelAt); const made = (() => { try { return spawnWild(beast ? 'beast' : 'animal', type, posts, wildRng) ?? []; } finally { setLevelContext(null); } })();
+                    for (const hh of made) { if (hh.root) hh.root.userData.dynamic = true; wild.push({ h: hh, kind: beast ? 'beast' : 'animal' }); changed = true; }
                 }
             }
         }
