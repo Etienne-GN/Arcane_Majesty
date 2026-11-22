@@ -200,6 +200,9 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         if (stage !== 'press') return;
         stage = 'menu';
         root.classList.add('menu-on');
+        // the tap (or key) that woke the menu only shows it: its click, landing on the button now under the finger, is swallowed
+        const until = performance.now() + 500, eat = e => { if (performance.now() < until) { e.stopPropagation(); e.preventDefault(); } else removeEventListener('click', eat, true); };
+        addEventListener('click', eat, true); setTimeout(() => removeEventListener('click', eat, true), 600);
         music.play().catch(() => {});
         (hasSave ? cont : menu.children[1]).focus();
     }
