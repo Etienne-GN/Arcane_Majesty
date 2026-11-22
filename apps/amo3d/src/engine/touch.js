@@ -56,7 +56,7 @@ export function createTouchControls({ input, cam }) {
         body.touch-mode #skills .sk.off { display: none; }
         body.touch-mode #skills .sk .key { display: none; }
         body.touch-mode #minimap { width: 108px; height: 108px; top: 12px; right: calc(12px + env(safe-area-inset-right, 0px)); z-index: 6; pointer-events: auto; }
-        body.touch-mode #clock { right: calc(12px + env(safe-area-inset-right, 0px)) !important; top: 124px !important; font-size: ${u(13)} !important; }
+        body.touch-mode #clock { right: calc(12px + env(safe-area-inset-right, 0px)) !important; top: 136px !important;   /* (clear of the minimap and its ring, which end at ~127 px) */ font-size: ${u(13)} !important; }
         body.touch-mode #banner { top: 18px; font-size: ${u(22)}; }
         body.touch-mode #msg { bottom: 132px; max-width: 60vw; text-align: center; }
         body.touch-mode #prompt { top: auto; bottom: 26%; z-index: 6; max-width: 56vw; font-size: ${u(15)}; text-align: center; padding: 8px 16px; border-radius: 22px; background: #0b0a10c8; border: 1px solid #f3d88b88; }

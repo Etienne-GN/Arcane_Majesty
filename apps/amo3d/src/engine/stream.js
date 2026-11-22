@@ -669,7 +669,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             shell.update(dt, ctx);
             fpsT += dt; fpsN++; worst = Math.max(worst * 0.98, dt * 1000);
             if (fpsT >= 1) { fps = Math.round(fpsN / fpsT); fpsT = 0; fpsN = 0; }
-            hud.style.display = settings.showFps ? '' : 'none';   // the open world's readout: only with the performance counters (Options / F3)
+            hud.style.display = 'none';   // (its figures go into the one performance bar: streamStats)   // the open world's readout: only with the performance counters (Options / F3)
             let near = null, nd = 90;
             for (const mk of markers) { const d = Math.hypot(mk.x - P.x, mk.z - P.z); if (d < nd) { nd = d; near = mk; } }
             if (near) nameEl.textContent = near.name;

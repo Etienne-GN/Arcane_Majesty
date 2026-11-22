@@ -7,6 +7,7 @@
 //   finger to pan, wheel or pinch to zoom; tap a place (or anywhere) to set a waypoint, tap it again to clear.
 //   Minimap: a bronze ring with N on the rim, turning with the camera (Options → Minimap: north up instead);
 //   the icons, creatures, the waypoint — or an arrow on the rim with the distance when it is off the edge.
+import { edgeDist } from '../engine/stream.js';
 import '@fontsource/im-fell-english/400.css';
 import { fog as F } from '@rules';
 import { settings } from '../engine/settings.js';
@@ -92,6 +93,35 @@ body.title-on #minimap { display: none; }
     let drawRaf = 0, art = null, fog = null, mapRef = null, mapId = null, open = false, lastPlayer = null;
     const view = { cx: 0, cz: 0, zoom: 1, follow: false };
 
+    // ---- the baked chart (public/map/<id>/, made by tools/bake_map.mjs): image tiles, only drawn — never painted here ----
+    const BASE = import.meta.env.BASE_URL ?? '/', baked = { id: null, m: null, imgs: new Map() };
+    function loadBaked(id, onFail) {
+        baked.id = id; baked.m = null; baked.imgs.clear();
+        fetch(`${BASE}map/${id}/manifest.json`).then(r => r.ok ? r.json() : null).then(m => { if (baked.id !== id) return; if (m) { baked.m = m; if (open) draw(); } else onFail(); }).catch(() => baked.id === id && onFail());
+    }
+    function bimg(path) {   // a tile, loaded the first time it is wanted (at most ~60 kept: a phone's memory)
+        let im = baked.imgs.get(path);
+        if (!im) {
+            im = new Image(); im.decoding = 'async'; im.onload = () => { im.ready = true; if (open) draw(); };
+            im.src = `${BASE}map/${baked.id}/${path}`; baked.imgs.set(path, im);
+            if (baked.imgs.size > 60) for (const [k] of baked.imgs) { if (k !== '0.webp') { baked.imgs.delete(k); break; } }
+        } else { baked.imgs.delete(path); baked.imgs.set(path, im); }   // (most recently used last)
+        return im.ready ? im : null;
+    }
+    // worldToScreen(x, z) → [sx, sy]; k: screen px per metre; (x0, z0)–(x1, z1): the world seen
+    function drawBaked(g, scr, k, x0, z0, x1, z1) {
+        const m = baked.m; if (!m) return;
+        const base = bimg('0.webp'); if (base) { const [sx, sy] = scr(m.x0, m.z0); g.drawImage(base, sx, sy, m.span * k, m.span * k); }
+        const lvl = k > 0.7 ? 2 : k > 0.16 ? 1 : 0; if (!lvl) return;
+        const L = m.levels[lvl], i0 = Math.max(0, Math.floor((x0 - m.x0) / L.tile)), i1 = Math.min(L.n - 1, Math.floor((x1 - m.x0) / L.tile));
+        const j0 = Math.max(0, Math.floor((z0 - m.z0) / L.tile)), j1 = Math.min(L.n - 1, Math.floor((z1 - m.z0) / L.tile));
+        for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) {
+            const im = bimg(`${lvl}/${i}_${j}.webp`); if (!im) continue;
+            const [sx, sy] = scr(m.x0 + i * L.tile, m.z0 + j * L.tile);
+            g.drawImage(im, sx, sy, L.tile * k + 0.6, L.tile * k + 0.6);
+        }
+    }
+
     // ---- the chart, painted once per place ----
     function paint(map, PX_PER_M = map.mapInfo.pxPerM ?? 2) {
         const info = map.mapInfo, half = info.half, size = Math.round(half * 2 * PX_PER_M);
@@ -172,12 +202,21 @@ body.title-on #minimap { display: none; }
         const stamps = (info.stamps ?? []).filter(st => st.built && st.map.mapInfo).map(st => ({ st, art: paint(st.map) }));
         return { canvas: c, half, size, stamps };
     }
+    // A place's outline as world points (where edgeDist is 0, every 5°)
+    function outlineOf(st) {
+        const pts = [];
+        for (let a = 0; a < Math.PI * 2; a += Math.PI / 36) { let lo = 0, hi = Math.max(st.ha, st.hb) * 2; for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; if (edgeDist(st, st.cx + Math.cos(a) * m, st.cz + Math.sin(a) * m) > 0) hi = m; else lo = m; } pts.push([st.cx + Math.cos(a) * lo, st.cz + Math.sin(a) * lo]); }
+        return pts;
+    }
     // Draw the stamped places' charts: worldToScreen(x, z) → [sx, sy], k = screen px per metre.
     function drawStamps(g, worldToScreen, k) {
         for (const st of mapRef?.mapInfo?.stamps ?? []) if (st.built && st.map.mapInfo && !art.stamps.some(a => a.st === st)) { art.stamps.push({ st, art: paint(st.map) }); break; }   // a place built since (as you came near) — one a frame
         for (const { st, art: a } of art.stamps ?? []) {
             const ppm = st.map.mapInfo.pxPerM ?? 2, [sx, sy] = worldToScreen(st.X0, st.Z0);
+            st.outline ??= outlineOf(st);   // cut to the place's own rounded outline (not its chart's whole rectangle, its blank parchment and all)
+            g.save(); g.beginPath(); st.outline.forEach(([x, z], i) => { const [px, py] = worldToScreen(x, z); if (i) g.lineTo(px, py); else g.moveTo(px, py); }); g.closePath(); g.clip();
             g.drawImage(a.canvas, (st.rect[0] + a.half) * ppm, (st.rect[1] + a.half) * ppm, (st.rect[2] - st.rect[0]) * ppm, (st.rect[3] - st.rect[1]) * ppm, sx, sy, (st.X1 - st.X0) * k, (st.Z1 - st.Z0) * k);
+            g.restore();
         }
     }
     function fogFor(map, id) {
@@ -226,7 +265,12 @@ body.title-on #minimap { display: none; }
         mini.style.display = map.mapInfo ? '' : 'none';
         if (!map.mapInfo) { art = null; fog = null; return; }
         TILE = map.mapInfo.tileM ?? 0.5; PX_PER_M = map.mapInfo.pxPerM ?? 2;
-        if (!art || art.map !== map) art = { ...paint(map), map };
+        if (!art || art.map !== map) {
+            if (map.mapInfo.baked) {   // a world: its baked tiles (painted the old way only if they are missing)
+                art = { canvas: null, half: map.mapInfo.half, size: 0, stamps: [], map, baked: true };
+                loadBaked(map.mapInfo.baked, () => { if (art?.map === map) { art = { ...paint(map), map }; if (open) draw(); } });
+            } else art = { ...paint(map), map };
+        }
         fog = fogFor(map, id);
         refreshFog();
         title.textContent = map.name;
@@ -315,8 +359,8 @@ body.title-on #minimap { display: none; }
         g.save(); g.translate(c, c); g.rotate(rot); g.translate(-c, -c);
         const ox = player.pos.x - MINI_R * 1.45, oz = player.pos.z - MINI_R * 1.45, span = MINI_R * 2 * 1.45;   // a little extra so corners stay filled when turned
         const sOff = (c - MINI_R * 1.45 * scale);
-        g.drawImage(art.canvas, (ox + art.half) * PX_PER_M, (oz + art.half) * PX_PER_M, span * PX_PER_M, span * PX_PER_M, sOff, sOff, span * scale, span * scale);
-        detailStep(player.pos.x, player.pos.z);
+        if (art.baked) drawBaked(g, (x, z) => [sOff + (x - ox) * scale, sOff + (z - oz) * scale], scale, ox, oz, ox + span, oz + span);
+        else { g.drawImage(art.canvas, (ox + art.half) * PX_PER_M, (oz + art.half) * PX_PER_M, span * PX_PER_M, span * PX_PER_M, sOff, sOff, span * scale, span * scale); detailStep(player.pos.x, player.pos.z); }
         drawDetail(g, (x, z) => [sOff + (x - ox) * scale, sOff + (z - oz) * scale], scale, ox, oz, ox + span, oz + span);
         drawStamps(g, (x, z) => [sOff + (x - ox) * scale, sOff + (z - oz) * scale], scale);
         g.imageSmoothingEnabled = true;
@@ -373,9 +417,10 @@ body.title-on #minimap { display: none; }
         const scr = (x, zz) => [W / 2 + (x - view.cx) * z, Hh / 2 + (zz - view.cz) * z];
         g.fillStyle = `rgb(${PARCH.join(',')})`; g.fillRect(0, 0, W, Hh);
         const [x0, y0] = scr(-half, -half);
-        g.imageSmoothingEnabled = z < PX_PER_M * 1.5;
-        g.drawImage(art.canvas, x0, y0, half * 2 * z, half * 2 * z);
-        if (z > 0.35 && art.half > 400) {   // zoomed in on a world: the land in detail where you look (painted a few cells a frame)
+        if (art.baked) { g.imageSmoothingEnabled = z < 1.5; const [wx0, wz0] = [view.cx - W / 2 / z, view.cz - Hh / 2 / z]; drawBaked(g, scr, z, wx0, wz0, wx0 + W / z, wz0 + Hh / z); if (z > 0.6) drawDetail(g, scr, z, wx0, wz0, wx0 + W / z, wz0 + Hh / z); }
+        else { g.imageSmoothingEnabled = z < PX_PER_M * 1.5; g.drawImage(art.canvas, x0, y0, half * 2 * z, half * 2 * z); }
+        if (art.baked) { /* (the baked tiles carry the detail) */ }
+        else if (z > 0.35 && art.half > 400) {   // zoomed in on a world: the land in detail where you look (painted a few cells a frame)
             const [wx0, wz0] = [view.cx - W / 2 / z, view.cz - Hh / 2 / z], rings = Math.min(5, Math.ceil(Math.max(W, Hh) / z / DCELL / 2) + 1);
             if (detailStep(view.cx, view.cz, rings, 9000, rings + 1)) { cancelAnimationFrame(drawRaf); drawRaf = requestAnimationFrame(draw); }
             drawDetail(g, scr, z, wx0, wz0, wx0 + W / z, wz0 + Hh / z);

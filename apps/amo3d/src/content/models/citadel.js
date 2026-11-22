@@ -67,6 +67,10 @@ export function buildCitadel() {
     add(g, new THREE.ConeGeometry(10, 4, 4), mat(RED), 30, 18, 16, Math.PI / 4).scale.set(1, 1, 0.66);
     for (let i = 0; i < 5; i++) box(g, 0.9, 2.2, 0.2, glow(), 25 + i * 2.5, 12.5, 20.6);
     box(g, 16, 4, 11, STONE2, 30, 8, 16);
+    // its foundation: the terrace rises from the slope on solid masonry (it hung in the air where the plateau falls away)
+    box(g, 16, 30, 11, STONE2, 30, -9, 16);
+    for (const bx of [23.5, 36.5]) box(g, 2.4, 30, 12.6, STONE, bx, -9, 16);   // two buttresses
+    box(g, 9, 30, 2, STONE2, 26.5, -9, 10.5);   // joined to the undercroft
     void DARK;
     return g;
 }

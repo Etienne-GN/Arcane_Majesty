@@ -151,6 +151,7 @@ const cam = createOrbitCamera(camera);
 const input = createInput({ canvas: renderer.domElement, cam });
 createTouchControls({ input, cam });
 const perf = createPerf(renderer, quality);
+perf.extra = () => { const s = world.current?.streamStats?.(); return s ? `tiles ${s.tiles}${s.queue ? ' (+' + s.queue + ')' : ''} · build ${s.lastMs} ms` : ''; };
 const hud = createHud();
 
 // ---------- the hero: an amo character sheet ----------

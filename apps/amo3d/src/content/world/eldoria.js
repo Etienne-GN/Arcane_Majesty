@@ -666,6 +666,22 @@ export function createEldoriaWorld({ quality } = {}) {
       world.wading = (x, z) => pierAt(x, z) == null && baseWade(x, z);
       const upd = world.update; world.update = (t2, dt, ctx) => { upd(t2, dt, ctx); if (Math.hypot(ctx.player.pos.x - PORT.x, ctx.player.pos.z - PORT.z) < 500) for (const b of moored) b.update(dt, 0); g.visible = Math.hypot(ctx.player.pos.x - PORT.x, ctx.player.pos.z - PORT.z) < 900; };
     }
+    // ---------- Thaloria's waterfalls hung on the Citadel's real cliff (the gorge was widened and the plateau raised since
+    // they were placed: they stood half in the rock, white panels) — once the city is built, each refitted from rim to water ----------
+    { let done = false; const upd0 = world.update;
+      world.update = (t2, dt, ctx) => { upd0(t2, dt, ctx);
+          if (done) return; const st = world.stamps?.find(s2 => s2.id === 'thaloria'); if (!st?.built) return; done = true;
+          const falls = []; st.group.traverse(o => { if (o.userData?.fall) falls.push(o); });
+          for (const f of falls) {
+              const x = f.position.x + st.ox; let faceZ = null;
+              let wet = false; for (let z = f.position.z + st.oz + 40; z > f.position.z + st.oz - 70; z -= 1) { const hh = world.heightAt(x, z); if (hh < WATER) wet = true; else if (wet && hh > WATER + 8) { faceZ = z; break; } }   // (from the river north to the Citadel's cliff — not the city's own wall)
+              if (faceZ == null) { f.visible = false; continue; }
+              let rim = -Infinity; for (let z = faceZ; z > faceZ - 14; z -= 1) rim = Math.max(rim, world.heightAt(x, z));
+              const H = f.geometry.parameters.height, top = rim + 0.3, bot = WATER - 0.6;
+              f.scale.y = (top - bot) / H; f.position.set(f.position.x, (top + bot) / 2 - st.oy, faceZ + 1.2 - st.oz); f.rotation.x = 0;
+              st.group.traverse(o => { if (o.userData?.foamOf === f) o.position.set(f.position.x, WATER + 0.12 - st.oy, faceZ + 3.5 - st.oz); });
+          }
+      }; }
     // ---------- the Sunward Isles: a fishing hamlet (huts, a pier with boats, drying racks) and a ruin on the tallest isle ----------
     if (ISLE_HAMLET && ISLE_RUIN) {
         const g = new THREE.Group(), wood = flat(0x6e5236), dark = flat(0x3e2c1c), thatch = flat(0xb89a5a), wall = flat(0xd8ccb0), stone = flat(0x9a948a), moss = flat(0x6a7a5a);

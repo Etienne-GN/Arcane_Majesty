@@ -219,11 +219,15 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         setTimeout(() => e.remove(), 15000);
     }, 260);
 
+    let fade = null;
     function start() {
         if (stage === 'flying') return;
         stage = 'flying';
         root.classList.add('gone');
-        flight = { t: 0, from: camera.position.clone(), look: look.clone() };
+        flight = { t: 0 };
+        fade ??= Object.assign(document.createElement('div'), { id: 'titlefade' });
+        fade.style.cssText = 'position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:40';
+        document.body.append(fade);
     }
 
     // The cinematic: a slow eased swing around the tower, looking up at it.
@@ -247,21 +251,24 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
             if (stage === 'menu') music.volume = Math.min(VOLUME * settings.music, music.volume + dt * 0.25);
             return true;
         }
-        // Fly down to Eldrin's camera and hand over.
-        flight.t += dt / 2.6;
-        const k = Math.min(1, flight.t), e = k * k * (3 - 2 * k);
+        // A fade to black and back on Eldrin (asked 2026-11-21: in the open world the camera's flight from the tower
+        // swept across the land) — the title's shot drifts on while it darkens; at black the game camera takes over.
+        flight.t += dt / 1.5;
+        const k = Math.min(1, flight.t), OUT = 0.4, HOLD = 0.53;
         gameCamera.update(dt);   // keeps the game camera's target fresh
-        camera.position.lerpVectors(flight.from, gameCamera.position, e);
-        camera.lookAt(flight.look.clone().lerp(gameCamera.target, e));
+        if (k < OUT) { shot(t, camera.position); camera.lookAt(look); }
+        else {
+            if (!flight.started) { flight.started = true; document.body.classList.remove('title-on'); onStart(); gameCamera.update(dt); }   // at black: Eldrin and the HUD appear (the fade-in shows them)
+            camera.position.copy(gameCamera.position); camera.lookAt(gameCamera.target);
+        }
+        fade.style.opacity = String(k < OUT ? k / OUT : k < HOLD ? 1 : 1 - (k - HOLD) / (1 - HOLD));
         music.volume = Math.max(PLAY_VOLUME, VOLUME * (1 - k)) * settings.music;
         if (k >= 1) {
             active = false;
             clearInterval(emberTimer);
             removeEventListener('keydown', wake);
             removeEventListener('pointerdown', wake);
-            setTimeout(() => root.remove(), 1500);
-            document.body.classList.remove('title-on');
-            onStart();
+            setTimeout(() => root.remove(), 1500); fade?.remove();
         }
         return true;
     }

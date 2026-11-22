@@ -291,7 +291,8 @@ export function createThaloriaCity({ quality }) {
       box(parts.stone, B, 0, 0, B.d / 2, 5, 1.2, B.d);
       for (const s of [-1, 1]) box(parts.stone, B, s * 2.35, 1.2, B.d / 2, 0.3, 1.1, B.d);
       for (const t of [0.14, 0.32, 0.5, 0.68, 0.86]) box(parts.stone, { ...B, h: RIVER - 1 }, 0, 0, B.d * t, 3.4, BRIDGE.h - 1.2 - RIVER + 1, 2.6);
-      wallSeg(BRIDGE.x - 2.5, BRIDGE.z0, BRIDGE.x - 2.5, BRIDGE.z1, BRIDGE.h - 1, BRIDGE.h + 2, 0.2); wallSeg(BRIDGE.x + 2.5, BRIDGE.z0, BRIDGE.x + 2.5, BRIDGE.z1, BRIDGE.h - 1, BRIDGE.h + 2, 0.2); }
+      wallSeg(BRIDGE.x - 2.5, BRIDGE.z0, BRIDGE.x - 2.5, BRIDGE.z1, BRIDGE.h - 1, BRIDGE.h + 9, 0.2); wallSeg(BRIDGE.x + 2.5, BRIDGE.z0, BRIDGE.x + 2.5, BRIDGE.z1, BRIDGE.h - 1, BRIDGE.h + 9, 0.2);   // (taller than any hop: nobody goes over the side)
+      for (const z of [BRIDGE.z0, BRIDGE.z1]) for (const s of [-1, 1]) wallSeg(BRIDGE.x + s * 2.5, z, BRIDGE.x + s * 17, z + (z === BRIDGE.z0 ? 1.5 : -1.5), BRIDGE.h - 12, BRIDGE.h + 9, 0.4); }   // the gorge's rim by the bridge ends: no stepping off beside it
 
     // ---------- T4: the street's life ----------
     const at = (x, z) => ({ x, z, w: 1, d: 1, a: 0, h: heightAt(x, z) });
@@ -341,13 +342,16 @@ export function createThaloriaCity({ quality }) {
     }
 
     // ---------- waterfalls pouring off the Citadel's cliff into the gorge (as on the old painting), foam where they land ----------
-    const fallMat = new THREE.MeshStandardMaterial({ color: 0xdfeef4, emissive: 0xbfe6f0, emissiveIntensity: 0.7, transparent: true, opacity: 0.88, side: THREE.DoubleSide, depthWrite: false });
+    const fallTex = (() => { const c = document.createElement('canvas'); c.width = 64; c.height = 256; const g = c.getContext('2d'); g.fillStyle = 'rgba(255,255,255,0.35)'; g.fillRect(0, 0, 64, 256);
+        for (let i = 0; i < 70; i++) { const x = (i * 37) % 64, w = 1 + (i % 3), y = (i * 53) % 256, l = 40 + (i * 29) % 120; g.fillStyle = `rgba(255,255,255,${0.5 + (i % 5) * 0.1})`; g.fillRect(x, y, w, l); g.fillRect(x, y - 256, w, l); }
+        const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(1, 3); return t; })();
+    const fallMat = new THREE.MeshStandardMaterial({ color: 0xf0f8fc, map: fallTex, alphaMap: fallTex, emissive: 0xa8d0dc, emissiveIntensity: 0.35, transparent: true, opacity: 0.85, side: THREE.DoubleSide, depthWrite: false });   // streaks of falling water, scrolling (a soft glow, not a white panel at night)
     const foamMat = new THREE.MeshBasicMaterial({ color: 0xf4fbff, transparent: true, opacity: 0.7, depthWrite: false });
     const falls = [];
     for (const [dx, w] of [[-34, 7], [-12, 10], [18, 6], [46, 4.5]]) {
         const x = BRIDGE.x + dx, zc = NORTH - GW + 2.5, top = CIT_H + 0.5, H = top - RIVER;
-        const f2 = new THREE.Mesh(new THREE.PlaneGeometry(w, H, 1, 6), fallMat); f2.position.set(x, RIVER + H / 2, zc); f2.rotation.x = -0.1; scene.add(f2);
-        const foam = new THREE.Mesh(new THREE.CircleGeometry(w * 0.9, 12).rotateX(-Math.PI / 2), foamMat); foam.position.set(x, RIVER + 4.2, zc + 3); scene.add(foam); falls.push(foam);
+        const f2 = new THREE.Mesh(new THREE.PlaneGeometry(w, H, 1, 6), fallMat); f2.position.set(x, RIVER + H / 2, zc); f2.rotation.x = -0.1; f2.userData.fall = { w }; f2.userData.dynamic = true; scene.add(f2);
+        const foam = new THREE.Mesh(new THREE.CircleGeometry(w * 0.9, 12).rotateX(-Math.PI / 2), foamMat); foam.position.set(x, RIVER + 4.2, zc + 3); foam.userData.foamOf = f2; foam.userData.dynamic = true; scene.add(foam); falls.push(foam);
     }
 
     // the materials (windows warm at dusk), and the merged meshes
@@ -494,7 +498,7 @@ export function createThaloriaCity({ quality }) {
         groundNormal: () => new THREE.Vector3(0, 1, 0),
         weatherDef: { id: 'thaloria', biome: 'temperate' },
         town,
-        update(t, dt, ctx) { const S = shell.update(dt, ctx), n = S?.night ?? 0; winMat.emissiveIntensity = n * 1.3; M.lamp.emissiveIntensity = n * 2.4; town.update(dt, ctx);
+        update(t, dt, ctx) { const S = shell.update(dt, ctx), n = S?.night ?? 0; fallTex.offset.y += dt * 0.9; winMat.emissiveIntensity = n * 1.3; M.lamp.emissiveIntensity = n * 2.4; town.update(dt, ctx);
             const PG = ctx.player.pos;
             for (const gd of guards) {   // a slow round of the wall, a pause now and then to look out
                 if (gd.pause > 0) { gd.pause -= dt; gd.m.update(dt, { speed: 0, sprinting: false, hopK: null }); continue; }
