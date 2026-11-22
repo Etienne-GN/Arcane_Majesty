@@ -141,7 +141,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         const g1 = document.createElement('div'); g1.className = 'pg'; g1.textContent = 'CAMPAIGNS'; panel.append(g1);
         const first = CAMPAIGNS.map(c => choice(c.title, c.sub, () => onNewGame(c.id)))[0];
         const g2 = document.createElement('div'); g2.className = 'pg'; g2.textContent = 'FREE PLAY'; panel.append(g2);
-        choice('Your Own Hero', 'Make a character in the Forge and arrive in Thaloria as a newcomer', () => onNewGame('hero'));
+        choice('Your Own Hero', 'Make a character in the Forge, then begin in the Emerald Fields, the Shadow-Vale of Nythoria, or Thaloria', () => onNewGame('hero'));
         const back = document.createElement('button'); back.className = 'back'; back.textContent = 'BACK';
         back.onclick = () => { panel.classList.remove('on'); menu.style.display = ''; };
         panel.append(back);

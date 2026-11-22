@@ -47,6 +47,20 @@ html body #dlg .choices button:hover, html body #dlg .choices button:focus-visib
 html body #camp .row.cant { opacity: .78 !important; }
 html body #camp .no { color: #e8a088 !important; }
 html body #camp .ok { color: #c8e8a0 !important; }
+/* the title screen's panels (new game, the workshop…): the same wood and gold, choices as cards */
+html body #titlescreen .panel { background: linear-gradient(180deg, #3e2a18f0, #2a1c10f2) !important; border: 0 !important; border-radius: 14px !important;
+  box-shadow: 0 0 0 3px #6a4a22, 0 0 0 5px var(--th-gold), 0 0 0 7px #2a1a0c, 0 18px 50px #000d !important; color: var(--th-text); font-family: Georgia, serif; text-align: center; padding: 20px 24px 18px !important; }
+html body #titlescreen .panel .ph { font-family: 'IM Fell English', Georgia, serif; font-size: calc(26px * var(--ui, 1)); letter-spacing: .22em; color: var(--th-gold-hi); margin-bottom: 6px; }
+html body #titlescreen .panel .pg { font-family: 'IM Fell English', Georgia, serif; font-size: calc(13px * var(--ui, 1)); letter-spacing: .3em; color: #c8a870; margin: 14px 0 6px; display: flex; align-items: center; gap: 10px; }
+html body #titlescreen .panel .pg::before, html body #titlescreen .panel .pg::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #c8963a99, transparent); }
+html body #titlescreen .panel button.choice { display: block; width: 100%; margin: 8px 0; padding: 12px 16px; text-align: left; cursor: pointer;
+  background: linear-gradient(180deg, #4a3220, #2e1e12); border: 1px solid #c8963a88; border-radius: 11px; box-shadow: inset 0 1px 0 #ffffff14, 0 3px 6px #0009; color: var(--th-text); transition: border-color .15s, box-shadow .15s, transform .15s; }
+html body #titlescreen .panel button.choice:hover, html body #titlescreen .panel button.choice:focus-visible { border-color: var(--th-gold-hi); box-shadow: 0 0 14px #f3d88b55, inset 0 1px 0 #ffffff1c; outline: none; transform: translateY(-1px); }
+html body #titlescreen .panel .ct { display: block; font-family: 'IM Fell English', Georgia, serif; font-size: calc(21px * var(--ui, 1)); color: var(--th-gold-hi); letter-spacing: .04em; }
+html body #titlescreen .panel .cs { display: block; margin-top: 3px; font-family: Georgia, serif; font-style: italic; font-size: calc(14px * var(--ui, 1)); color: #d8c8a4; opacity: .9; }
+html body #titlescreen .panel button.back, html body #titlescreen .panel > button:not(.choice) { margin-top: 12px; padding: 7px 22px; font-family: 'IM Fell English', Georgia, serif; font-size: calc(15px * var(--ui, 1)); letter-spacing: .2em; color: var(--th-text);
+  background: transparent; border: 1px solid #c8963a66; border-radius: 9px; cursor: pointer; }
+html body #titlescreen .panel button.back:hover { border-color: var(--th-gold-hi); }
 /* buttons in the menus: one style */
 ${DARK.map(r => `html body ${r} button:not(.close)`).join(',')} {
   font-family: 'IM Fell English', Georgia, serif !important; font-size: calc(16px * var(--ui, 1)) !important; color: var(--th-text) !important;
