@@ -3,6 +3,7 @@
 // a flame wall burns along a line, an earth pillar bursts up, spikes and ice pikes erupt (the pikes in a line from
 // the caster), a tornado walks forward dragging enemies, a whirlpool spins, a geyser shoots up, lightning falls from
 // the sky, shadow and arcane shock-waves roll out. Damage stays amo's (the caller's hitArea); some set-pieces add ticks.
+import { drape } from '../engine/drape.js';
 import * as THREE from 'three';
 
 const R = Math.random;
@@ -20,8 +21,8 @@ export function createSpectacle({ group, fx, shake, explodeAt, getMap }) {
 
     // A ring rolling outward on the ground.
     function shockwave(p, r, color, life = 0.7, h = 0.12) {
-        const m = new THREE.Mesh(new THREE.TorusGeometry(1, 0.08, 4, 40), glow(color, 0.85));
-        m.rotation.x = Math.PI / 2; m.position.copy(p).setY(p.y + h);
+        const m = new THREE.Mesh(new THREE.RingGeometry(0.9, 1, 48), glow(color, 0.85));
+        m.rotation.x = -Math.PI / 2; m.position.copy(p); m.material.side = THREE.DoubleSide; drape(m, h);   // (a ring lying on the ground, slopes and all)
         add(m, life, (dt, k) => { m.scale.setScalar(0.2 + k * r); fade(m, 1 - k); });
     }
     // Something that bursts out of the ground, stays, then sinks.
@@ -149,9 +150,9 @@ export function createSpectacle({ group, fx, shake, explodeAt, getMap }) {
         void_pulse(p, r, k) { shockwave(p, r * 1.8, 0x2a0a3a, 0.9, 0.3); shockwave(p, r * 1.3, 0x8a4aff, 0.7, 0.6); shake(0.3); return false; },
         arcane_burst(p, r, k) {
             const runes = new THREE.Group();
-            const ring = new THREE.Mesh(new THREE.RingGeometry(r * 0.9, r, 48), glow(0xc8a8ff, 0.8)); ring.rotation.x = -Math.PI / 2; runes.add(ring);
+            const ring = new THREE.Mesh(new THREE.RingGeometry(r * 0.9, r, 48), glow(0xc8a8ff, 0.8)); ring.rotation.x = -Math.PI / 2; runes.add(ring); drape(ring, 0.1);
             for (let i = 0; i < 8; i++) { const a = (i / 8) * Math.PI * 2, g = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.02, 0.5), glow(0xfff0ff, 0.9)); g.position.set(Math.cos(a) * r * 0.75, 0, Math.sin(a) * r * 0.75); g.rotation.y = -a; runes.add(g); }
-            runes.position.copy(p).setY(p.y + 0.1);
+            runes.position.copy(p);
             add(runes, 1.4, (dt, kk) => { runes.rotation.y += dt * 2; fade(runes, 1 - kk); });
             const col = new THREE.Mesh(new THREE.CylinderGeometry(r * 0.4, r * 0.6, 8 * k, 16, 1, true), glow(0xb89aff, 0.4)); col.material.side = THREE.DoubleSide; col.material.blending = THREE.AdditiveBlending;
             col.position.copy(p).setY(p.y + 4 * k); add(col, 0.8, (dt, kk) => { col.scale.set(1 + kk, 1, 1 + kk); fade(col, 1 - kk); });
@@ -167,8 +168,8 @@ export function createSpectacle({ group, fx, shake, explodeAt, getMap }) {
     function channel(feet, top, color, k, dt) {
         if (!circle || circle.parent !== group) {
             circle = new THREE.Group();
-            const ring = new THREE.Mesh(new THREE.RingGeometry(1.15, 1.3, 48), glow(color, 0.85)); ring.rotation.x = -Math.PI / 2; circle.add(ring);
-            const inner = new THREE.Mesh(new THREE.RingGeometry(0.75, 0.8, 6), glow(color, 0.7)); inner.rotation.x = -Math.PI / 2; circle.add(inner);
+            const ring = new THREE.Mesh(new THREE.RingGeometry(1.15, 1.3, 48), glow(color, 0.85)); ring.rotation.x = -Math.PI / 2; circle.add(ring); drape(ring, 0.06);
+            const inner = new THREE.Mesh(new THREE.RingGeometry(0.75, 0.8, 6), glow(color, 0.7)); inner.rotation.x = -Math.PI / 2; circle.add(inner); drape(inner, 0.07);
             for (let i = 0; i < 6; i++) { const a = (i / 6) * Math.PI * 2, g = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.01, 0.3), glow(color, 0.9)); g.position.set(Math.cos(a) * 1.0, 0, Math.sin(a) * 1.0); g.rotation.y = -a; circle.add(g); }
             group.add(circle);
             circle.userData.t = 0;

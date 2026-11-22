@@ -3,6 +3,7 @@
 // gathering motes…), and marks on the creatures they leave changed (dazed stars, blood, roots, the hunter's mark,
 // cracked armour, a limp). No lights are added (a changing light count recompiles every material); all glow is
 // additive sprites and particles.
+import { drape } from '../engine/drape.js';
 import * as THREE from 'three';
 import { Particles } from '../engine/lib.js';
 import { statuses } from '@rules';
@@ -56,7 +57,7 @@ export function createSkillFx() {
     }
     function shock(pos, radius, color = 0xffd090, dur = 0.45) {
         const m = new THREE.Mesh(new THREE.RingGeometry(0.75, 1, 48).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.85, toneMapped: false, depthWrite: false, blending: THREE.AdditiveBlending }));
-        m.position.set(pos.x, pos.y + 0.07, pos.z);
+        m.position.set(pos.x, pos.y, pos.z); drape(m, 0.07);
         add(m, dur, k => { m.scale.setScalar(0.3 + k * radius); m.material.opacity = 0.85 * (1 - k); });
     }
     // Cracks in the ground, radiating from where a heavy blow landed; they fade over two seconds.

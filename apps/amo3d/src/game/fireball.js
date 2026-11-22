@@ -3,6 +3,7 @@ import { sfx } from '../engine/sfx.js';
 // spell's element colours; amo numbers for damage (spellDamageAt), status (scaledStatus), range, affinity.
 // targeted_aoe (Fireball) bursts over an area; directional bolts hit the one they strike. Quirks: Triple Dart
 // and Needle Volley fire a fan, Seeker Dart homes, Life Drain heals the caster, Chain Lightning jumps.
+import { drape } from '../engine/drape.js';
 import * as THREE from 'three';
 import { createSpectacle } from './spectacle.js';
 import { spells } from '@rules';
@@ -191,8 +192,8 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         group.add(flash);
         const ring = new THREE.Mesh(ringGeo, new THREE.MeshBasicMaterial({ color: 0xffa040, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
         ring.position.copy(p).addScaledVector(normal, 0.08);
-        ring.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), normal);
-        group.add(ring);
+        if (normal.y > 0.5) { ring.position.copy(p); ring.rotation.x = -Math.PI / 2; group.add(ring); drape(ring, 0.08); }   // on the ground: lying on its slopes
+        else { ring.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), normal); group.add(ring); }
         blasts.push({ t: 0, flash, ring, radius });
         blastLight.color.setHex(0xff9a40);
         blastLight.position.copy(p).addScaledVector(normal, 0.8);
@@ -213,9 +214,8 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         if (normal.y > 0.5) {
             const d = new THREE.Mesh(decalGeo, new THREE.MeshBasicMaterial({ map: scorchTex, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2 }));
             d.scale.setScalar(radius * 0.9);
-            d.position.copy(p).addScaledVector(normal, 0.03);
-            d.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), normal);
-            group.add(d);
+            d.position.copy(p); d.rotation.x = -Math.PI / 2;
+            group.add(d); drape(d, 0.04);   // the scorch lies on the ground round the blast, slopes and all
             decals.push({ mesh: d, t: 0 });
             if (decals.length > 14) { const old = decals.shift(); group.remove(old.mesh); }
         }
@@ -271,7 +271,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         sfx.boom();
         // ring on the ground + a flash of the element
         const ring = new THREE.Mesh(ringGeo, new THREE.MeshBasicMaterial({ color: pal[3], transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
-        ring.position.copy(point).setY(point.y + 0.08); ring.rotation.x = -Math.PI / 2; group.add(ring);
+        ring.position.copy(point); ring.rotation.x = -Math.PI / 2; group.add(ring); drape(ring, 0.08);
         const flash = new THREE.Sprite(glowMat()); flash.material.color.setHex(pal[3]); flash.position.copy(point).setY(point.y + 0.6); group.add(flash);
         blasts.push({ t: 0, flash, ring, radius: r });
         blastLight.color.setHex(pal[3]); blastLight.position.copy(point).setY(point.y + 1); blastLight.intensity = 90;

@@ -1,5 +1,6 @@
 // Arcane Majesty 3D — boot. Wires the engine (renderer, input, camera, maps, loop), the game
 // (an amo character sheet, the player controller, spells, HUD, saving) and the content (maps).
+import { drapeAll } from './engine/drape.js';
 import * as THREE from 'three';
 import { spells as spellsAll, mastery as masteryRules } from '@rules';
 import { gameClock as clockRules, weather as weatherRules, eastRoadMap, thaloriaMap } from '@rules';
@@ -768,6 +769,7 @@ function tick(dt) {
             if (kind === 'down') handDown(side, how, act); else handUp(side, act);
         }
         aiming.update(dt);
+        { const m = world.current; if (m?.heightAt) drapeAll((x, z) => Math.max(m.groundAt ? m.groundAt(x, z) : m.heightAt(x, z), m.waterAt ? m.waterAt(x, z) : (m.mapInfo?.water ?? -Infinity))); }   // spell rings and marks on the relief
     }
     hands.update();
     if ((handsTick -= dt) <= 0) { handsTick = 0.1; hands.render(); document.body.classList.toggle('blink-on', (stats.skills?.blink_step?.level ?? 0) > 0); document.body.classList.toggle('wolf-on', WEREWOLF); player.setWolf(WEREWOLF && !!stats.flags?.wolfForm); }

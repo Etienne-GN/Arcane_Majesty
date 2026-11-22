@@ -5,6 +5,7 @@
 // line), leap (jump ahead, land among them), line (a thrust through a whole row), flurry (fast blows in front),
 // shadowstep (behind the nearest enemy), taunt (draw them in, take less), shot (a bow / crossbow skill shot),
 // volley (quick magic bolts), chain (a bolt that jumps), release (all your mana in a blast around you).
+import { drape } from '../engine/drape.js';
 import { styles as styleRules, styleData, weapons as weaponRules, mastery as M, items as itemRules, statuses } from '@rules';
 
 const { STYLE_SKILLS, STYLES } = styleData;
@@ -173,7 +174,7 @@ export function createSkills({ stats, player, hud, cam, world, archery = () => n
     const magicDmg = (k, weapon) => { const W = WEAPON_TYPES[weapon]; return Math.max(1, Math.floor((8 + stats.attributes.intelligence * 2 + Math.floor(Math.random() * 6) - 2) * W.dmgMult * M.levelDamageMult(stats.weaponLevel(weapon)) * (k.mult ?? 1) * player.statsMult())); };
     function ring(radius, color = 0xffd090) {   // a flash on the ground (a landing, a release)
         const r = new THREE.Mesh(new THREE.RingGeometry(0.7, 1, 40).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.8, toneMapped: false, depthWrite: false }));
-        r.position.copy(player.state.pos).setY(player.state.pos.y + 0.06); world.current.scene.add(r);
+        r.position.copy(player.state.pos); world.current.scene.add(r); drape(r, 0.06);
         timers.push({ t: 0, dur: 0.45, fn: k => { r.scale.setScalar(0.3 + k * radius); r.material.opacity = 0.8 * (1 - k); if (k >= 1) r.parent?.remove(r); } });
     }
 
