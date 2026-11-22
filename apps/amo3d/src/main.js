@@ -902,5 +902,5 @@ window.__poc = {
     setTime: h => { stats.gameMinutes = Math.floor((stats.gameMinutes ?? 0) / 1440) * 1440 + h * 60; },
     setWeather: w => { weatherOverride = w; },
     strike: () => input.press('strike'),
-    workNode, loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, fireballs, aiming, SPELLS: spellsAll.SPELLS, player: player.state, playerApi: player,
+    workNode, loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, fireballs, aiming, options, slots, bountyBoard, SPELLS: spellsAll.SPELLS, player: player.state, playerApi: player,
 };

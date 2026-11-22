@@ -36,6 +36,17 @@ html body #codex .rib.on { box-shadow: 0 0 0 1px var(--th-gold-hi) inset; color:
 /* the books (codex, spellbook, journal): the close button on the frame's corner, clear of the pages; their edge in wood */
 html body #codex .close, html body #book .close, html body #journal .close { top: -14px !important; right: -6px !important; }
 html body #codex .tome, html body #book .tome { background: linear-gradient(180deg, var(--th-wood-2), var(--th-wood)) !important; }
+/* the conversation box: the same wood and gold, the speaker in IM Fell, the choices as the menus' buttons */
+html body #dlg { background: linear-gradient(180deg, var(--th-wood-2), var(--th-wood)) !important; color: var(--th-text) !important; font-family: Georgia, serif !important;
+  border: 0 !important; border-radius: 14px !important; box-shadow: 0 0 0 3px #6a4a22, 0 0 0 5px var(--th-gold), 0 0 0 7px #2a1a0c, 0 12px 34px #000c !important; }
+html body #dlg .who { font-family: 'IM Fell English', Georgia, serif !important; text-transform: none !important; letter-spacing: .04em !important; font-size: calc(19px * var(--ui, 1)) !important; color: var(--th-gold-hi) !important; }
+html body #dlg .choices button { font-family: Georgia, serif !important; color: var(--th-text) !important; background: linear-gradient(180deg, #4a3220, #2e1e12) !important;
+  border: 1px solid #c8963a88 !important; border-radius: 9px !important; box-shadow: inset 0 1px 0 #ffffff14, 0 2px 4px #0008 !important; }
+html body #dlg .choices button:hover, html body #dlg .choices button:focus-visible { border-color: var(--th-gold-hi) !important; box-shadow: 0 0 10px #f3d88b55 !important; outline: none; }
+/* the crafting lists (campfire, alchemy, workbench): readable even when you can't make it yet */
+html body #camp .row.cant { opacity: .78 !important; }
+html body #camp .no { color: #e8a088 !important; }
+html body #camp .ok { color: #c8e8a0 !important; }
 /* buttons in the menus: one style */
 ${DARK.map(r => `html body ${r} button:not(.close)`).join(',')} {
   font-family: 'IM Fell English', Georgia, serif !important; font-size: calc(16px * var(--ui, 1)) !important; color: var(--th-text) !important;
