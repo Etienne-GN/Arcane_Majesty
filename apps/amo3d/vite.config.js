@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import { fileURLToPath } from 'node:url';
-import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { networkInterfaces } from 'node:os';
 
@@ -11,6 +11,27 @@ const mobNotesDir = fileURLToPath(new URL('./src/content/mob_notes', import.meta
 const npcNotesDir = fileURLToPath(new URL('./src/content/npc_notes', import.meta.url));   // the Forge's notes on each NPC
 const biomesDir = fileURLToPath(new URL('./src/content/world/biomes', import.meta.url));
 const biomeMapsDir = fileURLToPath(new URL('./src/content/world/biome_maps', import.meta.url));
+
+// Dev-only: the map baker (tools/bake_map.mjs → src/game/mapbake.js) saves the world map's pre-rendered tiles here.
+const mapDir = fileURLToPath(new URL('./public/map', import.meta.url));
+function mapBakeApi() {
+    return {
+        name: 'map-bake-api',
+        configureServer(server) {
+            server.middlewares.use('/api/mapbake', (req, res) => {
+                if (req.method !== 'POST') { res.statusCode = 405; return res.end(); }
+                const file = new URL(req.url, 'http://x').searchParams.get('file') ?? '';
+                if (!/^[a-z0-9_]+\/[A-Za-z0-9_./-]+\.(webp|json)$/.test(file) || file.includes('..')) { res.statusCode = 400; return res.end('bad file'); }
+                const chunks = []; req.on('data', c => chunks.push(c)); req.on('end', () => {
+                    const body = Buffer.concat(chunks).toString(), out = join(mapDir, file);
+                    mkdirSync(join(out, '..'), { recursive: true });
+                    writeFileSync(out, file.endsWith('.json') ? body : Buffer.from(body.replace(/^data:[^,]+,/, ''), 'base64'));
+                    res.end('ok');
+                });
+            });
+        },
+    };
+}
 
 // Dev-only: the Character Lab's Blender round trip saves points moved by hand here (src/content/models/v2/edits_<sex>.json).
 // Writes are accepted when the request is addressed to this machine — localhost or one of its own network addresses (so
@@ -103,7 +124,7 @@ export default defineConfig({
         // amo's engine-free rules, shared through packages/rules — no copies.
         alias: { '@rules': rules },
     },
-    plugins: [v2EditsApi(), jsonDirApi('/api/cast', castDir, 'cast'), jsonDirApi('/api/region', regionDir, 'regions'), jsonDirApi('/api/mobnotes', mobNotesDir, 'mob_notes'), jsonDirApi('/api/npcnotes', npcNotesDir, 'npc_notes'), jsonDirApi('/api/biomes', biomesDir, 'biomes'), jsonDirApi('/api/biomemaps', biomeMapsDir, 'biome_maps')],
+    plugins: [v2EditsApi(), mapBakeApi(), jsonDirApi('/api/cast', castDir, 'cast'), jsonDirApi('/api/region', regionDir, 'regions'), jsonDirApi('/api/mobnotes', mobNotesDir, 'mob_notes'), jsonDirApi('/api/npcnotes', npcNotesDir, 'npc_notes'), jsonDirApi('/api/biomes', biomesDir, 'biomes'), jsonDirApi('/api/biomemaps', biomeMapsDir, 'biome_maps')],
     build: {
         rollupOptions: { input: { main: 'index.html', forge: 'forge.html', editor: 'editor.html', bestiary: 'bestiary.html', charlab: 'charlab.html', manual: 'manual.html', biomes: 'biomes.html' } },
     },

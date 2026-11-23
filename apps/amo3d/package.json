@@ -10,7 +10,8 @@
     "preview": "vite preview --host 0.0.0.0",
     "android": "vite build && cap sync android && cd android && ANDROID_HOME=${ANDROID_HOME:-/opt/android-sdk} ./gradlew assembleDebug -q",
     "android:install": "adb install -r android/app/build/outputs/apk/debug/app-debug.apk",
-    "server": "node server/index.js"
+    "server": "node server/index.js",
+    "bake-map": "node tools/bake_map.mjs"
   },
   "dependencies": {
     "@capacitor/app": "^8.1.2",
