@@ -6,7 +6,7 @@
 // ears. Underwear (dark shorts; a top for the female) is coloured into the mesh. Hair is part of it too.
 // buildBase(ctx, { sex }) → { mesh, update }.
 import * as THREE from 'three';
-import { createSkin, blend, profile, ringPts } from './skin.js';
+import { createSkin, blend, profile, ringPts, pointKey } from './skin.js';
 import EDITS_MALE from './edits_male.json';     // points moved by hand in Blender (the Character Lab's Export / Import)
 import EDITS_FEMALE from './edits_female.json';
 
@@ -192,13 +192,30 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         };
         const at = (p, s) => ({ p: V(head, s * p[0] * hk, p[1] * hk, p[2] * hk + 0.004), w: p[1] < 0.02 ? [[head, 0.8], [spine, 0.2]] : [[head, 1]] });
         const centre = V(head, 0, 0.16 * hk, 0);
-        const shape = (list, s) => sk.poly(list.map(k => (typeof k === 'number' ? at(E[k], s) : at(Q[k], k === 'CC' || k === 'NF' || k === 'NB' || k === 'BC' ? 1 : s))), skin, centre);
+        // The chin's tip rounded (2026-11-23: "the tip that points toward the ground — round, not a pointy tip"): seen from the
+        // side, the face's front and the chin's underside met in a sharp wedge. The front now stops a little above the old tip
+        // (f), the underside a little behind it (u), and two narrow facets bend between them through a point set out toward
+        // the old tip (m): a rounded tip. Each new point follows the user's edits of the points it comes from (the jaw keeps
+        // its shape) and has its own key, so it can be moved in the point editor too.
+        const EDITS = F ? EDITS_FEMALE : EDITS_MALE, ed = o => { const q = EDITS[pointKey(o.p)]; return q ? new THREE.Vector3(...q) : o.p.clone(); };
+        const lerpV = (a, b, t) => a.clone().lerp(b, t);
+        const tipPts = (corner, front, under, s) => {   // corner: 'CC' or 'CR'; front: the eye-row point above it; under: the neck point behind it
+            const X = at(Q[corner], corner === 'CC' ? 1 : s), Fn = at(E[front], s), Un = at(Q[under], under === 'NF' ? 1 : s);
+            const pts = (x, f, u) => { const pf = lerpV(x, f, 0.14), pu = lerpV(x, u, 0.22); return { f: pf, u: pu, m: lerpV(lerpV(pf, pu, 0.5), x, 0.45) }; };
+            const g = pts(X.p, Fn.p, Un.p), e = pts(ed(X), ed(Fn), ed(Un));
+            return Object.fromEntries(['f', 'm', 'u'].map(k => [k, { p: e[k], w: X.w, key: pointKey(g[k]) }]));
+        };
+        const TIP = { 1: { CC: tipPts('CC', 0, 'NF', 1), CR: tipPts('CR', 1, 'N2', 1) }, '-1': { CC: tipPts('CC', 0, 'NF', -1), CR: tipPts('CR', 1, 'N2', -1) } };
+        const pick = (k, s) => { const m = /^(CC|CR)([fmu])$/.exec(k); return m ? TIP[s][m[1]][m[2]] : null; };
+        const shape = (list, s) => sk.poly(list.map(k => (typeof k === 'number' ? at(E[k], s) : pick(k, s) ?? at(Q[k], k === 'CC' || k === 'NF' || k === 'NB' || k === 'BC' ? 1 : s))), skin, centre);
         for (const s of [1, -1]) {
-            shape([0, 1, 'CR', 'CC'], s);              // the trapezoid's half: from under the eye to the chin (one plane with its mirror)
-            shape([1, 2, 3, 'CR'], s);                 // the cheek: one big triangle
-            shape([3, 4, 'JA', 'CR'], s);              // the jaw's side plane
-            shape(['CC', 'CR', 'N2', 'NF'], s);        // under the chin
-            shape(['CR', 'JA', 'NS', 'N2'], s);        // under the jaw
+            shape([0, 1, 'CRf', 'CCf'], s);            // the trapezoid's half: from under the eye to just above the chin's tip
+            shape(['CCf', 'CRf', 'CRm', 'CCm'], s);    // the rounded tip: two narrow facets bending from the front…
+            shape(['CCm', 'CRm', 'CRu', 'CCu'], s);    // …to the underside
+            shape([1, 2, 3, 'CRf'], s);                // the cheek: one big triangle
+            shape([3, 4, 'JA', 'CRu', 'CRm', 'CRf'], s); // the jaw's side plane, closing the tip's side
+            shape(['CCu', 'CRu', 'N2', 'NF'], s);      // under the chin
+            shape(['CRu', 'JA', 'NS', 'N2'], s);       // under the jaw
             shape([4, 5, 'NBS', 'JA'], s);             // behind the jaw
             shape(['JA', 'NBS', 'N4', 'NS'], s);
             shape([5, 6, 'BC', 'NBS'], s);             // the back of the head
