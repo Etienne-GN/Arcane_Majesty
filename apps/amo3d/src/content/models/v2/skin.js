@@ -15,13 +15,13 @@ export function createSkin(root, bones, { edits = null } = {}) {
     const at = (group, x = 0, y = 0, z = 0) => root.worldToLocal(group.localToWorld(new THREE.Vector3(x, y, z)));
     const lists = { front: { pos: [], col: [], si: [], sw: [], key: [] }, double: { pos: [], col: [], si: [], sw: [], key: [] } };
     const tmp = new THREE.Color();
-    function vert(L, p, w, c) {
-        const k = pointKey(p), q = edits?.[k];
+    function vert(L, p, w, c, key = null) {   // key: a derived point's own stable key (its position may follow other points' edits)
+        const k = key ?? pointKey(p), q = edits?.[k];
         L.key.push(k); if (q) L.pos.push(q[0], q[1], q[2]); else L.pos.push(p.x, p.y, p.z); L.col.push(c.r, c.g, c.b);
         const ws = (typeof w === 'function' ? w() : w).slice(0, 4), s = ws.reduce((a, [, v]) => a + v, 0) || 1;
         for (let i = 0; i < 4; i++) { const e = ws[i]; L.si.push(e ? index.get(e[0]) ?? 0 : 0); L.sw.push(e ? e[1] / s : 0); }
     }
-    function tri(mat, a, b, c, color) { const L = lists[mat]; vert(L, a.p, a.w, color); vert(L, b.p, b.w, color); vert(L, c.p, c.w, color); }
+    function tri(mat, a, b, c, color) { const L = lists[mat]; vert(L, a.p, a.w, color, a.key); vert(L, b.p, b.w, color, b.key); vert(L, c.p, c.w, color, c.key); }
     // A loft: rings [{ c: Vector3, rx, rz, w: [[bone, weight]…] or (θ) => […], col, dy?(θ) }], θ = 0 at the front (+z).
     // opts: seg (sides), from/to (an open sheet between two angles), mat ('front' | 'double'), inward (faces inward),
     // axis 'y' (rings horizontal, the default) or 'z' (rings upright, for feet), shade(k 0…1 down the loft) → colour factor.
