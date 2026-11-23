@@ -7,6 +7,8 @@
 // buildBase(ctx, { sex }) → { mesh, update }.
 import * as THREE from 'three';
 import { createSkin, blend, profile, ringPts } from './skin.js';
+import EDITS_MALE from './edits_male.json';     // points moved by hand in Blender (the Character Lab's Export / Import)
+import EDITS_FEMALE from './edits_female.json';
 
 const sym = (th, amp, wd) => [{ th, amp, wd }, { th: -th, amp, wd }];
 
@@ -17,18 +19,18 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     const { root, body, hips, spine, head, arms, legs } = ctx;
     const HAIR = hair ?? (F ? '#151922' : '#2a1d16');
     const bones = [hips, spine, head, arms.L.upper, arms.L.fore, arms.R.upper, arms.R.fore, legs.L.thigh, legs.L.shin, legs.R.thigh, legs.R.shin];
-    const sk = createSkin(root, bones), V = (g, x, y, z) => sk.at(g, x, y, z);
+    head.position.z += 0.024; head.position.y += 0.03; root.updateMatrixWorld(true);   // (the head carried a little forward of the shoulders, the neck leaning to it, as the reference)
+    const sk = createSkin(root, bones, { edits: F ? EDITS_FEMALE : EDITS_MALE }), V = (g, x, y, z) => sk.at(g, x, y, z);
 
     // ---- the torso, from the neck down to the crotch (body coordinates: the rig's own scale applies) ----
-    const torsoW = y => (y > 1.63 ? [[head, 1]] : y > 1.59 ? [[spine, 0.3], [head, 0.7]] : y > 1.55 ? [[spine, 0.75], [head, 0.25]] : y > 1.1 ? [[spine, 1]] : y > 1.0 ? blend(hips, spine, (y - 1.0) / 0.1) : [[hips, 1]]);
+    const torsoW = y => (y > 1.68 ? [[head, 1]] : y > 1.6 ? [[spine, 0.4], [head, 0.6]] : y > 1.57 ? [[spine, 0.75], [head, 0.25]] : y > 1.1 ? [[spine, 1]] : y > 1.0 ? blend(hips, spine, (y - 1.0) / 0.1) : [[hips, 1]]);
     // Hand-placed rings (2026-11-22, "far fewer shapes, flat planes at the right angles"): half of each outline on the +x
     // side, from the front centre round to the back centre — front centre, pectoral middle, pectoral outer edge, side front,
     // side back, shoulder blade, spine. Big flat planes: the pectorals are two faces with a small step beneath them.
     const TM = [   // y, half outline, colour   (male)
-        [1.66, [[0, 0.046], [0.028, 0.043], [0.045, 0.026], [0.054, 0], [0.053, -0.03], [0.034, -0.056], [0, -0.062]], skin],   // the neck: a clear column, narrower than the jaw
-        [1.635, [[0, 0.05], [0.032, 0.047], [0.052, 0.03], [0.07, 0], [0.068, -0.036], [0.042, -0.064], [0, -0.07]], skin],
-        [1.605, [[0, 0.062], [0.042, 0.058], [0.076, 0.036], [0.12, 0], [0.114, -0.05], [0.06, -0.08], [0, -0.082]], skin],   // the trapezius begins, rising gently from the neck
-        [1.565, [[0, 0.074], [0.065, 0.076], [0.13, 0.054], [0.198, 0.0], [0.19, -0.06], [0.11, -0.094], [0, -0.096]], skin],   // sloping down and out, broad
+        [1.7, [[0, 0.042], [0.027, 0.039], [0.043, 0.026], [0.051, 0.006], [0.05, -0.02], [0.032, -0.044], [0, -0.05]], skin],   // the neck: a slim column, leaning forward as it rises (2026-11-23)
+        [1.6, [[0, 0.046], [0.032, 0.043], [0.056, 0.024], [0.078, -0.004], [0.076, -0.044], [0.046, -0.074], [0, -0.078]], skin],   // the trapezius begins low on the neck: its base set back, the throat clear
+        [1.555, [[0, 0.064], [0.06, 0.064], [0.13, 0.048], [0.196, 0.0], [0.188, -0.06], [0.11, -0.094], [0, -0.096]], skin],   // the collarbones: sloping down and out
         [1.5, [[0, 0.102], [0.095, 0.108], [0.182, 0.086], [0.246, 0.01], [0.238, -0.064], [0.155, -0.108], [0, -0.104]], skin],   // (the torso's shoulder stops inside the arm: the deltoid is the arm's)
         [1.455, [[0, 0.138], [0.105, 0.15], [0.2, 0.11], [0.25, 0.02], [0.244, -0.076], [0.16, -0.122], [0, -0.11]], skin],   // a broad, even upper back   // the shoulder tips (deltoids), wide and round; a deeper chest
         [1.36, [[0, 0.142], [0.1, 0.156], [0.18, 0.12, 0.035], [0.204, 0, 0.05], [0.198, -0.076, 0.05], [0.14, -0.116, 0.03], [0, -0.108]], skin],   // the pectorals' lower edge, slanting up to the armpit
@@ -43,10 +45,9 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         [0.835, [[0, 0.06], [0.05, 0.06], [0.08, 0.04], [0.09, 0], [0.085, -0.05], [0.05, -0.07], [0, -0.07]], cloth],
     ];
     const TF = [   // (female) a slimmer neck and shoulders, a bust (two planes and a step), a narrow waist, wider hips
-        [1.66, [[0, 0.045], [0.026, 0.041], [0.043, 0.022], [0.05, 0], [0.048, -0.026], [0.03, -0.049], [0, -0.054]], skin],
-        [1.635, [[0, 0.047], [0.028, 0.043], [0.046, 0.024], [0.055, 0], [0.053, -0.028], [0.033, -0.052], [0, -0.057]], skin],
-        [1.605, [[0, 0.053], [0.034, 0.049], [0.058, 0.029], [0.088, 0], [0.083, -0.04], [0.042, -0.064], [0, -0.068]], skin],
-        [1.565, [[0, 0.064], [0.054, 0.064], [0.104, 0.046], [0.152, 0], [0.144, -0.05], [0.078, -0.08], [0, -0.084]], skin],
+        [1.7, [[0, 0.038], [0.025, 0.035], [0.04, 0.024], [0.047, 0.005], [0.046, -0.018], [0.029, -0.04], [0, -0.046]], skin],
+        [1.6, [[0, 0.042], [0.03, 0.039], [0.05, 0.022], [0.07, -0.004], [0.068, -0.04], [0.042, -0.066], [0, -0.07]], skin],
+        [1.555, [[0, 0.058], [0.054, 0.058], [0.104, 0.042], [0.15, 0], [0.142, -0.05], [0.078, -0.08], [0, -0.084]], skin],
         [1.51, [[0, 0.094], [0.082, 0.098], [0.15, 0.076], [0.19, 0.008], [0.182, -0.058], [0.112, -0.096], [0, -0.092]], skin],   // (her shoulders narrower and sloping, as the reference)
         [1.46, [[0, 0.108], [0.088, 0.114], [0.158, 0.09], [0.196, 0], [0.188, -0.066], [0.118, -0.106], [0, -0.096]], cloth],   // the top's neckline
         [1.39, [[0, 0.122], [0.075, 0.164], [0.14, 0.124], [0.175, 0], [0.168, -0.064], [0.11, -0.1], [0, -0.094]], cloth],   // the bust, fuller
@@ -134,15 +135,18 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     const hk = (F ? 0.97 : 1.03) * headK;   // (smaller: 2026-11-23, "the head is too big")   // (the reference's head is ~40% of the shoulders' width)
     // the head, hand-placed: the face's centre line, the cheek's front, the cheekbone, the side (the ear), the back's side,
     // the back — big planes: the brow overhanging the eyes, the cheekbones, the jaw's angle, the chin
-    // The head, rebuilt (2026-11-23) after the reference's front and side views: each ring's points placed by hand, each at
-    // its own height — so the jawline SLANTS from the chin up to below the ear (no flat shelf under the jaw), the face is a
-    // few even planes: the forehead, the brow ridge overhanging set-in eyes, broad cheekbones, the cheek carrying down to
-    // the jaw's angle, a V to the chin. Points (x, y, z), half the head, from the face's centre line round to the nape:
-    // centre, mid-face, cheek front, cheek side, below the ear, back of the skull's side, the back.
+    // The head (2026-11-23): each ring's points placed by hand at their own heights — the jawline slants from the chin up to
+    // below the ear. The lower face kept SIMPLE (the user: few broad facets, as the reference): on the jaw, chin and mouth
+    // rings the mid-face point lies on the line between the centre and the cheek's front, so each side reads as one plane;
+    // a broad, square jaw; a short chin that sits back. Points (x, y, z), half the head, from the face's centre round to
+    // the nape: centre, mid-face, cheek front, cheek side, below the ear, the skull's back side, the back.
+    const mid = (a, b) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2];
+    const flatMid = r => { r[1] = mid(r[0], r[2]); return r; };   // the mid-face point on the plane: one facet each side
     const HEAD = [
-        [[0, 0, 0.045], [0.025, 0, 0.04], [0.04, 0, 0.025], [0.048, 0, 0], [0.047, 0, -0.022], [0.035, 0, -0.042], [0, 0, -0.05]],   // the neck's top
-        [[0, 0.045, 0.086], [0.026, 0.048, 0.082], [0.05, 0.062, 0.064], [0.068, 0.088, 0.032], [0.074, 0.118, -0.008], [0.062, 0.075, -0.058], [0, 0.065, -0.068]],   // the jawline: chin → jaw's angle → below the ear
-        [[0, 0.08, 0.094], [0.028, 0.08, 0.09], [0.056, 0.092, 0.072], [0.075, 0.112, 0.04], [0.081, 0.137, -0.006], [0.07, 0.11, -0.07], [0, 0.1, -0.082]],   // the mouth; the chin's front
+        [[0, 0, 0.04], [0.025, 0, 0.036], [0.04, 0, 0.022], [0.048, 0, 0], [0.047, 0, -0.022], [0.035, 0, -0.042], [0, 0, -0.05]],   // the neck's top: set back under the jaw
+        flatMid([[0, 0.044, 0.086], [0, 0, 0], [0.056, 0.058, 0.068], [0.08, 0.09, 0.03], [0.08, 0.12, -0.008], [0.062, 0.075, -0.058], [0, 0.065, -0.068]]),   // the jawline: a broad, square jaw
+        flatMid([[0, 0.064, 0.094], [0, 0, 0], [0.06, 0.074, 0.072], [0.082, 0.102, 0.034], [0.083, 0.128, -0.007], [0.066, 0.09, -0.064], [0, 0.082, -0.075]]),   // the chin: short, sitting back
+        flatMid([[0, 0.092, 0.094], [0, 0, 0], [0.062, 0.096, 0.073], [0.082, 0.114, 0.04], [0.084, 0.138, -0.006], [0.07, 0.11, -0.07], [0, 0.1, -0.082]]),   // the mouth
         [[0, 0.118, 0.098], [0.031, 0.118, 0.092], [0.062, 0.125, 0.074], [0.081, 0.137, 0.045], [0.087, 0.156, -0.006], [0.077, 0.14, -0.078], [0, 0.135, -0.092]],   // under the nose; the cheek's plane
         [[0, 0.155, 0.1], [0.032, 0.158, 0.093], [0.067, 0.158, 0.078], [0.087, 0.16, 0.045], [0.09, 0.172, -0.008], [0.081, 0.166, -0.082], [0, 0.166, -0.1]],   // the cheekbones
         [[0, 0.182, 0.1], [0.03, 0.18, 0.086], [0.064, 0.18, 0.076], [0.087, 0.182, 0.043], [0.092, 0.19, -0.01], [0.081, 0.19, -0.085], [0, 0.19, -0.103]],   // the eyes, set in
@@ -151,13 +155,39 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         [[0, 0.285, 0.06], [0.03, 0.287, 0.056], [0.055, 0.283, 0.04], [0.07, 0.28, 0.012], [0.074, 0.28, -0.03], [0.06, 0.28, -0.07], [0, 0.282, -0.082]],
         [[0, 0.31, 0.015], [0.018, 0.31, 0.012], [0.03, 0.308, 0], [0.036, 0.306, -0.015], [0.036, 0.306, -0.03], [0.026, 0.306, -0.045], [0, 0.306, -0.05]],   // the crown
     ];
-    // the female face: a narrower jaw and a softer, smaller chin
-    const fem = (k, i, [x, y, z]) => (F && k >= 1 && k <= 3 && i >= 1 && i <= 4 ? [x * (i === 1 ? 0.82 : 0.92), y, z] : [x, y, z]);
-    sk.loft(HEAD.map((half, k) => {
-        const pts = half.map((p, i) => fem(k, i, p)), my = pts.reduce((a, p) => a + p[1], 0) / pts.length;
-        return { c: V(head, 0, my * hk, 0.004), pts: ringPts(pts.map(([x, y, z]) => [x * hk, z * hk, (y - my) * hk])), w: k === 0 ? [[head, 0.8], [spine, 0.2]] : [[head, 1]], col: skin };
-    }).reverse(), { capStart: true });   // (lofts run top-down: the crown first, closed)
-    // the nose: a small wedge down the middle of the face
+    // the female face: a narrower jaw and a softer chin
+    const fem = (k, i, [x, y, z]) => (F && k >= 1 && k <= 3 && i >= 1 && i <= 4 ? [x * (i === 3 || i === 4 ? 0.88 : 0.9), y, z] : [x, y, z]);
+    // the skull, from the eyes up: rings
+    sk.loft(HEAD.slice(6).map(half => {
+        const my = half.reduce((a, p) => a + p[1], 0) / half.length;
+        return { c: V(head, 0, my * hk, 0.004), pts: ringPts(half.map(([x, y, z]) => [x * hk, z * hk, (y - my) * hk])), w: [[head, 1]], col: skin };
+    }).reverse(), { capStart: true });
+    // the face below the eyes, as the reference (2026-11-23): FOUR shapes — a big triangle for each cheek, a trapezoid between
+    // them whose bottom edge is the chin — the nose over it; the jaw's side plane behind each cheek; the jaw's underside and
+    // the back of the head down to the neck's top. Points (x, y, z) head-local; the eye row is the skull's last ring.
+    {
+        const E = HEAD[6], Q = {
+            CC: [0, 0.058, 0.094], CR: [F ? 0.034 : 0.042, 0.058, 0.09],              // the chin: the trapezoid's bottom edge
+            JA: [F ? 0.072 : 0.08, 0.1, 0.002],                                       // the jaw's angle, below the ear
+            NF: [0, 0.046, 0.06], N2: [0.042, 0.042, 0.042], NS: [0.048, 0, 0], N4: [0.047, 0, -0.022], N5: [0.035, 0, -0.042], NB: [0, 0, -0.05],   // the neck's top
+            NBS: [0.06, 0.08, -0.06], BC: [0, 0.075, -0.07],                          // the nape
+        };
+        const at = (p, s) => ({ p: V(head, s * p[0] * hk, p[1] * hk, p[2] * hk + 0.004), w: p[1] < 0.02 ? [[head, 0.8], [spine, 0.2]] : [[head, 1]] });
+        const centre = V(head, 0, 0.16 * hk, 0);
+        const shape = (list, s) => sk.poly(list.map(k => (typeof k === 'number' ? at(E[k], s) : at(Q[k], k === 'CC' || k === 'NF' || k === 'NB' || k === 'BC' ? 1 : s))), skin, centre);
+        for (const s of [1, -1]) {
+            shape([0, 1, 'CR', 'CC'], s);              // the trapezoid's half: from under the eye to the chin (one plane with its mirror)
+            shape([1, 2, 3, 'CR'], s);                 // the cheek: one big triangle
+            shape([3, 4, 'JA', 'CR'], s);              // the jaw's side plane
+            shape(['CC', 'CR', 'N2', 'NF'], s);        // under the chin
+            shape(['CR', 'JA', 'NS', 'N2'], s);        // under the jaw
+            shape([4, 5, 'NBS', 'JA'], s);             // behind the jaw
+            shape(['JA', 'NBS', 'N4', 'NS'], s);
+            shape([5, 6, 'BC', 'NBS'], s);             // the back of the head
+            shape(['NBS', 'BC', 'NB', 'N5', 'N4'], s); // the nape
+        }
+    }
+    // the nose: a ridge from the brow to a defined tip (kept as the user liked it)
     sk.loft([
         { c: V(head, 0, 0.2 * hk, 0.104 * hk), shape: profile(0.006, 0.003, 0.003), w: [[head, 1]], col: skin },   // the bridge, from the brow
         { c: V(head, 0, 0.17 * hk, 0.104 * hk), shape: profile(0.008, 0.005, 0.004), w: [[head, 1]], col: skin },
@@ -196,7 +226,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         ], { seg: 5, cap: true });
     }
     outfit?.extra?.({ sk, V, body, hips, spine, head, arms, legs, hk, F });   // the outfit's own pieces
-    const mesh = sk.build();
+    const mesh = sk.build(); mesh.userData.editSex = F ? 'female' : 'male'; mesh.name = F ? 'base_female' : 'base_male';
     // the camisole's straps (female): from the neckline over each shoulder to the back
     if (F) {
         const cm = new THREE.MeshStandardMaterial({ color: cloth, flatShading: true, roughness: 0.9 });

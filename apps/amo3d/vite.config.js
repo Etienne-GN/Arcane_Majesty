@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import { fileURLToPath } from 'node:url';
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { networkInterfaces } from 'node:os';
 
 const rules = fileURLToPath(new URL('../../packages/rules/index.js', import.meta.url));
 const castDir = fileURLToPath(new URL('./src/content/cast', import.meta.url));
@@ -10,6 +11,51 @@ const mobNotesDir = fileURLToPath(new URL('./src/content/mob_notes', import.meta
 const npcNotesDir = fileURLToPath(new URL('./src/content/npc_notes', import.meta.url));   // the Forge's notes on each NPC
 const biomesDir = fileURLToPath(new URL('./src/content/world/biomes', import.meta.url));
 const biomeMapsDir = fileURLToPath(new URL('./src/content/world/biome_maps', import.meta.url));
+
+// Dev-only: the Character Lab's Blender round trip saves points moved by hand here (src/content/models/v2/edits_<sex>.json).
+// Writes are accepted when the request is addressed to this machine — localhost or one of its own network addresses (so
+// the Lab can be used from another computer on the LAN, Blender there) — never via a foreign hostname (DNS rebinding).
+const v2Dir = fileURLToPath(new URL('./src/content/models/v2', import.meta.url));
+function v2EditsApi() {
+    const own = () => new Set(['localhost', '127.0.0.1', '[::1]', ...Object.values(networkInterfaces()).flat().filter(Boolean).map(i => (i.family === 'IPv6' ? `[${i.address}]` : i.address))]);
+    const hostOf = h => (h ?? '').replace(/:\d+$/, '');
+    return {
+        name: 'v2-edits-api',
+        configureServer(server) {
+            server.middlewares.use('/api/v2edits', (req, res) => {
+                const send = (code, body) => { res.statusCode = code; res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(body)); };
+                const ok = own();
+                if (!ok.has(hostOf(req.headers.host))) return send(403, { error: 'only when reached as this machine' });
+                if (req.method === 'GET') {
+                    const sex = new URL(req.url, 'http://x').searchParams.get('sex');
+                    if (!['male', 'female'].includes(sex)) return send(400, { error: 'sex' });
+                    return send(200, JSON.parse(readFileSync(join(v2Dir, `edits_${sex}.json`), 'utf8')));
+                }
+                if (req.method !== 'POST') return send(405, { error: 'GET or POST' });
+                const origin = req.headers.origin;
+                if (origin && (!ok.has(hostOf(new URL(origin).host)) || new URL(origin).host !== req.headers.host)) return send(403, { error: 'cross-origin write refused' });
+                if (!/^application\/json\b/.test(req.headers['content-type'] ?? '')) return send(415, { error: 'JSON only' });
+                let raw = '';
+                req.on('data', c => { raw += c; if (raw.length > 2_000_000) req.destroy(); });
+                req.on('end', () => {
+                    try {
+                        const { sex, edits } = JSON.parse(raw);
+                        if (!['male', 'female'].includes(sex) || !edits || typeof edits !== 'object' || Array.isArray(edits)) return send(400, { error: 'bad body' });
+                        const keyRe = /^-?\d+\.\d{4},-?\d+\.\d{4},-?\d+\.\d{4}$/, out = {};
+                        const entries = Object.entries(edits);
+                        if (entries.length > 20000) return send(400, { error: 'too many points' });
+                        for (const [k, v] of entries) {
+                            if (!keyRe.test(k) || !Array.isArray(v) || v.length !== 3 || !v.every(n => typeof n === 'number' && Number.isFinite(n) && Math.abs(n) < 10)) return send(400, { error: `bad point ${k}` });
+                            out[k] = v;
+                        }
+                        writeFileSync(join(v2Dir, `edits_${sex}.json`), JSON.stringify(out, null, 0) + '\n');
+                        send(200, { ok: true, points: entries.length });
+                    } catch { send(400, { error: 'bad JSON' }); }
+                });
+            });
+        },
+    };
+}
 
 // Dev-only APIs: the Forge's cast (src/content/cast) and the editor's regions (src/content/regions).
 // GET lists the JSON files, POST saves one as <id>.json.
@@ -57,9 +103,9 @@ export default defineConfig({
         // amo's engine-free rules, shared through packages/rules — no copies.
         alias: { '@rules': rules },
     },
-    plugins: [jsonDirApi('/api/cast', castDir, 'cast'), jsonDirApi('/api/region', regionDir, 'regions'), jsonDirApi('/api/mobnotes', mobNotesDir, 'mob_notes'), jsonDirApi('/api/npcnotes', npcNotesDir, 'npc_notes'), jsonDirApi('/api/biomes', biomesDir, 'biomes'), jsonDirApi('/api/biomemaps', biomeMapsDir, 'biome_maps')],
+    plugins: [v2EditsApi(), jsonDirApi('/api/cast', castDir, 'cast'), jsonDirApi('/api/region', regionDir, 'regions'), jsonDirApi('/api/mobnotes', mobNotesDir, 'mob_notes'), jsonDirApi('/api/npcnotes', npcNotesDir, 'npc_notes'), jsonDirApi('/api/biomes', biomesDir, 'biomes'), jsonDirApi('/api/biomemaps', biomeMapsDir, 'biome_maps')],
     build: {
-        rollupOptions: { input: { main: 'index.html', forge: 'forge.html', editor: 'editor.html', bestiary: 'bestiary.html', manual: 'manual.html', biomes: 'biomes.html' } },
+        rollupOptions: { input: { main: 'index.html', forge: 'forge.html', editor: 'editor.html', bestiary: 'bestiary.html', charlab: 'charlab.html', manual: 'manual.html', biomes: 'biomes.html' } },
     },
     server: {
         port: 5190,

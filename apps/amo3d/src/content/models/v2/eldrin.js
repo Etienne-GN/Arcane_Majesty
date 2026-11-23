@@ -10,7 +10,7 @@ const C = { coat: '#a3141f', coatDark: '#7a0f17', shirt: '#1c1714', strap: '#3e2
 
 export function buildEldrin(ctx) {
     return buildBase(ctx, {
-        sex: 'male', headK: 0.96, footK: 1.3, skin: C.skin, cloth: C.trousers, hair: C.hair,
+        sex: 'male', headK: 1, footK: 1.3, skin: C.skin, cloth: C.trousers, hair: C.hair,
         outfit: {
             torso: (y, th, base) => (y > 1.6 ? base : y < 1.03 ? C.trousers : y < 1.065 ? C.leatherDark : Math.abs(th) < 0.42 ? C.shirt : C.coat),   // the coat open over the shirt; the belt; trousers
             arm: (part, y) => (part === 'upper' ? C.coat : y > -0.14 ? C.coat : y > -0.29 ? C.leatherDark : null),   // sleeves to the forearm, bracers, bare hands

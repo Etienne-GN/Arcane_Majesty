@@ -6,14 +6,18 @@
 import * as THREE from 'three';
 import { LITE } from '../../../engine/lib.js';
 
-export function createSkin(root, bones) {
+// edits (optional): { "x,y,z" (a point's generated position, root-local, 4 decimals): [x, y, z] } — positions moved by hand
+// in Blender (docs/3d/characters/BLENDER.md); every generated point keeps its key so the edits find it again.
+export const pointKey = p => `${p.x.toFixed(4)},${p.y.toFixed(4)},${p.z.toFixed(4)}`;
+export function createSkin(root, bones, { edits = null } = {}) {
     root.updateMatrixWorld(true);
     const index = new Map(bones.map((b, i) => [b, i]));
     const at = (group, x = 0, y = 0, z = 0) => root.worldToLocal(group.localToWorld(new THREE.Vector3(x, y, z)));
-    const lists = { front: { pos: [], col: [], si: [], sw: [] }, double: { pos: [], col: [], si: [], sw: [] } };
+    const lists = { front: { pos: [], col: [], si: [], sw: [], key: [] }, double: { pos: [], col: [], si: [], sw: [], key: [] } };
     const tmp = new THREE.Color();
     function vert(L, p, w, c) {
-        L.pos.push(p.x, p.y, p.z); L.col.push(c.r, c.g, c.b);
+        const k = pointKey(p), q = edits?.[k];
+        L.key.push(k); if (q) L.pos.push(q[0], q[1], q[2]); else L.pos.push(p.x, p.y, p.z); L.col.push(c.r, c.g, c.b);
         const ws = (typeof w === 'function' ? w() : w).slice(0, 4), s = ws.reduce((a, [, v]) => a + v, 0) || 1;
         for (let i = 0; i < 4; i++) { const e = ws[i]; L.si.push(e ? index.get(e[0]) ?? 0 : 0); L.sw.push(e ? e[1] / s : 0); }
     }
@@ -65,8 +69,19 @@ export function createSkin(root, bones) {
         }
         if (cap) { const last = R.at(-1), c = { p: P.at(-1).c.clone(), w: P.at(-1).w }, col = tmp.set(P.at(-1).col).clone(); for (let i = 0; i < seg; i++) tri(mat, last[i], c, last[(i + 1) % seg], col); }
     }
+    // Hand-authored faces: polygons of {p, w} points (fan-triangulated), turned to face away from `centre` (a convex-ish part
+    // such as a head: no winding to get wrong). Coplanar points make one clean flat plane.
+    function poly(points, col, centre) {
+        const c = new THREE.Color(col);
+        for (let i = 1; i < points.length - 1; i++) {
+            let a = points[0], b = points[i], d = points[i + 1];
+            const n = b.p.clone().sub(a.p).cross(d.p.clone().sub(a.p)), m = a.p.clone().add(b.p).add(d.p).multiplyScalar(1 / 3).sub(centre);
+            if (n.dot(m) < 0) [b, d] = [d, b];
+            tri('front', a, b, d, c);
+        }
+    }
     function build() {
-        const geo = new THREE.BufferGeometry(), all = { pos: [], col: [], si: [], sw: [] };
+        const geo = new THREE.BufferGeometry(), all = { pos: [], col: [], si: [], sw: [], key: [] };
         const groups = [];
         for (const [m, key] of [['front', 0], ['double', 1]]) {
             const L = lists[m], start = all.pos.length / 3;
@@ -85,9 +100,10 @@ export function createSkin(root, bones) {
         mesh.castShadow = mesh.receiveShadow = true; mesh.frustumCulled = false; mesh.userData.keep = mesh.userData.v2 = true;
         root.add(mesh); root.updateMatrixWorld(true);
         mesh.bind(new THREE.Skeleton(bones));
+        mesh.userData.editKeys = all.key;   // (per vertex: the point's generated key — the Blender round trip)
         return mesh;
     }
-    return { at, loft, tube, build };
+    return { at, loft, tube, poly, build };
 }
 
 // A hand-placed ring: half its outline on the +x side, from the front centre (x = 0, z > 0) round to the back centre
