@@ -131,7 +131,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     }
 
     // ---- the head: chin, jaw angle, cheekbones, eye sockets, the brow ridge, forehead, crown ----
-    const hk = (F ? 1.1 : 1.18) * headK;   // (the reference's head is ~40% of the shoulders' width)
+    const hk = (F ? 0.97 : 1.03) * headK;   // (smaller: 2026-11-23, "the head is too big")   // (the reference's head is ~40% of the shoulders' width)
     // the head, hand-placed: the face's centre line, the cheek's front, the cheekbone, the side (the ear), the back's side,
     // the back — big planes: the brow overhanging the eyes, the cheekbones, the jaw's angle, the chin
     const HP = [   // half outline: the face's centre line, the cheek's front, the side, the back's side, the back — even planes (2026-11-23)
