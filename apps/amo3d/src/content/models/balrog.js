@@ -29,15 +29,15 @@ export function buildBalrog() {
     const hips = new THREE.Group(); hips.position.y = 3.0; body.add(hips);
     add(hips, new THREE.DodecahedronGeometry(0.95, 0), hide).scale.set(1.45, 0.85, 1.1);
     const legs = [-1, 1].map(s => {
-        const thigh = new THREE.Group(); thigh.position.set(s * 0.8, 0, 0); hips.add(thigh);
-        add(thigh, new THREE.CylinderGeometry(0.62, 0.42, 1.9, 7), hide, 0, -0.8, 0.28).rotation.x = -0.45;
-        add(thigh, new THREE.BoxGeometry(0.62, 0.6, 0.4), plate, 0, -0.45, 0.62).rotation.x = -0.45;
-        fur(thigh, 8, 0, -0.9, 0.2, 0.62, 0.3, 0.55, 0.7);
+        const thigh = new THREE.Group(); thigh.position.set(s * 1.05, 0, 0); hips.add(thigh);
+        add(thigh, new THREE.CylinderGeometry(0.98, 0.66, 2.0, 8), hide, 0, -0.8, 0.28).rotation.x = -0.45;
+        add(thigh, new THREE.BoxGeometry(0.95, 0.8, 0.5), plate, 0, -0.45, 0.85).rotation.x = -0.45;
+        fur(thigh, 10, 0, -0.9, 0.2, 0.95, 0.3, 0.85, 0.8);
         const shin = new THREE.Group(); shin.position.set(0, -1.6, 0.6); thigh.add(shin);
-        add(shin, new THREE.CylinderGeometry(0.38, 0.26, 1.6, 6), hide, 0, -0.7, -0.35).rotation.x = 0.5;
+        add(shin, new THREE.CylinderGeometry(0.64, 0.46, 1.6, 7), hide, 0, -0.7, -0.35).rotation.x = 0.5;
         const foot = new THREE.Group(); foot.position.set(0, -1.4, -0.7); shin.add(foot);
-        add(foot, new THREE.BoxGeometry(0.58, 0.26, 1.0), hide, 0, 0, 0.32);
-        for (const c of [-0.2, 0, 0.2]) { const k = add(foot, new THREE.ConeGeometry(0.09, 0.5, 4), horn, c, -0.02, 0.95); k.rotation.x = Math.PI / 2; }
+        add(foot, new THREE.BoxGeometry(0.95, 0.38, 1.3), hide, 0, 0.04, 0.4);
+        for (const c of [-0.32, -0.11, 0.11, 0.32]) { const k = add(foot, new THREE.ConeGeometry(0.14, 0.8, 5), horn, c, -0.05, 1.3); k.rotation.x = Math.PI / 2 + 0.35; }   // great talons
         return { thigh, shin, s };
     });
     const tail = new THREE.Group(); tail.position.set(0, 0, -0.8); hips.add(tail);
@@ -68,24 +68,34 @@ export function buildBalrog() {
     const neck = new THREE.Group(); neck.position.set(0, 2.75, 0.7); spine.add(neck);
     add(neck, new THREE.CylinderGeometry(0.5, 0.7, 0.9, 7), hide, 0, 0.15, 0.2).rotation.x = 0.7;
     const head = new THREE.Group(); head.position.set(0, 0.55, 0.65); neck.add(head);
-    const skull = add(head, new THREE.DodecahedronGeometry(0.62, 0), plate, 0, 0.12, 0); skull.scale.set(1.1, 0.85, 1.3);
-    add(head, new THREE.BoxGeometry(0.66, 0.2, 0.6), hide, 0, -0.08, 0.6);   // the upper jaw
-    const jaw = new THREE.Group(); jaw.position.set(0, -0.2, 0.15); head.add(jaw);
-    add(jaw, new THREE.BoxGeometry(0.6, 0.18, 0.75), hide, 0, -0.05, 0.4);
-    for (let i = 0; i < 4; i++) for (const up of [0, 1]) { const f = add(up ? head : jaw, new THREE.ConeGeometry(0.04, 0.2, 4), horn, -0.22 + i * 0.15, up ? -0.22 : 0.08, up ? 0.85 : 0.72); f.rotation.x = up ? Math.PI : 0; }   // fangs
+    // a broad, brutish beast's face (the concept art): wide skull, heavy brow, a short muzzle, a wide maw full of fangs,
+    // a crown of spikes framing it all round, and two crescent horns sweeping out from the temples and curling up
+    const skull = add(head, new THREE.DodecahedronGeometry(0.75, 1), hide, 0, 0.1, 0); skull.scale.set(1.45, 1.0, 1.1);
+    add(head, new THREE.BoxGeometry(1.3, 0.22, 0.4), plate, 0, 0.42, 0.62).rotation.x = 0.25;   // the heavy brow ridge
+    add(head, new THREE.BoxGeometry(0.85, 0.42, 0.6), hide, 0, -0.08, 0.78);   // the short, broad muzzle
+    add(head, new THREE.BoxGeometry(0.3, 0.16, 0.2), plate, 0, 0.08, 1.06);   // the flat nose
+    const jaw = new THREE.Group(); jaw.position.set(0, -0.32, 0.3); head.add(jaw);
+    add(jaw, new THREE.BoxGeometry(0.95, 0.24, 0.85), hide, 0, -0.08, 0.42);
+    const maw = add(head, new THREE.BoxGeometry(0.8, 0.06, 0.55), new THREE.MeshBasicMaterial({ color: 0x3a0a2a }), 0, -0.32, 0.75);   // the dark red of the open mouth
+    for (let i = 0; i < 6; i++) for (const up of [0, 1]) { const big = i === 0 || i === 5, f = add(up ? head : jaw, new THREE.ConeGeometry(big ? 0.07 : 0.045, big ? 0.42 : 0.24, 4), mat(0xd8d0c0, 0.5), -0.36 + i * 0.144, up ? -0.34 : 0.1, up ? 1.0 : 0.8); f.rotation.x = up ? Math.PI : 0; }   // fangs, the outer ones long
+    for (let i = 0; i < 13; i++) {   // the crown of spikes round the face
+        const a = -Math.PI * 0.05 + (i / 12) * Math.PI * 1.1, r = 0.95, x = Math.cos(a) * r, y = 0.1 + Math.sin(a) * r * 0.85;
+        const sp = add(head, new THREE.ConeGeometry(0.11, 0.5 + (i % 3) * 0.22, 4), hide, x, y, -0.1); sp.rotation.set(-0.3, 0, a - Math.PI / 2);
+    }
+    for (let i = 0; i < 5; i++) { const sp = add(head, new THREE.ConeGeometry(0.13, 0.7 + (i === 2 ? 0.4 : 0), 4), horn, (i - 2) * 0.22, 0.75, 0.15 - Math.abs(i - 2) * 0.1); sp.rotation.x = -0.35; }   // the ridge of spikes atop the head
     const eyeMat = new THREE.MeshBasicMaterial({ color: 0xe0a8ff, toneMapped: false, transparent: true });
     for (const s of [-1, 1]) {
-        add(head, new THREE.SphereGeometry(0.085, 8, 6), eyeMat, s * 0.25, 0.14, 0.7);
-        add(head, new THREE.BoxGeometry(0.34, 0.07, 0.1), hide, s * 0.25, 0.27, 0.68).rotation.z = s * -0.35;   // the brow
-        let hp = head, len = 0.6;   // great horns curving back and out
-        for (let k = 0; k < 4; k++) {
-            const g = new THREE.Group(); g.position.set(k ? 0 : s * 0.36, k ? len : 0.38, k ? 0 : -0.05); g.rotation.set(-0.55, 0, s * (k ? 0.25 : -0.7)); hp.add(g);
-            add(g, new THREE.CylinderGeometry(0.07 * (4 - k), 0.085 * (4 - k) + 0.02, len, 6), horn, 0, len / 2, 0); hp = g; len *= 0.92;
+        const e = add(head, new THREE.BoxGeometry(0.22, 0.08, 0.06), eyeMat, s * 0.3, 0.24, 0.86); e.rotation.z = s * 0.3;   // slanted, glowing
+        // crescent horns: out from the temples, then curling up and inward
+        let hp = head, len = 0.55;
+        for (let k = 0; k < 6; k++) {
+            const g = new THREE.Group(); g.position.set(k ? 0 : s * 0.95, k ? len : 0.3, k ? 0 : 0.0); g.rotation.set(k ? -0.08 : 0.15, 0, k ? s * 0.38 : -s * 1.35); hp.add(g);
+            add(g, new THREE.CylinderGeometry(0.05 * (6 - k) + 0.01, 0.06 * (7 - k), len, 6), horn, 0, len / 2, 0); hp = g; len *= 0.9;
         }
-        add(hp, new THREE.ConeGeometry(0.07, 0.45, 5), horn, 0, len + 0.22, 0);
+        add(hp, new THREE.ConeGeometry(0.05, 0.35, 5), horn, 0, len + 0.15, 0);
     }
     const eyeGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: radialTexture([[0, 'rgba(210,150,255,0.95)'], [1, 'rgba(150,80,255,0)']], 64), color: 0xc890ff, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
-    eyeGlow.scale.set(1.1, 0.42, 1); eyeGlow.position.set(0, 0.14, 0.8); head.add(eyeGlow);
+    eyeGlow.scale.set(1.3, 0.45, 1); eyeGlow.position.set(0, 0.24, 0.95); head.add(eyeGlow);
 
     // ---- the arms: thick as pillars, forearms heavier, huge clawed hands (front legs when it runs) ----
     const arms = [-1, 1].map(s => { const A_S = s;
@@ -98,8 +108,13 @@ export function buildBalrog() {
         fur(elbow, 7, 0, -0.5, 0, 0.62, 0.3, 0.62, 0.6); fur(shoulder, 6, 0, -0.4, 0, 0.62, 0.3, 0.6, 0.6);
         for (let k = 0; k < 3; k++) { const sp = add(elbow, new THREE.ConeGeometry(0.1, 0.55, 4), horn, A_S * 0.55, -0.4 - k * 0.4, -0.3); sp.rotation.z = -A_S * 1.2; }   // spurs down the forearm
         const hand = new THREE.Group(); hand.position.y = -1.7; elbow.add(hand);
-        add(hand, new THREE.DodecahedronGeometry(0.55, 0), hide).scale.set(1.15, 0.8, 1.2);
-        for (let c = 0; c < 4; c++) { const k = add(hand, new THREE.ConeGeometry(0.09, 0.85, 4), horn, (c - 1.5) * 0.22, -0.35, 0.45); k.rotation.x = Math.PI / 2 + 0.6; }
+        add(hand, new THREE.DodecahedronGeometry(0.75, 0), hide).scale.set(1.25, 0.8, 1.3);
+        fur(hand, 6, 0, 0.35, 0, 0.7, 0.15, 0.7, 0.5);
+        for (let c = 0; c < 5; c++) {   // great hooked claws (the concept: the claws matter)
+            const fx = (c - 2) * 0.26, root2 = new THREE.Group(); root2.position.set(fx, -0.45, 0.55); root2.rotation.set(0.9, 0, -fx * 0.4); hand.add(root2);
+            add(root2, new THREE.ConeGeometry(0.17, 0.75, 5), horn, 0, -0.35, 0).rotation.x = Math.PI;
+            const tip = add(root2, new THREE.ConeGeometry(0.1, 0.65, 5), horn, 0, -0.9, 0.18); tip.rotation.x = Math.PI - 0.7;
+        }
         return { shoulder, elbow, hand, s };
     });
 
@@ -107,7 +122,7 @@ export function buildBalrog() {
     const wingMat = new THREE.MeshStandardMaterial({ color: 0x0a080e, roughness: 0.9, side: THREE.DoubleSide, transparent: true, opacity: 0.92, flatShading: true });
     const wings = [-1, 1].map(s => {
         const base = new THREE.Group(); base.position.set(s * 0.95, 2.6, -1.0); spine.add(base);
-        const arm = new THREE.Group(); arm.scale.setScalar(1.45); base.add(arm);
+        const arm = new THREE.Group(); arm.scale.setScalar(1.08); base.add(arm);
         add(arm, new THREE.CylinderGeometry(0.12, 0.18, 2.4, 6), hide, s * 1.1, 0.4, 0).rotation.z = s * -1.2;
         const tipX = s * 2.2, tipY = 0.9, fingers = [[s * 4.6, 2.2], [s * 5.2, 0.4], [s * 4.6, -1.4], [s * 3.2, -2.6], [s * 1.4, -2.4]];
         for (const [fx, fy] of fingers) add(arm, new THREE.CylinderGeometry(0.035, 0.07, Math.hypot(fx - tipX, fy - tipY), 5), hide, (fx + tipX) / 2, (fy + tipY) / 2, 0).rotation.z = -Math.atan2(fx - tipX, fy - tipY);
@@ -115,7 +130,7 @@ export function buildBalrog() {
         for (let i = 1; i < pts.length - 1; i++) verts.push(0, 0, 0, pts[i][0], pts[i][1], 0, pts[i + 1][0], pts[i + 1][1], 0);
         const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3)); g.computeVertexNormals();
         add(arm, g, wingMat);
-        const hook = add(arm, new THREE.ConeGeometry(0.16, 0.9, 5), horn, s * 4.75, 2.55, 0); hook.rotation.z = -s * 0.5;   // the hooked claw atop each wing
+        const hook = add(arm, new THREE.ConeGeometry(0.2, 1.0, 5), horn, s * 4.75, 2.55, 0); hook.rotation.z = -s * 0.5;   // the hooked claw atop each wing
         return { arm, s };
     });
 
@@ -156,7 +171,7 @@ export function buildBalrog() {
         lastK = striking ? strikeK : -1;
         strike += ((striking ? 1 : 0) - strike) * Math.min(1, dt * 10);
         // upright to walk and stand; on all fours to run and to attack (a panther's lunge)
-        const wantQuad = speed > 2.5 || striking ? 1 : 0;
+        const wantQuad = striking && attack === 'swipe' ? 0.15 : 1;   // a dragon (2026-11-22): on all fours always; it rears up only to rake with a claw
         quad += (wantQuad - quad) * Math.min(1, dt * 3.5);
         const gait = Math.min(1, speed / 3);
         phase += dt * (1.6 + speed * (0.55 + quad * 0.25));
@@ -173,7 +188,7 @@ export function buildBalrog() {
         neck.rotation.x = -spine.rotation.x * 0.85 - 0.25 + (attack === 'bite' ? lunge * 0.5 : 0);
         head.rotation.y = Math.sin(t * 0.37) * 0.3 * (1 - strike);
         head.position.z = 0.65 + (attack === 'bite' ? lunge * 0.7 : 0);
-        jaw.rotation.x = attack === 'bite' && striking ? (k < 0.55 ? (k / 0.55) * 0.9 : 0.9 * (1 - (k - 0.55) / 0.45) * 0.2) : 0.05 + Math.sin(t * 0.9) * 0.04;
+        jaw.rotation.x = attack === 'bite' && striking ? (k < 0.55 ? (k / 0.55) * 0.9 : 0.9 * (1 - (k - 0.55) / 0.45) * 0.2) : 0.22 + Math.sin(t * 0.9) * 0.08;   // a snarl, the maw half open
         // legs: walk upright (alternating), bound on all fours (both legs together)
         for (const L of legs) {
             const ph = phase + (L.s > 0 ? Math.PI : 0) * (1 - quad);
