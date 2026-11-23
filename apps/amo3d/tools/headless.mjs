@@ -2,7 +2,7 @@
 // Drive headless Chrome over CDP: load the POC, hold keys, take screenshots.
 // usage: node shoot.mjs <outdir> <script-json>
 // script: [["wait",ms],["down","KeyW"],["up","KeyW"],["shot","name"],["eval","js"]]
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { writeFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -13,7 +13,10 @@ const port = 9333;
 // HL_W / HL_H / HL_DPR / HL_TOUCH=1: emulate a phone (the S25 Ultra in landscape is ~915×412 at DPR 3.5).
 const W = +(process.env.HL_W ?? 1280), H = +(process.env.HL_H ?? 720), DPR = +(process.env.HL_DPR ?? 1), TOUCH = process.env.HL_TOUCH === '1';
 const profile = mkdtempSync(join(tmpdir(), 'amo3d-prof-'));   // outside the watched tree; removed at the end
-const chrome = spawn('google-chrome', [
+// The browser: HL_BROWSER, else the first of google-chrome / chromium found on the PATH (exegol has Chromium, Naboo had Chrome).
+const browser = process.env.HL_BROWSER ?? ['google-chrome', 'chromium', 'chromium-browser'].find(b => spawnSync('which', [b]).status === 0);
+if (!browser) { console.error('No Chrome or Chromium found (set HL_BROWSER)'); process.exit(1); }
+const chrome = spawn(browser, [
     '--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`,
     `--window-size=${W},${H}`, '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist',
     'about:blank',
