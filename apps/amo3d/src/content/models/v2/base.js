@@ -21,7 +21,8 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     const BALD = ctx.look?.hair?.style === 'bald';   // no hair (2026-11-23: hair will be interchangeable; the hairless reference sheet)
     const bones = [hips, spine, head, arms.L.upper, arms.L.fore, arms.R.upper, arms.R.fore, legs.L.thigh, legs.L.shin, legs.R.thigh, legs.R.shin];
     head.position.z += 0.024; head.position.y += 0.005;   // (2026-11-23: lowered 2.5 cm — it sat too high on the neck) root.updateMatrixWorld(true);   // (the head carried a little forward of the shoulders, the neck leaning to it, as the reference)
-    const sk = createSkin(root, bones, { edits: F ? EDITS_FEMALE : EDITS_MALE }), V = (g, x, y, z) => sk.at(g, x, y, z);
+    const HV = F ? 0.86 : 0.82;   // the head's height (2026-11-23: it was ~25% too long for its width against the reference)
+    const sk = createSkin(root, bones, { edits: F ? EDITS_FEMALE : EDITS_MALE }), V = (g, x, y, z) => sk.at(g, x, g === head ? y * HV : y, z);
 
     // ---- the torso, from the neck down to the crotch (body coordinates: the rig's own scale applies) ----
     const torsoW = y => (y > 1.655 ? [[head, 1]] : y > 1.6 ? [[spine, 0.4], [head, 0.6]] : y > 1.57 ? [[spine, 0.75], [head, 0.25]] : y > 1.1 ? [[spine, 1]] : y > 1.0 ? blend(hips, spine, (y - 1.0) / 0.1) : [[hips, 1]]);
@@ -251,12 +252,12 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     const tail = [];
     if (F && !BALD) {
         const hm = new THREE.MeshStandardMaterial({ color: HAIR, flatShading: true, roughness: 0.7 });
-        let tp = new THREE.Group(); tp.position.set(0, 0.315 * hk, -0.035); head.add(tp);   // (high on the crown)
+        let tp = new THREE.Group(); tp.position.set(0, 0.315 * hk * HV, -0.035); head.add(tp);   // (high on the crown)
         const band = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.024, 0.03, 6), new THREE.MeshStandardMaterial({ color: '#2a2a30', flatShading: true })); band.userData.keep = band.userData.v2 = true; tp.add(band);
         // one cohesive ponytail (a tube along a curve): up and back from the tie, arcing over, hanging down behind the shoulders
         const P = [[0, 0.3, -0.045, 0.03], [0, 0.335, -0.088, 0.042], [0, 0.318, -0.14, 0.05], [0, 0.24, -0.172, 0.054], [0, 0.12, -0.178, 0.05], [0, -0.01, -0.165, 0.044], [0, -0.13, -0.14, 0.032], [0, -0.22, -0.118, 0.012]];
         const ph = createSkin(root, [head]);
-        ph.tube(P.map(([x, y, z, r]) => ({ c: ph.at(head, x, y * hk, z * hk), r: r * hk * 1.4, rz: r * hk * 1.15, w: [[head, 1]], col: HAIR })), { seg: 7, mat: 'double' });   // (thick and full)
+        ph.tube(P.map(([x, y, z, r]) => ({ c: ph.at(head, x, y * hk * (y > 0.1 ? HV : 1), z * hk), r: r * hk * 1.4, rz: r * hk * 1.15, w: [[head, 1]], col: HAIR })), { seg: 7, mat: 'double' });   // (thick and full)
         ph.build();
     }
     function update({ t, run = 0, amp = 0 }) {
