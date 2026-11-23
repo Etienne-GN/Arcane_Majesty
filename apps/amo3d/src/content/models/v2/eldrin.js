@@ -51,6 +51,10 @@ export function buildEldrin(ctx) {
                 }), { seg: 4, cap: true, capStart: true });
                 const [hy, hw, hdf, hdb] = ROWS.at(-1), H = (y, g) => ({ c: V(body, 0, y, -0.005), shape: profile(hw * g, hdf * g, hdb * g), w: tailW(1), col: C.gold });
                 cs.loft([H(hy + 0.035, 1.012), H(hy - 0.003, 1.018)], { seg: 14, from: OPEN, to: Math.PI * 2 - OPEN, mat: 'double' });   // (the hem's band, standing just proud of the cloth)
+                // the pouch at his right hip (2026-11-23: it came through the coat when he ran — it was fixed to the hips under the
+                // coat's swinging side): it hangs on the coat's outside now and moves with it there
+                const sideR = Math.PI * 1.5, P = (y, w, k) => ({ c: (c => new THREE.Vector3(c.x - w - 0.03, c.y, c.z + 0.03))(V(body, 0, y, -0.005)), shape: profile(0.026, 0.042, 0.042), w: tailW(k)(sideR), col: C.leather });
+                cs.loft([P(1.0, 0.194, 0.43), P(0.88, 0.226, 0.88)], { seg: 4, cap: true, capStart: true });
                 cs.build();
                 // the high popped collar, open at the throat
                 // (second pass: "you just painted his neck"): it rises from the shoulders well clear of the neck — 3-4 cm off it
@@ -61,9 +65,8 @@ export function buildEldrin(ctx) {
                 for (const s of [-1, 1]) sk.loft([{ c: V(body, s * 0.06, 1.55, 0.11), shape: profile(0.012, 0.006, 0.006), w: [[spine, 1]], col: C.gold }, { c: V(body, s * 0.07, 1.08, 0.106), shape: profile(0.012, 0.006, 0.006), w: [[spine, 1]], col: C.gold }], { seg: 4 });   // (gold, as the tails' edges below)
                 // the shirt's two crossed straps
                 for (const s of [-1, 1]) sk.loft([{ c: V(body, s * 0.1, 1.48, 0.137), shape: profile(0.012, 0.004, 0.004), w: [[spine, 1]], col: C.strap }, { c: V(body, -s * 0.02, 1.3, 0.144), shape: profile(0.012, 0.004, 0.004), w: [[spine, 1]], col: C.strap }, { c: V(body, -s * 0.09, 1.12, 0.11), shape: profile(0.012, 0.004, 0.004), w: [[spine, 1]], col: C.strap }], { seg: 4 });
-                // the belt's gold buckle; the pouch at the right hip
+                // the belt's gold buckle (the pouch hangs on the coat: with its tails, above)
                 sk.loft([{ c: V(body, 0, 1.068, 0.112), shape: profile(0.026, 0.006, 0.006), w: [[hips, 1]], col: C.gold }, { c: V(body, 0, 1.03, 0.112), shape: profile(0.026, 0.006, 0.006), w: [[hips, 1]], col: C.gold }], { seg: 4, cap: true, capStart: true });
-                sk.loft([{ c: V(body, -0.17, 1.0, 0.04), shape: profile(0.03, 0.045, 0.045), w: [[hips, 1]], col: C.leather }, { c: V(body, -0.17, 0.88, 0.04), shape: profile(0.032, 0.048, 0.048), w: [[hips, 1]], col: C.leather }], { seg: 4, cap: true, capStart: true });
                 // a gold epaulette on his left shoulder only, as the classic Eldrin (it moves with the arm)
                 for (const side of ['L']) {
                     const up = arms[side].upper, s = side === 'L' ? 1 : -1;
