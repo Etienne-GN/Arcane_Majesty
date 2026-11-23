@@ -242,6 +242,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     }
     const extraOut = outfit?.extra?.({ sk, V, root, createSkin, body, hips, spine, head, arms, legs, hk, F });   // the outfit's own pieces (may return { update } for pieces of their own that move, e.g. a coat's tails)
     const mesh = sk.build(); mesh.userData.editSex = F ? 'female' : 'male'; mesh.name = F ? 'base_female' : 'base_male';
+    mesh.userData.hairColor = BALD ? null : new THREE.Color(HAIR);   // (the point editor tells the hair's points by it: Show › Hair)
     // ---- the eyes and brows (2026-11-23: "real small eyes with a pupil, not just dots"): flat faceted pieces laid on the face —
     // an almond white, the iris (the look's eye colour), a black pupil, a tiny highlight, a dark upper lash line; brows of the
     // hair's colour, thick at the inner end, arching, thinning toward the temple. Each point is projected onto the head as
@@ -279,7 +280,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
                 fs.poly([P(s * x0, y0, 0.0016), P(s * x1, y1, 0.0016), P(s * x1, y1 + t1, 0.0016), P(s * x0, y0 + t0, 0.0016)], browCol, centre);
             }
         }
-        fs.build();
+        fs.build().userData.face = true;   // (the point editor shows it: Show › Eyes)
     }
     // the camisole's straps (female): from the neckline over each shoulder to the back
     if (F) {

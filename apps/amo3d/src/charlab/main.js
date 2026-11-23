@@ -76,7 +76,7 @@ addEventListener('resize', resize); resize();
 window.__lab = { ground: () => models.map(m => [-0.4, -0.45, -0.48].map(y => m.rig.legs.L.shin.localToWorld(new THREE.Vector3(0, y, 0)).y.toFixed(3)).join(',')).join(' / '), plain: () => { floor.visible = false; scene.background.set(0x3b3b3b); for (const id of ['bar', 'labels']) document.getElementById(id).style.display = 'none'; }, solo: i => { models.forEach((m, j) => { m.root.visible = j === i; m.root.position.x = 0; }); }, tris: () => models.map(m => { let t = 0; m.root.traverse(o => { if (o.isMesh && o.visible && o.userData.v2) t += (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3; }); return Math.round(t); }).join(' / '), setYaw: v => { yaw = v; spin = false; refresh(); }, setMode: v => { mode = v; refresh(); }, zoom: (d, y, x = 0) => { camera.position.set(x, y, d); camera.lookAt(x, y - 0.05, 0); } };
 // ---- the Blender round trip (docs/3d/characters/BLENDER.md): Export a base body as .glb (one vertex per point, its id in
 // the UV's u), edit it in Blender moving points only, Import the .glb back: each moved point is saved by its key ----
-function bodyMesh(i) { let sm = null; models[i].root.traverse(o => { if (!sm && o.isSkinnedMesh && o.userData.editKeys) sm = o; }); return sm; }
+function bodyMesh(i) { let sm = null; models[i].root.traverse(o => { if (!sm && o.isSkinnedMesh && o.userData.editSex) sm = o; }); return sm; }   // (the body itself: not a coat's or the eyes' mesh)
 function pointTable(sm) {   // unique points (by key) in vertex order, their current positions and the triangles
     const keys = sm.userData.editKeys, pos = sm.geometry.attributes.position, col = sm.geometry.attributes.color, ids = new Map(), P = [], C = [], idx = [], firstV = [];
     for (let v = 0; v < keys.length; v++) {
@@ -100,8 +100,18 @@ function posedTable(i) {
         const lp = cols.reduce((a, c, j) => a.addScaledVector(c, p[j]), new THREE.Vector3());
         t.push(base.x - lp.x, base.y - lp.y, base.z - lp.z);
     });
+    // the hair's points (by their colour), for Show › Hair; the eyes and brows (their own mesh), posed the same, for Show › Eyes
+    const hc = sm.userData.hairColor, hair = T.keys.map((_, k) => !!hc && Math.abs(T.C[k * 3] - hc.r) + Math.abs(T.C[k * 3 + 1] - hc.g) + Math.abs(T.C[k * 3 + 2] - hc.b) < 0.02);
+    let face = null; m.root.traverse(o => { if (!face && o.isSkinnedMesh && o.userData.face) face = o; });
+    let faceGeo = null;
+    if (face) {
+        face.skeleton.update();
+        const src = face.geometry.attributes.position, out = new Float32Array(src.count * 3);
+        for (let n = 0; n < src.count; n++) { face.applyBoneTransform(n, v.fromBufferAttribute(src, n)); out.set([v.x, v.y, v.z], n * 3); }
+        faceGeo = new THREE.BufferGeometry(); faceGeo.setAttribute('position', new THREE.BufferAttribute(out, 3)); faceGeo.setAttribute('color', face.geometry.attributes.color.clone()); faceGeo.computeVertexNormals();
+    }
     m.root.position.copy(keepP); m.root.rotation.y = keepR; m.root.updateMatrixWorld(true);
-    return { ...T, L, t };
+    return { ...T, L, t, hair, faceGeo };
 }
 const say = t => { const e = document.getElementById('labmsg'); if (e) e.textContent = t; };
 async function exportBody(i) {

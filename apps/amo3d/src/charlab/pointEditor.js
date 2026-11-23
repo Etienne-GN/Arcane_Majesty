@@ -35,6 +35,18 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const tog = (b, v) => { b.style.background = v ? '#8a6a2a' : '#4a3220'; b.style.opacity = v ? '1' : '.7'; };
     const refTog = btn(rShow, 'Reference', () => setRef(!refOn)), cmpTog = btn(rShow, 'Compare', () => { cmpOn = !cmpOn; tog(cmpTog, cmpOn); });
     tog(refTog, refOn); tog(cmpTog, cmpOn);
+    // the hair (hidden: its points can't be picked, the scalp and the face show) and the eyes and brows (as last saved: they
+    // settle onto the reshaped face once saved and reloaded) — no reload, the unsaved edits stay
+    let hairOn = true, eyesOn = true, faceMesh = null;
+    const hairTog = btn(rShow, 'Hair', () => { hairOn = !hairOn; tog(hairTog, hairOn); applyHair(); });
+    const eyesTog = btn(rShow, 'Eyes', () => { eyesOn = !eyesOn; tog(eyesTog, eyesOn); if (faceMesh) faceMesh.visible = eyesOn; });
+    tog(hairTog, hairOn); tog(eyesTog, eyesOn);
+    function applyHair() {
+        if (!T) return;
+        const H = T.hair, idx = hairOn || !H ? T.idx : T.idx.filter((_, n, a) => { const b = n - (n % 3); return !(H[a[b]] && H[a[b + 1]] && H[a[b + 2]]); });
+        geo.setIndex(idx); if (sel >= 0 && !hairOn && H?.[sel]) sel = -1;
+        buildDots(); describe();
+    }
     const rReg = row(); btn(rReg, 'Head', () => setRegion('head')); btn(rReg, 'Upper body', () => setRegion('upper')); btn(rReg, 'Whole body', () => setRegion('all'));
     const rView = row(); for (const [t, y, p] of [['Front', 0, 0.05], ['¾', 0.7, 0.1], ['Side', Math.PI / 2, 0.05], ['Back', Math.PI, 0.05], ['Below', 0.3, -0.6]]) btn(rView, t, () => { yaw = y; pitch = p; });
     const info = document.createElement('div'); info.style.cssText = 'font-size:12px;min-height:30px'; panel.append(info);
@@ -88,15 +100,17 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.85 }));
         wire = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true, transparent: true, opacity: 0.18 }));
         group.add(mesh, wire);
+        faceMesh = T.faceGeo ? new THREE.Mesh(T.faceGeo, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.85, side: THREE.DoubleSide })) : null;
+        if (faceMesh) { faceMesh.visible = eyesOn; group.add(faceMesh); }
         // mirrors: the point at (−x, y, z)
         const by = new Map(); T.keys.forEach((k, i) => by.set(k, i));
         mirrorOf = T.keys.map(k => { const [x, y, z] = keyPos(k); if (Math.abs(x) < 1e-4) return -2; const m = by.get(`${(-x).toFixed(4)},${y.toFixed(4)},${z.toFixed(4)}`); return m ?? -1; });
-        setRegion(region); show();
+        setRegion(region); if (!hairOn) applyHair(); show();
     }
     let dotIds = [];
     function buildDots() {
         if (dots) { group.remove(dots); dots.geometry.dispose(); }
-        dotIds = T.keys.map((_, i) => i).filter(inRegion);
+        dotIds = T.keys.map((_, i) => i).filter(i => inRegion(i) && (hairOn || !T.hair?.[i]));
         const r = region === 'head' ? 0.0028 : region === 'upper' ? 0.005 : 0.008;
         dots = new THREE.InstancedMesh(new THREE.SphereGeometry(r, 8, 6), new THREE.MeshBasicMaterial({ depthTest: true }), dotIds.length);
         dots.renderOrder = 5; group.add(dots); placeDots();
