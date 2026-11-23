@@ -23,12 +23,12 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     // side, from the front centre round to the back centre — front centre, pectoral middle, pectoral outer edge, side front,
     // side back, shoulder blade, spine. Big flat planes: the pectorals are two faces with a small step beneath them.
     const TM = [   // y, half outline, colour   (male)
-        [1.66, [[0, 0.054], [0.032, 0.05], [0.052, 0.03], [0.062, 0], [0.06, -0.032], [0.038, -0.06], [0, -0.066]], skin],   // the neck: a clear column
-        [1.635, [[0, 0.055], [0.034, 0.051], [0.054, 0.031], [0.067, 0], [0.065, -0.034], [0.04, -0.063], [0, -0.069]], skin],
+        [1.66, [[0, 0.046], [0.028, 0.043], [0.045, 0.026], [0.054, 0], [0.053, -0.03], [0.034, -0.056], [0, -0.062]], skin],   // the neck: a clear column, narrower than the jaw
+        [1.635, [[0, 0.05], [0.032, 0.047], [0.05, 0.029], [0.062, 0], [0.061, -0.033], [0.038, -0.061], [0, -0.067]], skin],
         [1.605, [[0, 0.062], [0.04, 0.058], [0.07, 0.034], [0.105, 0], [0.098, -0.045], [0.05, -0.074], [0, -0.078]], skin],   // the trapezius begins
         [1.565, [[0, 0.074], [0.065, 0.076], [0.125, 0.052], [0.185, 0.0], [0.175, -0.058], [0.095, -0.09], [0, -0.094]], skin],   // sloping down and out, broad
-        [1.5, [[0, 0.102], [0.095, 0.108], [0.19, 0.082], [0.268, 0.01], [0.252, -0.062], [0.14, -0.104], [0, -0.098]], skin],
-        [1.455, [[0, 0.138], [0.105, 0.15], [0.21, 0.108], [0.29, 0.02], [0.276, -0.074], [0.15, -0.122], [0, -0.104]], skin],   // the shoulder tips (deltoids), wide and round; a deeper chest
+        [1.5, [[0, 0.102], [0.095, 0.108], [0.18, 0.084], [0.232, 0.01], [0.222, -0.062], [0.14, -0.104], [0, -0.098]], skin],   // (the torso's shoulder stops inside the arm: the deltoid is the arm's)
+        [1.455, [[0, 0.138], [0.105, 0.15], [0.2, 0.11], [0.24, 0.02], [0.232, -0.074], [0.15, -0.122], [0, -0.104]], skin],   // the shoulder tips (deltoids), wide and round; a deeper chest
         [1.36, [[0, 0.142], [0.1, 0.156], [0.18, 0.12, 0.035], [0.2, 0, 0.05], [0.19, -0.075, 0.05], [0.13, -0.116, 0.03], [0, -0.102]], skin],   // the pectorals' lower edge, slanting up to the armpit
         [1.33, [[0, 0.13], [0.1, 0.136], [0.175, 0.106, 0.03], [0.196, 0, 0.04], [0.19, -0.072, 0.04], [0.13, -0.112, 0.02], [0, -0.1]], skin],   // a soft step beneath them
         [1.22, [[0, 0.11], [0.09, 0.11], [0.15, 0.08], [0.166, 0], [0.16, -0.06], [0.11, -0.1], [0, -0.094]], skin],   // the ribs
@@ -46,8 +46,8 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         [1.635, [[0, 0.047], [0.028, 0.043], [0.046, 0.024], [0.055, 0], [0.053, -0.028], [0.033, -0.052], [0, -0.057]], skin],
         [1.605, [[0, 0.053], [0.034, 0.049], [0.058, 0.029], [0.088, 0], [0.083, -0.04], [0.042, -0.064], [0, -0.068]], skin],
         [1.565, [[0, 0.064], [0.054, 0.064], [0.104, 0.046], [0.152, 0], [0.144, -0.05], [0.078, -0.08], [0, -0.084]], skin],
-        [1.51, [[0, 0.094], [0.082, 0.098], [0.158, 0.076], [0.212, 0.008], [0.2, -0.058], [0.115, -0.096], [0, -0.092]], skin],   // (her shoulders narrower and sloping, as the reference)
-        [1.46, [[0, 0.108], [0.088, 0.114], [0.165, 0.09], [0.222, 0], [0.208, -0.066], [0.12, -0.106], [0, -0.096]], cloth],   // the top's neckline
+        [1.51, [[0, 0.094], [0.082, 0.098], [0.15, 0.076], [0.19, 0.008], [0.182, -0.058], [0.112, -0.096], [0, -0.092]], skin],   // (her shoulders narrower and sloping, as the reference)
+        [1.46, [[0, 0.108], [0.088, 0.114], [0.158, 0.09], [0.196, 0], [0.188, -0.066], [0.118, -0.106], [0, -0.096]], cloth],   // the top's neckline
         [1.39, [[0, 0.122], [0.075, 0.164], [0.14, 0.124], [0.175, 0], [0.168, -0.064], [0.11, -0.1], [0, -0.094]], cloth],   // the bust, fuller
         [1.33, [[0, 0.118], [0.075, 0.152], [0.13, 0.116, 0.02], [0.165, 0, 0.03], [0.16, -0.062, 0.03], [0.105, -0.094], [0, -0.086]], cloth],
         [1.31, [[0, 0.098], [0.075, 0.1], [0.125, 0.082], [0.158, 0], [0.155, -0.06], [0.102, -0.094], [0, -0.088]], cloth],   // the step beneath
@@ -63,7 +63,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     // the shoulder dome: its outer part follows the arm (so the deltoid is one surface with the torso and still moves)
     const shoulderW = y => (th, x) => {
         const base = torsoW(y); if (y < 1.42 || y > 1.57 || x == null) return base;
-        const tq = Math.max(0, Math.min(1, (Math.abs(x) - 0.17) / 0.11)), f = tq * tq * (3 - 2 * tq);   // (eased, all the way to the arm: shoulder and arm one surface, no step)
+        const tq = Math.max(0, Math.min(1, (Math.abs(x) - 0.16) / 0.1)), f = tq * tq * (3 - 2 * tq) * 0.4;   // (eased, all the way to the arm: shoulder and arm one surface, no step)
         return f <= 0 ? base : [...base.map(([b, v]) => [b, v * (1 - f)]), [x > 0 ? arms.L.upper : arms.R.upper, f]];
     };
     sk.loft((F ? TF : TM).map(([y, half, col]) => ({ c: V(body, 0, y, 0), pts: ringPts(half), w: shoulderW(y), col })), { cap: true });
@@ -74,7 +74,9 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         const { upper, fore } = arms[side], s = side === 'L' ? 1 : -1;
         const R = (g, ox, y, w, df, db, wts, b = []) => ({ c: V(g, s * (ox - (F ? 0.03 : 0)), y, 0), shape: profile(w * k, df * k, db * k, b), w: wts, col: skin });   // (hers set a little in: narrower, sloping shoulders)
         sk.loft([
-            R(upper, -0.012, -0.045, 0.05, 0.05, 0.05, [[upper, 1]]),   // (starts inside the shoulder dome, so the shoulder stays round)   // (the shoulder dome is the torso's: the arm starts inside it)
+            R(upper, -0.02, 0.05, 0.022, 0.024, 0.024, [[spine, 0.3], [upper, 0.7]]),   // the deltoid's dome: the shoulder's outside (closed at the top)
+            R(upper, -0.006, 0.02, 0.05, 0.05, 0.05, [[spine, 0.1], [upper, 0.9]]),
+            R(upper, 0.006, -0.03, 0.062, 0.058, 0.058, [[upper, 1]]),   // (the shoulder dome is the torso's: the arm starts inside it)
             R(upper, 0.014, -0.075, 0.064, 0.058, 0.058, [[upper, 1]], [{ th: s * Math.PI / 2, amp: 0.006, wd: 0.6 }]),   // the deltoid's lower end, its outer bulge
             R(upper, 0.008, -0.12, 0.05, 0.05, 0.048, [[upper, 1]]),
             R(upper, 0.0, -0.18, 0.048, 0.06, 0.05, [[upper, 1]], [{ th: 0, amp: 0.008, wd: 0.5 }]),   // the biceps
@@ -87,7 +89,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
             R(fore, 0.0, -0.37, 0.019, 0.043, 0.038, [[fore, 1]]),   // the knuckles
             R(fore, 0.0, -0.43, 0.014, 0.036, 0.03, [[fore, 1]]),
             R(fore, 0.0, -0.47, 0.009, 0.02, 0.016, [[fore, 1]]),
-        ], { seg: 6, cap: true });
+        ], { seg: 6, cap: true, capStart: true });
         sk.loft([   // the thumb
             { c: V(fore, s * 0.006, -0.295, 0.03 * k), shape: profile(0.013 * k, 0.013 * k, 0.013 * k), w: [[fore, 1]], col: skin },
             { c: V(fore, s * 0.004, -0.345, 0.05 * k), shape: profile(0.011 * k, 0.011 * k, 0.011 * k), w: [[fore, 1]], col: skin },
@@ -115,6 +117,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
             R(shin, 0.0, -0.25, 0.042, 0.043, 0.05, [[shin, 1]]),
             R(shin, 0.0, fl + 0.13, 0.031, 0.032, 0.034, [[shin, 1]]),
             R(shin, 0.0, fl + 0.09, 0.03, 0.034, 0.032, [[shin, 1]]),   // the ankle
+            R(shin, 0.0, fl + 0.05, 0.034, 0.04, 0.034, [[shin, 1]]),   // (down into the foot: no gap)
         ], { seg: 7 });
         sk.loft([   // the foot, from the heel to the toes (rings upright along +z)
             { c: V(shin, 0, fl + 0.03, -0.068), rx: 0.012 * kl, rz: 0.022, w: [[shin, 1]], col: skin },   // the heel's back, closed
@@ -123,7 +126,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
             { c: V(shin, s * 0.004, fl + 0.027, 0.07), rx: 0.042 * kl, rz: 0.027, w: [[shin, 1]], col: skin },
             { c: V(shin, s * 0.006, fl + 0.016, 0.13), rx: 0.044 * kl, rz: 0.016, w: [[shin, 1]], col: skin },
             { c: V(shin, s * 0.006, fl + 0.01, 0.165), rx: 0.034 * kl, rz: 0.01, w: [[shin, 1]], col: skin },
-        ], { seg: 6, axis: 'z', cap: true });
+        ], { seg: 6, axis: 'z', cap: true, capStart: true });
     }
 
     // ---- the head: chin, jaw angle, cheekbones, eye sockets, the brow ridge, forehead, crown ----
@@ -136,11 +139,10 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         [0.225, [[0, 0.093], [0.07, 0.07], [0.092, -0.02], [0.075, -0.08], [0, -0.102]]],   // the forehead
         [0.19, [[0, 0.1], [0.075, 0.072], [0.093, -0.02], [0.077, -0.08], [0, -0.1]]],   // the brow
         [0.15, [[0, 0.098], [0.077, 0.069], [0.09, -0.02], [0.074, -0.075], [0, -0.095]]],   // the cheekbones
-        [0.118, [[0, 0.096], [0.07, 0.066], [0.084, -0.022], [0.068, -0.07], [0, -0.084]]],   // the cheek's plane down to the mouth
-        [0.09, [[0, 0.094], [F ? 0.054 : 0.06, 0.062], [F ? 0.066 : 0.075, -0.03], [0.056, -0.062], [0, -0.068]]],   // the jaw's angle
-        [0.055, [[0, 0.092], [0.03, 0.078], [0.046, 0.004], [0.042, -0.035], [0, -0.046]]],   // the chin, square to the front
-        [0.03, [[0, 0.06], [0.035, 0.045], [0.047, -0.01], [0.046, -0.04], [0, -0.05]]],
-        [0.005, [[0, 0.05], [0.035, 0.035], [0.054, -0.015], [0.048, -0.046], [0, -0.056]]],
+        [0.095, [[0, 0.095], [F ? 0.058 : 0.064, 0.064], [F ? 0.07 : 0.077, -0.028], [0.06, -0.064], [0, -0.07]]],   // the jaw's angle, a broad plane
+        [0.05, [[0, 0.088], [0.034, 0.074], [0.05, 0.004], [0.046, -0.036], [0, -0.048]]],   // the chin
+        [0.035, [[0, 0.05], [0.032, 0.036], [0.046, -0.012], [0.044, -0.044], [0, -0.054]]],   // (under the jaw: short, so its shadowed underside stays small)
+        [0.0, [[0, 0.042], [0.03, 0.03], [0.046, -0.014], [0.042, -0.044], [0, -0.052]]],
     ];
     const headW = y => (y < 0.02 ? [[head, 0.8], [spine, 0.2]] : [[head, 1]]);
     const hx = F ? 0.95 : 1;
@@ -163,8 +165,10 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     // hair: big swept chunks, as the reference — the hairline high in front, lower at the nape
     const hl = th => (Math.cos(th) > 0 ? Math.pow(Math.cos(th), 0.7) * (F ? 0.11 : 0.11) : Math.cos(th) * (F ? 0.0 : 0.05));   // up to the hairline in front; down to the nape behind
     const HR = F ? [[0.322, 0.02, 0.02, 0.03], [0.305, 0.064, 0.06, 0.085], [0.27, 0.09, 0.092, 0.108], [0.225, 0.096, 0.1, 0.112], [0.13, 0.094, 0.098, 0.108]]
-        : [[0.335, 0.03, 0.05, 0.03], [0.322, 0.075, 0.096, 0.078], [0.292, 0.098, 0.108, 0.106], [0.245, 0.1, 0.106, 0.112], [0.195, 0.098, 0.1, 0.11], [0.135, 0.094, 0.098, 0.084]];   // (swept back: volume over the brow, hugging the sides and the back)   // (to the nape, round the back and sides)   // (male: volume on top, swept up at the front)
-    sk.loft(HR.map(([y, w, df, db], i) => ({ c: V(head, 0, y * hk, 0.0), shape: profile(w * hk, df * hk, db * hk), w: [[head, 1]], col: HAIR, dy: i === HR.length - 1 ? hl : null })), { seg: 10, mat: 'double' });
+        : [[0.322, 0.03, 0.045, 0.035], [0.31, 0.082, 0.094, 0.088], [0.282, 0.104, 0.108, 0.112], [0.24, 0.108, 0.108, 0.12], [0.19, 0.106, 0.104, 0.118], [0.135, 0.1, 0.1, 0.09]];   // (low on top; full at the sides and back, round the skull)   // (swept back: volume over the brow, hugging the sides and the back)   // (to the nape, round the back and sides)   // (male: volume on top, swept up at the front)
+    const HL = F ? 0.25 : 0.262;   // the hairline's height in front: every hair ring's front rises to it (the forehead and brows show)
+    const front = (y, last) => th => { const c = Math.cos(th); return c > 0 ? Math.pow(c, 0.8) * Math.max(0, HL - y) : last ? c * (F ? 0 : 0.05) : 0; };
+    sk.loft(HR.map(([y, w, df, db], i) => ({ c: V(head, 0, y * hk, 0.0), shape: profile(w * hk, df * hk, db * hk), w: [[head, 1]], col: HAIR, dy: (th => front(y, i === HR.length - 1)(th) * hk) })), { seg: 10, mat: 'double' });
     if (false) for (const [x, len] of [[-0.055, 0.1], [0, 0.11], [0.055, 0.1]]) {   // (the tufts read as horns: gone)   // three big locks swept back over the crown
         sk.loft([
             { c: V(head, x * hk, 0.328 * hk, 0.075 * hk), rx: 0.035 * hk, rz: 0.012, w: [[head, 1]], col: HAIR },
@@ -204,9 +208,9 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         let tp = new THREE.Group(); tp.position.set(0, 0.315 * hk, -0.035); head.add(tp);   // (high on the crown)
         const band = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.024, 0.03, 6), new THREE.MeshStandardMaterial({ color: '#2a2a30', flatShading: true })); band.userData.keep = band.userData.v2 = true; tp.add(band);
         // one cohesive ponytail (a tube along a curve): up and back from the tie, arcing over, hanging down behind the shoulders
-        const P = [[0, 0.3, -0.045, 0.03], [0, 0.335, -0.085, 0.042], [0, 0.32, -0.13, 0.05], [0, 0.24, -0.158, 0.052], [0, 0.12, -0.16, 0.048], [0, -0.01, -0.15, 0.04], [0, -0.12, -0.13, 0.028], [0, -0.2, -0.112, 0.012]];
+        const P = [[0, 0.3, -0.045, 0.03], [0, 0.335, -0.088, 0.042], [0, 0.318, -0.14, 0.05], [0, 0.24, -0.172, 0.054], [0, 0.12, -0.178, 0.05], [0, -0.01, -0.165, 0.044], [0, -0.13, -0.14, 0.032], [0, -0.22, -0.118, 0.012]];
         const ph = createSkin(root, [head]);
-        ph.tube(P.map(([x, y, z, r]) => ({ c: ph.at(head, x, y * hk, z * hk), r: r * hk, rz: r * hk * 0.8, w: [[head, 1]], col: HAIR })), { seg: 7, mat: 'double' });
+        ph.tube(P.map(([x, y, z, r]) => ({ c: ph.at(head, x, y * hk, z * hk), r: r * hk * 1.4, rz: r * hk * 1.15, w: [[head, 1]], col: HAIR })), { seg: 7, mat: 'double' });   // (thick and full)
         ph.build();
     }
     function update({ t, run = 0, amp = 0 }) {

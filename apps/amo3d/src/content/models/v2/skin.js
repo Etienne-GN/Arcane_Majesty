@@ -21,7 +21,7 @@ export function createSkin(root, bones) {
     // A loft: rings [{ c: Vector3, rx, rz, w: [[bone, weight]…] or (θ) => […], col, dy?(θ) }], θ = 0 at the front (+z).
     // opts: seg (sides), from/to (an open sheet between two angles), mat ('front' | 'double'), inward (faces inward),
     // axis 'y' (rings horizontal, the default) or 'z' (rings upright, for feet), shade(k 0…1 down the loft) → colour factor.
-    function loft(rings, { seg = 8, from = 0, to = Math.PI * 2, mat = 'front', inward = false, axis = 'y', cap = false } = {}) {
+    function loft(rings, { seg = 8, from = 0, to = Math.PI * 2, mat = 'front', inward = false, axis = 'y', cap = false, capStart = false } = {}) {
         if (rings[0].pts) { seg = rings[0].pts.length; from = 0; to = Math.PI * 2; }   // hand-placed rings: their own point count, closed
         const closed = to - from >= Math.PI * 2 - 1e-6, n = closed ? seg : seg + 1;
         const ring = r => r.pts ? r.pts.map(([px, pz, py = 0]) => ({ p: new THREE.Vector3(r.c.x + px, r.c.y + py, r.c.z + pz), w: typeof r.w === 'function' ? r.w(Math.atan2(px, pz), px) : r.w })) : Array.from({ length: n }, (_, i) => {
@@ -39,6 +39,10 @@ export function createSkin(root, bones) {
                 // rings go downward (top first) for 'y' lofts: keep the faces turned outward
                 if (!inward) { tri(mat, a, d, c, col); tri(mat, a, c, b, col); } else { tri(mat, a, c, d, col); tri(mat, a, b, c, col); }
             }
+        }
+        if (capStart) {   // close the first ring too (a dome's top, a heel's back)
+            const first = R[0], cr = rings[0], c = { p: cr.c.clone(), w: typeof cr.w === 'function' ? cr.w(0) : cr.w }, col = tmp.set(cr.col).clone();
+            for (let i = 0; i < seg; i++) { const j = (i + 1) % n; if (!inward) tri(mat, first[j], c, first[i], col); else tri(mat, first[i], c, first[j], col); }
         }
         if (cap) {   // close the last ring with a fan
             const last = R.at(-1), cr = rings.at(-1), c = { p: cr.c.clone(), w: typeof cr.w === 'function' ? cr.w(0) : cr.w }, col = tmp.set(cr.col).clone();
