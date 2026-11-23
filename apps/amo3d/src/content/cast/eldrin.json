@@ -1,16 +1,32 @@
 {
-  "id": "eldrin",
-  "name": "Eldrin",
-  "lore": "Main character of Eldoria's Prophecy — the scholar-mage of the tower in the vale.",
-  "look": {
-    "build": { "height": 1.0, "width": 1.0 },
-    "skin": "#e2b48f",
-    "eyes": "#5ab8f0",
-    "hair": { "style": "tousled", "color": "#3a2418" },
-    "facialHair": { "style": "stubble", "color": "#a07a62" },
-    "outfit": {
-      "coat": "#a3141f", "collar": "#7a0f17", "trim": "#d4a84a", "vest": "#1c1714", "shirt": "#16120f",
-      "pants": "#221c18", "leather": "#5a3520", "leatherDark": "#3e2416"
-    }
-  }
+ "id": "eldrin",
+ "name": "Eldrin",
+ "lore": "Main character of Eldoria's Prophecy \u2014 the scholar-mage of the tower in the vale.",
+ "look": {
+  "build": {
+   "height": 1.0,
+   "width": 1.0
+  },
+  "skin": "#e2b48f",
+  "eyes": "#5ab8f0",
+  "hair": {
+   "style": "tousled",
+   "color": "#3a2418"
+  },
+  "facialHair": {
+   "style": "stubble",
+   "color": "#a07a62"
+  },
+  "outfit": {
+   "coat": "#a3141f",
+   "collar": "#7a0f17",
+   "trim": "#d4a84a",
+   "vest": "#1c1714",
+   "shirt": "#16120f",
+   "pants": "#221c18",
+   "leather": "#5a3520",
+   "leatherDark": "#3e2416"
+  },
+  "v2": "eldrin"
+ }
 }

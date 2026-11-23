@@ -2,8 +2,10 @@
 // docs/3d/characters/base_mesh_reference.jpg
 import { buildSeraphina } from './seraphina.js';
 import { buildBase } from './base.js';
+import { buildEldrin } from './eldrin.js';
 export const V2_MODELS = {
     seraphina: buildSeraphina,
+    eldrin: buildEldrin,
     base_male: ctx => buildBase(ctx, { sex: 'male' }),
     base_female: ctx => buildBase(ctx, { sex: 'female' }),
 };

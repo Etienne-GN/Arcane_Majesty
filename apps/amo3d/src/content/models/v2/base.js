@@ -10,7 +10,9 @@ import { createSkin, blend, profile, ringPts } from './skin.js';
 
 const sym = (th, amp, wd) => [{ th, amp, wd }, { th: -th, amp, wd }];
 
-export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair = null } = {}) {
+// outfit (optional): { torso(y, θ, base), arm(part, y), leg(part, y, base), foot, extra(helpers) } — colours painted onto the body's
+// own surface, and extra pieces (coat tails, a collar…) added before the mesh is built. Used by the dressed cast (eldrin.js).
+export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair = null, outfit = null, headK = 1, footK = 1 } = {}) {   // headK: the head's size; footK: the feet (boots are bigger)
     const F = sex === 'female';
     const { root, body, hips, spine, head, arms, legs } = ctx;
     const HAIR = hair ?? (F ? '#151922' : '#2a1d16');
@@ -66,13 +68,13 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         const tq = Math.max(0, Math.min(1, (Math.abs(x) - 0.16) / 0.1)), f = tq * tq * (3 - 2 * tq) * 0.4;   // (eased, all the way to the arm: shoulder and arm one surface, no step)
         return f <= 0 ? base : [...base.map(([b, v]) => [b, v * (1 - f)]), [x > 0 ? arms.L.upper : arms.R.upper, f]];
     };
-    sk.loft((F ? TF : TM).map(([y, half, col]) => ({ c: V(body, 0, y, 0), pts: ringPts(half), w: shoulderW(y), col })), { cap: true });
+    sk.loft((F ? TF : TM).map(([y, half, col]) => ({ c: V(body, 0, y, 0), pts: ringPts(half), w: shoulderW(y), col: outfit?.torso ? (th => outfit.torso(y, th, col)) : col })), { cap: true });
 
     // ---- arms: the deltoid cap, biceps, the elbow, the forearm, the wrist, a hand with a thumb ----
     const k = F ? 1.26 : 1.5;   // (the reference's arms are thick: the upper arm near the neck's width)
     for (const side of ['L', 'R']) {
         const { upper, fore } = arms[side], s = side === 'L' ? 1 : -1;
-        const R = (g, ox, y, w, df, db, wts, b = []) => ({ c: V(g, s * (ox - (F ? 0.03 : 0)), y, 0), shape: profile(w * k, df * k, db * k, b), w: wts, col: skin });   // (hers set a little in: narrower, sloping shoulders)
+        const R = (g, ox, y, w, df, db, wts, b = []) => ({ c: V(g, s * (ox - (F ? 0.03 : 0)), y, 0), shape: profile(w * k, df * k, db * k, b), w: wts, col: outfit?.arm ? outfit.arm(g === fore ? 'fore' : 'upper', y) ?? skin : skin });   // (hers set a little in: narrower, sloping shoulders)
         sk.loft([
             R(upper, -0.02, 0.05, 0.022, 0.024, 0.024, [[spine, 0.3], [upper, 0.7]]),   // the deltoid's dome: the shoulder's outside (closed at the top)
             R(upper, -0.006, 0.02, 0.05, 0.05, 0.05, [[spine, 0.1], [upper, 0.9]]),
@@ -101,7 +103,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     const kl = F ? 1.4 : 1.38;   // (the reference's legs are heavy: thick thighs, full calves)
     for (const side of ['L', 'R']) {
         const { thigh, shin } = legs[side], s = side === 'L' ? 1 : -1;
-        const R = (g, ox, y, w, df, db, wts, col = skin, b = []) => ({ c: V(g, s * ox, y, 0), shape: profile(w * kl, df * kl, db * kl, b), w: wts, col });
+        const R = (g, ox, y, w, df, db, wts, col = skin, b = []) => ({ c: V(g, s * ox, y, 0), shape: profile(w * kl, df * kl, db * kl, b), w: wts, col: outfit?.leg ? outfit.leg(g === shin ? 'shin' : 'thigh', y, col) : col });
         const fl = (() => { root.updateMatrixWorld(true); const a = V(shin, 0, -0.4, 0); return shin.worldToLocal(root.localToWorld(new THREE.Vector3(a.x, 0, a.z))).y; })();   // the floor, in the shin's frame
         sk.loft([
             R(thigh, -0.012, 0.04, 0.062, 0.07, 0.08, [[hips, 0.6], [thigh, 0.4]], cloth),   // (inside the hips: the shorts hug the thighs, no flaps)
@@ -120,17 +122,17 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
             R(shin, 0.0, fl + 0.05, 0.034, 0.04, 0.034, [[shin, 1]]),   // (down into the foot: no gap)
         ], { seg: 7 });
         sk.loft([   // the foot, from the heel to the toes (rings upright along +z)
-            { c: V(shin, 0, fl + 0.03, -0.068), rx: 0.012 * kl, rz: 0.022, w: [[shin, 1]], col: skin },   // the heel's back, closed
-            { c: V(shin, 0, fl + 0.036, -0.045), rx: 0.03 * kl, rz: 0.036, w: [[shin, 1]], col: skin },   // (every ring's underside on the floor: the sole flat at y = 0)
-            { c: V(shin, 0, fl + 0.041, 0.0), rx: 0.036 * kl, rz: 0.041, w: [[shin, 1]], col: skin },
-            { c: V(shin, s * 0.004, fl + 0.027, 0.07), rx: 0.042 * kl, rz: 0.027, w: [[shin, 1]], col: skin },
-            { c: V(shin, s * 0.006, fl + 0.016, 0.13), rx: 0.044 * kl, rz: 0.016, w: [[shin, 1]], col: skin },
-            { c: V(shin, s * 0.006, fl + 0.01, 0.165), rx: 0.034 * kl, rz: 0.01, w: [[shin, 1]], col: skin },
+            { c: V(shin, 0, fl + 0.03 * footK, -0.068 * footK), rx: 0.012 * kl * footK, rz: 0.022 * footK, w: [[shin, 1]], col: outfit?.foot ?? skin },   // the heel's back, closed
+            { c: V(shin, 0, fl + 0.036 * footK, -0.045 * footK), rx: 0.03 * kl * footK, rz: 0.036 * footK, w: [[shin, 1]], col: outfit?.foot ?? skin },   // (every ring's underside on the floor: the sole flat at y = 0)
+            { c: V(shin, 0, fl + 0.041 * footK, 0.0 * footK), rx: 0.036 * kl * footK, rz: 0.041 * footK, w: [[shin, 1]], col: outfit?.foot ?? skin },
+            { c: V(shin, s * 0.004, fl + 0.027 * footK, 0.07 * footK), rx: 0.042 * kl * footK, rz: 0.027 * footK, w: [[shin, 1]], col: outfit?.foot ?? skin },
+            { c: V(shin, s * 0.006, fl + 0.016 * footK, 0.13 * footK), rx: 0.044 * kl * footK, rz: 0.016 * footK, w: [[shin, 1]], col: outfit?.foot ?? skin },
+            { c: V(shin, s * 0.006, fl + 0.01 * footK, 0.165 * footK), rx: 0.034 * kl * footK, rz: 0.01 * footK, w: [[shin, 1]], col: outfit?.foot ?? skin },
         ], { seg: 6, axis: 'z', cap: true, capStart: true });
     }
 
     // ---- the head: chin, jaw angle, cheekbones, eye sockets, the brow ridge, forehead, crown ----
-    const hk = F ? 1.1 : 1.18;   // (the reference's head is ~40% of the shoulders' width)
+    const hk = (F ? 1.1 : 1.18) * headK;   // (the reference's head is ~40% of the shoulders' width)
     // the head, hand-placed: the face's centre line, the cheek's front, the cheekbone, the side (the ear), the back's side,
     // the back — big planes: the brow overhanging the eyes, the cheekbones, the jaw's angle, the chin
     const HP = [   // half outline: the face's centre line, the cheek's front, the side, the back's side, the back (simplified, as the reference)
@@ -186,6 +188,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
             { c: V(head, s * 0.078 * hk, 0.04 * hk, 0.02 * hk), rx: 0.004, rz: 0.006, w: [[head, 1]], col: HAIR },
         ], { seg: 5, cap: true });
     }
+    outfit?.extra?.({ sk, V, body, hips, spine, head, arms, legs, hk, F });   // the outfit's own pieces
     const mesh = sk.build();
     // the camisole's straps (female): from the neckline over each shoulder to the back
     if (F) {

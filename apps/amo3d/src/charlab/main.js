@@ -4,8 +4,9 @@ import * as THREE from 'three';
 import { createCharacter } from '../content/models/character.js';
 import { settings } from '../engine/settings.js';
 import seraphina from '../content/cast/seraphina.json';
+import eldrin from '../content/cast/eldrin.json';
 
-const CAST = { seraphina }, who = new URLSearchParams(location.search).get('who') || 'seraphina';
+const CAST = { seraphina, eldrin }, who = new URLSearchParams(location.search).get('who') || 'seraphina';
 const renderer = new THREE.WebGLRenderer({ antialias: true }); renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.shadowMap.enabled = true;
 renderer.outputColorSpace = THREE.SRGBColorSpace; document.body.prepend(renderer.domElement);
 const scene = new THREE.Scene(); scene.background = new THREE.Color(0x3c3c40);
@@ -16,10 +17,11 @@ const floor = new THREE.Mesh(new THREE.CircleGeometry(6, 48).rotateX(-Math.PI / 
 
 const BASE = who === 'base';   // the base bodies: male and female, no clothes, empty hands
 const baseLook = (preset, v2) => ({ v2, body: { preset, race: 'human', skin: '#e2b590' }, parts: { right: { id: 'none' }, left: { id: 'none' } } });
-const look = BASE ? null : JSON.parse(JSON.stringify(CAST[who].look)); if (look) look.parts.right = { id: 'spear' };
+const look = BASE ? null : JSON.parse(JSON.stringify(CAST[who].look)); if (look && who === 'seraphina') look.parts.right = { id: 'spear' };
 const make = (mode, lk = look) => { settings.charModels = mode; const c = createCharacter(lk); scene.add(c.root); return c; };
 const models = BASE ? [make('new', baseLook('adult_male', 'base_male')), make('new', baseLook('adult_female', 'base_female'))] : [make('classic'), make('new')];
 if (BASE) document.getElementById('labels').innerHTML = '<span>MALE BASE MESH</span><span>FEMALE BASE MESH</span>';
+else document.getElementById('labels').innerHTML = `<span>${CAST[who].name.toUpperCase()} — CLASSIC</span><span>${CAST[who].name.toUpperCase()} — NEW (v2)</span>`;
 models[0].root.position.x = -0.75; models[1].root.position.x = 0.75;
 let mode = BASE ? 'apose' : 'idle', spin = !BASE, yaw = BASE ? 0 : 0.35;
 const bar = document.getElementById('bar');

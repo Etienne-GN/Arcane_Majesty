@@ -33,9 +33,11 @@ export function createSkin(root, bones) {
         });
         const R = rings.map(ring);
         for (let k = 0; k < rings.length - 1; k++) {
-            const A = R[k], B = R[k + 1], col = tmp.set(rings[k].col).clone();
+            const A = R[k], B = R[k + 1], colOf = rings[k].col, flatCol = typeof colOf === 'function' ? null : tmp.set(colOf).clone();
             for (let i = 0; i < seg; i++) {
                 const j = closed ? (i + 1) % n : i + 1, a = A[i], b = A[j], c = B[j], d = B[i];
+                // a ring's colour may vary round it (a coat open over a shirt): col(θ) at the face's middle
+                const col = flatCol ?? new THREE.Color(colOf(Math.atan2((a.p.x + b.p.x) / 2 - rings[k].c.x, (a.p.z + b.p.z) / 2 - rings[k].c.z)));
                 // rings go downward (top first) for 'y' lofts: keep the faces turned outward
                 if (!inward) { tri(mat, a, d, c, col); tri(mat, a, c, b, col); } else { tri(mat, a, c, d, col); tri(mat, a, b, c, col); }
             }
