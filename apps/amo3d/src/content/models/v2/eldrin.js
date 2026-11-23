@@ -44,9 +44,9 @@ export function buildEldrin(ctx) {
                 cs.build();
                 // the high popped collar, open at the throat
                 // (second pass: "you just painted his neck"): it rises from the shoulders well clear of the neck — 3-4 cm off it
-                // all round — and flares out as it climbs, open wide at the throat, its inside dark
+                // all round — and flares out as it climbs, open wide at the throat, its inside dark (half as tall since 2026-11-23: to ~1.67 m)
                 const K = (y, w, df, db, col) => ({ c: V(body, 0, y, -0.012), shape: profile(w, df, db), w: [[spine, 1]], col });
-                sk.loft([K(1.56, 0.11, 0.075, 0.105, C.coatDark), K(1.62, 0.1, 0.075, 0.108, C.coat), K(1.69, 0.108, 0.085, 0.118, C.coat), K(1.75, 0.125, 0.1, 0.132, C.coat), K(1.785, 0.138, 0.11, 0.142, C.coatDark)], { seg: 14, from: 0.95, to: Math.PI * 2 - 0.95, mat: 'double' });   // (high and flared, as the reference)
+                sk.loft([K(1.56, 0.11, 0.075, 0.105, C.coatDark), K(1.59, 0.1, 0.075, 0.108, C.coat), K(1.625, 0.108, 0.085, 0.118, C.coat), K(1.655, 0.125, 0.1, 0.132, C.coat), K(1.672, 0.138, 0.11, 0.142, C.coatDark)], { seg: 14, from: 0.95, to: Math.PI * 2 - 0.95, mat: 'double' });   // (high and flared, as the reference)
                 // lapels down the open front, the coat's edges
                 for (const s of [-1, 1]) sk.loft([{ c: V(body, s * 0.06, 1.55, 0.11), shape: profile(0.012, 0.006, 0.006), w: [[spine, 1]], col: C.coatDark }, { c: V(body, s * 0.07, 1.08, 0.106), shape: profile(0.012, 0.006, 0.006), w: [[spine, 1]], col: C.coatDark }], { seg: 4 });
                 // the shirt's two crossed straps
