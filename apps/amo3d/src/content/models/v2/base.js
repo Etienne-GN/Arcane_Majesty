@@ -234,8 +234,12 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         if (!F || BALD) {   // the ear (2026-11-23: "improve the ears"): a C-shaped shell behind the jaw, from the brow's height to the
             // nose's bottom, standing out more at the back — a rim (the helix) round a darker hollow (the concha), the lobe
             // below, and a wall behind joining it to the head. Points (y, z, x) head-local, from the front-top round the back.
-            const O = [[0.196, 0.002, 0.091], [0.205, -0.014, 0.102], [0.198, -0.031, 0.113], [0.177, -0.039, 0.117], [0.153, -0.034, 0.112], [0.135, -0.021, 0.103], [0.13, -0.011, 0.097], [0.137, -0.003, 0.092], [0.158, 0.004, 0.089]];   // (standing out ~2.5 cm at the back)
-            const EC = [0.168, -0.016], I = O.map(([y, z, x]) => [EC[0] + (y - EC[0]) * 0.6, EC[1] + (z - EC[1]) * 0.6, x - 0.004]);
+            const O = [[0.196, 0.002, 0.091], [0.205, -0.014, 0.102], [0.198, -0.031, 0.113], [0.177, -0.039, 0.117], [0.153, -0.034, 0.112], [0.135, -0.021, 0.103], [0.13, -0.011, 0.097], [0.137, -0.003, 0.092], [0.158, 0.004, 0.089]];
+            const EC = [0.168, -0.016];
+            // (second pass: "too big, sticking out like an elephant's" — ~20% smaller round its centre, and flat against the
+            // head: it stands ~1 cm off at the back instead of 2.5)
+            for (const o of O) { o[0] = EC[0] + (o[0] - EC[0]) * 0.8; o[1] = EC[1] + (o[1] - EC[1]) * 0.8; o[2] = 0.088 + (o[2] - 0.088) * 0.4; }
+            const I = O.map(([y, z, x]) => [EC[0] + (y - EC[0]) * 0.6, EC[1] + (z - EC[1]) * 0.6, x - 0.0025]);
             const Ep = ([y, z, x]) => ({ p: V(head, s * x * hk, y * hk, z * hk), w: [[head, 1]] }), ec = V(head, 0, 0.17 * hk, 0);
             const rimCol = skin, hollow = new THREE.Color(skin).multiplyScalar(0.8).getStyle(), backCol = new THREE.Color(skin).multiplyScalar(0.92).getStyle();
             for (let n = 0; n < O.length - 1; n++) {   // the rim, turning in toward the hollow (open at the front, by the cheek)
