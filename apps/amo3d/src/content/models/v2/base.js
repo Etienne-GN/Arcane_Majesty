@@ -89,15 +89,19 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
             R(fore, 0.004, -0.06, 0.046, 0.042, 0.04, [[fore, 1]], [{ th: s * 1.2, amp: 0.006, wd: 0.6 }]),   // the forearm's swell
             R(fore, 0.0, -0.15, 0.037, 0.034, 0.033, [[fore, 1]]),
             R(fore, 0.0, -0.265, 0.029, 0.022, 0.022, [[fore, 1]]),   // the wrist
-            R(fore, 0.0, -0.3, 0.02, 0.04, 0.036, [[fore, 1]]),   // the palm (its flat facing the body)
-            R(fore, 0.0, -0.37, 0.019, 0.043, 0.038, [[fore, 1]]),   // the knuckles
-            R(fore, 0.0, -0.43, 0.014, 0.036, 0.03, [[fore, 1]]),
-            R(fore, 0.0, -0.47, 0.009, 0.02, 0.016, [[fore, 1]]),
+            // the hand, closed in a fist (2026-11-23: "hands are too big, make them closed first, like a fist"): a compact
+            // block ~12 cm from the wrist instead of the old open paddle (~20 cm) — the palm's flat facing the body,
+            // the curled fingers thickening it, the knuckle ridge at its lower front, then rounded shut
+            R(fore, 0.0, -0.29, 0.02, 0.031, 0.028, [[fore, 1]]),   // the heel of the palm
+            R(fore, 0.0, -0.32, 0.022, 0.034, 0.03, [[fore, 1]]),   // the fist's middle: the fingers curled into the palm
+            R(fore, 0.0, -0.345, 0.021, 0.033, 0.027, [[fore, 1]], [{ th: 0, amp: 0.003, wd: 0.5 }]),   // the knuckles
+            R(fore, 0.0, -0.365, 0.015, 0.023, 0.018, [[fore, 1]]),
+            R(fore, 0.0, -0.375, 0.007, 0.011, 0.008, [[fore, 1]]),
         ], { seg: 6, cap: true, capStart: true });
-        sk.loft([   // the thumb
-            { c: V(fore, s * (0.006 - (F ? 0.03 : 0)), -0.3, 0.022 * k), shape: profile(0.012 * k, 0.012 * k, 0.012 * k), w: [[fore, 1]], col: skin },   // (short, close against the palm)
-            { c: V(fore, s * (0.004 - (F ? 0.03 : 0)), -0.335, 0.034 * k), shape: profile(0.009 * k, 0.009 * k, 0.009 * k), w: [[fore, 1]], col: skin },
-            { c: V(fore, s * (0.002 - (F ? 0.03 : 0)), -0.36, 0.038 * k), shape: profile(0.005, 0.005, 0.005), w: [[fore, 1]], col: skin },
+        sk.loft([   // the thumb: folded across the front of the curled fingers, toward the body
+            { c: V(fore, s * (0.006 - (F ? 0.03 : 0)), -0.295, 0.026 * k), shape: profile(0.011 * k, 0.011 * k, 0.011 * k), w: [[fore, 1]], col: skin },
+            { c: V(fore, s * (-0.004 - (F ? 0.03 : 0)), -0.322, 0.031 * k), shape: profile(0.009 * k, 0.009 * k, 0.009 * k), w: [[fore, 1]], col: skin },
+            { c: V(fore, s * (-0.012 - (F ? 0.03 : 0)), -0.336, 0.028 * k), shape: profile(0.005, 0.005, 0.005), w: [[fore, 1]], col: skin },
         ], { seg: 4, cap: true });
     }
 
