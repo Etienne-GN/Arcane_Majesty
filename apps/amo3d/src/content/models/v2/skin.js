@@ -45,6 +45,20 @@ export function createSkin(root, bones) {
             for (let i = 0; i < seg; i++) { const j = (i + 1) % n; if (!inward) tri(mat, last[i], c, last[j], col); else tri(mat, last[i], last[j], c, col); }
         }
     }
+    // A tube along any path (a ponytail, a strap): points [{ c: Vector3, r, rz?, w, col }], rings square to the path.
+    function tube(P, { seg = 7, mat = 'front', cap = true } = {}) {
+        const up = new THREE.Vector3(1, 0, 0), R = [];
+        for (let k = 0; k < P.length; k++) {
+            const a = P[Math.max(0, k - 1)].c, b = P[Math.min(P.length - 1, k + 1)].c, t = b.clone().sub(a).normalize();
+            const u = up.clone().sub(t.clone().multiplyScalar(up.dot(t))).normalize(), v = t.clone().cross(u).normalize();
+            R.push(Array.from({ length: seg }, (_, i) => { const th = (i / seg) * Math.PI * 2; return { p: P[k].c.clone().addScaledVector(u, Math.cos(th) * P[k].r).addScaledVector(v, Math.sin(th) * (P[k].rz ?? P[k].r)), w: P[k].w }; }));
+        }
+        for (let k = 0; k < P.length - 1; k++) {
+            const A = R[k], B = R[k + 1], col = tmp.set(P[k].col).clone();
+            for (let i = 0; i < seg; i++) { const j = (i + 1) % seg; tri(mat, A[i], B[i], B[j], col); tri(mat, A[i], B[j], A[j], col); }
+        }
+        if (cap) { const last = R.at(-1), c = { p: P.at(-1).c.clone(), w: P.at(-1).w }, col = tmp.set(P.at(-1).col).clone(); for (let i = 0; i < seg; i++) tri(mat, last[i], c, last[(i + 1) % seg], col); }
+    }
     function build() {
         const geo = new THREE.BufferGeometry(), all = { pos: [], col: [], si: [], sw: [] };
         const groups = [];
@@ -67,7 +81,7 @@ export function createSkin(root, bones) {
         mesh.bind(new THREE.Skeleton(bones));
         return mesh;
     }
-    return { at, loft, build };
+    return { at, loft, tube, build };
 }
 
 // A hand-placed ring: half its outline on the +x side, from the front centre (x = 0, z > 0) round to the back centre
