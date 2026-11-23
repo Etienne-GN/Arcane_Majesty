@@ -134,35 +134,42 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     const hk = (F ? 0.97 : 1.03) * headK;   // (smaller: 2026-11-23, "the head is too big")   // (the reference's head is ~40% of the shoulders' width)
     // the head, hand-placed: the face's centre line, the cheek's front, the cheekbone, the side (the ear), the back's side,
     // the back — big planes: the brow overhanging the eyes, the cheekbones, the jaw's angle, the chin
-    const HP = [   // half outline: the face's centre line, the cheek's front, the side, the back's side, the back — even planes (2026-11-23)
-        [0.305, [[0, 0.02], [0.025, 0.016], [0.035, -0.01], [0.024, -0.034], [0, -0.04]]],
-        [0.275, [[0, 0.066], [0.05, 0.056], [0.077, -0.02], [0.059, -0.07], [0, -0.085]]],
-        [0.225, [[0, 0.095], [0.068, 0.074], [0.092, -0.02], [0.075, -0.08], [0, -0.102]]],   // the forehead
-        [0.195, [[0, 0.104], [0.072, 0.08], [0.093, -0.02], [0.077, -0.08], [0, -0.1]]],   // the brow ridge, overhanging
-        [0.175, [[0, 0.097], [0.07, 0.07], [0.092, -0.02], [0.076, -0.078], [0, -0.098]]],   // the eyes, set in under it
-        [0.14, [[0, 0.1], [0.078, 0.07], [0.091, -0.02], [0.074, -0.074], [0, -0.092]]],   // the cheekbones: one broad plane each side
-        [0.105, [[0, 0.098], [F ? 0.066 : 0.074, 0.07], [F ? 0.08 : 0.087, -0.022], [0.068, -0.066], [0, -0.076]]],   // the mouth: broad, the cheek carrying straight down
-        [0.075, [[0, 0.094], [F ? 0.058 : 0.07, 0.068], [F ? 0.072 : 0.084, -0.026], [0.062, -0.06], [0, -0.066]]],   // the jaw's angle: broad and frank (male), softer (female)
-        [0.048, [[0, 0.089], [F ? 0.036 : 0.048, 0.078], [F ? 0.054 : 0.064, 0.004], [0.05, -0.036], [0, -0.048]]],   // the chin: square (male), rounded (female)
-        [0.032, [[0, 0.052], [0.036, 0.042], [0.05, -0.01], [0.046, -0.044], [0, -0.054]]],
-        [0.0, [[0, 0.042], [0.03, 0.03], [0.046, -0.014], [0.042, -0.044], [0, -0.052]]],
+    // The head, rebuilt (2026-11-23) after the reference's front and side views: each ring's points placed by hand, each at
+    // its own height — so the jawline SLANTS from the chin up to below the ear (no flat shelf under the jaw), the face is a
+    // few even planes: the forehead, the brow ridge overhanging set-in eyes, broad cheekbones, the cheek carrying down to
+    // the jaw's angle, a V to the chin. Points (x, y, z), half the head, from the face's centre line round to the nape:
+    // centre, mid-face, cheek front, cheek side, below the ear, back of the skull's side, the back.
+    const HEAD = [
+        [[0, 0, 0.045], [0.025, 0, 0.04], [0.04, 0, 0.025], [0.048, 0, 0], [0.047, 0, -0.022], [0.035, 0, -0.042], [0, 0, -0.05]],   // the neck's top
+        [[0, 0.045, 0.086], [0.026, 0.048, 0.082], [0.05, 0.062, 0.064], [0.068, 0.088, 0.032], [0.074, 0.118, -0.008], [0.062, 0.075, -0.058], [0, 0.065, -0.068]],   // the jawline: chin → jaw's angle → below the ear
+        [[0, 0.08, 0.094], [0.028, 0.08, 0.09], [0.056, 0.092, 0.072], [0.075, 0.112, 0.04], [0.081, 0.137, -0.006], [0.07, 0.11, -0.07], [0, 0.1, -0.082]],   // the mouth; the chin's front
+        [[0, 0.118, 0.098], [0.031, 0.118, 0.092], [0.062, 0.125, 0.074], [0.081, 0.137, 0.045], [0.087, 0.156, -0.006], [0.077, 0.14, -0.078], [0, 0.135, -0.092]],   // under the nose; the cheek's plane
+        [[0, 0.155, 0.1], [0.032, 0.158, 0.093], [0.067, 0.158, 0.078], [0.087, 0.16, 0.045], [0.09, 0.172, -0.008], [0.081, 0.166, -0.082], [0, 0.166, -0.1]],   // the cheekbones
+        [[0, 0.182, 0.1], [0.03, 0.18, 0.086], [0.064, 0.18, 0.076], [0.087, 0.182, 0.043], [0.092, 0.19, -0.01], [0.081, 0.19, -0.085], [0, 0.19, -0.103]],   // the eyes, set in
+        [[0, 0.205, 0.104], [0.033, 0.208, 0.101], [0.067, 0.205, 0.085], [0.088, 0.2, 0.046], [0.092, 0.21, -0.012], [0.08, 0.21, -0.086], [0, 0.21, -0.104]],   // the brow ridge, overhanging them
+        [[0, 0.245, 0.096], [0.034, 0.245, 0.092], [0.066, 0.242, 0.074], [0.084, 0.238, 0.04], [0.09, 0.24, -0.015], [0.076, 0.24, -0.084], [0, 0.24, -0.1]],   // the forehead
+        [[0, 0.285, 0.06], [0.03, 0.287, 0.056], [0.055, 0.283, 0.04], [0.07, 0.28, 0.012], [0.074, 0.28, -0.03], [0.06, 0.28, -0.07], [0, 0.282, -0.082]],
+        [[0, 0.31, 0.015], [0.018, 0.31, 0.012], [0.03, 0.308, 0], [0.036, 0.306, -0.015], [0.036, 0.306, -0.03], [0.026, 0.306, -0.045], [0, 0.306, -0.05]],   // the crown
     ];
-    const headW = y => (y < 0.02 ? [[head, 0.8], [spine, 0.2]] : [[head, 1]]);
-    const hx = F ? 0.95 : 1;
-    sk.loft(HP.map(([y, half]) => ({ c: V(head, 0, y * hk, 0.004), pts: ringPts(half.map(([x, z]) => [x * hx * hk, z * hk])), w: headW(y), col: skin })));
+    // the female face: a narrower jaw and a softer, smaller chin
+    const fem = (k, i, [x, y, z]) => (F && k >= 1 && k <= 3 && i >= 1 && i <= 4 ? [x * (i === 1 ? 0.82 : 0.92), y, z] : [x, y, z]);
+    sk.loft(HEAD.map((half, k) => {
+        const pts = half.map((p, i) => fem(k, i, p)), my = pts.reduce((a, p) => a + p[1], 0) / pts.length;
+        return { c: V(head, 0, my * hk, 0.004), pts: ringPts(pts.map(([x, y, z]) => [x * hk, z * hk, (y - my) * hk])), w: k === 0 ? [[head, 0.8], [spine, 0.2]] : [[head, 1]], col: skin };
+    }).reverse(), { capStart: true });   // (lofts run top-down: the crown first, closed)
     // the nose: a small wedge down the middle of the face
     sk.loft([
-        { c: V(head, 0, 0.198 * hk, 0.1 * hk), shape: profile(0.005, 0.003, 0.003), w: [[head, 1]], col: skin },   // the bridge, from the brow
-        { c: V(head, 0, 0.175 * hk, 0.099 * hk), shape: profile(0.008, 0.006, 0.004), w: [[head, 1]], col: skin },
-        { c: V(head, 0, 0.14 * hk, 0.112 * hk), shape: profile(0.014, 0.016, 0.008), w: [[head, 1]], col: skin },   // the tip, standing out
-        { c: V(head, 0, 0.128 * hk, 0.098 * hk), shape: profile(0.016, 0.01, 0.006), w: [[head, 1]], col: skin },
-    ], { seg: 6, cap: true });
+        { c: V(head, 0, 0.2 * hk, 0.104 * hk), shape: profile(0.006, 0.003, 0.003), w: [[head, 1]], col: skin },   // the bridge, from the brow
+        { c: V(head, 0, 0.17 * hk, 0.104 * hk), shape: profile(0.008, 0.005, 0.004), w: [[head, 1]], col: skin },
+        { c: V(head, 0, 0.138 * hk, 0.113 * hk), shape: profile(0.011, 0.008, 0.008), w: [[head, 1]], col: skin },   // the tip: a ridge, not a box
+        { c: V(head, 0, 0.126 * hk, 0.1 * hk), shape: profile(0.013, 0.006, 0.006), w: [[head, 1]], col: skin },
+    ], { seg: 4, cap: true });
     // ears (flat, against the head) and closed, quiet eyes and brows (darker strokes, as in the reference)
     const dark = new THREE.Color(skin).multiplyScalar(0.8).getStyle(), brow = new THREE.Color(HAIR).getStyle();
     for (const s of [-1, 1]) {
         if (!F) sk.loft([{ c: V(head, s * 0.092 * hk, 0.19 * hk, -0.012 * hk), shape: profile(0.008, 0.014, 0.018), w: [[head, 1]], col: skin }, { c: V(head, s * 0.094 * hk, 0.145 * hk, -0.006 * hk), shape: profile(0.007, 0.011, 0.014), w: [[head, 1]], col: skin }], { seg: 5, cap: true, capStart: true });
         sk.loft([{ c: V(head, s * 0.033 * hk, 0.181 * hk, 0.092 * hk), shape: profile(0.01, 0.002, 0.0015), w: [[head, 1]], col: dark }, { c: V(head, s * 0.033 * hk, 0.178 * hk, 0.092 * hk), shape: profile(0.009, 0.002, 0.0015), w: [[head, 1]], col: dark }], { seg: 4 });
-        sk.loft([{ c: V(head, s * 0.035 * hk, 0.205 * hk, 0.1 * hk), shape: profile(0.018, 0.004, 0.003), w: [[head, 1]], col: brow }, { c: V(head, s * 0.035 * hk, 0.199 * hk, 0.1 * hk), shape: profile(0.017, 0.004, 0.003), w: [[head, 1]], col: brow }], { seg: 4 });
+        sk.loft([{ c: V(head, s * 0.036 * hk, 0.2 * hk, 0.103 * hk), shape: profile(0.018, 0.004, 0.003), w: [[head, 1]], col: brow }, { c: V(head, s * 0.036 * hk, 0.195 * hk, 0.102 * hk), shape: profile(0.017, 0.004, 0.003), w: [[head, 1]], col: brow }], { seg: 4 });
     }
     // ---- hair: a cap over the skull, its hairline higher in front; short and tufted (male) or drawn back (female) ----
     // hair: big swept chunks, as the reference — the hairline high in front, lower at the nape
