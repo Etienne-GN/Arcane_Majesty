@@ -7,6 +7,8 @@ import { buildWeapon } from './weapons.js';
 import { buildHair, buildFacialHair } from './parts/hair.js';
 import { DEFAULT_LOOK, normalizeLook, BODY_PRESETS, RACES, handSpec } from './look.js';
 import { PART_CATALOG, partDef, COVERING_HEADGEAR } from './parts/index.js';
+import { settings } from '../../engine/settings.js';
+import { V2_MODELS } from './v2/index.js';
 
 const mat = (color, opts = {}) =>
     new THREE.MeshStandardMaterial({ color, flatShading: true, roughness: 0.85, ...opts });
@@ -187,7 +189,11 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         ripple,
         onUpdate: fn => hooks.push(fn),
     };
-    for (const slot of Object.keys(PART_CATALOG)) {
+    // Character models v2 (Options › Display › Character models: New): a hand-shaped continuous model for this character
+    const V2 = settings.charModels === 'new' && lookIn?.v2 && V2_MODELS[lookIn.v2] ? V2_MODELS[lookIn.v2] : null;
+    let v2 = null;
+    if (V2) { root.traverse(o => { if (o.isMesh) o.visible = false; }); v2 = V2(ctx); hooks.push(v2.update); }
+    for (const slot of V2 ? [] : Object.keys(PART_CATALOG)) {
         const entry = L.parts[slot];
         if (!entry?.id || entry.id === 'none') continue;
         const def = partDef(slot, entry.id);
@@ -206,6 +212,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
 
     root.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     bakeRig(root);
+    if (V2) root.traverse(o => { if (o.isMesh && !o.userData.v2) o.visible = false; });   // (the classic body, merged by bakeRig, stays hidden)
 
     // main / off: { type, accent } (amo weapon type + the item's colour), false for an empty main
     // hand, or null for an empty off hand. Shields can go in either hand.
@@ -250,7 +257,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         if (!main) { crystal = null; tip = null; mainType = 'fists'; mount(mainMount, 'fists', true); }
         else {
             const type = main?.type ?? 'staff';
-            const m = buildWeapon(type, { accent: main?.accent, crystalMat: type === 'staff' ? M.crystal : null });
+            const m = v2?.weapon?.(type) ?? buildWeapon(type, { accent: main?.accent, crystalMat: type === 'staff' ? M.crystal : null });
             mainMount.add(m.group);
             crystal = m.crystal; tip = m.tip; mainType = type;
             mount(mainMount, type, true);

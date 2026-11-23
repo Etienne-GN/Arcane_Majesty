@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Character Lab — Arcane Majesty</title>
+    <style>
+        html, body { margin: 0; height: 100%; background: #3c3c40; color: #eee6d2; font-family: Georgia, serif; overflow: hidden; }
+        canvas { display: block; width: 100%; height: 100%; }
+        #bar { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+        #bar button { font: 15px Georgia, serif; padding: 7px 14px; border-radius: 9px; border: 1px solid #c8963a88; background: #2e1e12; color: #f1e4c4; cursor: pointer; }
+        #bar button.on { background: #8a6a2a; color: #fff4d8; }
+        #labels { position: fixed; top: 16px; left: 0; right: 0; display: flex; justify-content: space-around; letter-spacing: .18em; color: #e8dcb8; pointer-events: none; }
+    </style>
+</head>
+<body>
+    <div id="labels"><span>SERAPHINA — CLASSIC</span><span>SERAPHINA — NEW (v2)</span></div>
+    <div id="bar"></div>
+    <script type="module" src="/src/charlab/main.js"></script>
+</body>
+</html>

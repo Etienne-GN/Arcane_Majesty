@@ -95,6 +95,8 @@ export function createOptions({ quality, onQuality, onApply, onFps, onOnline }) 
             }
         }
         if (T('display')) {
+        p.append(seg('Character models', [['classic', 'Classic'], ['new', 'New (test)']], settings.charModels ?? 'classic', v => setSetting('charModels', v)));
+        p.append(el('div', 'note', 'New (test): the new hand-shaped models — Seraphina first. Applies to characters as they are next created (re-enter the map or reload).'));
         p.append(seg('Text size', [[1, 'Normal'], [1.15, 'Large'], [1.3, 'Larger']], settings.textSize, v => setSetting('textSize', v)));
         p.append(seg('Coordinates', [[false, 'Hidden'], [true, 'Shown']], settings.showCoords, v => setSetting('showCoords', v)));
         p.append(seg('Frames per second', [[false, 'Hidden'], [true, 'Shown']], settings.showFps, v => { setSetting('showFps', v); onFps?.(v); }));
