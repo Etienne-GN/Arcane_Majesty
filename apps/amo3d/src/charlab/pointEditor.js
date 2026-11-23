@@ -2,7 +2,9 @@
 // The body is shown still (its rest shape) with every point as a dot; click a dot and drag it (it moves in the plane facing
 // you; its mirror on the other side follows). Arrows nudge the selected point (Shift: toward/away from you). Save writes
 // the moved points to src/content/models/v2/edits_<sex>.json (the same edits the Blender round trip uses) and reloads.
-//   createPointEditor({ THREE, scene, camera, renderer, dom, getBody(sex) → { mesh, table } , onExit })
+//   createPointEditor({ THREE, scene, camera, renderer, getBody(sex) → { table }, sexes, viewRect() → the part of the canvas
+//   the edited body is drawn in (the Lab splits the screen when the compare is shown), onEnter, onExit })
+// The panel's Show row turns the reference sheet and the compare (the Lab's other model, drawn by the Lab) on or off.
 import REF_HAIR from './base_mesh_reference.jpg';
 import REF_BALD from './base_mesh_reference_bald.jpg';   // (the hairless sheet: same layout)   // the reference sheet (docs/3d/characters/base_mesh_reference.jpg), 896 × 1200
 // Where each view sits on the sheet: [x0, y0, x1, y1] — the whole figure, and its head
@@ -10,7 +12,7 @@ const REF = {
     male: { front: [[70, 75, 360, 615], [130, 70, 250, 215]], side: [[380, 75, 560, 615], [395, 70, 520, 215]], back: [[560, 75, 860, 615], [650, 70, 770, 215]] },
     female: { front: [[70, 655, 360, 1195], [130, 650, 250, 800]], side: [[380, 655, 560, 1195], [385, 650, 530, 800]], back: [[560, 655, 860, 1195], [640, 650, 780, 800]] },
 };
-export function createPointEditor({ hairless = false, THREE, scene, camera, renderer, getBody, onEnter, onExit }) {
+export function createPointEditor({ hairless = false, THREE, scene, camera, renderer, getBody, sexes = ['male', 'female'], viewRect = null, onEnter, onExit }) {
     let on = false, sex = 'male', T = null, geo = null, mesh = null, wire = null, dots = null, sel = -1, mirrorOf = [], drag = null;
     let region = 'head', yaw = 0, pitch = 0.05, dist = 0.55, target = new THREE.Vector3(0, 1.66, 0);
     const undo = [], group = new THREE.Group(); scene.add(group); group.visible = false;
@@ -26,7 +28,13 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const help = document.createElement('div'); help.style.cssText = 'font-style:italic;font-size:12px;opacity:.85;line-height:1.35';
     help.innerHTML = 'Click a dot, drag it (its mirror follows).<br>Drag empty space: turn. Wheel: zoom.<br>Arrows: nudge · Shift+arrows: forward/back · Ctrl+Z: undo';
     panel.append(help);
-    const rSex = row(); btn(rSex, 'Male', () => load('male')); btn(rSex, 'Female', () => load('female'));
+    const rSex = row(); if (sexes.includes('male')) btn(rSex, 'Male', () => load('male')); if (sexes.includes('female')) btn(rSex, 'Female', () => load('female'));
+    // what to see beside the body: the reference sheet, the compare (the Lab's other model, same angle), both or neither
+    let refOn = true, cmpOn = true;
+    const rShow = row(), showLab = document.createElement('span'); showLab.textContent = 'Show:'; showLab.style.cssText = 'align-self:center;margin-right:2px'; rShow.append(showLab);
+    const tog = (b, v) => { b.style.background = v ? '#8a6a2a' : '#4a3220'; b.style.opacity = v ? '1' : '.7'; };
+    const refTog = btn(rShow, 'Reference', () => setRef(!refOn)), cmpTog = btn(rShow, 'Compare', () => { cmpOn = !cmpOn; tog(cmpTog, cmpOn); });
+    tog(refTog, refOn); tog(cmpTog, cmpOn);
     const rReg = row(); btn(rReg, 'Head', () => setRegion('head')); btn(rReg, 'Upper body', () => setRegion('upper')); btn(rReg, 'Whole body', () => setRegion('all'));
     const rView = row(); for (const [t, y, p] of [['Front', 0, 0.05], ['¾', 0.7, 0.1], ['Side', Math.PI / 2, 0.05], ['Back', Math.PI, 0.05], ['Below', 0.3, -0.6]]) btn(rView, t, () => { yaw = y; pitch = p; });
     const info = document.createElement('div'); info.style.cssText = 'font-size:12px;min-height:30px'; panel.append(info);
@@ -42,12 +50,13 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const refBtns = document.createElement('span');
     const REF_URL = hairless ? REF_BALD : REF_HAIR;
     const refPic = document.createElement('div'); refPic.style.cssText = `width:284px;border-radius:6px;background-image:url(${REF_URL});background-repeat:no-repeat;background-color:#3b3b3b`;
-    let refMode = 'auto', refOn = true, refSize = 284;
+    let refMode = 'auto', refSize = 284;
     const small = (t, fn) => { const b = document.createElement('button'); b.textContent = t; b.style.cssText = 'font:12px Georgia,serif;padding:3px 7px;margin-left:3px;border-radius:6px;border:1px solid #c8963a88;background:#4a3220;color:#f1e4c4;cursor:pointer'; b.onclick = fn; refBtns.append(b); return b; };
     small('Sheet', () => { refMode = refMode === 'sheet' ? 'auto' : 'sheet'; drawRef(true); });
     small('−', () => { refSize = Math.max(180, refSize - 60); drawRef(true); });
     small('+', () => { refSize = Math.min(620, refSize + 60); drawRef(true); });
-    const hideBtn = small('Hide', () => { refOn = !refOn; refPic.style.display = refOn ? '' : 'none'; hideBtn.textContent = refOn ? 'Hide' : 'Show'; });
+    small('Hide', () => setRef(false));
+    function setRef(v) { refOn = v; tog(refTog, v); refBox.style.display = on && v ? 'flex' : 'none'; if (v) drawRef(true); }
     refHead.append(refLabel, refBtns); refBox.append(refHead, refPic); document.body.append(refBox);
     let lastRef = '';
     function drawRef(force = false) {
@@ -132,8 +141,10 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
 
     // ---- input ----
     const canvas = renderer.domElement;
+    const area = () => viewRect?.() ?? canvas.getBoundingClientRect();
     function pick(e) {
-        const r = canvas.getBoundingClientRect(); ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+        const r = area(); if (e.clientX > r.left + r.width) return -1;   // (a click on the compare's half: no point)
+        ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
         ray.setFromCamera(ndc, camera); const hit = ray.intersectObject(dots, false)[0];
         return hit ? dotIds[hit.instanceId] : -1;
     }
@@ -151,7 +162,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     canvas.addEventListener('pointermove', e => {
         if (!on || !drag) return; e.stopImmediatePropagation();
         if (drag.kind === 'orbit') { yaw -= (e.clientX - drag.x) * 0.01; pitch = Math.max(-1.3, Math.min(1.3, pitch + (e.clientY - drag.y) * 0.01)); drag.x = e.clientX; drag.y = e.clientY; return; }
-        const r = canvas.getBoundingClientRect(); ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+        const r = area(); ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
         ray.setFromCamera(ndc, camera); const hit = new THREE.Vector3();
         if (ray.ray.intersectPlane(drag.plane, hit)) { const d = hit.clone().sub(drag.last); drag.last.copy(hit); movePoint(sel, d.x, d.y, d.z); }
     }, true);
@@ -170,10 +181,10 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         snapshot(); movePoint(sel, d.x, d.y, d.z);
     });
 
-    function show() { on = true; group.visible = true; panel.style.display = 'flex'; refBox.style.display = 'flex'; drawRef(true); onEnter?.(); describe(); }
+    function show() { on = true; group.visible = true; panel.style.display = 'flex'; refBox.style.display = refOn ? 'flex' : 'none'; drawRef(true); onEnter?.(); describe(); }
     function exit() { on = false; group.visible = false; panel.style.display = 'none'; refBox.style.display = 'none'; onExit?.(); }
     return {
-        enter: s => load(s ?? sex), exit, get on() { return on; },
+        enter: s => load(s ?? sex), exit, get on() { return on; }, get showCompare() { return cmpOn; }, group,
         frame() { if (!on) return; drawRef(); camera.position.set(target.x + Math.sin(yaw) * Math.cos(pitch) * dist, target.y + Math.sin(pitch) * dist, target.z + Math.cos(yaw) * Math.cos(pitch) * dist); camera.lookAt(target); },
         state: () => ({ sex, sel, region, points: T?.keys.length ?? 0 }), _move: (i, dx, dy, dz) => { sel = i; snapshot(); movePoint(i, dx, dy, dz); }, _save: save,
     };

@@ -1,15 +1,20 @@
-// The Character Lab (2026-11-22): the classic and the v2 model of a character side by side, turning on a plain grey stage
-// (like the reference sheet, docs/3d/characters/reference_v2.jpg), in idle / walk / run / strike. ?who=seraphina
+// The Character Lab (2026-11-22): two character models side by side, turning on a plain grey stage (like the reference
+// sheet, docs/3d/characters/reference_v2.jpg), in A-pose / idle / walk / run / strike. Dev server only (not in any build).
+// Pick each side at the top: ?a=<who>:<new|classic>&b=… (who: base_male, base_female or a cast id). Old links still work:
+// ?who=base (the two base bodies), ?who=seraphina (classic beside v2). The base bodies can be reshaped in the point editor,
+// with the other side shown beside it from the same angle (the compare) and the reference sheet, each on or off.
 import * as THREE from 'three';
 import { createCharacter } from '../content/models/character.js';
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { createPointEditor } from './pointEditor.js';
 import { settings } from '../engine/settings.js';
+import { V2_MODELS } from '../content/models/v2/index.js';
 import seraphina from '../content/cast/seraphina.json';
 import eldrin from '../content/cast/eldrin.json';
+import anya from '../content/cast/anya.json';
 
-const CAST = { seraphina, eldrin }, who = new URLSearchParams(location.search).get('who') || 'seraphina';
+const CAST = { seraphina, eldrin, anya }, Q = new URLSearchParams(location.search);
 const renderer = new THREE.WebGLRenderer({ antialias: true }); renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.shadowMap.enabled = true;
 renderer.outputColorSpace = THREE.SRGBColorSpace; document.body.prepend(renderer.domElement);
 const scene = new THREE.Scene(); scene.background = new THREE.Color(0x3c3c40);
@@ -18,17 +23,43 @@ scene.add(new THREE.HemisphereLight(0xdedcf0, 0x404048, 1.3));
 const sun = new THREE.DirectionalLight(0xffffff, 2.2); sun.position.set(2, 4, 3); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); scene.add(sun);
 const floor = new THREE.Mesh(new THREE.CircleGeometry(6, 48).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0x46464c, roughness: 1 })); floor.receiveShadow = true; scene.add(floor);
 
-const BASE = who === 'base';   // the base bodies: male and female, no clothes, empty hands
-const HAIRLESS = new URLSearchParams(location.search).get('hair') === '0';   // ?hair=0: the base bodies without hair
+const HAIRLESS = Q.get('hair') === '0';   // ?hair=0: the base bodies without hair
 const baseLook = (preset, v2) => ({ v2, body: { preset, race: 'human', skin: '#e2b590' }, hair: { style: HAIRLESS ? 'bald' : 'short' }, parts: { right: { id: 'none' }, left: { id: 'none' } } });
-const look = BASE ? null : JSON.parse(JSON.stringify(CAST[who].look)); if (look && who === 'seraphina') look.parts.right = { id: 'spear' };
-const make = (mode, lk = look) => { settings.charModels = mode; const c = createCharacter(lk); scene.add(c.root); return c; };
-const models = BASE ? [make('new', baseLook('adult_male', 'base_male')), make('new', baseLook('adult_female', 'base_female'))] : [make('classic'), make('new')];
-if (BASE) document.getElementById('labels').innerHTML = '<span>MALE BASE MESH</span><span>FEMALE BASE MESH</span>';
-if (BASE) document.getElementById('labels').style.top = '52px';
-else document.getElementById('labels').innerHTML = `<span>${CAST[who].name.toUpperCase()} — CLASSIC</span><span>${CAST[who].name.toUpperCase()} — NEW (v2)</span>`;
+// what can stand on either side: the base bodies (v2 only: no clothes, empty hands) and the cast (classic, and v2 when it has one)
+const SUBJECTS = { base_male: { name: 'Male base', look: () => baseLook('adult_male', 'base_male'), sex: 'male', vers: ['new'] },
+    base_female: { name: 'Female base', look: () => baseLook('adult_female', 'base_female'), sex: 'female', vers: ['new'] } };
+for (const [id, c] of Object.entries(CAST)) SUBJECTS[id] = { name: c.name, vers: Object.hasOwn(V2_MODELS, c.look.v2 ?? '') ? ['classic', 'new'] : ['classic'],
+    look: () => { const lk = JSON.parse(JSON.stringify(c.look)); if (id === 'seraphina') lk.parts.right = { id: 'spear' }; return lk; } };
+const VER = { new: 'v2', classic: 'classic' };
+const parseSlot = v => { const [id, ver] = (v ?? '').split(':'); const S = SUBJECTS[id]; return S ? { id, ver: S.vers.includes(ver) ? ver : S.vers.at(-1) } : null; };
+const legacy = Q.get('who'), slots = [parseSlot(Q.get('a')), parseSlot(Q.get('b'))];
+if (!slots[0] || !slots[1]) {
+    const L = legacy && legacy !== 'base' && SUBJECTS[legacy] ? [`${legacy}:classic`, `${legacy}:new`] : ['base_male:new', 'base_female:new'];
+    slots.forEach((sl, i) => { if (!sl) slots[i] = parseSlot(L[i]); });
+}
+const make = (mode, lk) => { settings.charModels = mode; const c = createCharacter(lk); scene.add(c.root); return c; };
+const models = slots.map(sl => make(sl.ver, SUBJECTS[sl.id].look()));
+const slotName = sl => `${SUBJECTS[sl.id].name} — ${VER[sl.ver]}`;
+const BASE = slots.some(sl => SUBJECTS[sl.id].sex);   // a base body on stage: the point editor and the hair toggle are offered
+document.getElementById('labels').innerHTML = slots.map(sl => `<span>${slotName(sl).toUpperCase()}</span>`).join('');
+document.getElementById('labels').style.top = '56px';
 models[0].root.position.x = -0.75; models[1].root.position.x = 0.75;
 let mode = BASE ? 'apose' : 'idle', spin = !BASE, yaw = BASE ? 0 : 0.35;
+// the top bar: what stands on each side (changing one reloads the page with it), then the editor and the hair
+const top = document.createElement('div'); top.id = 'top';
+top.style.cssText = 'position:fixed;top:10px;left:12px;right:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;font:14px Georgia,serif;color:#e8dcb8;z-index:5';
+const go = changes => { const u = new URL(location.href); u.searchParams.delete('who'); for (const [k, v] of Object.entries(changes)) { if (v == null) u.searchParams.delete(k); else u.searchParams.set(k, v); } location.href = u; };
+slots.forEach((sl, i) => {
+    const lab = document.createElement('label'); lab.textContent = i ? 'Right ' : 'Left ';
+    const sel = document.createElement('select'); sel.style.cssText = 'font:14px Georgia,serif;padding:5px 8px;border-radius:8px;border:1px solid #c8963a88;background:#2e1e12;color:#f1e4c4';
+    for (const [id, S] of Object.entries(SUBJECTS)) for (const ver of S.vers) { const o = document.createElement('option'); o.value = `${id}:${ver}`; o.textContent = `${S.name} — ${VER[ver]}`; sel.append(o); }
+    sel.value = `${sl.id}:${sl.ver}`;
+    sel.onchange = () => go({ a: i ? `${slots[0].id}:${slots[0].ver}` : sel.value, b: i ? sel.value : `${slots[1].id}:${slots[1].ver}`, edit: null });
+    lab.append(sel); top.append(lab);
+});
+document.body.append(top);
+const topBtn = (t, fn, hot = false) => { const b = document.createElement('button'); b.textContent = t; b.style.cssText = `font:14px Georgia,serif;padding:6px 12px;border-radius:9px;border:1px solid ${hot ? '#f3d88b' : '#c8963a88'};background:${hot ? '#8a6a2a' : '#2e1e12'};color:#f1e4c4;cursor:pointer`; b.onclick = fn; top.append(b); return b; };
+{ const a = document.createElement('a'); a.href = 'index.html'; a.textContent = '← Game'; a.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:50;padding:5px 10px;font:14px Georgia,serif;color:#f3e2b0;background:#120a06d8;border:1px solid #f3d88b66;border-radius:4px;text-decoration:none'; document.body.append(a); }
 const bar = document.getElementById('bar');
 for (const [id, label] of [['apose', 'A-pose'], ['idle', 'Idle'], ['walk', 'Walk'], ['run', 'Run'], ['strike', 'Strike'], ['spin', 'Turn']]) {
     const b = document.createElement('button'); b.textContent = label; b.dataset.id = id;
@@ -112,10 +143,10 @@ async function importBody(i, file) {
     say(r.ok ? `Saved ${moved} moved points for the ${sex} body — reloading…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`);
     if (r.ok) setTimeout(() => location.reload(), 900);
 }
-if (BASE) {
-    const box = document.createElement('div'); box.id = 'blender'; box.style.cssText = 'position:fixed;top:44px;left:12px;display:flex;flex-direction:column;gap:6px;font:14px Georgia,serif;max-width:340px';
+if (BASE && Q.get('blender') === '1') {   // the Blender round trip: not in use for now — kept, shown only with ?blender=1
+    const box = document.createElement('div'); box.id = 'blender'; box.style.cssText = 'position:fixed;top:90px;left:12px;display:flex;flex-direction:column;gap:6px;font:14px Georgia,serif;max-width:340px';
     const btn = (t, fn) => { const b = document.createElement('button'); b.textContent = t; b.style.cssText = 'font:14px Georgia,serif;padding:6px 12px;border-radius:8px;border:1px solid #c8963a88;background:#2e1e12;color:#f1e4c4;cursor:pointer;text-align:left'; b.onclick = fn; box.append(b); return b; };
-    for (const [i, name] of [[0, 'male'], [1, 'female']]) {
+    for (const [i, name] of slots.map((sl, i) => [i, SUBJECTS[sl.id].sex]).filter(([, x]) => x)) {
         btn(`Export ${name} body (Blender)`, () => exportBody(i));
         const inp = document.createElement('input'); inp.type = 'file'; inp.accept = '.glb'; inp.style.display = 'none'; inp.onchange = () => inp.files[0] && importBody(i, inp.files[0]); box.append(inp);
         btn(`Import ${name} body (.glb)`, () => inp.click());
@@ -124,29 +155,36 @@ if (BASE) {
     document.body.append(box);
 }
 window.__lab_io = { exportBody, importBody, pointTable, bodyMesh };
-// the point editor (in the browser): the base bodies, reshaped by hand
-const editor = BASE ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, getBody: s => ({ table: posedTable(s === 'female' ? 1 : 0) }),
-    onEnter: () => { models.forEach(m => { m.root.visible = false; }); floor.visible = false; for (const id of ['bar', 'labels', 'blender']) { const e = document.getElementById(id); if (e) e.style.display = 'none'; } },
-    onExit: () => { models.forEach(m => { m.root.visible = true; }); floor.visible = true; for (const id of ['bar', 'labels', 'blender']) { const e = document.getElementById(id); if (e) e.style.display = ''; } resize(); } }) : null;
+// the point editor (in the browser): the base bodies, reshaped by hand — beside it, from the same angle, the other side of the
+// stage (the compare: the split view, edited body left, compare right) and the reference sheet; each can be shown or hidden
+const slotOf = sex => slots.findIndex(sl => SUBJECTS[sl.id].sex === sex);
+const SEXES = ['male', 'female'].filter(x => slotOf(x) >= 0);
+let cmpIdx = 1;
+const split = () => !!(editor?.on && editor.showCompare);
+const editor = BASE ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, sexes: SEXES,
+    getBody: s => { const i = slotOf(s); cmpIdx = 1 - i; return { table: posedTable(i) }; },
+    viewRect: () => ({ left: 0, top: 0, width: split() ? Math.floor(innerWidth / 2) : innerWidth, height: innerHeight }),
+    onEnter: () => { models.forEach(m => { m.root.visible = false; }); floor.visible = false; for (const id of ['bar', 'labels', 'blender', 'top']) { const e = document.getElementById(id); if (e) e.style.display = 'none'; } },
+    onExit: () => { models.forEach(m => { m.root.visible = true; }); floor.visible = true; for (const id of ['bar', 'labels', 'blender', 'top']) { const e = document.getElementById(id); if (e) e.style.display = ''; } resize(); } }) : null;
 if (editor) {
-    const b = document.createElement('button'); b.textContent = '✎ Edit points (face, body)';
-    b.style.cssText = 'position:fixed;top:12px;left:12px;font:15px Georgia,serif;padding:7px 14px;border-radius:9px;border:1px solid #f3d88b;background:#8a6a2a;color:#fff4d8;cursor:pointer;z-index:5';
-    b.onclick = () => editor.enter('male'); document.body.append(b);
-    const h = document.createElement('button'); h.textContent = HAIRLESS ? 'Hair: off' : 'Hair: on';
-    h.style.cssText = 'position:fixed;top:12px;left:240px;font:15px Georgia,serif;padding:7px 14px;border-radius:9px;border:1px solid #c8963a88;background:#2e1e12;color:#f1e4c4;cursor:pointer;z-index:5';
-    h.onclick = () => { const u = new URL(location.href); if (HAIRLESS) u.searchParams.delete('hair'); else u.searchParams.set('hair', '0'); if (editor.on) u.searchParams.set('edit', editor.state().sex); location.href = u; };
-    document.body.append(h);
-    const want = new URLSearchParams(location.search).get('edit'); if (want) setTimeout(() => editor.enter(want), 50);
+    for (const x of SEXES) topBtn(`✎ Edit ${x} points`, () => editor.enter(x), true);
+    topBtn(HAIRLESS ? 'Hair: off' : 'Hair: on', () => go({ hair: HAIRLESS ? null : '0', edit: editor.on ? editor.state().sex : null }));
+    const want = Q.get('edit'); if (SEXES.includes(want)) setTimeout(() => editor.enter(want), 50);
 }
+const cmpLabel = document.createElement('div');
+cmpLabel.style.cssText = 'position:fixed;top:14px;left:50%;right:0;text-align:center;letter-spacing:.18em;color:#e8dcb8;pointer-events:none;display:none;font:15px Georgia,serif';
+const divider = document.createElement('div'); divider.style.cssText = 'position:fixed;top:0;bottom:0;left:50%;width:2px;background:#c8963a66;pointer-events:none;display:none';
+document.body.append(cmpLabel, divider);
 window.__editor = editor;
 let last = performance.now(), st = 0;
 renderer.setAnimationLoop(now => {
     const dt = Math.min(0.05, (now - last) / 1000); last = now; st = (st + dt) % 1.2;
     if (spin) yaw += dt * 0.5;
-    const speed = mode === 'walk' ? 1.8 : mode === 'run' ? 5.5 : 0;
+    const pose = editor?.on ? 'apose' : mode;   // (editing: the compare stands in the editor's A-pose)
+    const speed = pose === 'walk' ? 1.8 : pose === 'run' ? 5.5 : 0;
     for (const m of models) {
-        m.root.rotation.y = yaw; m.update(dt, { speed, sprinting: mode === 'run', strikeK: mode === 'strike' ? Math.min(1, st / 0.6) : null, strikeHand: 'R' });
-        if (mode === 'apose' && m.rig) {   // the reference sheet's pose: arms out and down, legs a little apart, standing straight
+        m.root.rotation.y = yaw; m.update(dt, { speed, sprinting: pose === 'run', strikeK: pose === 'strike' ? Math.min(1, st / 0.6) : null, strikeHand: 'R' });
+        if (pose === 'apose' && m.rig) {   // the reference sheet's pose: arms out and down, legs a little apart, standing straight
             const { arms, legs, spine, head, hips } = m.rig;
             for (const [s, A] of [[1, arms.L], [-1, arms.R]]) { A.upper.rotation.set(0, 0, s * 0.48); A.fore.rotation.set(0, 0, s * 0.05); }
             for (const [s, L] of [[1, legs.L], [-1, legs.R]]) { L.thigh.rotation.set(0, 0, s * 0.07); L.shin.rotation.set(0, 0, -s * 0.07); }
@@ -154,5 +192,16 @@ renderer.setAnimationLoop(now => {
         }
     }
     editor?.frame();
-    renderer.render(scene, camera);
+    const W = innerWidth, H = innerHeight, sp = split();
+    cmpLabel.style.display = divider.style.display = sp ? '' : 'none';
+    if (!sp) { if (camera.aspect !== W / H) { camera.aspect = W / H; camera.updateProjectionMatrix(); } renderer.setViewport(0, 0, W, H); renderer.render(scene, camera); return; }
+    // the split view: the edited body on the left half, the compare on the right, through the same camera
+    cmpLabel.textContent = `COMPARE — ${slotName(slots[cmpIdx]).toUpperCase()}`;
+    const half = Math.floor(W / 2), c = models[cmpIdx].root, keep = [c.position.clone(), c.rotation.y];
+    camera.aspect = half / H; camera.updateProjectionMatrix(); renderer.setScissorTest(true);
+    renderer.setViewport(0, 0, half, H); renderer.setScissor(0, 0, half, H); renderer.render(scene, camera);
+    editor.group.visible = false; c.position.set(0, 0, 0); c.rotation.y = 0; c.visible = true;
+    renderer.setViewport(half, 0, W - half, H); renderer.setScissor(half, 0, W - half, H); renderer.render(scene, camera);
+    editor.group.visible = true; c.position.copy(keep[0]); c.rotation.y = keep[1]; c.visible = false;
+    renderer.setScissorTest(false);
 });

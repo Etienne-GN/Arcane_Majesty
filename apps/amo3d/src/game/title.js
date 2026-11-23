@@ -175,8 +175,12 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         panel.textContent = '';
         const head = document.createElement('div'); head.textContent = 'THE WORKSHOP'; head.style.cssText = 'letter-spacing:.3em;margin-bottom:10px;color:#f3d88b';
         panel.append(head);
-        for (const [label, sub, href] of [['THE FORGE', 'Make a hero — or open any NPC of the game and leave notes on it', 'forge.html'],
-            ['THE BESTIARY', 'Every creature on its turntable, with notes', 'bestiary.html'], ['THE CHARACTER LAB', 'The new character models (test): base bodies, Seraphina', 'charlab.html?who=base'], ['THE LAND EDITOR', 'The regions: paint, place, test', 'editor.html']]) {
+        // The Character Lab and the Land Editor are makers' tools for the dev server only (npm run dev): never in a build
+        // (phone, desktop) — vite.config.js leaves their pages out of the build too.
+        const pages = [['THE FORGE', 'Make a hero — or open any NPC of the game and leave notes on it', 'forge.html'],
+            ['THE BESTIARY', 'Every creature on its turntable, with notes', 'bestiary.html']];
+        if (import.meta.env.DEV) pages.push(['THE CHARACTER LAB', 'The new character models: compare two, reshape the base bodies', 'charlab.html'], ['THE LAND EDITOR', 'The regions: paint, place, test', 'editor.html']);
+        for (const [label, sub, href] of pages) {
             const b = document.createElement('button');
             b.innerHTML = `${label}<br><small style="letter-spacing:.05em;opacity:.75;font-size:.72em">${sub}</small>`;
             b.style.cssText = 'display:block;width:100%;margin:6px 0;padding:9px 10px;font:calc(16px * var(--ui, 1)) Georgia,serif;letter-spacing:.18em;color:#f3e2b0;background:linear-gradient(180deg,#2a1c10d8,#120a06d8);border:1px solid #f3d88b55;border-radius:4px;cursor:pointer';
