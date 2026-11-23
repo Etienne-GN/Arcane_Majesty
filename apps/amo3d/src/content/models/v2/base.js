@@ -20,16 +20,16 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     const HAIR = hair ?? (F ? '#151922' : '#2a1d16');
     const BALD = ctx.look?.hair?.style === 'bald';   // no hair (2026-11-23: hair will be interchangeable; the hairless reference sheet)
     const bones = [hips, spine, head, arms.L.upper, arms.L.fore, arms.R.upper, arms.R.fore, legs.L.thigh, legs.L.shin, legs.R.thigh, legs.R.shin];
-    head.position.z += 0.024; head.position.y += 0.03; root.updateMatrixWorld(true);   // (the head carried a little forward of the shoulders, the neck leaning to it, as the reference)
+    head.position.z += 0.024; head.position.y += 0.005;   // (2026-11-23: lowered 2.5 cm — it sat too high on the neck) root.updateMatrixWorld(true);   // (the head carried a little forward of the shoulders, the neck leaning to it, as the reference)
     const sk = createSkin(root, bones, { edits: F ? EDITS_FEMALE : EDITS_MALE }), V = (g, x, y, z) => sk.at(g, x, y, z);
 
     // ---- the torso, from the neck down to the crotch (body coordinates: the rig's own scale applies) ----
-    const torsoW = y => (y > 1.68 ? [[head, 1]] : y > 1.6 ? [[spine, 0.4], [head, 0.6]] : y > 1.57 ? [[spine, 0.75], [head, 0.25]] : y > 1.1 ? [[spine, 1]] : y > 1.0 ? blend(hips, spine, (y - 1.0) / 0.1) : [[hips, 1]]);
+    const torsoW = y => (y > 1.655 ? [[head, 1]] : y > 1.6 ? [[spine, 0.4], [head, 0.6]] : y > 1.57 ? [[spine, 0.75], [head, 0.25]] : y > 1.1 ? [[spine, 1]] : y > 1.0 ? blend(hips, spine, (y - 1.0) / 0.1) : [[hips, 1]]);
     // Hand-placed rings (2026-11-22, "far fewer shapes, flat planes at the right angles"): half of each outline on the +x
     // side, from the front centre round to the back centre — front centre, pectoral middle, pectoral outer edge, side front,
     // side back, shoulder blade, spine. Big flat planes: the pectorals are two faces with a small step beneath them.
     const TM = [   // y, half outline, colour   (male)
-        [1.7, [[0, 0.042], [0.027, 0.039], [0.043, 0.026], [0.051, 0.006], [0.05, -0.02], [0.032, -0.044], [0, -0.05]], skin],   // the neck: a slim column, leaning forward as it rises (2026-11-23)
+        [1.675, [[0, 0.042], [0.027, 0.039], [0.043, 0.026], [0.051, 0.006], [0.051, -0.026], [0.036, -0.052], [0, -0.062]], skin],   // the neck: a slim column, leaning forward as it rises (2026-11-23)
         [1.6, [[0, 0.046], [0.032, 0.043], [0.056, 0.024], [0.078, -0.004], [0.076, -0.044], [0.046, -0.074], [0, -0.078]], skin],   // the trapezius begins low on the neck: its base set back, the throat clear
         [1.555, [[0, 0.064], [0.06, 0.064], [0.13, 0.048], [0.196, 0.0], [0.188, -0.06], [0.11, -0.094], [0, -0.096]], skin],   // the collarbones: sloping down and out
         [1.5, [[0, 0.102], [0.095, 0.108], [0.182, 0.086], [0.246, 0.01], [0.238, -0.064], [0.155, -0.108], [0, -0.104]], skin],   // (the torso's shoulder stops inside the arm: the deltoid is the arm's)
@@ -46,7 +46,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         [0.835, [[0, 0.06], [0.05, 0.06], [0.08, 0.04], [0.09, 0], [0.085, -0.05], [0.05, -0.07], [0, -0.07]], cloth],
     ];
     const TF = [   // (female) a slimmer neck and shoulders, a bust (two planes and a step), a narrow waist, wider hips
-        [1.7, [[0, 0.038], [0.025, 0.035], [0.04, 0.024], [0.047, 0.005], [0.046, -0.018], [0.029, -0.04], [0, -0.046]], skin],
+        [1.675, [[0, 0.038], [0.025, 0.035], [0.04, 0.024], [0.047, 0.005], [0.047, -0.024], [0.032, -0.048], [0, -0.056]], skin],
         [1.6, [[0, 0.042], [0.03, 0.039], [0.05, 0.022], [0.07, -0.004], [0.068, -0.04], [0.042, -0.066], [0, -0.07]], skin],
         [1.555, [[0, 0.058], [0.054, 0.058], [0.104, 0.042], [0.15, 0], [0.142, -0.05], [0.078, -0.08], [0, -0.084]], skin],
         [1.51, [[0, 0.094], [0.082, 0.098], [0.15, 0.076], [0.19, 0.008], [0.182, -0.058], [0.112, -0.096], [0, -0.092]], skin],   // (her shoulders narrower and sloping, as the reference)
@@ -171,8 +171,8 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         const E = HEAD[6], Q = {
             CC: [0, 0.058, 0.094], CR: [F ? 0.034 : 0.042, 0.058, 0.09],              // the chin: the trapezoid's bottom edge
             JA: [F ? 0.072 : 0.08, 0.1, 0.002],                                       // the jaw's angle, below the ear
-            NF: [0, 0.046, 0.06], N2: [0.042, 0.042, 0.042], NS: [0.048, 0, 0], N4: [0.047, 0, -0.022], N5: [0.035, 0, -0.042], NB: [0, 0, -0.05],   // the neck's top
-            NBS: [0.06, 0.08, -0.06], BC: [0, 0.075, -0.07],                          // the nape
+            NF: [0, 0.046, 0.06], N2: [0.042, 0.042, 0.042], NS: [0.05, 0, 0], N4: [0.05, 0, -0.03], N5: [0.038, 0, -0.054], NB: [0, 0, -0.064],   // (the neck's back fuller)   // the neck's top
+            NBS: [0.072, 0.092, -0.08], BC: [0, 0.088, -0.094],   // the back of the skull: full and round down to the nape                          // the nape
         };
         const at = (p, s) => ({ p: V(head, s * p[0] * hk, p[1] * hk, p[2] * hk + 0.004), w: p[1] < 0.02 ? [[head, 0.8], [spine, 0.2]] : [[head, 1]] });
         const centre = V(head, 0, 0.16 * hk, 0);
