@@ -47,13 +47,30 @@ window.__lab = { ground: () => models.map(m => [-0.4, -0.45, -0.48].map(y => m.r
 // the UV's u), edit it in Blender moving points only, Import the .glb back: each moved point is saved by its key ----
 function bodyMesh(i) { let sm = null; models[i].root.traverse(o => { if (!sm && o.isSkinnedMesh && o.userData.editKeys) sm = o; }); return sm; }
 function pointTable(sm) {   // unique points (by key) in vertex order, their current positions and the triangles
-    const keys = sm.userData.editKeys, pos = sm.geometry.attributes.position, col = sm.geometry.attributes.color, ids = new Map(), P = [], C = [], idx = [];
+    const keys = sm.userData.editKeys, pos = sm.geometry.attributes.position, col = sm.geometry.attributes.color, ids = new Map(), P = [], C = [], idx = [], firstV = [];
     for (let v = 0; v < keys.length; v++) {
         let k = ids.get(keys[v]);
-        if (k === undefined) { k = ids.size; ids.set(keys[v], k); P.push(pos.getX(v), pos.getY(v), pos.getZ(v)); C.push(col.getX(v), col.getY(v), col.getZ(v)); }
+        if (k === undefined) { k = ids.size; ids.set(keys[v], k); P.push(pos.getX(v), pos.getY(v), pos.getZ(v)); C.push(col.getX(v), col.getY(v), col.getZ(v)); firstV.push(v); }
         idx.push(k);
     }
-    return { keys: [...ids.keys()], P, C, idx };
+    return { keys: [...ids.keys()], P, C, idx, firstV };
+}
+// the same table, posed as the model stands now (the A-pose): per point an affine map rest → posed (L: 3×3, t), so the
+// editor shows the pose and turns each drag back into the rest shape (the edits stay in rest-shape positions)
+function posedTable(i) {
+    const m = models[i], sm = bodyMesh(i), T = pointTable(sm), keepP = m.root.position.clone(), keepR = m.root.rotation.y;
+    m.root.position.set(0, 0, 0); m.root.rotation.y = 0; m.root.updateMatrixWorld(true); sm.skeleton.update();
+    const L = [], t = [], v = new THREE.Vector3(), base = new THREE.Vector3();
+    T.firstV.forEach((vi, k) => {
+        const p = [T.P[k * 3], T.P[k * 3 + 1], T.P[k * 3 + 2]];
+        sm.applyBoneTransform(vi, base.set(...p));
+        const cols = [[1, 0, 0], [0, 1, 0], [0, 0, 1]].map(e => { sm.applyBoneTransform(vi, v.set(p[0] + e[0], p[1] + e[1], p[2] + e[2])); return v.clone().sub(base); });
+        L.push(...cols.flatMap(c => [c.x, c.y, c.z]));   // column-major
+        const lp = cols.reduce((a, c, j) => a.addScaledVector(c, p[j]), new THREE.Vector3());
+        t.push(base.x - lp.x, base.y - lp.y, base.z - lp.z);
+    });
+    m.root.position.copy(keepP); m.root.rotation.y = keepR; m.root.updateMatrixWorld(true);
+    return { ...T, L, t };
 }
 const say = t => { const e = document.getElementById('labmsg'); if (e) e.textContent = t; };
 async function exportBody(i) {
@@ -108,7 +125,7 @@ if (BASE) {
 }
 window.__lab_io = { exportBody, importBody, pointTable, bodyMesh };
 // the point editor (in the browser): the base bodies, reshaped by hand
-const editor = BASE ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, getBody: s => ({ table: pointTable(bodyMesh(s === 'female' ? 1 : 0)) }),
+const editor = BASE ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, getBody: s => ({ table: posedTable(s === 'female' ? 1 : 0) }),
     onEnter: () => { models.forEach(m => { m.root.visible = false; }); floor.visible = false; for (const id of ['bar', 'labels', 'blender']) { const e = document.getElementById(id); if (e) e.style.display = 'none'; } },
     onExit: () => { models.forEach(m => { m.root.visible = true; }); floor.visible = true; for (const id of ['bar', 'labels', 'blender']) { const e = document.getElementById(id); if (e) e.style.display = ''; } resize(); } }) : null;
 if (editor) {

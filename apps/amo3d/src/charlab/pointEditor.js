@@ -62,7 +62,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     function setRegion(r) {
         region = r;
         const top = T ? Math.max(...T.P.filter((_, j) => j % 3 === 1)) : 1.85;   // (the crown's height: frame from it)
-        if (r === 'head') { target.set(0, top - 0.19, 0.02); dist = 0.78; } else if (r === 'upper') { target.set(0, top - 0.45, 0); dist = 1.3; } else { target.set(0, top / 2, 0); dist = 2.8; }
+        if (r === 'head') { target.set(0, top - 0.19, 0.02); dist = 0.78; } else if (r === 'upper') { target.set(0, top - 0.45, 0); dist = 1.3; } else { target.set(0, top / 2, 0); dist = 3.6; }
         buildDots();
     }
     const inRegion = i => { const y = T.P[i * 3 + 1], top = T.P.reduce((m, v, j) => (j % 3 === 1 && v > m ? v : m), 0); return region === 'all' || (region === 'head' ? y > top - 0.42 : y > top - 0.9); };
@@ -71,7 +71,10 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         sex = s; const B = getBody(s); T = B.table; sel = -1; undo.length = 0;
         group.clear();
         geo = new THREE.BufferGeometry();
+        bind = Float32Array.from(T.P);   // the rest shape (what is saved); the view shows it posed (T.L, T.t: the A-pose)
+        Linv = T.keys.map((_, i) => { const m = new THREE.Matrix3().fromArray(T.L.slice(i * 9, i * 9 + 9)); return m.determinant() ? m.clone().invert() : new THREE.Matrix3(); });
         geo.setAttribute('position', new THREE.Float32BufferAttribute(T.P.slice(), 3));
+        for (let i = 0; i < T.keys.length; i++) refresh(i);
         geo.setAttribute('color', new THREE.Float32BufferAttribute(T.C, 3)); geo.setIndex(T.idx);
         mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.85 }));
         wire = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true, transparent: true, opacity: 0.18 }));
@@ -98,28 +101,30 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         });
         dots.instanceMatrix.needsUpdate = true; if (dots.instanceColor) dots.instanceColor.needsUpdate = true;
     }
-    const moved = i => { const [x, y, z] = keyPos(T.keys[i]), p = geo.attributes.position; return Math.hypot(p.getX(i) - x, p.getY(i) - y, p.getZ(i) - z) > 1e-4; };   // (keys hold 4 decimals: under 0.1 mm is 'not moved')
-    function setPoint(i, x, y, z) { geo.attributes.position.setXYZ(i, x, y, z); }
+    let bind = null, Linv = [];
+    const view = (i, x, y, z) => { const L = T.L, o = i * 9; return [L[o] * x + L[o + 3] * y + L[o + 6] * z + T.t[i * 3], L[o + 1] * x + L[o + 4] * y + L[o + 7] * z + T.t[i * 3 + 1], L[o + 2] * x + L[o + 5] * y + L[o + 8] * z + T.t[i * 3 + 2]]; };
+    function refresh(i) { geo.attributes.position.setXYZ(i, ...view(i, bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2])); }
+    const moved = i => { const [x, y, z] = keyPos(T.keys[i]); return Math.hypot(bind[i * 3] - x, bind[i * 3 + 1] - y, bind[i * 3 + 2] - z) > 1e-4; };   // (keys hold 4 decimals: under 0.1 mm is 'not moved')
+    function setPoint(i, x, y, z) { bind[i * 3] = x; bind[i * 3 + 1] = y; bind[i * 3 + 2] = z; refresh(i); }   // (rest-shape coordinates)
     function movePoint(i, dx, dy, dz) {
-        const p = geo.attributes.position;
-        if (mirrorOf[i] === -2) dx = 0;   // a point on the centre line stays on it
-        setPoint(i, p.getX(i) + dx, p.getY(i) + dy, p.getZ(i) + dz);
-        const m = mirrorOf[i]; if (m >= 0) setPoint(m, p.getX(m) - dx, p.getY(m) + dy, p.getZ(m) + dz);
+        const p = geo.attributes.position, d = new THREE.Vector3(dx, dy, dz).applyMatrix3(Linv[i]);   // the drag (posed) → the rest shape
+        if (mirrorOf[i] === -2) d.x = 0;   // a point on the centre line stays on it
+        setPoint(i, bind[i * 3] + d.x, bind[i * 3 + 1] + d.y, bind[i * 3 + 2] + d.z);
+        const m = mirrorOf[i]; if (m >= 0) setPoint(m, bind[m * 3] - d.x, bind[m * 3 + 1] + d.y, bind[m * 3 + 2] + d.z);
         p.needsUpdate = true; geo.computeBoundingSphere(); placeDots(); describe();
     }
-    function snapshot() { const p = geo.attributes.position, ids = [sel, mirrorOf[sel]].filter(i => i >= 0); undo.push(ids.map(i => [i, p.getX(i), p.getY(i), p.getZ(i)])); if (undo.length > 200) undo.shift(); }
+    function snapshot() { const p = geo.attributes.position, ids = [sel, mirrorOf[sel]].filter(i => i >= 0); undo.push(ids.map(i => [i, bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2]])); void p; if (undo.length > 200) undo.shift(); }
     function doUndo() { const s = undo.pop(); if (!s) return; for (const [i, x, y, z] of s) setPoint(i, x, y, z); geo.attributes.position.needsUpdate = true; placeDots(); describe(); }
     function resetSel() { if (sel < 0) return; snapshot(); for (const i of [sel, mirrorOf[sel]].filter(i => i >= 0)) { const [x, y, z] = keyPos(T.keys[i]); setPoint(i, x, y, z); } geo.attributes.position.needsUpdate = true; placeDots(); describe(); }
     function resetAll() { for (let i = 0; i < T.keys.length; i++) { const [x, y, z] = keyPos(T.keys[i]); setPoint(i, x, y, z); } geo.attributes.position.needsUpdate = true; undo.length = 0; placeDots(); describe(); }
     function describe() {
         const n = T.keys.filter((_, i) => moved(i)).length;
         if (sel < 0) { info.textContent = `${sex} body · ${n} points moved (not saved)`; return; }
-        const p = geo.attributes.position;
-        info.textContent = `point ${sel}${mirrorOf[sel] === -2 ? ' (centre line)' : ''} · x ${p.getX(sel).toFixed(3)} y ${p.getY(sel).toFixed(3)} z ${p.getZ(sel).toFixed(3)} · ${n} moved`;
+        info.textContent = `point ${sel}${mirrorOf[sel] === -2 ? ' (centre line)' : ''} · x ${bind[sel * 3].toFixed(3)} y ${bind[sel * 3 + 1].toFixed(3)} z ${bind[sel * 3 + 2].toFixed(3)} · ${n} moved`;
     }
     async function save() {
-        const edits = {}, p = geo.attributes.position;
-        for (let i = 0; i < T.keys.length; i++) if (moved(i)) edits[T.keys[i]] = [+p.getX(i).toFixed(5), +p.getY(i).toFixed(5), +p.getZ(i).toFixed(5)];
+        const edits = {};
+        for (let i = 0; i < T.keys.length; i++) if (moved(i)) edits[T.keys[i]] = [+bind[i * 3].toFixed(5), +bind[i * 3 + 1].toFixed(5), +bind[i * 3 + 2].toFixed(5)];
         const r = await fetch('/api/v2edits', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sex, edits }) });
         info.textContent = r.ok ? `Saved ${Object.keys(edits).length} moved points — reloading…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`;
         if (r.ok) setTimeout(() => { const u = new URL(location.href); u.searchParams.set('edit', sex); location.href = u; }, 700);
