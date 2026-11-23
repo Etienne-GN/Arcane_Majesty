@@ -140,7 +140,7 @@ def build(mode):
            'palette': ({'grassA': '#3e4034', 'grassB': '#4c4c3c', 'dirt': '#4a4038', 'rock': '#4a464c', 'shore': '#4a4440', 'road': '#4a4448', 'paved': '#585462', 'water': '#22262e'} if mode == 'new'
                        else {'grassA': '#55525e', 'grassB': '#625e6c', 'dirt': '#46424c', 'rock': '#3a3640', 'shore': '#3a3640', 'road': '#4a4652', 'paved': '#504c5a', 'water': '#141218'}),
            'tints': [], 'mood': {'fog': '#6a6470', 'fogNear': 40, 'fogFar': 320, 'fogMix': 0.5, 'light': 0.85, 'nightFloor': 0.45},
-           'buildings': [], 'props': [], 'signs': [], 'roads': [], 'people': [], 'trees': {'count': 30 if mode == 'new' else 60}, 'rocks': {'count': 10},
+           'buildings': [], 'props': [], 'signs': [], 'roads': [], 'people': [], 'trees': {'count': 30} if mode == 'new' else {'count': 50, 'kinds': {'dead': 1}, 'sizeVar': 0.9, 'trunk': {'dead': '#17151a'}}, 'rocks': {'count': 10},
            'gather': [], 'gates': [], 'actors': [], 'landmarks': [], 'links': [], 'undergrowth': 0.2}
     for s in STREETS: out['roads'].append({'pts': s['pts'], 'w': s['w'], 'kind': 'paved' if s['kind'] in ('high', 'main', 'street') else 'road'})
     WALLS = ['#4a4652', '#3e3a46', '#524e58', '#46424e']

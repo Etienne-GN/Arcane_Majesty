@@ -5,7 +5,7 @@
 import * as THREE from 'three';
 import LAYOUT from './eldoria_layout.json';
 import NYTHORIA_MAP from './biome_maps/nythoria.json';
-import { createStreamWorld, prepStamp } from '../../engine/stream.js';
+import { createStreamWorld, prepStamp, stampHeights } from '../../engine/stream.js';
 import { buildRegion, regionHeight } from '../../engine/region.js';
 import { umbralTwin } from '../../engine/umbralTwin.js';
 import { eldoriaHeight, makeBiomes, divideWalls } from './eldoria.js';
@@ -83,12 +83,12 @@ export function createNythoriaWorld({ quality } = {}) {
     { const OR = REGION_DEFS.old_ravenspire, C = at('The Citadel of Thaloria');
       if (OR && C) { const Hh = regionHeight(OR); stamps.push(prepStamp({ id: 'old_ravenspire', make: () => buildRegion(OR, { quality }), heightAt: Hh, ox: C.x, oy: eldoriaHeight(C.x, C.z) - Hh(0, 0), oz: C.z, rect: [-186, -186, 186, 186], blend: 160, round: 2.4 })); } }
     PLACES.push(...[['The shadow harbour', 'Port Silver'], ["The deep-miners' village", 'Iron Hollow']].map(([n, p]) => ({ name: n, ...at(p) })).filter(p => p.x != null));
-    const heightAt = (x, z) => eldoriaHeight(x, z);   // (the twin's relief; the town's ground blended in by the engine)
+    const heightAt = stampHeights(eldoriaHeight, stamps, 60);   // the twin's relief with its places' own ground set in (you walked on Eldoria's raw relief over them)
     const biomes = makeBiomes(stamps, NYTHORIA_MAP), biomeAt = (x, z) => biomes(x, z);
     const gate = at('The Obsidian Gate');
     let world = null;
     world = createStreamWorld({
-        walls: divideWalls(), levelAt: levelAtNythoria,
+        walls: divideWalls({ inner: false }), levelAt: levelAtNythoria,   // (no story gates in Nythoria: the Summit's ridge is open)
         id: 'nythoria', name: 'Nythoria — the shadow world', seed: 777, size: 11200, heightAt, quality, stamps,
         spawn: { x: gate.x - 18, z: gate.z, facing: -Math.PI / 2 },
         mood: { plane: 'nythoria', fog: '#4a4458', fogNear: 70, fogFar: 520, fogMix: 0.55, crows: 14, crowsAt: { x: gate.x, z: gate.z } },   // the eclipse sky (N-4): the black sun in its silver corona, falling ash, crows

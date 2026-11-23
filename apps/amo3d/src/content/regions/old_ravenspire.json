@@ -7832,7 +7832,14 @@
  ],
  "people": [],
  "trees": {
-  "count": 60
+  "count": 50,
+  "kinds": {
+   "dead": 1
+  },
+  "sizeVar": 0.9,
+  "trunk": {
+   "dead": "#17151a"
+  }
  },
  "rocks": {
   "count": 10

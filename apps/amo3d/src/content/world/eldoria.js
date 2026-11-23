@@ -159,7 +159,7 @@ const WEST_FOOT_CAP = (() => {
 })();
 function westFoot(z) { return Math.min(WEST_FOOT_CAP(z), -4300 + 170 * Math.sin(z * 0.0019 + 2.3) + 90 * Math.sin(z * 0.0047 + 0.4) + 40 * Math.sin(z * 0.012)); }
 function northFoot(x) { return Math.min(NORTH_FOOT_CAP(x), NORTH_EDGE + 260 + 170 * Math.sin(x * 0.0019 + 0.7) + 90 * Math.sin(x * 0.0051 + 2.1) + 40 * Math.sin(x * 0.013)); }
-export function divideWalls() {
+export function divideWalls({ inner = true } = {}) {   // inner: the Summit's ridge and the eastern divide (Eldoria's story gates); Nythoria keeps only the world's edges
     const out = [], seg = (pts, skip = () => false, step = 24) => {
         for (let i = 0; i < pts.length - 1; i++) {
             const [ax, az] = pts[i], [bx, bz] = pts[i + 1], n = Math.max(1, Math.ceil(Math.hypot(bx - ax, bz - az) / step));
@@ -176,8 +176,8 @@ export function divideWalls() {
     const west = []; for (let z = -5600; z <= 5600; z += 40) west.push([westFoot(z) - 250, z]);
     seg(west);
     seg([[SPUR[0][0], northFoot(SPUR[0][0]) - 250], ...SPUR]);
-    seg(RIDGE, (x, z) => Math.hypot(x - PASS.x, z - (PASS.z - 120)) < 110);   // the Summit pass (where the trail crosses the crest, north of the Summit's marker): the one way through
-    seg(DIVIDE_EAST);
+    if (inner) seg(RIDGE, (x, z) => Math.hypot(x - PASS.x, z - (PASS.z - 120)) < 110);   // the Summit pass (where the trail crosses the crest, north of the Summit's marker): the one way through
+    if (inner) seg(DIVIDE_EAST);
     return out;
 }
 const NORTH_FOOT_CAP = (() => {
