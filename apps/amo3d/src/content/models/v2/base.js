@@ -18,6 +18,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     const F = sex === 'female';
     const { root, body, hips, spine, head, arms, legs } = ctx;
     const HAIR = hair ?? (F ? '#151922' : '#2a1d16');
+    const BALD = ctx.look?.hair?.style === 'bald';   // no hair (2026-11-23: hair will be interchangeable; the hairless reference sheet)
     const bones = [hips, spine, head, arms.L.upper, arms.L.fore, arms.R.upper, arms.R.fore, legs.L.thigh, legs.L.shin, legs.R.thigh, legs.R.shin];
     head.position.z += 0.024; head.position.y += 0.03; root.updateMatrixWorld(true);   // (the head carried a little forward of the shoulders, the neck leaning to it, as the reference)
     const sk = createSkin(root, bones, { edits: F ? EDITS_FEMALE : EDITS_MALE }), V = (g, x, y, z) => sk.at(g, x, y, z);
@@ -198,7 +199,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     // ears (flat, against the head) and closed, quiet eyes and brows (darker strokes, as in the reference)
     const dark = new THREE.Color(skin).multiplyScalar(0.8).getStyle(), brow = new THREE.Color(HAIR).getStyle();
     for (const s of [-1, 1]) {
-        if (!F) sk.loft([{ c: V(head, s * 0.092 * hk, 0.19 * hk, -0.012 * hk), shape: profile(0.008, 0.014, 0.018), w: [[head, 1]], col: skin }, { c: V(head, s * 0.094 * hk, 0.145 * hk, -0.006 * hk), shape: profile(0.007, 0.011, 0.014), w: [[head, 1]], col: skin }], { seg: 5, cap: true, capStart: true });
+        if (!F || BALD) sk.loft([{ c: V(head, s * 0.092 * hk, 0.19 * hk, -0.012 * hk), shape: profile(0.008, 0.014, 0.018), w: [[head, 1]], col: skin }, { c: V(head, s * 0.094 * hk, 0.145 * hk, -0.006 * hk), shape: profile(0.007, 0.011, 0.014), w: [[head, 1]], col: skin }], { seg: 5, cap: true, capStart: true });
         sk.loft([{ c: V(head, s * 0.033 * hk, 0.181 * hk, 0.092 * hk), shape: profile(0.01, 0.002, 0.0015), w: [[head, 1]], col: dark }, { c: V(head, s * 0.033 * hk, 0.178 * hk, 0.092 * hk), shape: profile(0.009, 0.002, 0.0015), w: [[head, 1]], col: dark }], { seg: 4 });
         sk.loft([{ c: V(head, s * 0.036 * hk, 0.2 * hk, 0.103 * hk), shape: profile(0.018, 0.004, 0.003), w: [[head, 1]], col: brow }, { c: V(head, s * 0.036 * hk, 0.195 * hk, 0.102 * hk), shape: profile(0.017, 0.004, 0.003), w: [[head, 1]], col: brow }], { seg: 4 });
     }
@@ -210,7 +211,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     const HL = F ? 0.25 : 0.262;   // the hairline's height in front: every hair ring's front rises to it (the forehead and brows show)
     const front = (y, last) => th => { const c = Math.cos(th); return c > 0 ? Math.pow(c, 0.8) * Math.max(0, HL - y) : last ? c * (F ? 0 : 0.05) : 0; };
     const earLift = (y, last) => th => (!F && last ? Math.pow(Math.abs(Math.sin(th)), 6) * 0.055 : 0);   // the male's cut clears the ears
-    sk.loft(HR.map(([y, w, df, db], i) => ({ c: V(head, 0, y * hk, 0.0), shape: profile((w + 0.01) * hk, (df + 0.006) * hk, (db + 0.012) * hk), w: [[head, 1]], col: HAIR, dy: (th => (front(y, i === HR.length - 1)(th) + earLift(y, i === HR.length - 1)(th)) * hk) })), { seg: 12, mat: 'double' });   // (a touch bigger than the skull all round: it never pokes through)
+    if (!BALD) sk.loft(HR.map(([y, w, df, db], i) => ({ c: V(head, 0, y * hk, 0.0), shape: profile((w + 0.01) * hk, (df + 0.006) * hk, (db + 0.012) * hk), w: [[head, 1]], col: HAIR, dy: (th => (front(y, i === HR.length - 1)(th) + earLift(y, i === HR.length - 1)(th)) * hk) })), { seg: 12, mat: 'double' });   // (a touch bigger than the skull all round: it never pokes through)
     if (false) for (const [x, len] of [[-0.055, 0.1], [0, 0.11], [0.055, 0.1]]) {   // (the tufts read as horns: gone)   // three big locks swept back over the crown
         sk.loft([
             { c: V(head, x * hk, 0.328 * hk, 0.075 * hk), rx: 0.035 * hk, rz: 0.012, w: [[head, 1]], col: HAIR },
@@ -218,7 +219,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
             { c: V(head, x * 1.3 * hk, 0.325 * hk, (0.07 - len) * hk), rx: 0.004, rz: 0.004, w: [[head, 1]], col: HAIR },
         ], { seg: 4, axis: 'z', cap: true });
     }
-    if (F) for (const s of [-1, 1]) {   // a centre parting; strands down each side of the face to the jaw, over the ears
+    if (F && !BALD) for (const s of [-1, 1]) {   // a centre parting; strands down each side of the face to the jaw, over the ears
         sk.loft([
             { c: V(head, s * 0.07 * hk, 0.25 * hk, 0.055 * hk), rx: 0.03 * hk, rz: 0.018, w: [[head, 1]], col: HAIR },
             { c: V(head, s * 0.09 * hk, 0.17 * hk, 0.03 * hk), rx: 0.022 * hk, rz: 0.03, w: [[head, 1]], col: HAIR },
@@ -248,7 +249,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
 
     // the ponytail (female): a rigid chain from the crown, swinging
     const tail = [];
-    if (F) {
+    if (F && !BALD) {
         const hm = new THREE.MeshStandardMaterial({ color: HAIR, flatShading: true, roughness: 0.7 });
         let tp = new THREE.Group(); tp.position.set(0, 0.315 * hk, -0.035); head.add(tp);   // (high on the crown)
         const band = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.024, 0.03, 6), new THREE.MeshStandardMaterial({ color: '#2a2a30', flatShading: true })); band.userData.keep = band.userData.v2 = true; tp.add(band);

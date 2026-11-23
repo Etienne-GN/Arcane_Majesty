@@ -3,13 +3,14 @@
 // you; its mirror on the other side follows). Arrows nudge the selected point (Shift: toward/away from you). Save writes
 // the moved points to src/content/models/v2/edits_<sex>.json (the same edits the Blender round trip uses) and reloads.
 //   createPointEditor({ THREE, scene, camera, renderer, dom, getBody(sex) → { mesh, table } , onExit })
-import REF_URL from './base_mesh_reference.jpg';   // the reference sheet (docs/3d/characters/base_mesh_reference.jpg), 896 × 1200
+import REF_HAIR from './base_mesh_reference.jpg';
+import REF_BALD from './base_mesh_reference_bald.jpg';   // (the hairless sheet: same layout)   // the reference sheet (docs/3d/characters/base_mesh_reference.jpg), 896 × 1200
 // Where each view sits on the sheet: [x0, y0, x1, y1] — the whole figure, and its head
 const REF = {
     male: { front: [[70, 75, 360, 615], [130, 70, 250, 215]], side: [[380, 75, 560, 615], [395, 70, 520, 215]], back: [[560, 75, 860, 615], [650, 70, 770, 215]] },
     female: { front: [[70, 655, 360, 1195], [130, 650, 250, 800]], side: [[380, 655, 560, 1195], [385, 650, 530, 800]], back: [[560, 655, 860, 1195], [640, 650, 780, 800]] },
 };
-export function createPointEditor({ THREE, scene, camera, renderer, getBody, onEnter, onExit }) {
+export function createPointEditor({ hairless = false, THREE, scene, camera, renderer, getBody, onEnter, onExit }) {
     let on = false, sex = 'male', T = null, geo = null, mesh = null, wire = null, dots = null, sel = -1, mirrorOf = [], drag = null;
     let region = 'head', yaw = 0, pitch = 0.05, dist = 0.55, target = new THREE.Vector3(0, 1.66, 0);
     const undo = [], group = new THREE.Group(); scene.add(group); group.visible = false;
@@ -39,6 +40,7 @@ export function createPointEditor({ THREE, scene, camera, renderer, getBody, onE
     const refHead = document.createElement('div'); refHead.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:6px';
     const refLabel = document.createElement('span'); refLabel.style.cssText = 'color:#f3d88b';
     const refBtns = document.createElement('span');
+    const REF_URL = hairless ? REF_BALD : REF_HAIR;
     const refPic = document.createElement('div'); refPic.style.cssText = `width:284px;border-radius:6px;background-image:url(${REF_URL});background-repeat:no-repeat;background-color:#3b3b3b`;
     let refMode = 'auto', refOn = true, refSize = 284;
     const small = (t, fn) => { const b = document.createElement('button'); b.textContent = t; b.style.cssText = 'font:12px Georgia,serif;padding:3px 7px;margin-left:3px;border-radius:6px;border:1px solid #c8963a88;background:#4a3220;color:#f1e4c4;cursor:pointer'; b.onclick = fn; refBtns.append(b); return b; };
@@ -54,7 +56,7 @@ export function createPointEditor({ THREE, scene, camera, renderer, getBody, onE
         const box = refMode === 'sheet' ? [0, 0, 896, 1200] : REF[sex][view][region === 'head' ? 1 : 0], [x0, y0, x1, y1] = box, k = refSize / (x1 - x0);
         refBox.style.width = `${refSize + 16}px`;
         Object.assign(refPic.style, { width: `${refSize}px`, height: `${Math.round((y1 - y0) * k)}px`, backgroundSize: `${Math.round(896 * k)}px ${Math.round(1200 * k)}px`, backgroundPosition: `${-Math.round(x0 * k)}px ${-Math.round(y0 * k)}px` });
-        refLabel.textContent = refMode === 'sheet' ? 'Reference — the sheet' : `Reference — ${sex}, ${view}`;
+        refLabel.textContent = (refMode === 'sheet' ? 'Reference — the sheet' : `Reference — ${sex}, ${view}`) + (hairless ? ' (no hair)' : '');
     }
 
     function setRegion(r) {

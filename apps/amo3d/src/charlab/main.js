@@ -19,7 +19,8 @@ const sun = new THREE.DirectionalLight(0xffffff, 2.2); sun.position.set(2, 4, 3)
 const floor = new THREE.Mesh(new THREE.CircleGeometry(6, 48).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0x46464c, roughness: 1 })); floor.receiveShadow = true; scene.add(floor);
 
 const BASE = who === 'base';   // the base bodies: male and female, no clothes, empty hands
-const baseLook = (preset, v2) => ({ v2, body: { preset, race: 'human', skin: '#e2b590' }, parts: { right: { id: 'none' }, left: { id: 'none' } } });
+const HAIRLESS = new URLSearchParams(location.search).get('hair') === '0';   // ?hair=0: the base bodies without hair
+const baseLook = (preset, v2) => ({ v2, body: { preset, race: 'human', skin: '#e2b590' }, hair: { style: HAIRLESS ? 'bald' : 'short' }, parts: { right: { id: 'none' }, left: { id: 'none' } } });
 const look = BASE ? null : JSON.parse(JSON.stringify(CAST[who].look)); if (look && who === 'seraphina') look.parts.right = { id: 'spear' };
 const make = (mode, lk = look) => { settings.charModels = mode; const c = createCharacter(lk); scene.add(c.root); return c; };
 const models = BASE ? [make('new', baseLook('adult_male', 'base_male')), make('new', baseLook('adult_female', 'base_female'))] : [make('classic'), make('new')];
@@ -107,13 +108,17 @@ if (BASE) {
 }
 window.__lab_io = { exportBody, importBody, pointTable, bodyMesh };
 // the point editor (in the browser): the base bodies, reshaped by hand
-const editor = BASE ? createPointEditor({ THREE, scene, camera, renderer, getBody: s => ({ table: pointTable(bodyMesh(s === 'female' ? 1 : 0)) }),
+const editor = BASE ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, getBody: s => ({ table: pointTable(bodyMesh(s === 'female' ? 1 : 0)) }),
     onEnter: () => { models.forEach(m => { m.root.visible = false; }); floor.visible = false; for (const id of ['bar', 'labels', 'blender']) { const e = document.getElementById(id); if (e) e.style.display = 'none'; } },
     onExit: () => { models.forEach(m => { m.root.visible = true; }); floor.visible = true; for (const id of ['bar', 'labels', 'blender']) { const e = document.getElementById(id); if (e) e.style.display = ''; } resize(); } }) : null;
 if (editor) {
     const b = document.createElement('button'); b.textContent = '✎ Edit points (face, body)';
     b.style.cssText = 'position:fixed;top:12px;left:12px;font:15px Georgia,serif;padding:7px 14px;border-radius:9px;border:1px solid #f3d88b;background:#8a6a2a;color:#fff4d8;cursor:pointer;z-index:5';
     b.onclick = () => editor.enter('male'); document.body.append(b);
+    const h = document.createElement('button'); h.textContent = HAIRLESS ? 'Hair: off' : 'Hair: on';
+    h.style.cssText = 'position:fixed;top:12px;left:240px;font:15px Georgia,serif;padding:7px 14px;border-radius:9px;border:1px solid #c8963a88;background:#2e1e12;color:#f1e4c4;cursor:pointer;z-index:5';
+    h.onclick = () => { const u = new URL(location.href); if (HAIRLESS) u.searchParams.delete('hair'); else u.searchParams.set('hair', '0'); if (editor.on) u.searchParams.set('edit', editor.state().sex); location.href = u; };
+    document.body.append(h);
     const want = new URLSearchParams(location.search).get('edit'); if (want) setTimeout(() => editor.enter(want), 50);
 }
 window.__editor = editor;
