@@ -37,10 +37,11 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     tog(refTog, refOn); tog(cmpTog, cmpOn);
     // the hair (hidden: its points can't be picked, the scalp and the face show) and the eyes and brows (as last saved: they
     // settle onto the reshaped face once saved and reloaded) — no reload, the unsaved edits stay
-    let hairOn = true, eyesOn = true, faceMesh = null;
+    let hairOn = true, eyesOn = true, mouthOn = true, faceMesh = null, mouthMesh = null;
     const hairTog = btn(rShow, 'Hair', () => { hairOn = !hairOn; tog(hairTog, hairOn); applyHair(); });
     const eyesTog = btn(rShow, 'Eyes', () => { eyesOn = !eyesOn; tog(eyesTog, eyesOn); if (faceMesh) faceMesh.visible = eyesOn; });
-    tog(hairTog, hairOn); tog(eyesTog, eyesOn);
+    const mouthTog = btn(rShow, 'Mouth', () => { mouthOn = !mouthOn; tog(mouthTog, mouthOn); if (mouthMesh) mouthMesh.visible = mouthOn; });
+    tog(hairTog, hairOn); tog(eyesTog, eyesOn); tog(mouthTog, mouthOn);
     function applyHair() {
         if (!T) return;
         const H = T.hair, idx = hairOn || !H ? T.idx : T.idx.filter((_, n, a) => { const b = n - (n % 3); return !(H[a[b]] && H[a[b + 1]] && H[a[b + 2]]); });
@@ -100,8 +101,10 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.85 }));
         wire = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true, transparent: true, opacity: 0.18 }));
         group.add(mesh, wire);
-        faceMesh = T.faceGeo ? new THREE.Mesh(T.faceGeo, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.85, side: THREE.DoubleSide })) : null;
+        const feature = g => (g ? new THREE.Mesh(g, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.85, side: THREE.DoubleSide })) : null);
+        faceMesh = feature(T.faceGeo); mouthMesh = feature(T.mouthGeo);
         if (faceMesh) { faceMesh.visible = eyesOn; group.add(faceMesh); }
+        if (mouthMesh) { mouthMesh.visible = mouthOn; group.add(mouthMesh); }
         // mirrors: the point at (−x, y, z)
         const by = new Map(); T.keys.forEach((k, i) => by.set(k, i));
         mirrorOf = T.keys.map(k => { const [x, y, z] = keyPos(k); if (Math.abs(x) < 1e-4) return -2; const m = by.get(`${(-x).toFixed(4)},${y.toFixed(4)},${z.toFixed(4)}`); return m ?? -1; });

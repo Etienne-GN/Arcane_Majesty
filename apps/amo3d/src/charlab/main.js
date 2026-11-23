@@ -102,16 +102,18 @@ function posedTable(i) {
     });
     // the hair's points (by their colour), for Show › Hair; the eyes and brows (their own mesh), posed the same, for Show › Eyes
     const hc = sm.userData.hairColor, hair = T.keys.map((_, k) => !!hc && Math.abs(T.C[k * 3] - hc.r) + Math.abs(T.C[k * 3 + 1] - hc.g) + Math.abs(T.C[k * 3 + 2] - hc.b) < 0.02);
-    let face = null; m.root.traverse(o => { if (!face && o.isSkinnedMesh && o.userData.face) face = o; });
-    let faceGeo = null;
-    if (face) {
-        face.skeleton.update();
-        const src = face.geometry.attributes.position, out = new Float32Array(src.count * 3);
-        for (let n = 0; n < src.count; n++) { face.applyBoneTransform(n, v.fromBufferAttribute(src, n)); out.set([v.x, v.y, v.z], n * 3); }
-        faceGeo = new THREE.BufferGeometry(); faceGeo.setAttribute('position', new THREE.BufferAttribute(out, 3)); faceGeo.setAttribute('color', face.geometry.attributes.color.clone()); faceGeo.computeVertexNormals();
-    }
+    const posed = flag => {   // a feature mesh (the eyes and brows, the mouth), posed as the body is, for the editor
+        let f = null; m.root.traverse(o => { if (!f && o.isSkinnedMesh && o.userData[flag]) f = o; });
+        if (!f) return null;
+        f.skeleton.update();
+        const src = f.geometry.attributes.position, out = new Float32Array(src.count * 3);
+        for (let n = 0; n < src.count; n++) { f.applyBoneTransform(n, v.fromBufferAttribute(src, n)); out.set([v.x, v.y, v.z], n * 3); }
+        const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(out, 3)); g.setAttribute('color', f.geometry.attributes.color.clone()); g.computeVertexNormals();
+        return g;
+    };
+    const faceGeo = posed('face'), mouthGeo = posed('mouth');
     m.root.position.copy(keepP); m.root.rotation.y = keepR; m.root.updateMatrixWorld(true);
-    return { ...T, L, t, hair, faceGeo };
+    return { ...T, L, t, hair, faceGeo, mouthGeo };
 }
 const say = t => { const e = document.getElementById('labmsg'); if (e) e.textContent = t; };
 async function exportBody(i) {
