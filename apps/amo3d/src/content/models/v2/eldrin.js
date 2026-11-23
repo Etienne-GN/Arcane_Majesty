@@ -40,7 +40,17 @@ export function buildEldrin(ctx) {
                     return [[hips, 1 - k], [flap, k * (1 - b)], [back, k * b]].filter(([, w]) => w > 1e-3);
                 };
                 const T = (y, w, df, db, k) => ({ c: V(body, 0, y, -0.005), shape: profile(w, df, db), w: tailW(k), col: C.coat });
-                cs.loft([T(1.07, 0.17, 0.115, 0.115, 0), T(1.01, 0.19, 0.14, 0.135, 0.35), T(0.95, 0.216, 0.17, 0.16, 0.85), T(0.75, 0.246, 0.192, 0.193, 1), T(0.55, 0.263, 0.2, 0.215, 1), T(0.38, 0.274, 0.204, 0.227, 1), T(0.24, 0.286, 0.208, 0.24, 1)], { seg: 14, from: 0.5, to: Math.PI * 2 - 0.5, mat: 'double' });   // (to the knees)
+                const ROWS = [[1.07, 0.17, 0.115, 0.115, 0], [1.01, 0.19, 0.14, 0.135, 0.35], [0.95, 0.216, 0.17, 0.16, 0.85], [0.75, 0.246, 0.192, 0.193, 1], [0.55, 0.263, 0.2, 0.215, 1], [0.38, 0.274, 0.204, 0.227, 1], [0.24, 0.286, 0.208, 0.24, 1]];
+                const OPEN = 0.5;   // the opening's half-angle at the front
+                cs.loft(ROWS.map(r => T(...r)), { seg: 14, from: OPEN, to: Math.PI * 2 - OPEN, mat: 'double' });   // (to the knees)
+                // gold trim (2026-11-23): down both edges of the opening, from the waist to the hem, and all along the hem — each
+                // weighted as the coat is there, so it moves with the flaps and the back
+                for (const th of [OPEN, Math.PI * 2 - OPEN]) cs.loft(ROWS.map(([y, w, df, db, k]) => {
+                    const [x, z] = profile(w * 1.015, df * 1.015, db * 1.015)(th), c = V(body, 0, y, -0.005);
+                    return { c: new THREE.Vector3(c.x + x, c.y, c.z + z), shape: profile(0.013, 0.007, 0.007), w: tailW(k)(th), col: C.gold };
+                }), { seg: 4, cap: true, capStart: true });
+                const [hy, hw, hdf, hdb] = ROWS.at(-1), H = (y, g) => ({ c: V(body, 0, y, -0.005), shape: profile(hw * g, hdf * g, hdb * g), w: tailW(1), col: C.gold });
+                cs.loft([H(hy + 0.035, 1.012), H(hy - 0.003, 1.018)], { seg: 14, from: OPEN, to: Math.PI * 2 - OPEN, mat: 'double' });   // (the hem's band, standing just proud of the cloth)
                 cs.build();
                 // the high popped collar, open at the throat
                 // (second pass: "you just painted his neck"): it rises from the shoulders well clear of the neck — 3-4 cm off it
@@ -48,16 +58,22 @@ export function buildEldrin(ctx) {
                 const K = (y, w, df, db, col) => ({ c: V(body, 0, y, -0.012), shape: profile(w, df, db), w: [[spine, 1]], col });
                 sk.loft([K(1.56, 0.11, 0.075, 0.105, C.coatDark), K(1.59, 0.1, 0.075, 0.108, C.coat), K(1.625, 0.108, 0.085, 0.118, C.coat), K(1.655, 0.125, 0.1, 0.132, C.coat), K(1.672, 0.138, 0.11, 0.142, C.coatDark)], { seg: 14, from: 0.95, to: Math.PI * 2 - 0.95, mat: 'double' });   // (high and flared, as the reference)
                 // lapels down the open front, the coat's edges
-                for (const s of [-1, 1]) sk.loft([{ c: V(body, s * 0.06, 1.55, 0.11), shape: profile(0.012, 0.006, 0.006), w: [[spine, 1]], col: C.coatDark }, { c: V(body, s * 0.07, 1.08, 0.106), shape: profile(0.012, 0.006, 0.006), w: [[spine, 1]], col: C.coatDark }], { seg: 4 });
+                for (const s of [-1, 1]) sk.loft([{ c: V(body, s * 0.06, 1.55, 0.11), shape: profile(0.012, 0.006, 0.006), w: [[spine, 1]], col: C.gold }, { c: V(body, s * 0.07, 1.08, 0.106), shape: profile(0.012, 0.006, 0.006), w: [[spine, 1]], col: C.gold }], { seg: 4 });   // (gold, as the tails' edges below)
                 // the shirt's two crossed straps
                 for (const s of [-1, 1]) sk.loft([{ c: V(body, s * 0.1, 1.48, 0.137), shape: profile(0.012, 0.004, 0.004), w: [[spine, 1]], col: C.strap }, { c: V(body, -s * 0.02, 1.3, 0.144), shape: profile(0.012, 0.004, 0.004), w: [[spine, 1]], col: C.strap }, { c: V(body, -s * 0.09, 1.12, 0.11), shape: profile(0.012, 0.004, 0.004), w: [[spine, 1]], col: C.strap }], { seg: 4 });
                 // the belt's gold buckle; the pouch at the right hip
                 sk.loft([{ c: V(body, 0, 1.068, 0.112), shape: profile(0.026, 0.006, 0.006), w: [[hips, 1]], col: C.gold }, { c: V(body, 0, 1.03, 0.112), shape: profile(0.026, 0.006, 0.006), w: [[hips, 1]], col: C.gold }], { seg: 4, cap: true, capStart: true });
                 sk.loft([{ c: V(body, -0.17, 1.0, 0.04), shape: profile(0.03, 0.045, 0.045), w: [[hips, 1]], col: C.leather }, { c: V(body, -0.17, 0.88, 0.04), shape: profile(0.032, 0.048, 0.048), w: [[hips, 1]], col: C.leather }], { seg: 4, cap: true, capStart: true });
-                // gold epaulettes on the shoulders (they move with the arm)
-                for (const side of ['L', 'R']) {
+                // a gold epaulette on his left shoulder only, as the classic Eldrin (it moves with the arm)
+                for (const side of ['L']) {
                     const up = arms[side].upper, s = side === 'L' ? 1 : -1;
                     sk.loft([{ c: V(up, s * 0.0, 0.085, 0.0), shape: profile(0.075, 0.06, 0.06), w: [[up, 0.7], [spine, 0.3]], col: C.gold }, { c: V(up, s * 0.012, 0.055, 0.0), shape: profile(0.088, 0.072, 0.072), w: [[up, 0.8], [spine, 0.2]], col: C.gold }], { seg: 6, capStart: true, mat: 'double' });
+                }
+                // gold bands round the leather bracers: at the top, by the sleeve's cuff, and at the wrist
+                for (const side of ['L', 'R']) {
+                    const fore = arms[side].fore, B = (y, w, df, db) => ({ c: V(fore, 0, y, 0), shape: profile(w, df, db), w: [[fore, 1]], col: C.gold });
+                    sk.loft([B(-0.146, 0.064, 0.06, 0.058), B(-0.166, 0.062, 0.058, 0.056)], { seg: 6, mat: 'double' });
+                    sk.loft([B(-0.252, 0.05, 0.041, 0.041), B(-0.27, 0.048, 0.038, 0.038)], { seg: 6, mat: 'double' });
                 }
                 void blend;
                 // the tails' motion, as the classic coat: the side flaps go forward with each thigh (only a little back);
