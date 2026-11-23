@@ -22,8 +22,9 @@ export function createSkin(root, bones) {
     // opts: seg (sides), from/to (an open sheet between two angles), mat ('front' | 'double'), inward (faces inward),
     // axis 'y' (rings horizontal, the default) or 'z' (rings upright, for feet), shade(k 0…1 down the loft) → colour factor.
     function loft(rings, { seg = 8, from = 0, to = Math.PI * 2, mat = 'front', inward = false, axis = 'y', cap = false } = {}) {
+        if (rings[0].pts) { seg = rings[0].pts.length; from = 0; to = Math.PI * 2; }   // hand-placed rings: their own point count, closed
         const closed = to - from >= Math.PI * 2 - 1e-6, n = closed ? seg : seg + 1;
-        const ring = r => Array.from({ length: n }, (_, i) => {
+        const ring = r => r.pts ? r.pts.map(([px, pz, py = 0]) => ({ p: new THREE.Vector3(r.c.x + px, r.c.y + py, r.c.z + pz), w: typeof r.w === 'function' ? r.w(Math.atan2(px, pz), px) : r.w })) : Array.from({ length: n }, (_, i) => {
             const th = from + (to - from) * (i / seg), s = Math.sin(th), co = Math.cos(th);
             if (r.shape) { const [ox, oz] = r.shape(th); return { p: new THREE.Vector3(r.c.x + ox, r.c.y + (r.dy ? r.dy(th) : 0), r.c.z + oz), w: typeof r.w === 'function' ? r.w(th) : r.w }; }   // a shaped outline (anatomy)
             const p = axis === 'y' ? new THREE.Vector3(r.c.x + s * r.rx, r.c.y + (r.dy ? r.dy(th) : 0), r.c.z + co * r.rz)
@@ -69,6 +70,13 @@ export function createSkin(root, bones) {
     return { at, loft, build };
 }
 
+// A hand-placed ring: half its outline on the +x side, from the front centre (x = 0, z > 0) round to the back centre
+// (x = 0, z < 0); mirrored to the −x side. Every ring of one loft must have the same number of points.
+export function ringPts(half) {
+    const out = [...half];
+    for (let i = half.length - 2; i >= 1; i--) out.push([-half[i][0], half[i][1], half[i][2] ?? 0]);   // (a third value: that point's own height offset)
+    return out;   // front centre, +x side…, back centre, −x side… (θ increasing: the loft's own direction)
+}
 // An anatomical ring outline: half-width w, depth to the front df and to the back db, plus radial bumps
 // [{ th, amp, wd }] (a pectoral, a shoulder blade, a calf…). θ = 0 at the front, +π/2 toward +x.
 export function profile(w, df, db, bumps = []) {

@@ -190,9 +190,9 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         onUpdate: fn => hooks.push(fn),
     };
     // Character models v2 (Options › Display › Character models: New): a hand-shaped continuous model for this character
-    const V2 = settings.charModels === 'new' && lookIn?.v2 && V2_MODELS[lookIn.v2] ? V2_MODELS[lookIn.v2] : null;
+    const V2 = settings.charModels === 'new' && typeof lookIn?.v2 === 'string' && Object.hasOwn(V2_MODELS, lookIn.v2) ? V2_MODELS[lookIn.v2] : null;   // (own keys only: a look from the network can't reach the prototype)
     let v2 = null;
-    if (V2) { root.traverse(o => { if (o.isMesh) o.visible = false; }); v2 = V2(ctx); hooks.push(v2.update); }
+    if (V2) { root.traverse(o => { if (o.isMesh) o.visible = false; }); v2 = V2(ctx); if (typeof v2?.update === 'function') hooks.push(v2.update); }
     for (const slot of V2 ? [] : Object.keys(PART_CATALOG)) {
         const entry = L.parts[slot];
         if (!entry?.id || entry.id === 'none') continue;
