@@ -231,7 +231,20 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     ], { seg: 4, cap: true });
     // ears (flat, against the head); the eyes and brows follow below
     for (const s of [-1, 1]) {
-        if (!F || BALD) sk.loft([{ c: V(head, s * 0.092 * hk, 0.19 * hk, -0.012 * hk), shape: profile(0.008, 0.014, 0.018), w: [[head, 1]], col: skin }, { c: V(head, s * 0.094 * hk, 0.145 * hk, -0.006 * hk), shape: profile(0.007, 0.011, 0.014), w: [[head, 1]], col: skin }], { seg: 5, cap: true, capStart: true });
+        if (!F || BALD) {   // the ear (2026-11-23: "improve the ears"): a C-shaped shell behind the jaw, from the brow's height to the
+            // nose's bottom, standing out more at the back — a rim (the helix) round a darker hollow (the concha), the lobe
+            // below, and a wall behind joining it to the head. Points (y, z, x) head-local, from the front-top round the back.
+            const O = [[0.196, 0.002, 0.091], [0.205, -0.014, 0.102], [0.198, -0.031, 0.113], [0.177, -0.039, 0.117], [0.153, -0.034, 0.112], [0.135, -0.021, 0.103], [0.13, -0.011, 0.097], [0.137, -0.003, 0.092], [0.158, 0.004, 0.089]];   // (standing out ~2.5 cm at the back)
+            const EC = [0.168, -0.016], I = O.map(([y, z, x]) => [EC[0] + (y - EC[0]) * 0.6, EC[1] + (z - EC[1]) * 0.6, x - 0.004]);
+            const Ep = ([y, z, x]) => ({ p: V(head, s * x * hk, y * hk, z * hk), w: [[head, 1]] }), ec = V(head, 0, 0.17 * hk, 0);
+            const rimCol = skin, hollow = new THREE.Color(skin).multiplyScalar(0.8).getStyle(), backCol = new THREE.Color(skin).multiplyScalar(0.92).getStyle();
+            for (let n = 0; n < O.length - 1; n++) {   // the rim, turning in toward the hollow (open at the front, by the cheek)
+                sk.poly([Ep(O[n]), Ep(O[n + 1]), Ep(I[n + 1]), Ep(I[n])], rimCol, ec);
+                const A = ([y, z]) => [y, z, 0.083];   // (the wall behind, back into the head)
+                sk.poly([Ep(O[n]), Ep(A(O[n])), Ep(A(O[n + 1])), Ep(O[n + 1])], backCol, ec);
+            }
+            sk.poly(I.map(Ep), hollow, ec);   // the hollow
+        }
     }
     // ---- hair: a cap over the skull, its hairline higher in front; short and tufted (male) or drawn back (female) ----
     // hair: big swept chunks, as the reference — the hairline high in front, lower at the nape
