@@ -1,7 +1,5 @@
 # Arcane Majesty — CLAUDE.md
 
-> **MIGRATION IN PROGRESS (2026-11-23):** if you are running on **exegol** and `docs/HANDOFF_EXEGOL.md` exists, read it and do its steps before anything else. Delete it and this note once done.
-
 ## Project Overview
 Arcane Majesty is a transmedia dark-fantasy universe combining narrative concept albums, deep lore, a Neo4j knowledge graph, a 3D Action RPG (Three.js, Android via Capacitor — `apps/amo3d`), and written novels. The earlier 2D game (Phaser 3, `apps/amo`) is **archived**. Music is the primary medium; the Neo4j DB is the source of truth for lore.
 
