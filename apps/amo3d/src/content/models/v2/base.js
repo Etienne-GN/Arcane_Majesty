@@ -28,13 +28,14 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         [1.605, [[0, 0.062], [0.04, 0.058], [0.07, 0.034], [0.105, 0], [0.098, -0.045], [0.05, -0.074], [0, -0.078]], skin],   // the trapezius begins
         [1.565, [[0, 0.074], [0.065, 0.076], [0.125, 0.052], [0.185, 0.0], [0.175, -0.058], [0.095, -0.09], [0, -0.094]], skin],   // sloping down and out, broad
         [1.5, [[0, 0.102], [0.095, 0.108], [0.19, 0.082], [0.268, 0.01], [0.252, -0.062], [0.14, -0.104], [0, -0.098]], skin],
-        [1.455, [[0, 0.126], [0.105, 0.138], [0.21, 0.102], [0.298, 0], [0.276, -0.072], [0.15, -0.118], [0, -0.102]], skin],   // the shoulder tips (deltoids), wide; the chest's top
-        [1.36, [[0, 0.13], [0.1, 0.142], [0.18, 0.112, 0.035], [0.2, 0, 0.05], [0.19, -0.07, 0.05], [0.13, -0.112, 0.03], [0, -0.1]], skin],   // the pectorals' lower edge, slanting up to the armpit
-        [1.33, [[0, 0.116], [0.1, 0.12], [0.175, 0.098, 0.03], [0.196, 0, 0.04], [0.19, -0.07, 0.04], [0.13, -0.11, 0.02], [0, -0.1]], skin],   // the shadowed step beneath them
+        [1.455, [[0, 0.138], [0.105, 0.15], [0.21, 0.108], [0.29, 0.02], [0.276, -0.074], [0.15, -0.122], [0, -0.104]], skin],   // the shoulder tips (deltoids), wide and round; a deeper chest
+        [1.36, [[0, 0.142], [0.1, 0.156], [0.18, 0.12, 0.035], [0.2, 0, 0.05], [0.19, -0.075, 0.05], [0.13, -0.116, 0.03], [0, -0.102]], skin],   // the pectorals' lower edge, slanting up to the armpit
+        [1.33, [[0, 0.13], [0.1, 0.136], [0.175, 0.106, 0.03], [0.196, 0, 0.04], [0.19, -0.072, 0.04], [0.13, -0.112, 0.02], [0, -0.1]], skin],   // a soft step beneath them
         [1.22, [[0, 0.11], [0.09, 0.11], [0.15, 0.08], [0.166, 0], [0.16, -0.06], [0.11, -0.1], [0, -0.094]], skin],   // the ribs
         [1.12, [[0, 0.102], [0.08, 0.098], [0.134, 0.065], [0.148, 0], [0.14, -0.06], [0.09, -0.095], [0, -0.088]], skin],   // the waist
         [1.045, [[0, 0.1], [0.075, 0.1], [0.128, 0.076], [0.15, 0], [0.146, -0.07], [0.098, -0.1], [0, -0.1]], skin],   // the hips carry on from the belly: rounded, no corners
-        [1.03, [[0, 0.102], [0.075, 0.102], [0.13, 0.078], [0.152, 0], [0.148, -0.072], [0.098, -0.103], [0, -0.102]], cloth],   // the shorts' waistband
+        [1.03, [[0, 0.1], [0.075, 0.1], [0.129, 0.077], [0.15, 0], [0.146, -0.071], [0.097, -0.101], [0, -0.1]], cloth],   // the shorts' waistband, hugging the waist
+        [0.99, [[0, 0.1], [0.078, 0.1], [0.132, 0.079], [0.155, 0], [0.15, -0.078], [0.097, -0.117], [0, -0.108]], cloth],
         [0.95, [[0, 0.1], [0.08, 0.1], [0.135, 0.08], [0.158, 0], [0.152, -0.084], [0.095, -0.13], [0, -0.115]], cloth],   // the glutes
         [0.88, [[0, 0.095], [0.075, 0.095], [0.13, 0.075], [0.152, 0], [0.146, -0.08], [0.09, -0.12], [0, -0.11]], cloth],
         [0.835, [[0, 0.06], [0.05, 0.06], [0.08, 0.04], [0.09, 0], [0.085, -0.05], [0.05, -0.07], [0, -0.07]], cloth],
@@ -46,27 +47,28 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         [1.565, [[0, 0.064], [0.055, 0.064], [0.108, 0.046], [0.165, 0], [0.156, -0.05], [0.08, -0.08], [0, -0.084]], skin],
         [1.51, [[0, 0.094], [0.085, 0.098], [0.17, 0.076], [0.238, 0.008], [0.225, -0.058], [0.12, -0.096], [0, -0.092]], skin],
         [1.46, [[0, 0.108], [0.09, 0.114], [0.175, 0.09], [0.248, 0], [0.232, -0.066], [0.125, -0.106], [0, -0.096]], cloth],   // the top's neckline
-        [1.39, [[0, 0.12], [0.075, 0.15], [0.14, 0.12], [0.175, 0], [0.168, -0.064], [0.11, -0.1], [0, -0.092]], cloth],   // the bust
-        [1.33, [[0, 0.116], [0.075, 0.142], [0.13, 0.112, 0.02], [0.165, 0, 0.03], [0.16, -0.062, 0.03], [0.105, -0.096], [0, -0.09]], cloth],
+        [1.39, [[0, 0.122], [0.075, 0.164], [0.14, 0.124], [0.175, 0], [0.168, -0.064], [0.11, -0.1], [0, -0.094]], cloth],   // the bust, fuller
+        [1.33, [[0, 0.118], [0.075, 0.152], [0.13, 0.116, 0.02], [0.165, 0, 0.03], [0.16, -0.062, 0.03], [0.105, -0.094], [0, -0.086]], cloth],
         [1.31, [[0, 0.098], [0.075, 0.1], [0.125, 0.082], [0.158, 0], [0.155, -0.06], [0.102, -0.094], [0, -0.088]], cloth],   // the step beneath
         [1.25, [[0, 0.094], [0.07, 0.093], [0.118, 0.07], [0.142, 0], [0.138, -0.056], [0.094, -0.09], [0, -0.084]], skin],
-        [1.14, [[0, 0.086], [0.06, 0.084], [0.105, 0.058], [0.124, 0], [0.118, -0.054], [0.078, -0.088], [0, -0.08]], skin],   // the narrow waist
+        [1.14, [[0, 0.086], [0.06, 0.084], [0.105, 0.058], [0.124, 0], [0.118, -0.052], [0.078, -0.082], [0, -0.072]], skin],   // the narrow waist; the small of the back (an S from the side)
         [1.06, [[0, 0.092], [0.07, 0.092], [0.12, 0.072], [0.146, 0], [0.142, -0.07], [0.094, -0.1], [0, -0.096]], skin],
-        [1.04, [[0, 0.095], [0.08, 0.095], [0.138, 0.068], [0.156, 0], [0.152, -0.074], [0.1, -0.104], [0, -0.1]], cloth],
-        [0.96, [[0, 0.1], [0.09, 0.1], [0.152, 0.08], [0.18, 0], [0.174, -0.092], [0.108, -0.142], [0, -0.124]], cloth],   // wider hips, fuller glutes
+        [1.04, [[0, 0.094], [0.078, 0.094], [0.132, 0.072], [0.154, 0], [0.15, -0.076], [0.1, -0.106], [0, -0.1]], cloth],
+        [1.0, [[0, 0.097], [0.084, 0.097], [0.142, 0.077], [0.168, 0], [0.163, -0.085], [0.105, -0.128], [0, -0.114]], cloth],
+        [0.96, [[0, 0.1], [0.09, 0.1], [0.152, 0.08], [0.18, 0], [0.174, -0.094], [0.108, -0.15], [0, -0.13]], cloth],   // wider hips, fuller glutes
         [0.89, [[0, 0.096], [0.085, 0.096], [0.158, 0.066], [0.172, 0], [0.166, -0.084], [0.1, -0.13], [0, -0.118]], cloth],
         [0.84, [[0, 0.06], [0.05, 0.06], [0.082, 0.04], [0.095, 0], [0.09, -0.052], [0.052, -0.074], [0, -0.074]], cloth],
     ];
     // the shoulder dome: its outer part follows the arm (so the deltoid is one surface with the torso and still moves)
     const shoulderW = y => (th, x) => {
         const base = torsoW(y); if (y < 1.42 || y > 1.57 || x == null) return base;
-        const f = Math.max(0, Math.min(1, (Math.abs(x) - 0.15) / 0.09)) * 0.85;
+        const f = Math.max(0, Math.min(1, (Math.abs(x) - 0.18) / 0.12)) * 0.6;   // (gentle: no spike at the shoulder's top when the arm lifts)
         return f <= 0 ? base : [...base.map(([b, v]) => [b, v * (1 - f)]), [x > 0 ? arms.L.upper : arms.R.upper, f]];
     };
     sk.loft((F ? TF : TM).map(([y, half, col]) => ({ c: V(body, 0, y, 0), pts: ringPts(half), w: shoulderW(y), col })), { cap: true });
 
     // ---- arms: the deltoid cap, biceps, the elbow, the forearm, the wrist, a hand with a thumb ----
-    const k = F ? 1.14 : 1.42;   // (the reference's arms are thick: the upper arm near the neck's width)
+    const k = F ? 1.26 : 1.5;   // (the reference's arms are thick: the upper arm near the neck's width)
     for (const side of ['L', 'R']) {
         const { upper, fore } = arms[side], s = side === 'L' ? 1 : -1;
         const R = (g, ox, y, w, df, db, wts, b = []) => ({ c: V(g, s * ox, y, 0), shape: profile(w * k, df * k, db * k, b), w: wts, col: skin });
@@ -93,16 +95,16 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     }
 
     // ---- legs: the thigh, the kneecap, the calf, the ankle; bare feet ----
-    const kl = F ? 1.3 : 1.34;   // (the reference's legs are heavy: thick thighs, full calves)
+    const kl = F ? 1.4 : 1.38;   // (the reference's legs are heavy: thick thighs, full calves)
     for (const side of ['L', 'R']) {
         const { thigh, shin } = legs[side], s = side === 'L' ? 1 : -1;
         const R = (g, ox, y, w, df, db, wts, col = skin, b = []) => ({ c: V(g, s * ox, y, 0), shape: profile(w * kl, df * kl, db * kl, b), w: wts, col });
         sk.loft([
-            R(thigh, 0.0, 0.04, 0.088, 0.09, 0.1, [[hips, 0.6], [thigh, 0.4]], cloth),
-            R(thigh, 0.0, -0.06, 0.088, 0.09, 0.1, [[hips, 0.2], [thigh, 0.8]], cloth),
-            R(thigh, 0.0, -0.13, 0.083, 0.088, 0.09, [[thigh, 1]], cloth),
-            R(thigh, 0.0, F ? -0.15 : -0.22, 0.078, 0.084, 0.085, [[thigh, 1]], cloth),   // (the shorts end mid-thigh)
-            R(thigh, 0.0, F ? -0.16 : -0.23, 0.076, 0.083, 0.083, [[thigh, 1]], skin, [{ th: 0, amp: 0.008, wd: 0.5 }]),
+            R(thigh, -0.012, 0.04, 0.062, 0.07, 0.08, [[hips, 0.6], [thigh, 0.4]], cloth),   // (inside the hips: the shorts hug the thighs, no flaps)
+            R(thigh, -0.006, -0.06, 0.068, 0.072, 0.078, [[hips, 0.2], [thigh, 0.8]], cloth),
+            R(thigh, 0.0, -0.13, 0.07, 0.074, 0.076, [[thigh, 1]], cloth),
+            R(thigh, 0.0, F ? -0.15 : -0.22, 0.07, 0.074, 0.074, [[thigh, 1]], cloth),   // (the shorts end mid-thigh)
+            R(thigh, 0.0, F ? -0.16 : -0.23, 0.068, 0.073, 0.072, [[thigh, 1]], skin, [{ th: 0, amp: 0.006, wd: 0.5 }]),
             R(thigh, 0.004, -0.3, 0.066, 0.072, 0.066, [[thigh, 1]], skin, [{ th: -s * 0.9, amp: 0.006, wd: 0.5 }]),
             R(thigh, 0.0, -0.4, 0.054, 0.06, 0.054, [[thigh, 1]]),
             R(shin, 0.0, 0.0, 0.052, 0.06, 0.052, blend(thigh, shin, 0.5), skin, [{ th: 0, amp: 0.008, wd: 0.4 }]),   // the kneecap
@@ -113,11 +115,11 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
             R(shin, 0.0, -0.39, 0.03, 0.034, 0.032, [[shin, 1]]),   // the ankle
         ], { seg: 7 });
         sk.loft([   // the foot, from the heel to the toes (rings upright along +z)
-            { c: V(shin, 0, -0.405, -0.035), rx: 0.03 * kl, rz: 0.035, w: [[shin, 1]], col: skin },
-            { c: V(shin, 0, -0.405, 0.0), rx: 0.036 * kl, rz: 0.04, w: [[shin, 1]], col: skin },
-            { c: V(shin, s * 0.004, -0.42, 0.07), rx: 0.042 * kl, rz: 0.026, w: [[shin, 1]], col: skin },
-            { c: V(shin, s * 0.006, -0.432, 0.13), rx: 0.044 * kl, rz: 0.015, w: [[shin, 1]], col: skin },
-            { c: V(shin, s * 0.006, -0.436, 0.165), rx: 0.034 * kl, rz: 0.01, w: [[shin, 1]], col: skin },
+            { c: V(shin, 0, -0.425, -0.04), rx: 0.03 * kl, rz: 0.035, w: [[shin, 1]], col: skin },   // (the sole flat on the ground, y = 0)
+            { c: V(shin, 0, -0.42, 0.0), rx: 0.036 * kl, rz: 0.04, w: [[shin, 1]], col: skin },
+            { c: V(shin, s * 0.004, -0.434, 0.07), rx: 0.042 * kl, rz: 0.026, w: [[shin, 1]], col: skin },
+            { c: V(shin, s * 0.006, -0.445, 0.13), rx: 0.044 * kl, rz: 0.015, w: [[shin, 1]], col: skin },
+            { c: V(shin, s * 0.006, -0.45, 0.165), rx: 0.034 * kl, rz: 0.01, w: [[shin, 1]], col: skin },
         ], { seg: 6, axis: 'z', cap: true });
     }
 
@@ -156,12 +158,12 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     // hair: big swept chunks, as the reference — the hairline high in front, lower at the nape
     const hl = th => (Math.cos(th) > 0 ? Math.pow(Math.cos(th), 0.7) * (F ? 0.11 : 0.11) : Math.cos(th) * (F ? 0.0 : 0.05));   // up to the hairline in front; down to the nape behind
     const HR = F ? [[0.322, 0.02, 0.02, 0.03], [0.305, 0.064, 0.06, 0.085], [0.27, 0.09, 0.092, 0.108], [0.225, 0.096, 0.1, 0.112], [0.13, 0.094, 0.098, 0.108]]
-        : [[0.34, 0.028, 0.045, 0.02], [0.325, 0.066, 0.085, 0.066], [0.295, 0.091, 0.099, 0.098], [0.25, 0.094, 0.1, 0.108], [0.195, 0.096, 0.1, 0.108], [0.135, 0.093, 0.096, 0.082]];   // (to the nape, round the back and sides)   // (male: volume on top, swept up at the front)
+        : [[0.33, 0.03, 0.04, 0.025], [0.318, 0.074, 0.088, 0.074], [0.29, 0.1, 0.104, 0.106], [0.245, 0.104, 0.106, 0.116], [0.195, 0.104, 0.104, 0.114], [0.135, 0.097, 0.1, 0.086]];   // (fuller at the sides and back; no tall block)   // (to the nape, round the back and sides)   // (male: volume on top, swept up at the front)
     sk.loft(HR.map(([y, w, df, db], i) => ({ c: V(head, 0, y * hk, 0.0), shape: profile(w * hk, df * hk, db * hk), w: [[head, 1]], col: HAIR, dy: i === HR.length - 1 ? hl : null })), { seg: 10, mat: 'double' });
-    if (!F) for (const [x, len] of [[-0.05, 0.11], [0, 0.13], [0.05, 0.11]]) {   // three big locks swept back over the crown
+    if (!F) for (const [x, len] of [[-0.055, 0.1], [0, 0.11], [0.055, 0.1]]) {   // three big locks swept back over the crown
         sk.loft([
-            { c: V(head, x * hk, 0.338 * hk, 0.07 * hk), rx: 0.035 * hk, rz: 0.012, w: [[head, 1]], col: HAIR },
-            { c: V(head, x * 1.15 * hk, 0.35 * hk, (0.07 - len * 0.6) * hk), rx: 0.03 * hk, rz: 0.012, w: [[head, 1]], col: HAIR },
+            { c: V(head, x * hk, 0.328 * hk, 0.075 * hk), rx: 0.035 * hk, rz: 0.012, w: [[head, 1]], col: HAIR },
+            { c: V(head, x * 1.15 * hk, 0.338 * hk, (0.07 - len * 0.6) * hk), rx: 0.03 * hk, rz: 0.012, w: [[head, 1]], col: HAIR },
             { c: V(head, x * 1.3 * hk, 0.325 * hk, (0.07 - len) * hk), rx: 0.004, rz: 0.004, w: [[head, 1]], col: HAIR },
         ], { seg: 4, axis: 'z', cap: true });
     }
@@ -196,15 +198,17 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         const hm = new THREE.MeshStandardMaterial({ color: HAIR, flatShading: true, roughness: 0.7 });
         let tp = new THREE.Group(); tp.position.set(0, 0.315 * hk, -0.035); head.add(tp);   // (high on the crown)
         const band = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.024, 0.03, 6), new THREE.MeshStandardMaterial({ color: '#2a2a30', flatShading: true })); band.userData.keep = band.userData.v2 = true; tp.add(band);
-        for (let i = 0; i < 6; i++) {
-            const g = new THREE.Group(); g.position.set(0, i ? -0.095 : 0.02, 0); g.rotation.x = i === 0 ? 1.0 : -0.1; tp.add(g);
-            const m = new THREE.Mesh(new THREE.CylinderGeometry(0.036 - i * 0.004, 0.042 - i * 0.004, 0.105, 6), hm); m.position.y = -0.05; m.castShadow = true; m.userData.keep = m.userData.v2 = true; g.add(m);
+        // a full, sweeping ponytail: thick from the tie, arching out behind, then falling and tapering (overlapping segments)
+        const RAD = [0.034, 0.05, 0.054, 0.048, 0.04, 0.03], ANG = [1.95, -0.95, -0.55, -0.25, -0.08, 0.0];   // (up and back from the tie, then falling close down the back)
+        for (let i = 0; i < RAD.length; i++) {
+            const g = new THREE.Group(); g.position.set(0, i ? -0.1 : 0.02, 0); g.rotation.x = ANG[i]; g.userData.base = ANG[i]; tp.add(g);
+            const m = new THREE.Mesh(new THREE.CylinderGeometry(RAD[i] * hk, (RAD[i + 1] ?? 0.02) * hk, 0.13, 7), hm); m.position.y = -0.055; m.castShadow = true; m.userData.keep = m.userData.v2 = true; g.add(m);
             tail.push(g); tp = g;
         }
-        const tipm = new THREE.Mesh(new THREE.ConeGeometry(0.016, 0.1, 5), hm); tipm.position.y = -0.13; tipm.rotation.x = Math.PI; tipm.userData.keep = tipm.userData.v2 = true; tp.add(tipm);
+        const tipm = new THREE.Mesh(new THREE.ConeGeometry(0.02 * hk, 0.12, 6), hm); tipm.position.y = -0.17; tipm.rotation.x = Math.PI; tipm.userData.keep = tipm.userData.v2 = true; tp.add(tipm);
     }
     function update({ t, run = 0, amp = 0 }) {
-        tail.forEach((g, i) => { if (i) { g.rotation.x = -0.1 + run * 0.12 + Math.sin(t * 2.1 + i * 0.7) * 0.04 * (1 + amp); g.rotation.z = Math.sin(t * 1.6 + i) * 0.03; } });
+        tail.forEach((g, i) => { if (i) { g.rotation.x = g.userData.base + run * 0.12 + Math.sin(t * 2.1 + i * 0.7) * 0.04 * (1 + amp); g.rotation.z = Math.sin(t * 1.6 + i) * 0.03; } });
     }
     return { mesh, update, weapon: () => null };
 }

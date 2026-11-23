@@ -35,7 +35,7 @@ addEventListener('pointerup', () => { drag = null; });
 addEventListener('pointermove', e => { if (drag != null) { yaw += (e.clientX - drag) * 0.01; drag = e.clientX; } });
 function resize() { renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); const d = camera.aspect < 1 ? 9 : 6; camera.position.set(0, 1.1, d); camera.lookAt(0, 0.95, 0); }
 addEventListener('resize', resize); resize();
-window.__lab = { tris: () => models.map(m => { let t = 0; m.root.traverse(o => { if (o.isMesh && o.visible && o.userData.v2) t += (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3; }); return Math.round(t); }).join(' / '), setYaw: v => { yaw = v; spin = false; refresh(); }, setMode: v => { mode = v; refresh(); }, zoom: (d, y, x = 0) => { camera.position.set(x, y, d); camera.lookAt(x, y - 0.05, 0); } };
+window.__lab = { plain: () => { floor.visible = false; scene.background.set(0x3b3b3b); for (const id of ['bar', 'labels']) document.getElementById(id).style.display = 'none'; }, solo: i => { models.forEach((m, j) => { m.root.visible = j === i; m.root.position.x = 0; }); }, tris: () => models.map(m => { let t = 0; m.root.traverse(o => { if (o.isMesh && o.visible && o.userData.v2) t += (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3; }); return Math.round(t); }).join(' / '), setYaw: v => { yaw = v; spin = false; refresh(); }, setMode: v => { mode = v; refresh(); }, zoom: (d, y, x = 0) => { camera.position.set(x, y, d); camera.lookAt(x, y - 0.05, 0); } };
 let last = performance.now(), st = 0;
 renderer.setAnimationLoop(now => {
     const dt = Math.min(0.05, (now - last) / 1000); last = now; st = (st + dt) % 1.2;
@@ -45,7 +45,7 @@ renderer.setAnimationLoop(now => {
         m.root.rotation.y = yaw; m.update(dt, { speed, sprinting: mode === 'run', strikeK: mode === 'strike' ? Math.min(1, st / 0.6) : null, strikeHand: 'R' });
         if (mode === 'apose' && m.rig) {   // the reference sheet's pose: arms out and down, legs a little apart, standing straight
             const { arms, legs, spine, head, hips } = m.rig;
-            for (const [s, A] of [[1, arms.L], [-1, arms.R]]) { A.upper.rotation.set(0, 0, s * 0.62); A.fore.rotation.set(0, 0, s * 0.05); }
+            for (const [s, A] of [[1, arms.L], [-1, arms.R]]) { A.upper.rotation.set(0, 0, s * 0.48); A.fore.rotation.set(0, 0, s * 0.05); }
             for (const [s, L] of [[1, legs.L], [-1, legs.R]]) { L.thigh.rotation.set(0, 0, s * 0.07); L.shin.rotation.set(0, 0, -s * 0.07); }
             spine.rotation.set(0, 0, 0); head.rotation.set(0, 0, 0); hips.rotation.set(0, 0, 0); hips.position.y = 0.95;
         }
