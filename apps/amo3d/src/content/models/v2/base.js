@@ -6,7 +6,7 @@
 // ears. Underwear (dark shorts; a top for the female) is coloured into the mesh. Hair is part of it too.
 // buildBase(ctx, { sex }) → { mesh, update }.
 import * as THREE from 'three';
-import { createSkin, blend, profile, ringPts, pointKey } from './skin.js';
+import { createSkin, blend, profile, ringPts } from './skin.js';
 import EDITS_MALE from './edits_male.json';     // points moved by hand in Blender (the Character Lab's Export / Import)
 import EDITS_FEMALE from './edits_female.json';
 
@@ -191,26 +191,14 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
             NBS: [0.072, 0.092, -0.08], BC: [0, 0.088, -0.094],   // the back of the skull: full and round down to the nape                          // the nape
         };
         const at = (p, s) => ({ p: V(head, s * p[0] * hk, p[1] * hk, p[2] * hk + 0.004), w: p[1] < 0.02 ? [[head, 0.8], [spine, 0.2]] : [[head, 1]] });
-        // The chin rounded (2026-11-23: "too pointy, round its tip"): its corner is cut — the corner itself drawn a little in and
-        // up, a point before it on the bottom edge and one after it on the jaw line, so the outline from the chin's centre to
-        // the jaw is one convex curve. Placed from the points around them as edited (the user's jaw edits keep their shape);
-        // the corner keeps its key (its edit still applies) and the new points have their own, so they can be edited too.
-        const EDITS = F ? EDITS_FEMALE : EDITS_MALE, moved = v => { const q = EDITS[pointKey(v)]; return q ? new THREE.Vector3(...q).sub(v) : new THREE.Vector3(); };
-        const derived = (a, b, t, off, s) => {   // between Q points a and b at t, offset (head-local), following their edits
-            const A = at(Q[a], a === 'CC' ? 1 : s), B = at(Q[b], b === 'CC' ? 1 : s), pa = Q[a], pb = Q[b];
-            const g = at([pa[0] + (pb[0] - pa[0]) * t + off[0], pa[1] + (pb[1] - pa[1]) * t + off[1], pa[2] + (pb[2] - pa[2]) * t + off[2]], s);
-            return { ...g, key: pointKey(g.p), p: g.p.clone().add(moved(A.p).lerp(moved(B.p), t)) };
-        };
-        const CM = s => derived('CC', 'CR', 0.6, [0, 0.0015, 0], s), JM = s => derived('CR', 'JA', 0.28, [-0.003, 0, 0], s);
-        const CRr = s => { const c = at(Q.CR, s), q = EDITS[pointKey(c.p)], e = q ? new THREE.Vector3(...q) : c.p.clone(); return { ...c, key: pointKey(c.p), p: e.add(V(head, s * -0.004 * hk, 0.004 * hk, -0.002 * hk).sub(V(head, 0, 0, 0))) }; };   // (the corner, drawn in and up)
         const centre = V(head, 0, 0.16 * hk, 0);
-        const shape = (list, s) => sk.poly(list.map(k => (typeof k === 'number' ? at(E[k], s) : k === 'CM' ? CM(s) : k === 'JM' ? JM(s) : k === 'CR' ? CRr(s) : at(Q[k], k === 'CC' || k === 'NF' || k === 'NB' || k === 'BC' ? 1 : s))), skin, centre);
+        const shape = (list, s) => sk.poly(list.map(k => (typeof k === 'number' ? at(E[k], s) : at(Q[k], k === 'CC' || k === 'NF' || k === 'NB' || k === 'BC' ? 1 : s))), skin, centre);
         for (const s of [1, -1]) {
-            shape([0, 1, 'CR', 'CM', 'CC'], s);        // the trapezoid's half: from under the eye to the chin, its bottom rounded
+            shape([0, 1, 'CR', 'CC'], s);              // the trapezoid's half: from under the eye to the chin (one plane with its mirror)
             shape([1, 2, 3, 'CR'], s);                 // the cheek: one big triangle
-            shape([3, 4, 'JA', 'JM', 'CR'], s);        // the jaw's side plane, its corner at the chin softened
-            shape(['CC', 'CM', 'CR', 'N2', 'NF'], s);  // under the chin
-            shape(['CR', 'JM', 'JA', 'NS', 'N2'], s);  // under the jaw
+            shape([3, 4, 'JA', 'CR'], s);              // the jaw's side plane
+            shape(['CC', 'CR', 'N2', 'NF'], s);        // under the chin
+            shape(['CR', 'JA', 'NS', 'N2'], s);        // under the jaw
             shape([4, 5, 'NBS', 'JA'], s);             // behind the jaw
             shape(['JA', 'NBS', 'N4', 'NS'], s);
             shape([5, 6, 'BC', 'NBS'], s);             // the back of the head
