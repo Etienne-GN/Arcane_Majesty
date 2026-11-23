@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { spells as spellsAll, mastery as masteryRules } from '@rules';
 import { gameClock as clockRules, weather as weatherRules, eastRoadMap, thaloriaMap } from '@rules';
 import { movementRules, PlayerStats as PS, items as itemRules, weapons as weaponRules, talents as talentRules } from '@rules';
-import { pickQuality, nextQuality, setQualityName } from './engine/quality.js';
+import { pickQuality, nextQuality, setQualityName, setTweaks } from './engine/quality.js';
 import { settings } from './engine/settings.js';
 import { createOptions } from './game/options.js';
 import { createPadNav } from './engine/padnav.js';
@@ -626,7 +626,9 @@ stats.onSpellEvent((id, lvl, isNew) => {
     hud.banner(isNew ? `New spell — ${sp.name}` : `${sp.name} — ${spellsAll.TIER_NAMES?.[lvl - 1] ?? `tier ${lvl}`}`);
     sfx.levelUp();
 });
-const options = createOptions({ quality, onQuality: name => { save(); setQualityName(name); location.reload(); }, onFps: v => perf.set(v), onOnline: v => (v ? net.connect() : net.disconnect()) });
+const options = createOptions({ quality, onQuality: name => { save(); setQualityName(name); location.reload(); },
+    onApply: (name, tw) => { save(); setQualityName(name); setTweaks(tw); location.reload(); },   /* a preset, then its tweaks (setQualityName clears them) */
+    onFps: v => perf.set(v), onOnline: v => (v ? net.connect() : net.disconnect()) });
 if (settings.online) net.connect();
 if (settings.showFps) perf.set(true);
 createPadNav();   // gamepad: D-pad / stick moves through any open menu, A presses, B backs out

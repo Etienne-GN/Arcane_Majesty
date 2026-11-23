@@ -108,7 +108,7 @@ export function stampHeights(worldH, stamps, B = 60, keepAt = null) {   // keepA
 export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], stamps = [], chart = null, mood = null, biomeAt = null, spawnWild = null, extraGather = [], walls = [], levelAt = null, quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
     const scene = new THREE.Scene();
     const shell = createOutdoorShell(scene, { quality, mood: mood ?? { fog: '#c8d4d8', fogNear: 160, fogFar: 700, fogMix: 0.55 } });
-    const lights = createLightPool(scene, quality.name === 'low' ? 4 : 8);   // only the nearest lamps really light (a phone can't afford them all on every pixel)
+    const lights = createLightPool(scene, quality.lights ?? (quality.name === 'low' ? 4 : 8));   // only the nearest lamps really light (a phone can't afford them all on every pixel)
     const half = size / 2, NT = Math.ceil(size / TILE);
     // the world's own walls (barriers along mountain crests, a lighthouse…): bucketed by tile once; add() for later ones
     const wallB = new Map();
