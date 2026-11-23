@@ -21,9 +21,9 @@ const make = (mode, lk = look) => { settings.charModels = mode; const c = create
 const models = BASE ? [make('new', baseLook('adult_male', 'base_male')), make('new', baseLook('adult_female', 'base_female'))] : [make('classic'), make('new')];
 if (BASE) document.getElementById('labels').innerHTML = '<span>MALE BASE MESH</span><span>FEMALE BASE MESH</span>';
 models[0].root.position.x = -0.75; models[1].root.position.x = 0.75;
-let mode = 'idle', spin = true, yaw = 0.35;
+let mode = BASE ? 'apose' : 'idle', spin = !BASE, yaw = BASE ? 0 : 0.35;
 const bar = document.getElementById('bar');
-for (const [id, label] of [['idle', 'Idle'], ['walk', 'Walk'], ['run', 'Run'], ['strike', 'Strike'], ['spin', 'Turn']]) {
+for (const [id, label] of [['apose', 'A-pose'], ['idle', 'Idle'], ['walk', 'Walk'], ['run', 'Run'], ['strike', 'Strike'], ['spin', 'Turn']]) {
     const b = document.createElement('button'); b.textContent = label; b.dataset.id = id;
     b.onclick = () => { if (id === 'spin') spin = !spin; else mode = id; refresh(); }; bar.append(b);
 }
@@ -41,6 +41,14 @@ renderer.setAnimationLoop(now => {
     const dt = Math.min(0.05, (now - last) / 1000); last = now; st = (st + dt) % 1.2;
     if (spin) yaw += dt * 0.5;
     const speed = mode === 'walk' ? 1.8 : mode === 'run' ? 5.5 : 0;
-    for (const m of models) { m.root.rotation.y = yaw; m.update(dt, { speed, sprinting: mode === 'run', strikeK: mode === 'strike' ? Math.min(1, st / 0.6) : null, strikeHand: 'R' }); }
+    for (const m of models) {
+        m.root.rotation.y = yaw; m.update(dt, { speed, sprinting: mode === 'run', strikeK: mode === 'strike' ? Math.min(1, st / 0.6) : null, strikeHand: 'R' });
+        if (mode === 'apose' && m.rig) {   // the reference sheet's pose: arms out and down, legs a little apart, standing straight
+            const { arms, legs, spine, head, hips } = m.rig;
+            for (const [s, A] of [[1, arms.L], [-1, arms.R]]) { A.upper.rotation.set(0, 0, s * 0.62); A.fore.rotation.set(0, 0, s * 0.05); }
+            for (const [s, L] of [[1, legs.L], [-1, legs.R]]) { L.thigh.rotation.set(0, 0, s * 0.07); L.shin.rotation.set(0, 0, -s * 0.07); }
+            spine.rotation.set(0, 0, 0); head.rotation.set(0, 0, 0); hips.rotation.set(0, 0, 0); hips.position.y = 0.95;
+        }
+    }
     renderer.render(scene, camera);
 });
