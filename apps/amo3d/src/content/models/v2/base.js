@@ -287,9 +287,9 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         const MY = 0.098, MW = F ? 0.019 : 0.022;
         const band = (pts, col, lift) => { for (let i = 0; i < pts.length - 1; i++) { const [x0, y0, t0] = pts[i], [x1, y1, t1] = pts[i + 1]; ms.poly([P(x0, y0, lift), P(x1, y1, lift), P(x1, y1 + t1, lift), P(x0, y0 + t0, lift)], col, centre); } };
         const across = (w, f) => Array.from({ length: 7 }, (_, i) => { const u = (i / 6) * 2 - 1; return f(u * w, u); });
-        band(across(MW * 0.72, (x, u) => [x, MY - 0.0075 + 0.0012 * u * u, 0.0055 * (1 - 0.5 * u * u)]), tone(0.95), 0.0008);                 // the shadow under the lower lip
-        band(across(MW * 0.75, (x, u) => [x, MY - 0.0052 - 0.0006 * u * u, 0.005 * (1 - 0.6 * u * u)]), tone(F ? 0.97 : 0.99, F ? 0.18 : 0.06), 0.0011);   // the lower lip
-        band(across(MW, (x, u) => [x, MY - 0.0012 * u * u - 0.0009, 0.0019 * (1 - 0.35 * u * u)]), tone(0.68, 0.1), 0.0015);                  // the lip line
+        band(across(MW * 0.72, (x, u) => [x, MY - 0.0075 + 0.0012 * u * u, 0.0055 * (1 - 0.5 * u * u)]), tone(0.9), 0.0008);                 // the shadow under the lower lip
+        band(across(MW * 0.75, (x, u) => [x, MY - 0.0052 - 0.0006 * u * u, 0.005 * (1 - 0.6 * u * u)]), tone(F ? 0.9 : 0.92, F ? 0.22 : 0.1), 0.0011);   // the lower lip
+        band(across(MW, (x, u) => [x, MY - 0.0012 * u * u - 0.0009, 0.0022 * (1 - 0.35 * u * u)]), tone(0.5, 0.12), 0.0015);   // (darker: 2026-11-23, "more visible")                  // the lip line
         ms.build().userData.mouth = true;
     }
     // the camisole's straps (female): from the neckline over each shoulder to the back
