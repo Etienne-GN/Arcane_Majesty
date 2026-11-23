@@ -3,6 +3,12 @@
 // you; its mirror on the other side follows). Arrows nudge the selected point (Shift: toward/away from you). Save writes
 // the moved points to src/content/models/v2/edits_<sex>.json (the same edits the Blender round trip uses) and reloads.
 //   createPointEditor({ THREE, scene, camera, renderer, dom, getBody(sex) → { mesh, table } , onExit })
+import REF_URL from './base_mesh_reference.jpg';   // the reference sheet (docs/3d/characters/base_mesh_reference.jpg), 896 × 1200
+// Where each view sits on the sheet: [x0, y0, x1, y1] — the whole figure, and its head
+const REF = {
+    male: { front: [[70, 75, 360, 615], [130, 70, 250, 215]], side: [[380, 75, 560, 615], [395, 70, 520, 215]], back: [[560, 75, 860, 615], [650, 70, 770, 215]] },
+    female: { front: [[70, 655, 360, 1195], [130, 650, 250, 800]], side: [[380, 655, 560, 1195], [385, 650, 530, 800]], back: [[560, 655, 860, 1195], [640, 650, 780, 800]] },
+};
 export function createPointEditor({ THREE, scene, camera, renderer, getBody, onEnter, onExit }) {
     let on = false, sex = 'male', T = null, geo = null, mesh = null, wire = null, dots = null, sel = -1, mirrorOf = [], drag = null;
     let region = 'head', yaw = 0, pitch = 0.05, dist = 0.55, target = new THREE.Vector3(0, 1.66, 0);
@@ -26,6 +32,30 @@ export function createPointEditor({ THREE, scene, camera, renderer, getBody, onE
     const rAct = row(); btn(rAct, 'Undo', () => doUndo()); btn(rAct, 'Reset point', () => resetSel()); btn(rAct, 'Reset all', () => resetAll());
     const rSave = row(); btn(rSave, 'Save', () => save()).style.background = '#8a6a2a'; btn(rSave, 'Close', () => exit());
     document.body.append(panel);
+
+    // the reference, beside the model: the same body, the same side, framed like the editor (head or whole figure)
+    const refBox = document.createElement('div');
+    refBox.style.cssText = 'position:fixed;left:12px;top:56px;width:300px;display:none;flex-direction:column;gap:6px;font:13px Georgia,serif;color:#f1e4c4;background:#2a1c10ee;border:1px solid #c8963a88;border-radius:10px;padding:8px;z-index:4';
+    const refHead = document.createElement('div'); refHead.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:6px';
+    const refLabel = document.createElement('span'); refLabel.style.cssText = 'color:#f3d88b';
+    const refBtns = document.createElement('span');
+    const refPic = document.createElement('div'); refPic.style.cssText = `width:284px;border-radius:6px;background-image:url(${REF_URL});background-repeat:no-repeat;background-color:#3b3b3b`;
+    let refMode = 'auto', refOn = true, refSize = 284;
+    const small = (t, fn) => { const b = document.createElement('button'); b.textContent = t; b.style.cssText = 'font:12px Georgia,serif;padding:3px 7px;margin-left:3px;border-radius:6px;border:1px solid #c8963a88;background:#4a3220;color:#f1e4c4;cursor:pointer'; b.onclick = fn; refBtns.append(b); return b; };
+    small('Sheet', () => { refMode = refMode === 'sheet' ? 'auto' : 'sheet'; drawRef(true); });
+    small('−', () => { refSize = Math.max(180, refSize - 60); drawRef(true); });
+    small('+', () => { refSize = Math.min(620, refSize + 60); drawRef(true); });
+    const hideBtn = small('Hide', () => { refOn = !refOn; refPic.style.display = refOn ? '' : 'none'; hideBtn.textContent = refOn ? 'Hide' : 'Show'; });
+    refHead.append(refLabel, refBtns); refBox.append(refHead, refPic); document.body.append(refBox);
+    let lastRef = '';
+    function drawRef(force = false) {
+        const a = ((yaw % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI), view = a < 0.9 || a > 5.4 ? 'front' : a > 2.3 && a < 4.0 ? 'back' : 'side';
+        const key = `${sex}|${view}|${region}|${refMode}|${refSize}`; if (key === lastRef && !force) return; lastRef = key;
+        const box = refMode === 'sheet' ? [0, 0, 896, 1200] : REF[sex][view][region === 'head' ? 1 : 0], [x0, y0, x1, y1] = box, k = refSize / (x1 - x0);
+        refBox.style.width = `${refSize + 16}px`;
+        Object.assign(refPic.style, { width: `${refSize}px`, height: `${Math.round((y1 - y0) * k)}px`, backgroundSize: `${Math.round(896 * k)}px ${Math.round(1200 * k)}px`, backgroundPosition: `${-Math.round(x0 * k)}px ${-Math.round(y0 * k)}px` });
+        refLabel.textContent = refMode === 'sheet' ? 'Reference — the sheet' : `Reference — ${sex}, ${view}`;
+    }
 
     function setRegion(r) {
         region = r;
@@ -133,11 +163,11 @@ export function createPointEditor({ THREE, scene, camera, renderer, getBody, onE
         snapshot(); movePoint(sel, d.x, d.y, d.z);
     });
 
-    function show() { on = true; group.visible = true; panel.style.display = 'flex'; onEnter?.(); describe(); }
-    function exit() { on = false; group.visible = false; panel.style.display = 'none'; onExit?.(); }
+    function show() { on = true; group.visible = true; panel.style.display = 'flex'; refBox.style.display = 'flex'; drawRef(true); onEnter?.(); describe(); }
+    function exit() { on = false; group.visible = false; panel.style.display = 'none'; refBox.style.display = 'none'; onExit?.(); }
     return {
         enter: s => load(s ?? sex), exit, get on() { return on; },
-        frame() { if (!on) return; camera.position.set(target.x + Math.sin(yaw) * Math.cos(pitch) * dist, target.y + Math.sin(pitch) * dist, target.z + Math.cos(yaw) * Math.cos(pitch) * dist); camera.lookAt(target); },
+        frame() { if (!on) return; drawRef(); camera.position.set(target.x + Math.sin(yaw) * Math.cos(pitch) * dist, target.y + Math.sin(pitch) * dist, target.z + Math.cos(yaw) * Math.cos(pitch) * dist); camera.lookAt(target); },
         state: () => ({ sex, sel, region, points: T?.keys.length ?? 0 }), _move: (i, dx, dy, dz) => { sel = i; snapshot(); movePoint(i, dx, dy, dz); }, _save: save,
     };
 }
