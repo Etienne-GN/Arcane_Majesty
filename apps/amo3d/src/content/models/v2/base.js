@@ -212,12 +212,9 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         { c: V(head, 0, 0.138 * hk, 0.113 * hk), shape: profile(0.011, 0.008, 0.008), w: [[head, 1]], col: skin },   // the tip: a ridge, not a box
         { c: V(head, 0, 0.126 * hk, 0.1 * hk), shape: profile(0.013, 0.006, 0.006), w: [[head, 1]], col: skin },
     ], { seg: 4, cap: true });
-    // ears (flat, against the head) and closed, quiet eyes and brows (darker strokes, as in the reference)
-    const dark = new THREE.Color(skin).multiplyScalar(0.8).getStyle(), brow = new THREE.Color(HAIR).getStyle();
+    // ears (flat, against the head); the eyes and brows follow below
     for (const s of [-1, 1]) {
         if (!F || BALD) sk.loft([{ c: V(head, s * 0.092 * hk, 0.19 * hk, -0.012 * hk), shape: profile(0.008, 0.014, 0.018), w: [[head, 1]], col: skin }, { c: V(head, s * 0.094 * hk, 0.145 * hk, -0.006 * hk), shape: profile(0.007, 0.011, 0.014), w: [[head, 1]], col: skin }], { seg: 5, cap: true, capStart: true });
-        sk.loft([{ c: V(head, s * 0.033 * hk, 0.181 * hk, 0.092 * hk), shape: profile(0.01, 0.002, 0.0015), w: [[head, 1]], col: dark }, { c: V(head, s * 0.033 * hk, 0.178 * hk, 0.092 * hk), shape: profile(0.009, 0.002, 0.0015), w: [[head, 1]], col: dark }], { seg: 4 });
-        sk.loft([{ c: V(head, s * 0.036 * hk, 0.2 * hk, 0.103 * hk), shape: profile(0.018, 0.004, 0.003), w: [[head, 1]], col: brow }, { c: V(head, s * 0.036 * hk, 0.195 * hk, 0.102 * hk), shape: profile(0.017, 0.004, 0.003), w: [[head, 1]], col: brow }], { seg: 4 });
     }
     // ---- hair: a cap over the skull, its hairline higher in front; short and tufted (male) or drawn back (female) ----
     // hair: big swept chunks, as the reference — the hairline high in front, lower at the nape
@@ -245,6 +242,45 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     }
     const extraOut = outfit?.extra?.({ sk, V, root, createSkin, body, hips, spine, head, arms, legs, hk, F });   // the outfit's own pieces (may return { update } for pieces of their own that move, e.g. a coat's tails)
     const mesh = sk.build(); mesh.userData.editSex = F ? 'female' : 'male'; mesh.name = F ? 'base_female' : 'base_male';
+    // ---- the eyes and brows (2026-11-23: "real small eyes with a pupil, not just dots"): flat faceted pieces laid on the face —
+    // an almond white, the iris (the look's eye colour), a black pupil, a tiny highlight, a dark upper lash line; brows of the
+    // hair's colour, thick at the inner end, arching, thinning toward the temple. Each point is projected onto the head as
+    // built (the point editor's edits applied), so they sit on the visible face whatever shape it is given.
+    {
+        const probe = new THREE.Mesh(mesh.geometry, new THREE.MeshBasicMaterial({ side: THREE.DoubleSide })), rc = new THREE.Raycaster();
+        const fs = createSkin(root, [head]), centre = V(head, 0, 0.17 * hk, 0), dir = new THREE.Vector3();
+        const P = (x, y, lift) => {   // (x, y) head-local, before the head's scale; lift: how far off the surface
+            const a = V(head, x * hk, y * hk, 0.3 * hk), b = V(head, x * hk, y * hk, 0);
+            dir.copy(b).sub(a).normalize(); rc.set(a, dir);
+            const hit = rc.intersectObject(probe, false)[0];
+            return { p: hit ? hit.point.clone().addScaledVector(dir, -lift) : b, w: [[head, 1]] };
+        };
+        const iris = ctx.look?.face?.eyes ?? '#5a3b22', lash = new THREE.Color(HAIR).multiplyScalar(0.55).getStyle(), browCol = new THREE.Color(HAIR).getStyle();
+        const EX = 0.036, EY = 0.182;
+        for (const s of [-1, 1]) {
+            const ring = (cx, cy, rx, ry, n, lift, almond = false) => Array.from({ length: n }, (_, i) => {
+                const a = (i / n) * Math.PI * 2, c = Math.cos(a), sn = Math.sin(a);
+                return P(s * (cx + c * rx), cy + sn * ry * (almond && sn < 0 ? 0.8 : 1) + (almond ? 0.0008 * c : 0), lift);   // (almond: the lower lid flatter, the outer corner a touch higher)
+            });
+            fs.poly(ring(EX, EY, 0.0162, 0.0066, 12, 0.0012, true), '#efe9df', centre);              // the white
+            fs.poly(ring(EX - 0.0008, EY - 0.0003, 0.006, 0.006, 10, 0.002), iris, centre);          // the iris
+            fs.poly(ring(EX - 0.0008, EY - 0.0003, 0.0027, 0.0027, 8, 0.0027), '#0c0a0a', centre);   // the pupil
+            fs.poly(ring(EX + 0.0012, EY + 0.002, 0.0011, 0.0011, 5, 0.0032), '#ffffff', centre);    // a highlight
+            // the upper lash line: a thin dark band along the white's top edge
+            const arc = Array.from({ length: 7 }, (_, i) => { const a = Math.PI * (0.04 + 0.92 * (i / 6)); return [EX + Math.cos(a) * 0.0172, EY + Math.sin(a) * 0.007 + 0.0008 * Math.cos(a)]; });
+            for (let i = 0; i < arc.length - 1; i++) {
+                const [x0, y0] = arc[i], [x1, y1] = arc[i + 1], t = 0.0016;
+                fs.poly([P(s * x0, y0, 0.0024), P(s * x1, y1, 0.0024), P(s * x1, y1 + t, 0.0024), P(s * x0, y0 + t, 0.0024)], lash, centre);
+            }
+            // the brow: inner end low and thick, a gentle arch, the outer end thin — on the ridge, well above the eye
+            const B = [[0.011, 0.2, 0.0075], [0.022, 0.2035, 0.0074], [0.034, 0.2065, 0.0068], [0.046, 0.2075, 0.0056], [0.056, 0.2055, 0.004], [0.065, 0.201, 0.0018]];
+            for (let i = 0; i < B.length - 1; i++) {
+                const [x0, y0, t0] = B[i], [x1, y1, t1] = B[i + 1];
+                fs.poly([P(s * x0, y0, 0.0016), P(s * x1, y1, 0.0016), P(s * x1, y1 + t1, 0.0016), P(s * x0, y0 + t0, 0.0016)], browCol, centre);
+            }
+        }
+        fs.build();
+    }
     // the camisole's straps (female): from the neckline over each shoulder to the back
     if (F) {
         const cm = new THREE.MeshStandardMaterial({ color: cloth, flatShading: true, roughness: 0.9 });
