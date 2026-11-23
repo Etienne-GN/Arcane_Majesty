@@ -12,7 +12,7 @@ import EDITS_FEMALE from './edits_female.json';
 
 const sym = (th, amp, wd) => [{ th, amp, wd }, { th: -th, amp, wd }];
 
-// outfit (optional): { torso(y, θ, base), arm(part, y), leg(part, y, base), armLoose(part, y), legLoose(part, y), foot, extra(helpers) } — colours painted onto the body's
+// outfit (optional): { torso(y, θ, base), arm(part, y), leg(part, y, base), armLoose(part, y), legLoose(part, y), armTube(part, y), legTube(part, y), foot, extra(helpers) } — colours painted onto the body's
 // own surface, and extra pieces (coat tails, a collar…) added before the mesh is built. Used by the dressed cast (eldrin.js).
 export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair = null, outfit = null, headK = 1, footK = 1 } = {}) {   // headK: the head's size; footK: the feet (boots are bigger)
     const F = sex === 'female';
@@ -77,7 +77,11 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     for (const side of ['L', 'R']) {
         const { upper, fore } = arms[side], s = side === 'L' ? 1 : -1;
         // outfit.armLoose(part, y) → how much wider the clothing stands off the arm there (1: skin-tight; sleeves are ample)
-        const R = (g, ox, y, w, df, db, wts, b = []) => { const L = outfit?.armLoose?.(g === fore ? 'fore' : 'upper', y) ?? 1; return { c: V(g, s * (ox - (F ? 0.03 : 0)), y, 0), shape: profile(w * k * L, df * k * L, db * k * L, b), w: wts, col: outfit?.arm ? outfit.arm(g === fore ? 'fore' : 'upper', y) ?? skin : skin }; };   // (hers set a little in: narrower, sloping shoulders)
+        // outfit.armTube(part, y) → a sleeve's radius there (m): the ring becomes a plain round tube (loose cloth hides the muscles)
+        const R = (g, ox, y, w, df, db, wts, b = []) => {
+            const part = g === fore ? 'fore' : 'upper', L = outfit?.armLoose?.(part, y) ?? 1, r = outfit?.armTube?.(part, y);
+            return { c: V(g, s * (ox - (F ? 0.03 : 0)), y, 0), shape: r ? profile(r, r, r) : profile(w * k * L, df * k * L, db * k * L, b), w: wts, col: outfit?.arm ? outfit.arm(part, y) ?? skin : skin };
+        };   // (hers set a little in: narrower, sloping shoulders)
         sk.loft([
             R(upper, -0.02, 0.05, 0.022, 0.024, 0.024, [[spine, 0.3], [upper, 0.7]]),   // the deltoid's dome: the shoulder's outside (closed at the top)
             R(upper, -0.01, 0.022, 0.056, 0.055, 0.055, [[spine, 0.15], [upper, 0.85]]),
@@ -112,7 +116,11 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     for (const side of ['L', 'R']) {
         const { thigh, shin } = legs[side], s = side === 'L' ? 1 : -1;
         // outfit.legLoose(part, y): the same for the legs (trousers hanging loose, boot tops)
-        const R = (g, ox, y, w, df, db, wts, col = skin, b = []) => { const L = outfit?.legLoose?.(g === shin ? 'shin' : 'thigh', y) ?? 1; return { c: V(g, s * ox, y, 0), shape: profile(w * kl * L, df * kl * L, db * kl * L, b), w: wts, col: outfit?.leg ? outfit.leg(g === shin ? 'shin' : 'thigh', y, col) : col }; };
+        // outfit.legTube(part, y): the same for trouser legs
+        const R = (g, ox, y, w, df, db, wts, col = skin, b = []) => {
+            const part = g === shin ? 'shin' : 'thigh', L = outfit?.legLoose?.(part, y) ?? 1, r = outfit?.legTube?.(part, y);
+            return { c: V(g, s * ox, y, 0), shape: r ? profile(r, r * 1.03, r * 1.06) : profile(w * kl * L, df * kl * L, db * kl * L, b), w: wts, col: outfit?.leg ? outfit.leg(part, y, col) : col };
+        };
         const fl = (() => { root.updateMatrixWorld(true); const a = V(shin, 0, -0.4, 0); return shin.worldToLocal(root.localToWorld(new THREE.Vector3(a.x, 0, a.z))).y; })();   // the floor, in the shin's frame
         sk.loft([
             R(thigh, -0.012, 0.04, 0.062, 0.07, 0.08, [[hips, 0.6], [thigh, 0.4]], cloth),   // (inside the hips: the shorts hug the thighs, no flaps)

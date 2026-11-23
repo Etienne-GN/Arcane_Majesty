@@ -17,8 +17,13 @@ export function buildEldrin(ctx) {
             leg: (part, y) => (part === 'thigh' ? C.trousers : y > -0.06 ? C.trousers : C.leather),   // boots from below the knee
             // ample clothes (2026-11-23: "too tight on him — the sleeves and the trouser legs"): they stand off the body.
             // (the shoulder's top rings stay as they are: your point edits of the male base live there)
-            armLoose: (part, y) => (part === 'upper' ? (y > -0.05 ? 1 : 1.22) : y > -0.14 ? 1.24 : y > -0.29 ? 1.08 : 1),
-            legLoose: (part, y) => (part === 'thigh' ? (y > 0 ? 1.1 : 1.2) : y > -0.06 ? 1.18 : y > -0.2 ? 1.1 : 1.04),
+            // (second pass: "they should look big, not tight — less defined like muscles, more tubular"): the cloth is a plain
+            // round tube, no biceps, forearm swell, kneecap or calf showing through — the sleeve widening a little to its cuff,
+            // the trouser leg falling straight from the hip to the boot tops
+            armTube: (part, y) => (part === 'upper' ? (y > -0.05 ? null : 0.088 + (-0.05 - y) * 0.01) : y > -0.14 ? 0.09 + (-y) * 0.07 : null),
+            armLoose: (part, y) => (part === 'fore' && y <= -0.14 && y > -0.29 ? 1.08 : 1),   // the leather bracers: fitted, a little proud
+            legTube: (part, y) => (part === 'thigh' ? (y > 0 ? null : 0.118 - (-y) * 0.03) : y > -0.06 ? 0.104 : null),
+            legLoose: (part, y) => (part === 'thigh' && y > 0 ? 1.1 : part === 'shin' && y <= -0.06 ? (y > -0.2 ? 1.1 : 1.04) : 1),   // (the boots: fitted leather)
             foot: C.leather,
             extra({ sk, V, root, createSkin, body, hips, spine, arms, legs }) {
                 // The coat's tails (2026-11-23: "the legs pass through the back of the robe when running — the old one didn't"):
@@ -38,8 +43,10 @@ export function buildEldrin(ctx) {
                 cs.loft([T(1.07, 0.17, 0.115, 0.115, 0), T(0.95, 0.212, 0.143, 0.16, 0.6), T(0.75, 0.24, 0.165, 0.193, 1), T(0.55, 0.258, 0.177, 0.215, 1), T(0.38, 0.27, 0.183, 0.227, 1), T(0.24, 0.282, 0.19, 0.24, 1)], { seg: 14, from: 0.5, to: Math.PI * 2 - 0.5, mat: 'double' });   // (to the knees)
                 cs.build();
                 // the high popped collar, open at the throat
-                const K = (y, w, d, col) => ({ c: V(body, 0, y, -0.004), shape: profile(w, d, d * 1.05), w: [[spine, 0.6], [body === null ? spine : spine, 0.4]], col });
-                sk.loft([K(1.76, 0.1, 0.092, C.coat), K(1.66, 0.078, 0.074, C.coat), K(1.58, 0.08, 0.076, C.coatDark), K(1.55, 0.1, 0.09, C.coatDark)], { seg: 12, from: 0.8, to: Math.PI * 2 - 0.8, mat: 'double' });   // (high and flared, as the reference)
+                // (second pass: "you just painted his neck"): it rises from the shoulders well clear of the neck — 3-4 cm off it
+                // all round — and flares out as it climbs, open wide at the throat, its inside dark
+                const K = (y, w, df, db, col) => ({ c: V(body, 0, y, -0.012), shape: profile(w, df, db), w: [[spine, 1]], col });
+                sk.loft([K(1.56, 0.11, 0.075, 0.105, C.coatDark), K(1.62, 0.1, 0.075, 0.108, C.coat), K(1.69, 0.108, 0.085, 0.118, C.coat), K(1.75, 0.125, 0.1, 0.132, C.coat), K(1.785, 0.138, 0.11, 0.142, C.coatDark)], { seg: 14, from: 0.95, to: Math.PI * 2 - 0.95, mat: 'double' });   // (high and flared, as the reference)
                 // lapels down the open front, the coat's edges
                 for (const s of [-1, 1]) sk.loft([{ c: V(body, s * 0.06, 1.55, 0.11), shape: profile(0.012, 0.006, 0.006), w: [[spine, 1]], col: C.coatDark }, { c: V(body, s * 0.07, 1.08, 0.106), shape: profile(0.012, 0.006, 0.006), w: [[spine, 1]], col: C.coatDark }], { seg: 4 });
                 // the shirt's two crossed straps
