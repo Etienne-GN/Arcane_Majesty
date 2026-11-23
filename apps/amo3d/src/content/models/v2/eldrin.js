@@ -40,7 +40,7 @@ export function buildEldrin(ctx) {
                     return [[hips, 1 - k], [flap, k * (1 - b)], [back, k * b]].filter(([, w]) => w > 1e-3);
                 };
                 const T = (y, w, df, db, k) => ({ c: V(body, 0, y, -0.005), shape: profile(w, df, db), w: tailW(k), col: C.coat });
-                cs.loft([T(1.07, 0.17, 0.115, 0.115, 0), T(0.95, 0.212, 0.143, 0.16, 0.6), T(0.75, 0.24, 0.165, 0.193, 1), T(0.55, 0.258, 0.177, 0.215, 1), T(0.38, 0.27, 0.183, 0.227, 1), T(0.24, 0.282, 0.19, 0.24, 1)], { seg: 14, from: 0.5, to: Math.PI * 2 - 0.5, mat: 'double' });   // (to the knees)
+                cs.loft([T(1.07, 0.17, 0.115, 0.115, 0), T(1.01, 0.19, 0.14, 0.135, 0.35), T(0.95, 0.216, 0.17, 0.16, 0.85), T(0.75, 0.246, 0.192, 0.193, 1), T(0.55, 0.263, 0.2, 0.215, 1), T(0.38, 0.274, 0.204, 0.227, 1), T(0.24, 0.286, 0.208, 0.24, 1)], { seg: 14, from: 0.5, to: Math.PI * 2 - 0.5, mat: 'double' });   // (to the knees)
                 cs.build();
                 // the high popped collar, open at the throat
                 // (second pass: "you just painted his neck"): it rises from the shoulders well clear of the neck — 3-4 cm off it
@@ -64,8 +64,10 @@ export function buildEldrin(ctx) {
                 // the back lifts behind as he moves, and never less than the thighs swing back (so they don't pass through it)
                 return { update({ t, amp = 0, run = 0, air = 0 }) {
                     const tL = legs.L.thigh.rotation.x, tR = legs.R.thigh.rotation.x;
-                    flapL.rotation.x = Math.min(0.2, tL * 0.85) - air * 0.3;
-                    flapR.rotation.x = Math.min(0.2, tR * 0.85) - air * 0.3;
+                    // (2026-11-23: the thighs came through the front at the hips — the flaps follow the whole forward swing now, a
+                    // touch ahead of it, and the front stands ~3 cm further off the thighs)
+                    flapL.rotation.x = Math.min(0.2, tL * 1.1) - 0.04 - air * 0.3;
+                    flapR.rotation.x = Math.min(0.2, tR * 1.1) - 0.04 - air * 0.3;
                     back.rotation.x = Math.max(0.04 + amp * 0.22 + run * 0.35 + air * 0.35 + Math.sin(t * 3.1) * 0.02, Math.max(tL, tR) * 1.0 + 0.1);
                 } };
             },
