@@ -12,7 +12,7 @@ import EDITS_FEMALE from './edits_female.json';
 
 const sym = (th, amp, wd) => [{ th, amp, wd }, { th: -th, amp, wd }];
 
-// outfit (optional): { torso(y, θ, base), arm(part, y), leg(part, y, base), foot, extra(helpers) } — colours painted onto the body's
+// outfit (optional): { torso(y, θ, base), arm(part, y), leg(part, y, base), armLoose(part, y), legLoose(part, y), foot, extra(helpers) } — colours painted onto the body's
 // own surface, and extra pieces (coat tails, a collar…) added before the mesh is built. Used by the dressed cast (eldrin.js).
 export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair = null, outfit = null, headK = 1, footK = 1 } = {}) {   // headK: the head's size; footK: the feet (boots are bigger)
     const F = sex === 'female';
@@ -76,7 +76,8 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     const k = F ? 1.26 : 1.5;   // (the reference's arms are thick: the upper arm near the neck's width)
     for (const side of ['L', 'R']) {
         const { upper, fore } = arms[side], s = side === 'L' ? 1 : -1;
-        const R = (g, ox, y, w, df, db, wts, b = []) => ({ c: V(g, s * (ox - (F ? 0.03 : 0)), y, 0), shape: profile(w * k, df * k, db * k, b), w: wts, col: outfit?.arm ? outfit.arm(g === fore ? 'fore' : 'upper', y) ?? skin : skin });   // (hers set a little in: narrower, sloping shoulders)
+        // outfit.armLoose(part, y) → how much wider the clothing stands off the arm there (1: skin-tight; sleeves are ample)
+        const R = (g, ox, y, w, df, db, wts, b = []) => { const L = outfit?.armLoose?.(g === fore ? 'fore' : 'upper', y) ?? 1; return { c: V(g, s * (ox - (F ? 0.03 : 0)), y, 0), shape: profile(w * k * L, df * k * L, db * k * L, b), w: wts, col: outfit?.arm ? outfit.arm(g === fore ? 'fore' : 'upper', y) ?? skin : skin }; };   // (hers set a little in: narrower, sloping shoulders)
         sk.loft([
             R(upper, -0.02, 0.05, 0.022, 0.024, 0.024, [[spine, 0.3], [upper, 0.7]]),   // the deltoid's dome: the shoulder's outside (closed at the top)
             R(upper, -0.01, 0.022, 0.056, 0.055, 0.055, [[spine, 0.15], [upper, 0.85]]),
@@ -92,16 +93,17 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
             // the hand, closed in a fist (2026-11-23: "hands are too big, make them closed first, like a fist"): a compact
             // block ~12 cm from the wrist instead of the old open paddle (~20 cm) — the palm's flat facing the body,
             // the curled fingers thickening it, the knuckle ridge at its lower front, then rounded shut
-            R(fore, 0.0, -0.29, 0.02, 0.031, 0.028, [[fore, 1]]),   // the heel of the palm
-            R(fore, 0.0, -0.32, 0.022, 0.034, 0.03, [[fore, 1]]),   // the fist's middle: the fingers curled into the palm
-            R(fore, 0.0, -0.345, 0.021, 0.033, 0.027, [[fore, 1]], [{ th: 0, amp: 0.003, wd: 0.5 }]),   // the knuckles
-            R(fore, 0.0, -0.365, 0.015, 0.023, 0.018, [[fore, 1]]),
-            R(fore, 0.0, -0.375, 0.007, 0.011, 0.008, [[fore, 1]]),
+            // (2026-11-23, second pass: "a bit too small" — ~13% bigger, ~1 cm longer)
+            R(fore, 0.0, -0.29, 0.023, 0.035, 0.032, [[fore, 1]]),   // the heel of the palm
+            R(fore, 0.0, -0.322, 0.025, 0.039, 0.034, [[fore, 1]]),   // the fist's middle: the fingers curled into the palm
+            R(fore, 0.0, -0.35, 0.024, 0.038, 0.031, [[fore, 1]], [{ th: 0, amp: 0.0035, wd: 0.5 }]),   // the knuckles
+            R(fore, 0.0, -0.372, 0.017, 0.026, 0.02, [[fore, 1]]),
+            R(fore, 0.0, -0.384, 0.008, 0.012, 0.009, [[fore, 1]]),
         ], { seg: 6, cap: true, capStart: true });
         sk.loft([   // the thumb: folded across the front of the curled fingers, toward the body
-            { c: V(fore, s * (0.006 - (F ? 0.03 : 0)), -0.295, 0.026 * k), shape: profile(0.011 * k, 0.011 * k, 0.011 * k), w: [[fore, 1]], col: skin },
-            { c: V(fore, s * (-0.004 - (F ? 0.03 : 0)), -0.322, 0.031 * k), shape: profile(0.009 * k, 0.009 * k, 0.009 * k), w: [[fore, 1]], col: skin },
-            { c: V(fore, s * (-0.012 - (F ? 0.03 : 0)), -0.336, 0.028 * k), shape: profile(0.005, 0.005, 0.005), w: [[fore, 1]], col: skin },
+            { c: V(fore, s * (0.007 - (F ? 0.03 : 0)), -0.296, 0.029 * k), shape: profile(0.0125 * k, 0.0125 * k, 0.0125 * k), w: [[fore, 1]], col: skin },
+            { c: V(fore, s * (-0.004 - (F ? 0.03 : 0)), -0.326, 0.035 * k), shape: profile(0.01 * k, 0.01 * k, 0.01 * k), w: [[fore, 1]], col: skin },
+            { c: V(fore, s * (-0.013 - (F ? 0.03 : 0)), -0.341, 0.032 * k), shape: profile(0.006, 0.006, 0.006), w: [[fore, 1]], col: skin },
         ], { seg: 4, cap: true });
     }
 
@@ -109,7 +111,8 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     const kl = F ? 1.4 : 1.38;   // (the reference's legs are heavy: thick thighs, full calves)
     for (const side of ['L', 'R']) {
         const { thigh, shin } = legs[side], s = side === 'L' ? 1 : -1;
-        const R = (g, ox, y, w, df, db, wts, col = skin, b = []) => ({ c: V(g, s * ox, y, 0), shape: profile(w * kl, df * kl, db * kl, b), w: wts, col: outfit?.leg ? outfit.leg(g === shin ? 'shin' : 'thigh', y, col) : col });
+        // outfit.legLoose(part, y): the same for the legs (trousers hanging loose, boot tops)
+        const R = (g, ox, y, w, df, db, wts, col = skin, b = []) => { const L = outfit?.legLoose?.(g === shin ? 'shin' : 'thigh', y) ?? 1; return { c: V(g, s * ox, y, 0), shape: profile(w * kl * L, df * kl * L, db * kl * L, b), w: wts, col: outfit?.leg ? outfit.leg(g === shin ? 'shin' : 'thigh', y, col) : col }; };
         const fl = (() => { root.updateMatrixWorld(true); const a = V(shin, 0, -0.4, 0); return shin.worldToLocal(root.localToWorld(new THREE.Vector3(a.x, 0, a.z))).y; })();   // the floor, in the shin's frame
         sk.loft([
             R(thigh, -0.012, 0.04, 0.062, 0.07, 0.08, [[hips, 0.6], [thigh, 0.4]], cloth),   // (inside the hips: the shorts hug the thighs, no flaps)
@@ -232,7 +235,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
             { c: V(head, s * 0.078 * hk, 0.04 * hk, 0.02 * hk), rx: 0.004, rz: 0.006, w: [[head, 1]], col: HAIR },
         ], { seg: 5, cap: true });
     }
-    outfit?.extra?.({ sk, V, body, hips, spine, head, arms, legs, hk, F });   // the outfit's own pieces
+    const extraOut = outfit?.extra?.({ sk, V, root, createSkin, body, hips, spine, head, arms, legs, hk, F });   // the outfit's own pieces (may return { update } for pieces of their own that move, e.g. a coat's tails)
     const mesh = sk.build(); mesh.userData.editSex = F ? 'female' : 'male'; mesh.name = F ? 'base_female' : 'base_male';
     // the camisole's straps (female): from the neckline over each shoulder to the back
     if (F) {
@@ -264,7 +267,9 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         ph.tube(P.map(([x, y, z, r]) => ({ c: ph.at(head, x, y * hk * (y > 0.1 ? HV : 1), z * hk), r: r * hk * 1.4, rz: r * hk * 1.15, w: [[head, 1]], col: HAIR })), { seg: 7, mat: 'double' });   // (thick and full)
         ph.build();
     }
-    function update({ t, run = 0, amp = 0 }) {
+    function update(a) {
+        const { t, run = 0, amp = 0 } = a;
+        extraOut?.update?.(a);
         tail.forEach((g, i) => { if (i) { g.rotation.x = g.userData.base + run * 0.12 + Math.sin(t * 2.1 + i * 0.7) * 0.04 * (1 + amp); g.rotation.z = Math.sin(t * 1.6 + i) * 0.03; } });
     }
     return { mesh, update, weapon: () => null };

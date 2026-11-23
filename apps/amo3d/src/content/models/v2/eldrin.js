@@ -15,12 +15,28 @@ export function buildEldrin(ctx) {
             torso: (y, th, base) => (y > 1.6 ? base : y < 1.03 ? C.trousers : y < 1.065 ? C.leatherDark : Math.abs(th) < 0.42 ? C.shirt : C.coat),   // the coat open over the shirt; the belt; trousers
             arm: (part, y) => (part === 'upper' ? C.coat : y > -0.14 ? C.coat : y > -0.29 ? C.leatherDark : null),   // sleeves to the forearm, bracers, bare hands
             leg: (part, y) => (part === 'thigh' ? C.trousers : y > -0.06 ? C.trousers : C.leather),   // boots from below the knee
+            // ample clothes (2026-11-23: "too tight on him — the sleeves and the trouser legs"): they stand off the body.
+            // (the shoulder's top rings stay as they are: your point edits of the male base live there)
+            armLoose: (part, y) => (part === 'upper' ? (y > -0.05 ? 1 : 1.22) : y > -0.14 ? 1.24 : y > -0.29 ? 1.08 : 1),
+            legLoose: (part, y) => (part === 'thigh' ? (y > 0 ? 1.1 : 1.2) : y > -0.06 ? 1.18 : y > -0.2 ? 1.1 : 1.04),
             foot: C.leather,
-            extra({ sk, V, body, hips, spine, arms, legs }) {
-                // the coat's tails: from the waist to the knees, open at the front; each side follows its leg
-                const sideW = (th, k) => { const s = Math.sin(th), leg = s > 0 ? legs.L.thigh : legs.R.thigh, f = Math.min(1, Math.abs(s) * 1.1) * k; return f < 0.02 ? [[hips, 1]] : [[hips, 1 - f], [leg, f]]; };
-                const T = (y, w, df, db, k) => ({ c: V(body, 0, y, -0.005), shape: profile(w, df, db), w: th => sideW(th, k), col: C.coat });
-                sk.loft([T(1.07, 0.17, 0.115, 0.115, 0), T(0.95, 0.2, 0.135, 0.15, 0.15), T(0.75, 0.225, 0.155, 0.18, 0.45), T(0.55, 0.24, 0.165, 0.2, 0.6), T(0.38, 0.25, 0.17, 0.21, 0.7), T(0.24, 0.26, 0.175, 0.22, 0.75)], { seg: 14, from: 0.5, to: Math.PI * 2 - 0.5, mat: 'double' });   // (to the knees)
+            extra({ sk, V, root, createSkin, body, hips, spine, arms, legs }) {
+                // The coat's tails (2026-11-23: "the legs pass through the back of the robe when running — the old one didn't"):
+                // their own mesh, hung like the classic coat's panels from three joints at the waist — a flap on each side
+                // that follows its thigh forward, and the back, which swings out behind as he runs and always clears the
+                // thighs. From the waist to the knees, open at the front, cut fuller than before.
+                root.updateMatrixWorld(true);
+                const pivot = () => { const g = new THREE.Group(); g.position.copy(hips.worldToLocal(root.localToWorld(V(body, 0, 1.07, -0.005)))); hips.add(g); return g; };
+                const back = pivot(), flapL = pivot(), flapR = pivot();
+                const cs = createSkin(root, [hips, back, flapL, flapR]);
+                const smooth = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+                const tailW = k => th => {   // k: how freely this row hangs (0 at the waist, more toward the hem)
+                    const a = th > Math.PI ? th - 2 * Math.PI : th, b = smooth(1.75, 2.35, Math.abs(a)), flap = a > 0 ? flapL : flapR;
+                    return [[hips, 1 - k], [flap, k * (1 - b)], [back, k * b]].filter(([, w]) => w > 1e-3);
+                };
+                const T = (y, w, df, db, k) => ({ c: V(body, 0, y, -0.005), shape: profile(w, df, db), w: tailW(k), col: C.coat });
+                cs.loft([T(1.07, 0.17, 0.115, 0.115, 0), T(0.95, 0.212, 0.143, 0.16, 0.6), T(0.75, 0.24, 0.165, 0.193, 1), T(0.55, 0.258, 0.177, 0.215, 1), T(0.38, 0.27, 0.183, 0.227, 1), T(0.24, 0.282, 0.19, 0.24, 1)], { seg: 14, from: 0.5, to: Math.PI * 2 - 0.5, mat: 'double' });   // (to the knees)
+                cs.build();
                 // the high popped collar, open at the throat
                 const K = (y, w, d, col) => ({ c: V(body, 0, y, -0.004), shape: profile(w, d, d * 1.05), w: [[spine, 0.6], [body === null ? spine : spine, 0.4]], col });
                 sk.loft([K(1.76, 0.1, 0.092, C.coat), K(1.66, 0.078, 0.074, C.coat), K(1.58, 0.08, 0.076, C.coatDark), K(1.55, 0.1, 0.09, C.coatDark)], { seg: 12, from: 0.8, to: Math.PI * 2 - 0.8, mat: 'double' });   // (high and flared, as the reference)
@@ -37,6 +53,14 @@ export function buildEldrin(ctx) {
                     sk.loft([{ c: V(up, s * 0.0, 0.085, 0.0), shape: profile(0.075, 0.06, 0.06), w: [[up, 0.7], [spine, 0.3]], col: C.gold }, { c: V(up, s * 0.012, 0.055, 0.0), shape: profile(0.088, 0.072, 0.072), w: [[up, 0.8], [spine, 0.2]], col: C.gold }], { seg: 6, capStart: true, mat: 'double' });
                 }
                 void blend;
+                // the tails' motion, as the classic coat: the side flaps go forward with each thigh (only a little back);
+                // the back lifts behind as he moves, and never less than the thighs swing back (so they don't pass through it)
+                return { update({ t, amp = 0, run = 0, air = 0 }) {
+                    const tL = legs.L.thigh.rotation.x, tR = legs.R.thigh.rotation.x;
+                    flapL.rotation.x = Math.min(0.2, tL * 0.85) - air * 0.3;
+                    flapR.rotation.x = Math.min(0.2, tR * 0.85) - air * 0.3;
+                    back.rotation.x = Math.max(0.04 + amp * 0.22 + run * 0.35 + air * 0.35 + Math.sin(t * 3.1) * 0.02, Math.max(tL, tR) * 1.0 + 0.1);
+                } };
             },
         },
     });
