@@ -47,10 +47,10 @@ export const CHAPTER_QUESTS = {
         [['ch10_balrog', 'Face what keeps the Ancient Door']], 'main_weight_of_eternity'),
     main_weight_of_eternity: Q('main_weight_of_eternity', 'The Weight of Eternity', 'The way is open, and the Stone is in your hand. The air in the ruins has gone grey.',
         [['ch11_vorgos', 'Hear the condition']], 'main_dawns_embrace'),
-    main_dawns_embrace: Q('main_dawns_embrace', "Dawn's Embrace", 'Bring the Stone home to the tower, and draw the ward of the keeping round it.',
-        [['ch12_ward', 'Draw the ward of the keeping in your tower']], null),
+    main_dawns_embrace: Q('main_dawns_embrace', "Dawn's Embrace", 'Bring the Stone home — west through the fire\'s country and the mountains, by the green valley — and draw the ward of the keeping round it in your tower.',
+        [['ch12_hermit', 'Stop a night with the Hermit in the green valley, on the way home'], ['ch12_ward', 'Draw the ward of the keeping in your tower']], null),
 };
-export function registerChapterQuests(stats) { stats.generatedQuests ??= {}; for (const [id, q] of Object.entries(CHAPTER_QUESTS)) { stats.generatedQuests[id] ??= JSON.parse(JSON.stringify(q)); stats.generatedQuests[id].reward = JSON.parse(JSON.stringify(q.reward)); } }   // rewards refreshed in older saves
+export function registerChapterQuests(stats) { stats.generatedQuests ??= {}; for (const [id, q] of Object.entries(CHAPTER_QUESTS)) { if (!stats.generatedQuests[id] || !stats.questLog?.[id]) stats.generatedQuests[id] = JSON.parse(JSON.stringify(q)); /* (not started yet: the current steps) */ stats.generatedQuests[id].reward = JSON.parse(JSON.stringify(q.reward)); } }   // rewards refreshed in older saves
 
 import { LOOKS } from './storyLooks.js';   // the story's people (the Forge's cast list reads them too)
 
@@ -422,6 +422,8 @@ export function createChapters({ stats, hud, dialogue, quests, save, player, wor
             onUse: () => {
                 const f = flags();
                 if (!active('main_dawns_embrace') || f.campaign_complete) return;
+                const needsHermit = stats.generatedQuests?.main_dawns_embrace?.steps?.some(x => x.id === 'ch12_hermit');
+                if (needsHermit && !(stats.questLog.main_dawns_embrace.progress?.ch12_hermit >= 1)) { say(['Not yet. The green valley lies on the road home, and the Hermit by his fire — the one other keeper in the world. He will want to see the Stone carried by the right hand.']); return; }
                 say([
                     'You set the Stone down in the middle of the old lines, and you draw the ward of the keeping round it — the same ward the Hermit drew, once, and could not hold.',
                     ['Eldrin', 'I am the watcher, here and now.'],
@@ -431,7 +433,16 @@ export function createChapters({ stats, hud, dialogue, quests, save, player, wor
                     'Until the Star-Guard needs the key.',
                 ], () => { f.campaign_complete = true; step('ch12_ward', 'main_dawns_embrace'); hud.banner("Eldoria's Prophecy — the vigil begins"); });
             } });
-        return { update() {} };
+        return { update() {
+            if (active('main_dawns_embrace') && flags().hermit_return && !flags().tower_return) {   // the book's ch. 22: home
+                flags().tower_return = true;
+                setTimeout(() => say([
+                    'Thaloria rose out of the snow on the last day of the return, and the city did not know you. A scholar you have known for forty years looked through you the way the ordinary world looks through what it is not looking for. You could not tell him. You could not tell anyone.',
+                    'The tower stands as you left it. The runes of the door come up blue and patient under your palm, and the cold dark closes round you — the strata cores in their slots, the journals on their shelves, the dust of a year on everything.',
+                    'The pulse of the Stone beats against your ribs like a thing that has finally come home. The old ward-lines are cut into the hall floor, by the hearth.',
+                ]), 900);
+            }
+        } };
     }
 
     const BUILDERS = { fire_gate: fireGate, inferno_halls: halls, inferno_labyrinth: crucible, ruins_of_eldoria: ruins, tower };

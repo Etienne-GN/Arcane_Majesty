@@ -234,6 +234,24 @@ export function createSanctuary({ quality }) {
                 save?.();
             });
         }
+        // The return (the book's ch. 22): the Stone carried home, a night by the fire that does not smoke
+        if (log.main_dawns_embrace?.status === 'active' && !flags.hermit_return) {
+            return start([
+                { speaker: 'The Hermit', text: 'I felt you come. Felt you through the green, the way a pond feels a stone. You have it, then. You stood before the door, and the door opened, and the thing that kept it let you carry it out.' },
+                { speaker: 'Eldrin', text: 'It accepted me. The Stone read my hand the way you said it would. The Balrog —' },
+                { speaker: 'The Hermit', text: 'The Balrog is the kind of thing that keeps. It kept the door for the keeping, and the keeping has a keeper now — the one thing its keeping could not refuse.' },
+                { speaker: 'The Hermit', text: 'You have the vigil now, scholar. The one I could not hold. I have been a forest longer than I was a keeper, and I have learned what the keeping never taught me: the vigil is not a punishment, and not a glory. It is the weight of a held breath. And you are holding it.' },
+                { speaker: 'Eldrin', text: 'I am holding it.' },
+                { speaker: 'The Hermit', text: 'Then go home. Carry it where the world cannot reach it and where you will not be parted from it. I will not see the end of it. But the record will have a true page in it now — and that is more than I had when I failed.' },
+                { speaker: '', text: 'You stay the night. Neither of you sleeps. The two keepers sit by the fire that does not smoke until the grey of the morning, and the pulse of the Stone beats between you.' },
+            ], () => {
+                flags.hermit_return = true;
+                stats.gameMinutes = (Math.floor((stats.gameMinutes ?? 0) / 1440) + 1) * 1440 + 7 * 60;   // the morning after
+                quests.manager.onTalk('ch12_hermit');
+                hud.message('Go home to your tower, through Thaloria.');
+                save?.();
+            });
+        }
         // Turn in what is done, then offer what is not yet taken.
         const before = ['side_seeds_of_the_valley', 'side_hermits_debt'].filter(id => log[id]?.status === 'active');
         quests.manager.onTalk('sanctuary_hermit');
