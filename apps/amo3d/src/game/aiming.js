@@ -1,7 +1,8 @@
 // Spell targeting: hold a hand's button with a spell on it and a ring appears on the ground — the spell's own size,
 // in its element's colour, inside a faint circle of its range. Let go and the spell goes there: an area spell lands
 // on the ring, a bolt flies at it. A quick tap still casts at once, as before (aimed by the camera, or the nearest
-// enemy ahead).
+// enemy ahead). A bolt shows its path as glowing dots along the ground; the mark snaps onto a creature close to where
+// you aim (within the spell's size, at least 1.6 m), and burns brighter when it holds one.
 //   touch      — drag the button (or anywhere, once held) toward where it should land: up is ahead
 //   mouse      — point at the ground while the button is held
 //   gamepad    — the right stick moves the ring while the trigger is held (the camera waits)
@@ -19,6 +20,21 @@ export function createAiming({ camera, cam, input, getPlayer, getMap, PX = 32, t
     const mark = createGroundDecal(null, 18), reach = createGroundDecal(reachTexture(), 28, true);
     reach.mat.opacity = 0.35;
     group.add(mark.mesh, reach.mesh);
+    // a bolt's flight: a dotted line along the ground from you to the mark (2026-11-25)
+    // (glowing dots on the ground, one every ~0.7 m: a 1-pixel line was too faint to read)
+    const LN = 40, lineMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.8, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false });
+    const line = new THREE.InstancedMesh(new THREE.CircleGeometry(0.11, 8).rotateX(-Math.PI / 2), lineMat, LN); line.frustumCulled = false; line.renderOrder = 3; group.add(line);
+    const dotM = new THREE.Matrix4();
+    // the mark snaps onto a creature close to where you aim (it eases there; a snapped mark burns brighter)
+    const snapTo = new THREE.Vector3();
+    function nearestFoe(v, within) {
+        let best = null, bd = within;
+        for (const h of getMap()?.hittables ?? []) {
+            if (h.alive === false || !h.pos || h.friendly) continue;
+            const d = Math.hypot(h.pos.x - v.x, h.pos.z - v.z); if (d < bd) { bd = d; best = h; }
+        }
+        return best;
+    }
     let scene = null;
     const setScene = s => { if (scene) scene.remove(group); scene = s; s.add(group); };
 
@@ -90,9 +106,25 @@ export function createAiming({ camera, cam, input, getPlayer, getMap, PX = 32, t
             else { plane.constant = -p.y; if (ray.ray.intersectPlane(plane, hit)) st.pos.set(hit.x, p.y, hit.z); }
         }
         clampToRange(st.pos);
+        // snap: the ring onto a creature near the aim point (within its own size, at least 1.6 m), eased there
+        const foe = nearestFoe(st.pos, Math.max(1.6, radiusOf() * 1.1));
+        st.snapped = !!foe;
+        if (foe && Math.hypot(foe.pos.x - p.x, foe.pos.z - p.z) <= r) { snapTo.set(foe.pos.x, foe.pos.y, foe.pos.z); st.pos.lerp(snapTo, Math.min(1, dt * 14)); clampToRange(st.pos); }
         const gy = (x, z) => groundY(x, z, p.y), pulse = 1 + Math.sin(performance.now() / 220) * 0.03;
+        const bolt = st.spell.targetingType !== 'targeted_aoe';
+        line.visible = bolt;
+        if (bolt) {
+            const L = Math.hypot(st.pos.x - p.x, st.pos.z - p.z), n = Math.min(LN, Math.max(2, Math.floor(L / 0.7))), drift = (performance.now() / 600) % 1;
+            for (let i = 0; i < LN; i++) {
+                if (i >= n) { dotM.makeScale(0, 0, 0); line.setMatrixAt(i, dotM); continue; }
+                const t = Math.min(1, (i + drift) / n), x = p.x + (st.pos.x - p.x) * t, z = p.z + (st.pos.z - p.z) * t, k = 0.7 + 0.5 * Math.sin(t * Math.PI);
+                dotM.makeScale(k, 1, k).setPosition(x, gy(x, z) + 0.06, z); line.setMatrixAt(i, dotM);
+            }
+            line.instanceMatrix.needsUpdate = true;
+            lineMat.color.setHex(COLOURS[st.spell.element] ?? 0xffffff); lineMat.opacity = st.snapped ? 0.95 : 0.6;
+        }
         mark.place(st.pos.x, st.pos.z, radiusOf() * pulse, gy);   // lies on the ground under it, whatever its slope
-        mark.mesh.rotation.y = 0; mark.mat.opacity = 0.85 + Math.sin(performance.now() / 300) * 0.15;
+        mark.mesh.rotation.y = 0; mark.mat.opacity = st.snapped ? 1 : 0.85 + Math.sin(performance.now() / 300) * 0.15;
         reach.place(p.x, p.z, r, gy, 0.05);
     }
     return { setScene, down, move, up, update, cancel, get aiming() { return !!st?.active; }, get pending() { return !!st; }, get side() { return st?.side ?? null; } };
