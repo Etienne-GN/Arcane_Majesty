@@ -245,7 +245,7 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
         const fromHome = Math.hypot(pos.x - home.x, pos.z - home.z);
         if (core.net.puppet) puppetStep(dt);
         else {
-        ai.cd -= dt;
+        ai.cd -= dt; if (ai.huntT > 0) ai.huntT -= dt;
         let want = 0;
         if (core.stunned()) { if (ai.state === 'windup' || ai.state === 'strike') ai.state = 'chase'; }
         else if (ai.state === 'idle' || ai.state === 'wander') {
@@ -254,7 +254,7 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
             else if (ai.state === 'wander') { turn(Math.atan2(ai.target.x - pos.x, ai.target.z - pos.z), dt * 3); want = SPEED * 0.35; if (Math.hypot(ai.target.x - pos.x, ai.target.z - pos.z) < 0.8) { ai.state = 'idle'; ai.timer = 2 + rng() * 3; } }
         } else if (ai.state === 'notice') { turn(ang, dt * 8); if ((ai.timer -= dt) <= 0) ai.state = 'chase'; }
         else if (ai.state === 'return') { const h = map.nav ? map.nav.aim(pos, home, navKey, dt) : home; turn(Math.atan2(h.x - pos.x, h.z - pos.z), dt * 5); want = SPEED * 0.7; if (fromHome < 1.5) { ai.state = 'idle'; s.hp = Math.min(DEF.health, s.hp + 10); } }
-        else if (T.dead || fromHome > 30 || toP > SIGHT * 2) ai.state = 'return';
+        else if (T.dead || fromHome > ((ai.huntT ?? 0) > 0 ? 70 : 30) || (toP > SIGHT * 2 && !((ai.huntT ?? 0) > 0))) ai.state = 'return';   // (following a Mana Scent it hunts farther: game/scent.js)
         else if (ai.state === 'chase') {
             const g = toP > REACH + 1 && map.nav && !flyer ? map.nav.aim(pos, P, navKey, dt) : P;
             turn(Math.atan2(g.x - pos.x, g.z - pos.z), dt * 7);
@@ -347,5 +347,6 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
         credit: () => core.reward(core.lastCtx),
         reset: () => { if (!s.dead) { ai.state = 'return'; s.fx = {}; } },
         provoke: () => { if (!s.dead && ['idle', 'wander', 'return', 'notice'].includes(ai.state)) ai.state = 'chase'; },   // a taunt
+        scent: (sec = 8) => { if (s.dead) return; ai.huntT = Math.max(ai.huntT ?? 0, sec); if (['idle', 'wander', 'return'].includes(ai.state)) { ai.state = 'notice'; ai.timer = 0.4; } },   // it smells your magic: it comes for you, past its sight, for a while
     };
 }

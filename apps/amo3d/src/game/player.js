@@ -228,7 +228,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         if (!c || c.fired || c.power || c.spell?.id !== spellId || c.spell.targetingType === 'self') return false;
         const extra = Math.round(stats.getSpellManaCost(spellId) * 0.6 * buffMult('manaCostMult'));
         if (stats.mana < extra) return false;
-        stats.mana -= extra; c.power = 2.2; c.dur *= 1.15;   // (a breath longer to fuse the two)
+        stats.mana -= extra; stats.addManaScent?.(extra * 2); c.power = 2.2; c.dur *= 1.15;   // (a breath longer to fuse the two)
         hud.banner(`Overpower — ${c.spell.name}`); cam?.kick?.(0.25);
         return true;
     }
@@ -243,6 +243,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         const cost = Math.round(stats.getSpellManaCost(sp.id) * buffMult('manaCostMult'));   // Overload: dearer
         if (stats.mana < cost) return hud.message('Not enough mana');
         stats.mana -= cost;
+        stats.addManaScent?.(cost * 1.2);   // magic leaves a scent predators follow (game/scent.js)
         stats.startSpellCooldown(sp.id);
         // Options → Aim: where the camera looks, or where Eldrin faces.
         // A held, aimed cast (aiming.js) faces its target.

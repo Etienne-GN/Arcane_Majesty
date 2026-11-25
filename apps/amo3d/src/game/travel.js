@@ -169,6 +169,8 @@ export function createTravel({ stats, hud, world, player, allGates, onAttune, in
             stats.mana = Math.max(0, stats.mana - channel.cost);
             tearCd = channel.cd;
             arrive(channel.g);
+            stats.manaScent = 100; player.addBuff?.('resonance_stun', 2000);   // (world_systems.md: 100% Mana Scent and a 2 s Resonance Stun on arrival)
+            hud.message('You step out reeling — and everything near can smell the magic on you.');
             channel = null;
         }
     }
