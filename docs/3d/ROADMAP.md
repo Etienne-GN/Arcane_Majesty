@@ -133,6 +133,8 @@ More parts, shapes and colours for heroes in forge.html — to plan when Phase 6
 ## Phase 9 — The campaign, chapters 6–12 (after the Forge)
 One chapter per pass from the campaign spec, the book and the lore DB (amo's maps are stubs): 6 Treachery's Bite (the Fire Gate, Oren's betrayal), 7 The Solitary Path (the Descent), 8 Inferno's Trial (the Inferno Labyrinth), 9 Eldoria's Heartbeat (the Ruins of Eldoria), 10 Heart of War (the Heartstone Chamber, the Ancient Door), 11 The Weight of Eternity, 12 Dawn's Embrace (Eldrin's Tower). The user's music per region as each place is built.
 
+
+Status (2026-11-25): **built** (2026-11-19, content/chapters.js) and **played through headless in the open world**, first landing to the vigil. Fixed: the Shadow Balrog killed you before its choice (now presses you to 15%, never kills). Added from the book: ch. 7 — the vow below the landing, the gate of flame that calls you by name, the three obsidian golems answered with your own runes, the trial among the Magma-Eaters and Cinder-Souls (withstood, not fought); ch. 12 — the return by the green valley (a night with the Hermit), Thaloria that does not know you, the tower. Still open: the user's music per region.
 ## Phase 10 — Lore canon check and the DB sync (pending since 2026-11-19)
 The game has grown places, people, institutions, creatures, items and story details that the lore DB doesn't have. They are gathered in `docs/3d/LORE_REVIEW.md` (226 items; regenerate with `data/scripts/lore_review/`). **Nothing goes into the official lore until each item has passed a canon check and the user has approved the verdict.** In a dedicated session:
 

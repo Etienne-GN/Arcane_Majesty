@@ -21,14 +21,16 @@ Legend: ✅ done · ▶ in progress · ☐ to do
 ## 2. Campaign chapters 6–12 (one commit per chapter)
 For each: read the book chapter, beat sheet and DB events; replace the `stub_chNN_*` quest with real steps, people and
 places in the open world; chain it from the previous chapter; game-only details `origin: "game"` → LORE_REVIEW.
-- ☐ 2.6 Treachery's Bite — the Fire Gate, Oren's betrayal
-- ☐ 2.7 The Solitary Path — the Descent
-- ☐ 2.8 Inferno's Trial — the Inferno Labyrinth
-- ☐ 2.9 Eldoria's Heartbeat — the Ruins of Eldoria
-- ☐ 2.10 Heart of War — the Heartstone Chamber, the Ancient Door
-- ☐ 2.11 The Weight of Eternity
-- ☐ 2.12 Dawn's Embrace — Eldrin's Tower
+- ✅ 2.6 Treachery's Bite — the Fire Gate, Oren's betrayal
+- ✅ 2.7 The Solitary Path — the Descent
+- ✅ 2.8 Inferno's Trial — the Inferno Labyrinth
+- ✅ 2.9 Eldoria's Heartbeat — the Ruins of Eldoria
+- ✅ 2.10 Heart of War — the Heartstone Chamber, the Ancient Door
+- ✅ 2.11 The Weight of Eternity
+- ✅ 2.12 Dawn's Embrace — Eldrin's Tower
 Check per chapter: headless walk of its steps start to finish (flags, quest completes, next chapter offered).
+
+> Item 2 note: chapters 6–12 already existed (2026-11-19). Done instead: a full headless playthrough in the open world; the Balrog fix (181e4cfc); ch. 7 from the book — vow, gate of flame, golems, the Cinder trial (7d832db6, ed1cee7a); ch. 12 the return by the Hermit (9188c117).
 
 ## 3. Magic leftovers
 - ☐ 3.1 Aim line for bolts; the area ring snaps to the nearest enemy near the aim point
@@ -57,8 +59,9 @@ Check: survey renders, headless walk, no floating ground, relief kept.
 
 ## For LORE_REVIEW (game-only names added this run — appended at the end of the run)
 - Quests: The Edge of the Wound, Cold Shapes on the Heath, What the Divide Keeps, Cinders on the Wind, The Mountain's Hunger, The Vigil That Never Ended, The Light at the Bottom, The Bone Gate
+- Chapter scenes (from the book, not new names): the golems' rune figures (lock, knot, foundation); the Hermit's return scene
 - Signs: the Legion post on the Great Rift's lip ("THE RIFT. NO CLOSER."), the Obsidian Citadel's bone gate ("ALL SOULS COME HOME.")
 - The Black Lake's shore (Nythoria): Underworld spawn round the Black Well; the Outlander (title/status)
 
 ## Log
-- 2026-11-25 — 0 and item 1 done (e55b4ebd, e624cf3d, 86f4856d, 11d412bf). Item 2 started.
+- 2026-11-25 — 0 and item 1 done (e55b4ebd, e624cf3d, 86f4856d, 11d412bf). Item 2 done (playthrough + fixes + book beats). Item 3 started.
