@@ -39,6 +39,19 @@ Check per chapter: headless walk of its steps start to finish (flags, quest comp
 - ☐ 3.4 Set-pieces for the remaining area spells that have none
 Check: each cast headless, no console errors, damage applied.
 
+## 4b. Across the veil (user's idea, approved 2026-11-25)
+Lore: the planes share one space at different frequencies (world_lore.md); the veil thins in Whisper-Wood, the Sanguine
+Vaults dip toward Nythoria, the Rift bleeds; Malakar struck Acheron across dimensions; the Tear costs 80–90% mana and
+arrives with 100% Mana Scent and a 2 s Resonance Stun (data/lore/world_systems.md). Same land on both sides, each
+plane its own buildings (twins only where it makes sense, e.g. Ravenspire on the citadel spot). Eldrin may use it too
+(his later story, The Prophecy of Darkness, takes him to Nythoria with Seraphina). Cross-plane Tear = game addition →
+LORE_REVIEW; recheck against the DB when scarif answers (it timed out 2026-11-25).
+- ☐ 4b.1 Mana Scent in 3D: spells raise it by cost, creatures in a scent radius are alerted; HUD mark. The ordinary Tear gets its written cost: 100% scent + 2 s Resonance Stun on arrival
+- ☐ 4b.2 Thin places (Whisper-Wood, over the Sanguine Vaults, the Rift's edge + a few game ones): the sight shows a shimmer; standing in one, the other plane's buildings ghost in around you
+- ☐ 4b.3 The crossing Tear at a thin place: ALL the mana, once per game day, 100% Mana Scent + stun on arrival — the same spot, the other world
+- ☐ 4b.4 One-sided places: first a vault sealed in Nythoria under a bare hillside in Eldoria, entered only by crossing there; one late quest
+Check: cross both ways headless; cooldown/cost/scent; arrival inside the vault; no stuck spots.
+
 ## 5. Parchment map for every region
 - ☐ 5.1 Each stamped place gives the chart its roads, buildings and walls (mapInfo.groundAt / buildings / walls) like Thaloria — region JSONs (Crossroads, Port Silver, Iron Hollow, Duskmeet, Graywatch, Fields village, New Ravenspire…) and the Nythoria towns
 Check: world-map screenshot per place.
