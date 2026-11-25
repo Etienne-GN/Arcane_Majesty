@@ -90,6 +90,7 @@ const ANIMALS = {
 };
 import { createInterior } from './content/interior.js';
 import THALORIA_DOORS from '../../../packages/rules/src/data/maps/interiors/doors.json';
+import * as OUT from './game/outsider.js';
 // amo's Thaloria interiors, each built on first entry; inner doors (the inn's cellar) lead on and back.
 const INTERIORS = Object.fromEntries(Object.entries(import.meta.glob(['../../../packages/rules/src/data/maps/interiors/thaloria_*.js', '../../../packages/rules/src/data/maps/interiors/east_road_cave.js'], { eager: true, import: 'MAP' }))
     .map(([path, def]) => [path.split('/').pop().replace('.js', ''), def]));
@@ -198,6 +199,7 @@ if (params.get('hero') === 'new') {
     try { const h = JSON.parse(localStorage.getItem('amo3d.newHero')); if (h?.look) (stats.flags ??= {}).hero = h; } catch { /* none */ }
 }
 const heroDef = stats.flags?.hero ?? null;
+OUT.setHero(heroDef);   // an Outlander on the other world (game/outsider.js)
 // ---- a hero of your own (the creator): a newcomer to Thaloria, not Eldrin ----
 // Wakes at the inn; a letter grants them the empty fine house on the guild road (thaloria_house_noble_c,
 // where no resident lives) — their home and respawn point. Eldrin's Tower is barred to them, Eldrin
@@ -333,6 +335,11 @@ const world = createMapManager({
         return { id: 'eldoria', spawn: ow.spawns[key] ? key : `${id}:start` };
     },
     onEnter(map, id, sp) {
+        OUT.setWorld(id);
+        if (OUT.isOutsider() && !stats.flags?.[`outlander_${id}`]) {   // the first arrival on the other world
+            (stats.flags ??= {})[`outlander_${id}`] = true; stats.flags.outlander = true;
+            setTimeout(() => hud.banner(id === 'nythoria' ? 'Outlander — the eclipse does not know you' : 'Outlander — Eldoria\'s sun is harsh on you'), 1500);
+        }
         if (!map._animals && ANIMALS[id]) { map._animals = true; populate(map, map.scene, ANIMALS[id], dailyRng); }
         if (!map._animals && map.stamps) {   // the open world: each stamped place's animals, in its own frame (engine/stream.js)
             map._animals = true;

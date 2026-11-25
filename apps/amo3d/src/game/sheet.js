@@ -8,6 +8,7 @@ import { mastery as M, weapons as weaponRules, styles as styleRules, styleData, 
 import { glyphSVG } from './itemIcons.js';
 import { ELEMENTS, iconSVG } from './spellIcons.js';
 import { settings } from '../engine/settings.js';
+import { isOutsider, OUTSIDER } from './outsider.js';
 
 const { pointsFor, levelOf, MAX_LEVEL } = M;
 const { WEAPON_TYPES } = weaponRules;
@@ -107,6 +108,7 @@ export function createSheet({ stats, name = 'Eldrin' }) {
         const xp = el('div', 'xp');
         xp.append(el('div', 'lab', `${s.xp} / ${s.xpToNextLevel} experience to the next level`), bar((s.xp / Math.max(1, s.xpToNextLevel)) * 100, 'linear-gradient(90deg, #6a3aaa, #c8a6ff)'));
         top.append(lvl, el('h2', null, name), xp);
+        if (isOutsider()) top.append(el('span', 'pts', `Outlander here: traders ask ${Math.round((OUTSIDER.price - 1) * 100)}% more, wounds heal ${Math.round((1 - OUTSIDER.regen) * 100)}% slower, +${Math.round((OUTSIDER.xp - 1) * 100)}% experience`));
         if ((s.attributePoints ?? 0) > 0) top.append(el('span', 'pts', `${s.attributePoints} point${s.attributePoints > 1 ? 's' : ''} to spend`));
         paper.append(top);
         const cols = el('div', 'cols');

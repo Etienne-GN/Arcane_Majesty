@@ -12,6 +12,7 @@ import { INCANT } from './spectacle.js';
 import { coreOf } from '../content/actors/enemyCore.js';
 import { hitStop } from '../engine/hitstop.js';
 import { spells as spellRules } from '@rules';
+import { regenK, xpK } from './outsider.js';
 
 const { MOVE, tickVigor, canSprint, spendHop, moveSpeed, hopLanding } = movementRules;
 const { WEAPON_TYPES, typeOf } = weapons;
@@ -164,6 +165,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
     function onKill(xp, at, type, extra = {}) {
         if (type) hooks.onKill?.(type, extra);
         const before = stats.level;
+        xp = Math.round(xp * xpK());   // (+10% for an Outlander: game/outsider.js)
         stats.gainXp(xp);   // amo's PlayerStats: levels, skill and attribute points
         hud.floater(at, `+${xp} XP`, '#c9b6ff');
         if (stats.level > before) { hud.banner(`Level ${stats.level}`); sfx.levelUp(); } else sfx.kill();
@@ -305,7 +307,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             return 0;
         }
         // Out of a fight for a while, Eldrin catches his breath (POC rule).
-        if (p.sinceHurt > 6 && !(m.hittables ?? []).some(h => h.engaged)) stats.health = Math.min(stats.maxHealth, stats.health + 4 * dt);
+        if (p.sinceHurt > 6 && !(m.hittables ?? []).some(h => h.engaged)) stats.health = Math.min(stats.maxHealth, stats.health + 4 * regenK() * dt);   // (slower for an Outlander: game/outsider.js)
 
         const fwd = cam.forward();
         dir.set(fwd.x * act.move.y - fwd.z * act.move.x, 0, fwd.z * act.move.y + fwd.x * act.move.x);

@@ -14,7 +14,9 @@ import { itemIconSVG, kindOf } from './itemIcons.js';
 const { ITEMS, MERCHANT_CATALOG, CATALOGS, alreadyLearned } = itemRules;
 const CUR = { gold: { name: 'gold', mark: '◉', color: '#d8a030' }, glint: { name: 'glint', mark: '✧', color: '#4a9ad8' } };
 
+import { priceK } from './outsider.js';
 export function createShop({ stats, hud, save }) {
+    const buyPrice = e => Math.ceil(E.shopPrice(e, bias) * priceK());   // (an Outlander pays more: game/outsider.js)
     const css = document.createElement('style');
     css.textContent = `
 #shop { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #05060ad0; font-family: 'IM Fell English', Georgia, serif; color: #f1e4c8; }
@@ -85,7 +87,7 @@ export function createShop({ stats, hud, save }) {
     function totals() {
         const cost = { gold: 0, glint: 0 }, gain = { gold: 0, glint: 0 };
         const cat = new Map(catalog().map(e => [entryKey(e), e]));
-        for (const [k, n] of basket.buy) { const e = cat.get(k); if (e) cost[e.currency] += E.shopPrice(e, bias) * n; }
+        for (const [k, n] of basket.buy) { const e = cat.get(k); if (e) cost[e.currency] += buyPrice(e) * n; }
         for (const i of basket.rebuy) { const s = buyback[i]; if (s) cost[s.currency] += s.price; }
         for (const [id, n] of basket.sell) gain[E.itemCurrency(id)] += (ITEMS[id]?.sellPrice ?? 0) * n;
         const after = { gold: (stats.gold ?? 0) + gain.gold - cost.gold, glint: (stats.glint ?? 0) + gain.glint - cost.glint };
@@ -110,7 +112,7 @@ export function createShop({ stats, hud, save }) {
         }
         for (const [key, n] of basket.buy) {
             const e = cat.get(key); if (!e) continue;
-            const cost = E.shopPrice(e, bias);
+            const cost = buyPrice(e);
             let got = 0;
             for (let i = 0; i < n; i++) {
                 if ((stats[e.currency] ?? 0) < cost || !stats.addItem(e.id, e.qty ?? 1)) { failed.push(ITEMS[e.id].name); break; }
@@ -155,7 +157,7 @@ export function createShop({ stats, hud, save }) {
         wares.append(el('h3', null, 'Wares — tap to add to the basket'));
         const g1 = el('div', 'grid');
         for (const e of catalog()) {
-            const def = ITEMS[e.id], cost = E.shopPrice(e, bias), k = entryKey(e);
+            const def = ITEMS[e.id], cost = buyPrice(e), k = entryKey(e);
             g1.append(tile(def, { priceText: price(cost, e.currency), count: e.qty ?? 1, inBasket: basket.buy.get(k), poor: (stats[e.currency] ?? 0) < cost, sel: about?.key === k,
                 onTap: () => { basket.buy.set(k, (basket.buy.get(k) ?? 0) + 1); about = { def, key: k, text: `${price(cost, e.currency)} each` }; done = ''; render(); } }));
         }
@@ -196,7 +198,7 @@ export function createShop({ stats, hud, save }) {
         };
         if (basket.buy.size || basket.rebuy.size) {
             L.append(el('h4', null, 'Buying'));
-            for (const [k, n] of basket.buy) { const e = cat.get(k); if (!e) continue; L.append(line(ITEMS[e.id].name + ((e.qty ?? 1) > 1 ? ` (×${e.qty})` : ''), n, `− ${price(E.shopPrice(e, bias) * n, e.currency)}`,
+            for (const [k, n] of basket.buy) { const e = cat.get(k); if (!e) continue; L.append(line(ITEMS[e.id].name + ((e.qty ?? 1) > 1 ? ` (×${e.qty})` : ''), n, `− ${price(buyPrice(e) * n, e.currency)}`,
                 () => (n > 1 ? basket.buy.set(k, n - 1) : basket.buy.delete(k)), () => basket.buy.set(k, n + 1))); }
             for (const i of basket.rebuy) { const s = buyback[i]; if (s) L.append(line(`${ITEMS[s.id]?.name ?? s.id} (buy back)`, 1, `− ${price(s.price, s.currency)}`, () => basket.rebuy.delete(i), () => {})); }
         }
