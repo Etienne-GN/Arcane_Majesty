@@ -46,11 +46,12 @@ arrives with 100% Mana Scent and a 2 s Resonance Stun (data/lore/world_systems.m
 plane its own buildings (twins only where it makes sense, e.g. Ravenspire on the citadel spot). Eldrin may use it too
 (his later story, The Prophecy of Darkness, takes him to Nythoria with Seraphina). Cross-plane Tear = game addition →
 LORE_REVIEW; recheck against the DB when scarif answers (it timed out 2026-11-25).
-- ☐ 4b.1 Mana Scent in 3D: spells raise it by cost, creatures in a scent radius are alerted; HUD mark. The ordinary Tear gets its written cost: 100% scent + 2 s Resonance Stun on arrival
-- ☐ 4b.2 Thin places (Whisper-Wood, over the Sanguine Vaults, the Rift's edge + a few game ones): the sight shows a shimmer; standing in one, the other plane's buildings ghost in around you
-- ☐ 4b.3 The crossing Tear at a thin place: ALL the mana, once per game day, 100% Mana Scent + stun on arrival — the same spot, the other world
-- ☐ 4b.4 One-sided places: first a vault sealed in Nythoria under a bare hillside in Eldoria, entered only by crossing there; one late quest
+- ✅ 4b.1 Mana Scent in 3D: spells raise it by cost, creatures in a scent radius are alerted; HUD mark. The ordinary Tear gets its written cost: 100% scent + 2 s Resonance Stun on arrival
+- ✅ 4b.2 Thin places (Whisper-Wood, over the Sanguine Vaults, the Rift's edge + a few game ones): the sight shows a shimmer; standing in one, the other plane's buildings ghost in around you
+- ✅ 4b.3 The crossing Tear at a thin place: ALL the mana, once per game day, 100% Mana Scent + stun on arrival — the same spot, the other world
+- ✅ 4b.4 One-sided places: first a vault sealed in Nythoria under a bare hillside in Eldoria, entered only by crossing there; one late quest
 Check: cross both ways headless; cooldown/cost/scent; arrival inside the vault; no stuck spots.
+> Done 2026-11-25: e6be121b (Mana Scent), babea2a3 (thin places, crossing Tear, the sealed reliquary, The Wrong Hill). Ghosts of the other side: the reliquary only so far — other thin places show the shimmer.
 
 ## 5. Parchment map for every region
 - ☐ 5.1 Each stamped place gives the chart its roads, buildings and walls (mapInfo.groundAt / buildings / walls) like Thaloria — region JSONs (Crossroads, Port Silver, Iron Hollow, Duskmeet, Graywatch, Fields village, New Ravenspire…) and the Nythoria towns
@@ -79,7 +80,8 @@ Check: survey renders, headless walk, no floating ground, relief kept.
 - Quests: The Edge of the Wound, Cold Shapes on the Heath, What the Divide Keeps, Cinders on the Wind, The Mountain's Hunger, The Vigil That Never Ended, The Light at the Bottom, The Bone Gate
 - Chapter scenes (from the book, not new names): the golems' rune figures (lock, knot, foundation); the Hermit's return scene
 - Signs: the Legion post on the Great Rift's lip ("THE RIFT. NO CLOSER."), the Obsidian Citadel's bone gate ("ALL SOULS COME HOME.")
+- Across the veil: thin places (Whisper-Wood, before the Sanguine Vaults, the Rift's lip — canon-backed; the bare rise — game), the crossing Tear (an extension of the Tear: cross-plane at thin places), the sealed reliquary on the rise ("SEALED BY THOSE WHO STAYED…"), quest The Wrong Hill
 - The Black Lake's shore (Nythoria): Underworld spawn round the Black Well; the Outlander (title/status)
 
 ## Log
-- 2026-11-25 — 0 and item 1 done (e55b4ebd, e624cf3d, 86f4856d, 11d412bf). Item 2 done (playthrough + fixes + book beats). Item 3 done (f9f2c6af aim line + snap, 976f64bd Aether Sight active use (L), cdd113ba dual-wand overpower, set-pieces). Item 4b started.
+- 2026-11-25 — 0 and item 1 done (e55b4ebd, e624cf3d, 86f4856d, 11d412bf). Item 2 done (playthrough + fixes + book beats). Item 3 done (f9f2c6af aim line + snap, 976f64bd Aether Sight active use (L), cdd113ba dual-wand overpower, set-pieces). Item 4b done. Item 5 started.
