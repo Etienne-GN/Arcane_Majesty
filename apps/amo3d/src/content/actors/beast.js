@@ -6,7 +6,7 @@ import { sfx } from '../../engine/sfx.js';
 //   crag_fiend  — a hulking stone brute, slow, hits hard
 // AI: idle / wander near home → notice → close in (pathfinding) → wind-up (a tell) → strike → recover.
 import * as THREE from 'three';
-import { createEnemyCore, PX } from './enemyCore.js';
+import { createEnemyCore, PX, SIGHT } from './enemyCore.js';
 import { flat } from '../../engine/lib.js';
 import { elites as EL } from '@rules';
 
@@ -302,10 +302,10 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
             parts.mat.emissiveIntensity = 1.0 + Math.sin(ai.t * 17) * 0.25 + (tell ? 1.4 : 0) + s.flash * 3;
         } else if (type === 'grave_wraith') {   // drift and fade; brighten on the wind-up
             root.position.y = pos.y + 0.2 + Math.sin(ai.t * 2.2) * 0.12;
-            parts.mat.opacity = 0.45 + Math.sin(ai.t * 1.3) * 0.12 + (tell ? 0.3 : 0) + s.flash;
+            parts.mat.opacity = (SIGHT.on ? 0.8 : 0.45 + Math.sin(ai.t * 1.3) * 0.12) + (tell ? 0.3 : 0) + s.flash;
         } else if (type === 'frost_shade') {   // drift, and show itself only up close
             root.position.y = pos.y + 0.25 + Math.sin(ai.t * 2) * 0.12;
-            parts.mat.opacity = Math.max(0.12, Math.min(0.6, 0.6 - (toP - 3) * 0.05)) + (tell ? 0.25 : 0) + s.flash;
+            parts.mat.opacity = SIGHT.on ? 0.8 : Math.max(0.12, Math.min(0.6, 0.6 - (toP - 3) * 0.05)) + (tell ? 0.25 : 0) + s.flash;   // (Aether Sight shows it)
             parts.mat.emissiveIntensity = 0.4 + (tell ? 1.4 : 0);
         } else if (parts.kind === 'drift') {   // drift and flicker; brighten on the wind-up (ice revenant)
             root.position.y = pos.y + 0.2 + Math.sin(ai.t * 2.2) * 0.12;

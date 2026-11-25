@@ -91,6 +91,7 @@ const ANIMALS = {
 import { createInterior } from './content/interior.js';
 import THALORIA_DOORS from '../../../packages/rules/src/data/maps/interiors/doors.json';
 import * as OUT from './game/outsider.js';
+import { createSight } from './game/sight.js';
 // amo's Thaloria interiors, each built on first entry; inner doors (the inn's cellar) lead on and back.
 const INTERIORS = Object.fromEntries(Object.entries(import.meta.glob(['../../../packages/rules/src/data/maps/interiors/thaloria_*.js', '../../../packages/rules/src/data/maps/interiors/east_road_cave.js'], { eager: true, import: 'MAP' }))
     .map(([path, def]) => [path.split('/').pop().replace('.js', ''), def]));
@@ -590,6 +591,7 @@ function newcomerMorning() {
 }
 const projTmp = new THREE.Vector3();
 const project = (x, y, z) => { projTmp.set(x, y, z).project(camera); return { x: (projTmp.x * 0.5 + 0.5) * innerWidth, y: (-projTmp.y * 0.5 + 0.5) * innerHeight, visible: projTmp.z < 1 }; };
+const sight = createSight({ stats, hud, getMap: () => world.current, getPlayer: () => player.state });   // Aether Sight, the active use (L)
 travel = createTravel({
     stats, hud, world, player, onAttune: id => quests.onAttune(id), interiors: Object.keys(interiorBuilders),
     allGates: () => [
@@ -795,8 +797,9 @@ function tick(dt) {
     net.update(dt, camera);
     for (const h of world.current.hittables ?? []) if (h.engaged) codex.seen(h.kind === 'shadow' ? 'mirror_shade' : h.kind);
     const menuOpen = inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open || book.open || skillBook.open || pause.open;
-    if (menuOpen) { act.hotbar = -1; act.skill = -1; act.tear = false; act.strike = false; }   // the D-pad and buttons drive the menu, not the hotbar
+    if (menuOpen) { act.hotbar = -1; act.skill = -1; act.tear = false; act.sight = false; act.strike = false; }   // the D-pad and buttons drive the menu, not the hotbar
     if (act.tear) travel.tear();
+    if (act.sight) sight.use();
     if (settings.hands && !menuOpen && !player.state.dead) {
         act.skill = -1;
         for (const c of act.cycle) {   // 'cycleL:down' (key), 'cycleL:pad', 'cycleL:up'
@@ -854,7 +857,8 @@ function tick(dt) {
         act.hop = false;
     }
     let lift = 0;
-    clockRules.advanceClock(stats, dt * 1000);   // amo: one real minute = one game hour
+    clockRules.advanceClock(stats, dt * 1000);
+    sight.update(dt);   // amo: one real minute = one game hour
     const ctx = { ...clock(), message: hud.message, attunedGates: stats.attunedGates, player: player.state, camera,
         flags: (stats.flags ??= {}), shake: a => cam.kick(a), customHero: CUSTOM, players: net.targets(), hurtRemote: (id, dmg, from) => net.hurtRemote(id, dmg, from),
         drainVigor: n => { stats.vigor = Math.max(0, stats.vigor - n); },
@@ -945,5 +949,5 @@ window.__poc = {
     setTime: h => { stats.gameMinutes = Math.floor((stats.gameMinutes ?? 0) / 1440) * 1440 + h * 60; },
     setWeather: w => { weatherOverride = w; },
     strike: () => input.press('strike'),
-    workNode, loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, fireballs, aiming, options, slots, bountyBoard, SPELLS: spellsAll.SPELLS, player: player.state, playerApi: player,
+    sight, workNode, loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, fireballs, aiming, options, slots, bountyBoard, SPELLS: spellsAll.SPELLS, player: player.state, playerApi: player,
 };

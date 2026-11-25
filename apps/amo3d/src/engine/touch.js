@@ -75,12 +75,12 @@ export function createTouchControls({ input, cam }) {
     const sheet = document.createElement('div');
     sheet.id = 'tmenu';
     const tiles = [['inventory', 'Satchel', 'items · equipment'], ['sheet', 'Hero', 'attributes · mastery'], ['map', 'Map', 'the world'],
-        ['journal', 'Journal', 'quests'], ['codex', 'Codex', 'creatures · places'], ['book', 'Spellbook', 'spells · favourites'], ['skillbook', 'Skills', 'skills · masteries · styles'], ['tear', 'Aetheric Tear', 'travel to a gate'], ['chat', 'Chat', 'talk to players online'], ['options', 'Options', 'graphics · sound · camera · online'], ['quit', 'Quit', 'save · title · leave']];
+        ['journal', 'Journal', 'quests'], ['codex', 'Codex', 'creatures · places'], ['book', 'Spellbook', 'spells · favourites'], ['skillbook', 'Skills', 'skills · masteries · styles'], ['tear', 'Aetheric Tear', 'travel to a gate'], ['sight', 'Aether Sight', 'the second hand of the world'], ['chat', 'Chat', 'talk to players online'], ['options', 'Options', 'graphics · sound · camera · online'], ['quit', 'Quit', 'save · title · leave']];
     const grid = document.createElement('div');
     grid.className = 'grid';
     for (const [action, label, sub] of tiles) {
         const b = document.createElement('button');
-        if (action === 'tear') b.className = 'tear';
+        if (action === 'tear' || action === 'sight') b.className = 'tear';
         b.innerHTML = `${label}<small>${sub}</small>`;
         b.addEventListener('click', e => { e.stopPropagation(); if (performance.now() - openedAt < 300) return; sheet.classList.remove('open'); input.press(action); });
         grid.append(b);

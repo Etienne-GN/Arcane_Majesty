@@ -246,7 +246,7 @@ export function createBook({ stats, hud, save, hands = null, kind = 'spells' }) 
             const t = el('div', 't', k.name); t.append(el('small', null, `level ${k.level} / ${k.maxLevel}`));
             body.append(t, el('div', 'hand', k.description.replace(' [H]', '').replace(' [V]', '')));
             if (KEYS[k.id] && k.level > 0) body.append(el('div', 'sub', `Use: ${KEYS[k.id]}`));
-            if (k.id === 'aetheric_sight') body.append(el('div', 'sub', 'Its active use comes with enemy magic; the level is kept.'));
+            if (k.id === 'aetheric_sight') body.append(el('div', 'sub', 'Use: L · MENU → Aether Sight — slows what is near, shows how far each creature sees, and what hides (18 mana, 14 s).'));
             const can = stats.canUnlock?.(k.id);
             if (!can && k.level < k.maxLevel && k.requirements) body.append(el('div', 'sub', `Needs: ${reqText(k.requirements)}`));
             row.append(body);
