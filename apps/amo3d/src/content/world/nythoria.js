@@ -169,6 +169,8 @@ export function createNythoriaWorld({ quality } = {}) {
       const light = new THREE.PointLight(0xc03a5a, 50, 140, 1.4); light.position.set(Math.cos(toGate) * 30, 8, Math.sin(toGate) * 30); g.add(light);
       world.addWall({ x: C.x, z: C.z, r: 18, kind: 'wall', y0: y0 - 2, y1: y0 + 60 });
       world.scene.add(g);
+      { const gx = C.x + Math.cos(toGate) * (R + 9), gz = C.z + Math.sin(toGate) * (R + 9);   // before its gate (a quest reads it: The Bone Gate)
+        world.stations.push({ mode: 'sign', id: 'obsidian_citadel', title: 'The bone gate', pos: new THREE.Vector3(gx, heightAt(gx, gz), gz), text: 'The gate stands open, as if nothing here fears a visitor. Its posts are ribs as tall as trees, lashed with black iron; between them the basalt road runs on toward the throne hall\'s red doors. Cut into the threshold stone, worn by many feet: "ALL SOULS COME HOME." Nothing guards it that you can see. That is worse.' }); }
       const upd4 = world.update; world.update = (t2, dt, ctx) => { upd4(t2, dt, ctx); g.visible = Math.hypot(ctx.player.pos.x - C.x, ctx.player.pos.z - C.z) < 1800; };
     }
     return world;

@@ -565,4 +565,93 @@ export const QUESTS = {
         ],
         reward: { xp: 900, gold: 90, items: [] },
     },
+
+    // ── Bands 4 and 5 (levels 31–50): the Scarlands, beyond the Divide, the fire mountain, the Ruins; Nythoria's worst ──
+    band4_rift_edge: {
+        id: 'band4_rift_edge', title: 'The Edge of the Wound', type: 'side', giver: 'new_ravenspire_the_map_maker',
+        offer: "Every chart of the Rift I own is wrong by the season. Walk to the Legion's post on its lip and tell me what's written there now — and if the root-things are crawling up the sides again, thin them.",
+        description: "New Ravenspire's map-maker wants news of the Great Rift's edge, and the root-wraiths climbing out of it thinned.",
+        steps: [
+            { id: 'post', type: 'read_signs', target: 'great_rift_edge', label: "Read the Legion's post on the Rift's lip", required: 1 },
+            { id: 'wraiths', type: 'kill', target: 'root_wraith', label: 'Defeat Root-Wraiths by the Rift (0/4)', required: 4 },
+            { id: 'report', type: 'talk', target: 'new_ravenspire_the_map_maker', label: 'Return to the map-maker', required: 1 },
+        ],
+        reward: { xp: 2200, gold: 160, items: [] },
+    },
+    band4_heath_shades: {
+        id: 'band4_heath_shades', title: 'Cold Shapes on the Heath', type: 'side', giver: 'new_ravenspire_legion_quartermaster',
+        offer: "Our patrols come back frostbitten in summer. Shades — out of the Rift, drifting over the heath. Five of them, and I'll open the Legion's purse.",
+        description: "The Legion's quartermaster wants the Frost-Shades drifting out of the Great Rift put down.",
+        steps: [
+            { id: 'shades', type: 'kill', target: 'frost_shade', label: 'Defeat Frost-Shades round the Rift (0/5)', required: 5 },
+            { id: 'report', type: 'talk', target: 'new_ravenspire_legion_quartermaster', label: 'Report to the quartermaster', required: 1 },
+        ],
+        reward: { xp: 2400, gold: 180, items: ['health_potion'] },
+    },
+    band4_divide_wilds: {
+        id: 'band4_divide_wilds', title: 'What the Divide Keeps', type: 'side', giver: 'graywatch_quartermaster',
+        offer: "The Watch sends no one north of the ridge any more — the wilds there grow things that walk. Three of the rotten trees, three of the crag-beasts, and I'll call you a friend of Graywatch.",
+        description: "Graywatch's quartermaster wants the Blight-Ents and Crag-Fiends of the wilds beyond the Divide thinned.",
+        steps: [
+            { id: 'ents', type: 'kill', target: 'blight_ent', label: 'Defeat Blight-Ents beyond the Divide (0/3)', required: 3 },
+            { id: 'fiends', type: 'kill', target: 'crag_fiend', label: 'Defeat Crag-Fiends beyond the Divide (0/3)', required: 3 },
+            { id: 'report', type: 'talk', target: 'graywatch_quartermaster', label: 'Report to the quartermaster', required: 1 },
+        ],
+        reward: { xp: 2600, gold: 200, items: [] },
+    },
+    band4_cinders: {
+        id: 'band4_cinders', title: 'Cinders on the Wind', type: 'side', giver: 'new_ravenspire_legion_gate_warden',
+        offer: "Ash blows in from the east, and things ride it — crawlers in the ash, burning hawks over them. Four crawlers and three hawks from the ash lands, and the Gate's watch owes you.",
+        description: "A Legion gate-warden wants the Ash Crawlers and Cinder Hawks of the ash lands round the Fire Gate thinned.",
+        steps: [
+            { id: 'crawlers', type: 'kill', target: 'ash_crawler', label: 'Defeat Ash Crawlers in the ash lands (0/4)', required: 4 },
+            { id: 'hawks', type: 'kill', target: 'cinder_hawk', label: 'Defeat Cinder Hawks (0/3)', required: 3 },
+            { id: 'report', type: 'talk', target: 'new_ravenspire_legion_gate_warden', label: 'Report to the gate-warden', required: 1 },
+        ],
+        reward: { xp: 3000, gold: 220, items: [] },
+    },
+    band5_mountain_hunger: {
+        id: 'band5_mountain_hunger', title: "The Mountain's Hunger", type: 'side', giver: 'new_ravenspire_exchange_factor', requires: ['band4_cinders'],
+        offer: "The fire mountain breeds worse than hawks. The eaters of magma, and the little burning souls that dance round them — the Exchange pays for every one that never reaches a road. Three eaters, four souls.",
+        description: "New Ravenspire's exchange factor pays for Magma-Eaters and Cinder-Souls of the fire mountain put down.",
+        steps: [
+            { id: 'eaters', type: 'kill', target: 'lava_elemental', label: 'Defeat Magma-Eaters on the fire mountain (0/3)', required: 3 },
+            { id: 'souls', type: 'kill', target: 'ember_imp', label: 'Defeat Cinder-Souls (0/4)', required: 4 },
+            { id: 'report', type: 'talk', target: 'new_ravenspire_exchange_factor', label: 'Return to the exchange factor', required: 1 },
+        ],
+        reward: { xp: 4200, gold: 320, items: [] },
+    },
+    band5_ruins_vigil: {
+        id: 'band5_ruins_vigil', title: 'The Vigil That Never Ended', type: 'side', giver: 'new_ravenspire_the_map_maker', requires: ['band4_rift_edge'],
+        offer: "Beyond the fire mountain lie the Ruins — I've a chart of them older than the Darkness and no one alive who has walked them. They say the dead still keep watch there. Go, see, and lay a few of the watchers down so the next one can draw.",
+        description: "The map-maker wants the Ruins of Eldoria walked, and their restless watchers laid to rest.",
+        steps: [
+            { id: 'wraiths', type: 'kill', target: 'grave_wraith', label: 'Lay Grave-Wraiths to rest at the Ruins (0/4)', required: 4 },
+            { id: 'knights', type: 'kill', target: 'cursed_knight', label: 'Defeat Cursed Knights (0/2)', required: 2 },
+            { id: 'report', type: 'talk', target: 'new_ravenspire_the_map_maker', label: 'Return to the map-maker', required: 1 },
+        ],
+        reward: { xp: 4800, gold: 360, items: [] },
+    },
+    nythoria_black_well: {
+        id: 'nythoria_black_well', title: 'The Light at the Bottom', type: 'side', giver: 'shadow_vale_vale_warden', requires: ['starter_vale_watch'],
+        offer: "There's a well on the black lake's shore with a red light breathing at the bottom. Things come up out of it now — blind things, and worse. Go and look into it, and put down three of what crawls out.",
+        description: "The Vale's warden asks you to look into the Black Well and put down what crawls up out of it.",
+        steps: [
+            { id: 'well', type: 'read_signs', target: 'black_well', label: 'Look into the Black Well', required: 1 },
+            { id: 'stalkers', type: 'kill', target: 'blind_stalker', label: 'Defeat Blind Stalkers by the Black Lake (0/3)', required: 3 },
+            { id: 'report', type: 'talk', target: 'shadow_vale_vale_warden', label: 'Return to the warden', required: 1 },
+        ],
+        reward: { xp: 900, gold: 80, items: ['health_potion'] },
+    },
+    band5_bone_gate: {
+        id: 'band5_bone_gate', title: 'The Bone Gate', type: 'side', giver: 'shadow_vale_elder_of_the_vale', requires: ['starter_vale_ruins', 'nythoria_black_well'],
+        offer: "You've seen the ruin and the well. There's one place left that every child in the Vale is told never to go: the fortress in the fire mountain's crater. I only want to know if its gate still stands open — and if the stone guards on the crater road can be broken. Don't go in.",
+        description: "The Vale's elder wants to know whether the Obsidian Citadel's gate still stands open — only to look, not to enter.",
+        steps: [
+            { id: 'sentinels', type: 'kill', target: 'corrupted_sentinel', label: 'Break Corrupted Sentinels on the crater road (0/2)', required: 2 },
+            { id: 'gate', type: 'read_signs', target: 'obsidian_citadel', label: "Find the Obsidian Citadel's gate", required: 1 },
+            { id: 'report', type: 'talk', target: 'shadow_vale_elder_of_the_vale', label: 'Tell the elder what you saw', required: 1 },
+        ],
+        reward: { xp: 5200, gold: 380, items: [] },
+    },
 };

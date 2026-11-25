@@ -1,0 +1,55 @@
+{
+ "id": "umbral_well",
+ "name": "The Black Lake's shore",
+ "description": "Round the Black Well on the Black Lake's shore: the umbral wilds gone sick — fewer leaves, blacker water, and things come up out of the deep places (Underworld spawn, docs/3d/WORLD_PLAN.md).",
+ "radius": 320,
+ "palette": {
+  "grassA": "#5c5866",
+  "grassB": "#6e6a7a",
+  "rock": "#3a3640",
+  "dirt": "#4a4450"
+ },
+ "vegetation": {
+  "density": 0.7,
+  "kinds": {
+   "broad": 0.25,
+   "pine": 0.25,
+   "birch": 0.05,
+   "dead": 0.45
+  },
+  "colors": {
+   "broad": "#5a3a7a",
+   "pine": "#2e2a44",
+   "birch": "#9a9ab8"
+  },
+  "trunk": {
+   "broad": "#141018",
+   "pine": "#141018",
+   "birch": "#c8c8d8",
+   "dead": "#1e1a22"
+  }
+ },
+ "creatures": [
+  "deep_horror",
+  "blind_stalker",
+  "cave_bat"
+ ],
+ "mood": {
+  "fog": "#3a2e3e",
+  "fogNear": 60,
+  "fogFar": 380,
+  "fogMix": 0.55,
+  "light": 0.62,
+  "nightFloor": 0.5
+ },
+ "wildlife": [
+  [
+   "crow",
+   3
+  ],
+  [
+   "deer",
+   1
+  ]
+ ]
+}

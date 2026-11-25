@@ -725,6 +725,11 @@ export function createEldoriaWorld({ quality } = {}) {
       const motes = new THREE.Points(new THREE.BufferGeometry().setAttribute('position', new THREE.Float32BufferAttribute(pts.flatMap(([x, z]) => [x, heightAt(x, z) + Math.random() * 18, z]), 3)), new THREE.PointsMaterial({ color: 0xc89aff, size: 0.18, transparent: true, opacity: 0.8, depthWrite: false, blending: THREE.AdditiveBlending }));
       g.add(motes);
       for (const k of [1, 2, 3]) { const [lx, lz] = RIFT[k]; const light = new THREE.PointLight(0xa050ff, 60, 140, 1.3); light.position.set(lx, heightAt(lx, lz) + 5, lz); g.add(light); }   // the chasm lit from within
+      // a Legion warning post on the lip, on the side of New Ravenspire (a quest reads it: The Edge of the Wound)
+      { const NR = place('New Ravenspire'), d = Math.hypot(NR.x - RIFT_C.x, NR.z - RIFT_C.z) || 1, px = RIFT_C.x + (NR.x - RIFT_C.x) / d * 34, pz = RIFT_C.z + (NR.z - RIFT_C.z) / d * 34, py = heightAt(px, pz);
+        const post = new THREE.Mesh(new THREE.BoxGeometry(0.3, 2.6, 0.3), flat(0x2a2430)); post.position.set(px, py + 1.3, pz); post.castShadow = true; g.add(post);
+        const board = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.8, 0.08), flat(0x4a2a5a)); board.position.set(px, py + 2.2, pz); board.rotation.y = Math.atan2(NR.x - px, NR.z - pz); g.add(board);
+        world.stations.push({ mode: 'sign', id: 'great_rift_edge', title: 'A Legion post', pos: new THREE.Vector3(px, py, pz), text: 'Violet paint over black wood, in the Legion\'s square hand: "THE RIFT. NO CLOSER. WHAT CROSSES IS NOT YOURS TO FIGHT ALONE." Below, scratched with a knife-point, a tally of marks — dozens — and one word: "Still." The air at the lip tastes of iron, and the light from below does not flicker the way fire does.' }); }
       // the Obsidian Gate: a stone pad, two tapering obsidian pillars, a lintel, a shimmering portal between them, braziers
       const obs = new THREE.MeshStandardMaterial({ color: 0x0e0c14, roughness: 0.15, metalness: 0.4, flatShading: true }), stone = flat(0x3a3640), y0 = heightAt(OGATE.x, OGATE.z);
       const gate = new THREE.Group(); gate.position.set(OGATE.x, y0, OGATE.z); gate.rotation.y = Math.atan2(OGATE.x - place('New Ravenspire').x, OGATE.z - place('New Ravenspire').z) + Math.PI;   // facing the road from New Ravenspire

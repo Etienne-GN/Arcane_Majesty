@@ -17,6 +17,13 @@
    "r": 700,
    "biome": "umbral_ash",
    "note": "the Obsidian Citadel (the fire mountain twin)"
+  },
+  {
+   "x": -1375,
+   "z": -632,
+   "r": 320,
+   "biome": "umbral_well",
+   "note": "the Black Well (the lake twin): Underworld spawn"
   }
  ]
 }
