@@ -201,7 +201,8 @@ export function createChapters({ stats, hud, dialogue, quests, save, player, wor
         function startBalrog() {
             balrog = createDuelist({ scene: map.scene, map, at: { x: 0, z: -51, facing: Math.PI }, body: buildBalrog(), scale: 1.45, plateY: 11.5, name: 'The Shadow Balrog', reach: 5.6, speed: 2.6, windup: 0.85,
                 def: { id: 'shadow_balrog', health: 9999, damage: 26, xpReward: 900, goldDrop: 0, lootTable: [] },   // (no fire: it drinks the light — canon)
-                takeMult: h => { st.absorbed++; h.label = 'taken, the way the floor takes a spill'; return 0; } });
+                takeMult: h => { st.absorbed++; h.label = 'taken, the way the floor takes a spill'; return 0; },
+                blow: d => Math.max(0, Math.min(d, stats.health - Math.ceil(stats.maxHealth * 0.15))) });   // its weight presses you down, never kills: placed, not fallen
             map.hittables.push(balrog);
             say([
                 'A shadow rises from the floor before the Ancient Door — pouring up out of a pool of darkness into a shape nearly as tall as the door, long-armed, crowned with jagged dark, two pale eyes. The lamps you carry gutter: it is drinking the light. It is older than the keeping. It does not speak.',

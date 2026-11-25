@@ -12,7 +12,7 @@ import { createCharacter } from '../models/character.js';
 import { createEnemyCore } from './enemyCore.js';
 
 export function createDuelist({ scene, map, at, look, name, def, scale = 1, body = null, plateY = null, reach = 1.8, speed = 3.2, windup = 0.45,
-    lowAt = 0, onLow = null, takeMult = null, onHit = null, channel = null, aura = null, rng = Math.random }) {
+    lowAt = 0, onLow = null, takeMult = null, onHit = null, channel = null, aura = null, blow = null, rng = Math.random }) {   // blow(dmg) → the damage a blow really deals (a scene can make it never kill)
     const model = body ?? createCharacter(look);   // body: a model of its own (the Balrog), same interface
     model.root.scale.setScalar(scale);
     scene.add(model.root);
@@ -46,7 +46,7 @@ export function createDuelist({ scene, map, at, look, name, def, scale = 1, body
             } else if (ai.state === 'windup') { turn(ang, dt * 8); strikeK = 0.05; if ((ai.timer -= dt) <= 0) { ai.state = 'strike'; ai.timer = 0.32; ai.hit = false; } }
             else if (ai.state === 'strike') {
                 strikeK = 1 - ai.timer / 0.32; move = speed * 0.5;
-                if (!ai.hit && toP < reach + 0.7) { ai.hit = true; if (ctx.hurtPlayer(def.damage, pos)) core.onDealt(def.damage); }
+                if (!ai.hit && toP < reach + 0.7) { ai.hit = true; const d = blow ? blow(def.damage) : def.damage; if (d > 0 && ctx.hurtPlayer(d, pos)) core.onDealt(d); }
                 if ((ai.timer -= dt) <= 0) { ai.state = 'recover'; ai.timer = 0.5; }
             } else if (ai.state === 'recover') { if ((ai.timer -= dt) <= 0) { ai.state = 'chase'; ai.cd = 0.7 + rng() * 0.8; } }
             else {   // close in
