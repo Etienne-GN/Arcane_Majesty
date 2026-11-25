@@ -33,10 +33,10 @@ Check per chapter: headless walk of its steps start to finish (flags, quest comp
 > Item 2 note: chapters 6–12 already existed (2026-11-19). Done instead: a full headless playthrough in the open world; the Balrog fix (181e4cfc); ch. 7 from the book — vow, gate of flame, golems, the Cinder trial (7d832db6, ed1cee7a); ch. 12 the return by the Hermit (9188c117).
 
 ## 3. Magic leftovers
-- ☐ 3.1 Aim line for bolts; the area ring snaps to the nearest enemy near the aim point
-- ☐ 3.2 Aetheric Sight active use (reveal hidden paths, illusions, invisible foes for a duration, mana cost)
-- ☐ 3.3 Dual-wand overpower (a wand in each hand: a charged combined bolt)
-- ☐ 3.4 Set-pieces for the remaining area spells that have none
+- ✅ 3.1 Aim line for bolts; the area ring snaps to the nearest enemy near the aim point
+- ✅ 3.2 Aetheric Sight active use (reveal hidden paths, illusions, invisible foes for a duration, mana cost)
+- ✅ 3.3 Dual-wand overpower (a wand in each hand: a charged combined bolt)
+- ✅ 3.4 Set-pieces for the remaining area spells that have none
 Check: each cast headless, no console errors, damage applied.
 
 ## 4b. Across the veil (user's idea, approved 2026-11-25)
@@ -77,4 +77,4 @@ Check: survey renders, headless walk, no floating ground, relief kept.
 - The Black Lake's shore (Nythoria): Underworld spawn round the Black Well; the Outlander (title/status)
 
 ## Log
-- 2026-11-25 — 0 and item 1 done (e55b4ebd, e624cf3d, 86f4856d, 11d412bf). Item 2 done (playthrough + fixes + book beats). Item 3 started.
+- 2026-11-25 — 0 and item 1 done (e55b4ebd, e624cf3d, 86f4856d, 11d412bf). Item 2 done (playthrough + fixes + book beats). Item 3 done (f9f2c6af aim line + snap, 976f64bd Aether Sight active use (L), cdd113ba dual-wand overpower, set-pieces). Item 4b started.
