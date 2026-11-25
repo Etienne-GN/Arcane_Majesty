@@ -77,7 +77,7 @@ jobs:
           path: apps/amo3d/ArcaneMajesty3D-*.apk
           retention-days: 1   # (only carries the build to the publishing job; the release keeps the file)
 
-  # Publishing: the only job (with desktop-release) that holds a write token. It installs and builds nothing — it takes
+  # Publishing: the only job that holds a write token. It installs and builds nothing — it takes
   # the APK the build job left and writes the release notes from the git history (tools/changelog.mjs, node builtins only).
   publish:
     needs: apk
@@ -112,93 +112,5 @@ jobs:
           done
           exit 1
 
-  # The desktop app (Electron, apps/amo3d/desktop): the same web build in its own window — a portable Windows .exe and
-  # a Linux AppImage. Built with a read-only token from a committed lockfile (npm ci); a separate small job, the only
-  # one allowed to write, attaches them to the release the APK job published. Linux also starts it once on a virtual
-  # screen and keeps a screenshot (an artifact) to show it runs.
-  desktop:
-    needs: apk
-    if: startsWith(github.ref, 'refs/tags/amo3d-v')
-    permissions:
-      contents: read
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        working-directory: apps/amo3d
-        shell: bash
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-          cache-dependency-path: |
-            apps/amo3d/package-lock.json
-            apps/amo3d/desktop/package-lock.json
-
-      - name: Version from the tag
-        run: |
-          VER="${GITHUB_REF_NAME#amo3d-v}"
-          echo "AMO_VERSION_NAME=$VER" >> "$GITHUB_ENV"
-          echo "VITE_APP_VERSION=$VER" >> "$GITHUB_ENV"
-
-      - run: npm ci
-      - run: npx vite build
-
-      - name: Build the desktop app
-        run: |
-          rm -rf desktop/app && cp -r dist desktop/app
-          cd desktop
-          npm ci --no-audit --no-fund
-          npm pkg set version="$AMO_VERSION_NAME"
-          npx electron-builder --publish never
-
-      - name: Start it once (Linux, virtual screen)
-        if: runner.os == 'Linux'
-        run: |
-          cd desktop
-          AMO_SHOT="$RUNNER_TEMP/desktop.png" timeout 90 xvfb-run -a npx electron . --no-sandbox 2>&1 | tail -20 || true
-          test -s "$RUNNER_TEMP/desktop.png"
-          cp "$RUNNER_TEMP/desktop.png" release/
-
-      - name: Keep the builds
-        uses: actions/upload-artifact@v4
-        with:
-          name: desktop-${{ runner.os }}
-          path: |
-            apps/amo3d/desktop/release/ArcaneMajesty3D-*.exe
-            apps/amo3d/desktop/release/ArcaneMajesty3D-*.AppImage
-            apps/amo3d/desktop/release/desktop.png
-          if-no-files-found: error
-          retention-days: 1
-
-  desktop-release:
-    needs: [desktop, publish]
-    if: startsWith(github.ref, 'refs/tags/amo3d-v')
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          pattern: desktop-*
-          merge-multiple: true
-          path: builds
-      - name: Attach to the release
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-        run: |
-          cd builds
-          files=$(ls ArcaneMajesty3D-* 2>/dev/null | grep -E '\.(exe|AppImage)$')
-          [ -n "$files" ] || { echo "no desktop build found"; ls -la; exit 1; }
-          for try in 1 2 3 4; do
-            if gh release upload "$GITHUB_REF_NAME" $files --clobber; then exit 0; fi
-            sleep $((try * 20))
-          done
-          exit 1
+# The desktop builds (Windows .exe, Linux AppImage) are in amo3d-desktop.yml, started by hand: they took ~7 of the ~10
+# billed minutes of every tag (2026-11-25, CI limits).

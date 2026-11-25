@@ -1,0 +1,95 @@
+# Arcane Majesty 3D — the desktop app (Electron, apps/amo3d/desktop): a portable Windows .exe and a Linux AppImage,
+# attached to an existing release. Started by hand only (Actions → amo3d desktop → Run workflow, pick the tag), so the
+# APK tags stay cheap (2026-11-25: CI limits — these builds were ~7 of the ~10 billed minutes of every tag).
+name: amo3d desktop
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to attach the desktop builds to (e.g. amo3d-v0.56.0)'
+        required: true
+      windows:
+        description: 'Also build Windows (slower)'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  desktop:
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ inputs.windows && fromJSON('["ubuntu-latest","windows-latest"]') || fromJSON('["ubuntu-latest"]') }}
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: apps/amo3d
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Version from the tag
+        env:
+          TAG: ${{ inputs.tag }}
+        run: |
+          VER="${TAG#amo3d-v}"
+          echo "AMO_VERSION_NAME=$VER" >> "$GITHUB_ENV"
+          echo "VITE_APP_VERSION=$VER" >> "$GITHUB_ENV"
+
+      - run: npm ci --no-audit --no-fund
+      - run: npx vite build
+
+      - name: Build the desktop app
+        run: |
+          rm -rf desktop/app && cp -r dist desktop/app
+          cd desktop
+          npm ci --no-audit --no-fund
+          npm pkg set version="$AMO_VERSION_NAME"
+          npx electron-builder --publish never
+
+      - name: Keep the builds
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-${{ runner.os }}
+          path: |
+            apps/amo3d/desktop/release/ArcaneMajesty3D-*.exe
+            apps/amo3d/desktop/release/ArcaneMajesty3D-*.AppImage
+          if-no-files-found: error
+          retention-days: 1
+
+  desktop-release:
+    needs: desktop
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: desktop-*
+          merge-multiple: true
+          path: builds
+      - name: Attach to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          cd builds
+          files=$(ls ArcaneMajesty3D-* 2>/dev/null | grep -E '\.(exe|AppImage)$')
+          [ -n "$files" ] || { echo "no desktop build found"; ls -la; exit 1; }
+          for try in 1 2 3 4; do
+            if gh release upload "$TAG" $files --clobber; then exit 0; fi
+            sleep $((try * 20))
+          done
+          exit 1
