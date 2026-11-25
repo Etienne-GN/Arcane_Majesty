@@ -213,6 +213,10 @@ export function createChapters({ stats, hud, dialogue, quests, save, player, wor
                     'You reach for the storm that called you by name. The Aether answers — the thin, strained music of the world — and the storm does not.',
                     ['Eldrin', 'I walk alone. I have no friends to lose and no trust to break. I have a needle in my skull and a wound in my side and a stone at the end of a labyrinth of fire, and that is the whole of the road. The road is enough.'],
                     'You leave the trusting scholar on the shelf, and walk down into the red dark.',
+                    'Below, the runes on the walls organise themselves into an order — not a warding: a summons. A wall of fire rises across the gallery, and in the fall of the flame you read your own name, written in the hungry hand.',
+                    ['The fire', 'Eldrin. You have walked far, keeper. You have lost much. Do you not wonder what waits behind the door that was made for you?'],
+                    ['Eldrin', 'A stone. A door. A vigil. And a man who has been waiting for me to carry it out for him. You built this gate for me because you need me alive. It\'s the only honest thing any of you have shown me.'],
+                    'With the sight the wall is not a wall: it is a lock, and the key is the name itself — answered true. You walk into the fire as Eldrin, nothing more, and the fire knows you. It does not burn. The runes of your name go out along the wall like a line of candles.',
                 ]);
             }
             for (const g of st.golems) if (g.open && g.slide < 3) { const d = Math.min(3 - g.slide, dt * 1.2); g.slide += d; g.g.position.x += (st.golems.indexOf(g) - 1 || 1) * d; g.rune.material.opacity = Math.max(0.15, g.rune.material.opacity - dt); }
