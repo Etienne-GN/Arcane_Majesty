@@ -117,12 +117,116 @@ export function createChapters({ stats, hud, dialogue, quests, save, player, wor
         } };
     }
 
-    // ---------- 7: the halls ----------
+    // ---------- 7: the halls (the book's ch. 13–14) ----------
+    // Going down alone: the vow below the landing. Then, in the first great chamber, three obsidian golems with
+    // Eldrin's own runes cut into their chests — each answers only to its figure, drawn with the sight (the third is
+    // the foundation, and drawing it spends the last of you). Then the deep red dark: Magma-Eaters and Cinder-Souls
+    // drink what is left — they are not fought, they are withstood: stand still, refuse to fall, and the inner fire
+    // answers. The halls are walked once the golems have stepped aside, the trial is passed and the Warden is down.
     function halls(map) {
-        return { update() {
-            if (active('main_solitary_path') && !flags().halls_entered) { flags().halls_entered = true; hud.message('You go down alone. No one to watch your back now — and no one to watch it for.'); step('ch7_halls', 'main_solitary_path'); }
+        const f = flags(), story = () => active('main_solitary_path');
+        const L = map.layout, C = 3.4, half = map.mapInfo?.half ?? 0, wx = i => i * C - half + C / 2;
+        const st = { golems: [], trial: 'none', still: 0, drainT: 0, wisps: [] };
+        // the golem chamber: the room nearest the way in
+        const room = L ? L.rooms.filter(r => r !== L.entry && r !== L.boss).sort((a, b) => Math.hypot(a.cx - L.entry.cx, a.cy - L.entry.cy) - Math.hypot(b.cx - L.entry.cx, b.cy - L.entry.cy))[0] : null;
+        const FIGS = [
+            { id: 'lock', label: 'The lock — a closed square, its bar across', seen: 'a closed square with a bar laid across it — the lock, the first figure a student is beaten for drawing crooked' },
+            { id: 'knot', label: 'The knot — but a quarter-tone lower', seen: 'the knot, three loops through each other — but with the sight you hear its note sit a quarter-tone under the one you were taught' },
+            { id: 'foundation', label: 'The foundation — the first figure of all', seen: 'a figure you have not drawn in forty years: a line, and a line beneath it, and the point where they would meet — the foundation, the one every scholar cuts into his first staff' },
+        ];
+        const WRONG = { lock: ['The knot — three loops', 'The stopper — a circle stopped by a line'], knot: ['The knot — as you were taught it', 'The lock — a closed square'], foundation: ['The stopper — a circle stopped by a line', 'The lock — a closed square'] };
+        if (room && !f.halls_golems) {
+            const obs = new THREE.MeshStandardMaterial({ color: 0x0c0a10, roughness: 0.15, metalness: 0.4, flatShading: true });
+            const z0 = wx(room.cy), x0 = wx(room.cx);
+            FIGS.forEach((fig, k) => {
+                const g = new THREE.Group(), x = x0 + (k - 1) * 3.6; g.position.set(x, 0, z0 - 1.5);
+                const add = (geo, m, px, py, pz) => { const o = new THREE.Mesh(geo, m); o.position.set(px, py, pz); o.castShadow = true; g.add(o); return o; };
+                add(new THREE.BoxGeometry(1.5, 2.4, 1.0), obs, 0, 2.6, 0); add(new THREE.BoxGeometry(1.0, 0.9, 0.9), obs, 0, 4.3, 0);
+                for (const s of [-1, 1]) { add(new THREE.BoxGeometry(0.55, 2.4, 0.6), obs, s * 1.05, 2.4, 0); add(new THREE.BoxGeometry(0.6, 1.6, 0.7), obs, s * 0.42, 0.8, 0); }
+                const tex = (() => {   // the figure itself, cut into the glass and glowing: the lock, the knot, the foundation
+                    const c = document.createElement('canvas'); c.width = c.height = 128; const x2 = c.getContext('2d');
+                    x2.strokeStyle = '#bcd4ff'; x2.lineWidth = 9; x2.lineCap = 'round'; x2.shadowColor = '#6a8aff'; x2.shadowBlur = 14; x2.beginPath();
+                    if (fig.id === 'lock') { x2.rect(30, 30, 68, 68); x2.moveTo(18, 64); x2.lineTo(110, 64); }
+                    else if (fig.id === 'knot') { for (const [cx, cy] of [[64, 42], [44, 78], [84, 78]]) { x2.moveTo(cx + 22, cy); x2.arc(cx, cy, 22, 0, Math.PI * 2); } }
+                    else { x2.moveTo(24, 40); x2.lineTo(104, 40); x2.moveTo(36, 72); x2.lineTo(92, 72); x2.moveTo(64, 102); x2.arc(64, 102, 4, 0, Math.PI * 2); }
+                    x2.stroke(); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+                })();
+                const rune = add(new THREE.PlaneGeometry(0.8, 0.8), new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0.95, toneMapped: false, depthWrite: false }), 0, 2.9, 0.51);
+                map.scene.add(g);
+                const col = { x, z: z0 - 1.5, r: 1.1, kind: 'wall', y0: -1, y1: 5 }; map.colliders?.push(col);
+                const gol = { g, rune, col, fig, open: false, slide: 0 };
+                map.stations.push({ mode: 'sign', id: `halls_golem_${k}`, title: 'An obsidian golem', pos: new THREE.Vector3(x, 0, z0 - 0.2), text: 'An obsidian figure taller than a house, waiting. A rune is cut into its chest.',
+                    onUse: () => golemTalk(gol) });
+                st.golems.push(gol);
+            });
+        }
+        function golemTalk(gol) {
+            if (gol.open) return;
+            if (!story()) { dialogue.start([{ speaker: '', text: 'The golem does not move. The rune on its chest is one of the old scholars\' figures; it waits for someone who knows its note.' }]); return; }
+            const sight = f.aether_sight, k = st.golems.indexOf(gol), prev = st.golems.slice(0, k).every(g => g.open);
+            if (!prev) { say(['The runes have an order, the way a sentence has. This one waits for the one before it.']); return; }
+            const opts = [...WRONG[gol.fig.id].map(t => ({ t, ok: false })), { t: gol.fig.label, ok: true }].sort((a, b) => a.t.localeCompare(b.t));
+            let pick = null;
+            say([
+                `Cut into the obsidian chest, in the exact hand you were taught: ${sight ? gol.fig.seen : 'a figure of your own trade — you would need the sight to hear its note'}.`,
+                ['', 'Chalk will not hold on the hot glass. You draw it in the air, in blue light, with what is left of you. Which figure?', opts.map(o => ({ text: o.t, onPick: () => { pick = o; } }))],
+            ], () => {
+                if (!pick) return;
+                if (!pick.ok) { stats.health = Math.max(1, stats.health - Math.ceil(stats.maxHealth * 0.1)); hud.message('The glass rings sour. The heat lashes back at you. Look again — the sight hears the note.'); return; }
+                stats.mana = k === 2 ? 0 : Math.max(0, stats.mana - Math.ceil(stats.maxMana * 0.35));   // the Snap: the foundation spends the last of you
+                gol.open = true; const i = map.colliders?.indexOf(gol.col) ?? -1; if (i >= 0) map.colliders.splice(i, 1);
+                hud.message(k === 2 ? 'The third golem answers — and you have nothing left. The world goes grey at the edges.' : 'The black glass sings, a deep stone note. The golem takes one great slow stride aside.');
+                if (st.golems.every(g => g.open)) { f.halls_golems = true; save(); setTimeout(startTrial, 1600); }
+            });
+        }
+        // the deep red dark: shapes of molten light and of ash crowd in and drink; standing still withstands them
+        function startTrial() {
+            if (st.trial !== 'none' || f.halls_trial) return;
+            st.trial = 'on'; st.still = 0;
+            const p = me().pos;
+            const molten = new THREE.MeshBasicMaterial({ color: 0xff7a2a, transparent: true, opacity: 0.75, toneMapped: false }), ash = new THREE.MeshBasicMaterial({ color: 0x6a4a44, transparent: true, opacity: 0.6 });
+            for (let k = 0; k < 14; k++) {
+                const a = k / 14 * Math.PI * 2, r = 5 + (k % 3), m = k % 4 === 0 ? molten : ash;
+                const w = new THREE.Group(); const body = new THREE.Mesh(k % 4 === 0 ? new THREE.SphereGeometry(0.6, 8, 6) : new THREE.ConeGeometry(0.4, 1.7, 6), m); body.position.y = 0.9; w.add(body);
+                const eye = new THREE.Mesh(new THREE.SphereGeometry(0.07, 4, 3), new THREE.MeshBasicMaterial({ color: 0xffc070, toneMapped: false })); eye.position.set(0, 1.5, 0.3); w.add(eye);
+                w.position.set(p.x + Math.cos(a) * r, 0, p.z + Math.sin(a) * r); map.scene.add(w); st.wisps.push({ w, a, r });
+            }
+            say([
+                'The deep red dark is not empty. Out of the rivers of fire come shapes of molten light the size of hunting hounds; behind them, out of the stone where the fire fed, the Cinder-Souls — the burned, the ones the fire took before their time.',
+                'They do not attack. They reach — for warmth, for life, for the last of your light — and the reaching is a drinking.',
+                'You have nothing left to fight with. Do not fight. Stand. Refuse to fall.',
+            ], () => hud.message('Stand still — withstand them'));
+        }
+        function endTrial(hard) {
+            st.trial = 'done'; f.halls_trial = true;
+            for (const s of st.wisps) s.w.parent?.remove(s.w); st.wisps = [];
+            say(hard ? ['You drive at them, and they scatter like sparks — and gather again behind you, patient. In the end it is not your blows that make them stop. It is that you are still standing.', 'They sink back into the rivers and the stone. The way on is open.']
+                : ['It burns the fear. It burns the doubt, and lets the inner fire out.', 'A small fire comes up out of the grey emptiness of you — not summoned, not fed: answered. It does not drive them back. It is only yours.', 'The Cinder-Souls stop. They watch you — the look of things that have been in the fire and know what the fire is for — and stand aside, the way the golems stood aside. The Magma-Eaters sink back into the rivers.'],
+            () => { stats.mana = Math.max(stats.mana, Math.ceil(stats.maxMana * 0.5)); hud.banner('The inner fire'); save(); });
+        }
+        return { update(dt) {
+            const p = me();
+            if (story() && !f.halls_entered) {
+                f.halls_entered = true; step('ch7_halls', 'main_solitary_path');
+                say([
+                    'A shelf of black rock a hundred paces below the first landing — the last place the grey light of the world reaches. You sit, because your body has agreed to nothing else since the landing.',
+                    'You reach for the storm that called you by name. The Aether answers — the thin, strained music of the world — and the storm does not.',
+                    ['Eldrin', 'I walk alone. I have no friends to lose and no trust to break. I have a needle in my skull and a wound in my side and a stone at the end of a labyrinth of fire, and that is the whole of the road. The road is enough.'],
+                    'You leave the trusting scholar on the shelf, and walk down into the red dark.',
+                ]);
+            }
+            for (const g of st.golems) if (g.open && g.slide < 3) { const d = Math.min(3 - g.slide, dt * 1.2); g.slide += d; g.g.position.x += (st.golems.indexOf(g) - 1 || 1) * d; g.rune.material.opacity = Math.max(0.15, g.rune.material.opacity - dt); }
+            if (st.trial === 'on' && !dialogue.open) {
+                const still = (p.speed ?? 0) < 0.25 && !p.move && !p.cast;
+                st.still = still ? st.still + dt : Math.max(0, st.still - dt * 2);
+                for (const s of st.wisps) { s.r = Math.max(1.6, s.r - dt * 0.35); s.a += dt * 0.15; s.w.position.set(p.pos.x + Math.cos(s.a) * s.r, 0, p.pos.z + Math.sin(s.a) * s.r); s.w.lookAt(p.pos.x, 0, p.pos.z); }
+                if ((st.drainT += dt) > 0.5) { st.drainT = 0; stats.mana = Math.max(0, stats.mana - 3); stats.health = Math.max(Math.ceil(stats.maxHealth * 0.2), stats.health - 2); }   // they drink — never past the last fifth
+                if (st.still >= 10) endTrial(false);
+                else if (p.move && (st.struck = (st.struck ?? 0) + dt) > 6) endTrial(true);
+            }
             const warden = map.hittables.find(h => h.elite?.boss);
-            if (warden && !warden.alive && !flags().halls_walked) { flags().halls_walked = true; save(); }
+            const ready = !story() || (f.halls_golems && f.halls_trial) || !room;   // (a hero of your own walks the plain halls)
+            if (warden && !warden.alive && ready && !f.halls_walked) { f.halls_walked = true; save(); }
         } };
     }
 
