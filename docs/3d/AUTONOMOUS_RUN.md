@@ -54,15 +54,15 @@ Check: cross both ways headless; cooldown/cost/scent; arrival inside the vault; 
 > Done 2026-11-25: e6be121b (Mana Scent), babea2a3 (thin places, crossing Tear, the sealed reliquary, The Wrong Hill). Ghosts of the other side: the reliquary only so far — other thin places show the shimmer.
 
 ## 5. Parchment map for every region
-- ☐ 5.1 Each stamped place gives the chart its roads, buildings and walls (mapInfo.groundAt / buildings / walls) like Thaloria — region JSONs (Crossroads, Port Silver, Iron Hollow, Duskmeet, Graywatch, Fields village, New Ravenspire…) and the Nythoria towns
+- ✅ 5.1 (already there: each stamped place lays its own chart — roads, buildings, walls, labels — over its footprint; checked on the map with god mode 2026-11-25) Each stamped place gives the chart its roads, buildings and walls (mapInfo.groundAt / buildings / walls) like Thaloria — region JSONs (Crossroads, Port Silver, Iron Hollow, Duskmeet, Graywatch, Fields village, New Ravenspire…) and the Nythoria towns
 Check: world-map screenshot per place.
 
 ## 6. New regions from the DB
 Missing as places of their own in the open world (survey first with the world-geography skill and tools/world_survey.py):
-- ☐ 6.1 The Weeping Stones, the Hidden Cabin (Fields) — fill out if only labels
-- ☐ 6.2 Silverrun River's crossing and the Heartlands' country between the Crossroads and the lake
-- ☐ 6.3 The Sanguine Vaults (beyond the gatehouse: an interior/dungeon)
-- ☐ 6.4 Heartstone Chamber, the Ancient Door (also needed by chapter 10 — may land with 2.10)
+- ✅ (already built) 6.1 The Weeping Stones, the Hidden Cabin (Fields) — fill out if only labels
+- ✅ (already built) 6.2 Silverrun River's crossing and the Heartlands' country between the Crossroads and the lake
+- ✅ 6.3 The Sanguine Vaults (beyond the gatehouse: an interior/dungeon)
+- ✅ (already built) 6.4 Heartstone Chamber, the Ancient Door (also needed by chapter 10 — may land with 2.10)
 Check: survey renders, headless walk, no floating ground, relief kept.
 
 ## 7. Upkeep
@@ -81,7 +81,8 @@ Check: survey renders, headless walk, no floating ground, relief kept.
 - Chapter scenes (from the book, not new names): the golems' rune figures (lock, knot, foundation); the Hermit's return scene
 - Signs: the Legion post on the Great Rift's lip ("THE RIFT. NO CLOSER."), the Obsidian Citadel's bone gate ("ALL SOULS COME HOME.")
 - Across the veil: thin places (Whisper-Wood, before the Sanguine Vaults, the Rift's lip — canon-backed; the bare rise — game), the crossing Tear (an extension of the Tear: cross-plane at thin places), the sealed reliquary on the rise ("SEALED BY THOSE WHO STAYED…"), quest The Wrong Hill
+- The Sanguine Vaults inside: the tithe halls, the soul-cisterns, the Tithe-Keeper, What Drinks in the Cisterns, the seal read with the sight ("a tithe-mark")
 - The Black Lake's shore (Nythoria): Underworld spawn round the Black Well; the Outlander (title/status)
 
 ## Log
-- 2026-11-25 — 0 and item 1 done (e55b4ebd, e624cf3d, 86f4856d, 11d412bf). Item 2 done (playthrough + fixes + book beats). Item 3 done (f9f2c6af aim line + snap, 976f64bd Aether Sight active use (L), cdd113ba dual-wand overpower, set-pieces). Item 4b done. Item 5 started.
+- 2026-11-25 — 0 and item 1 done (e55b4ebd, e624cf3d, 86f4856d, 11d412bf). Item 2 done (playthrough + fixes + book beats). Item 3 done (f9f2c6af aim line + snap, 976f64bd Aether Sight active use (L), cdd113ba dual-wand overpower, set-pieces). Item 4b done. Item 5 found done; item 6: every Eldorian DB place was already in the world — added the Sanguine Vaults inside (0d50f44b) and fixed unscaled dungeon creatures. Item 7 started.
