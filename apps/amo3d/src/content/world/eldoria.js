@@ -788,7 +788,18 @@ export function createEldoriaWorld({ quality } = {}) {
       world.scene.add(g);
       for (const s2 of [-1, 1]) for (let k = -3; k <= 2; k++) world.addWall({ x: V.x + s2 * 4, z: V.z - 2.5 + k * 1.6, r: 0.8, kind: 'wall', y0: y0 - 1, y1: y0 + 5 });
       for (let k = -2; k <= 2; k++) world.addWall({ x: V.x + k * 2, z: V.z - 7.2, r: 0.9, kind: 'wall', y0: y0 - 1, y1: y0 + 8 });
-      world.stations.push({ mode: 'sign', id: 'sanguine_vaults', title: 'The vault door', pos: new THREE.Vector3(V.x, y0, V.z - 4.5), text: 'A squat gatehouse of dark stone over a stair into the earth; at its back, a door of blood-red stone, sealed with no handle and no keyhole. Something below breathes cold air through the seams. Scratched over the lintel in an old hand: "THE COVENANT KEEPS WHAT IT TAKES."' });
+      world.stations.push({ mode: 'sign', id: 'sanguine_vaults', title: 'The vault door', pos: new THREE.Vector3(V.x, y0, V.z - 4.5), text: 'A squat gatehouse of dark stone over a stair into the earth; at its back, a door of blood-red stone, sealed with no handle and no keyhole. Something below breathes cold air through the seams. Scratched over the lintel in an old hand: "THE COVENANT KEEPS WHAT IT TAKES."' ,
+          onUse: ({ stats }) => {   // read the seal with Aether Sight: the door opens (dungeons: sanguine_vaults_1)
+              const f = (stats.flags ??= {});
+              if (f.vaults_seal_read || !(f.aether_sight || (stats.skills?.aetheric_sight?.level ?? 0) > 0)) return;
+              f.vaults_seal_read = true; vaultDoor.to = vaultDoor._to = 'sanguine_vaults_1'; vaultDoor.label = vaultDoor._label;
+              vaultSign.text = 'The seal is read. With the sight its second hand shows under the first — not a lock but a tithe-mark, a frequency set a little below the world\'s own, close to the other side. You answer it, and the blood-red stone draws back into the wall. The stair goes down.';
+          } });
+      const vaultSign = world.stations[world.stations.length - 1];
+      vaultSign.text += ' (With the sight, the seal might be read.)';
+      const vaultDoor = { x: V.x, z: V.z - 6, r: 1.1, label: 'The blood-red door — sealed', lockedLabel: 'The blood-red door — sealed', requires: 'vaults_seal_read', _to: 'sanguine_vaults_1', _label: 'Down into the Sanguine Vaults', to: null, spawn: 'start' };
+      world.triggers.push(vaultDoor);
+      world.spawns.sanguine_vaults = { x: V.x, z: V.z + 4, facing: Math.PI };   // (back up from the Vaults: before the gatehouse)
     }
     // ---------- the Sunward Isles: a fishing hamlet (huts, a pier with boats, drying racks) and a ruin on the tallest isle ----------
     if (ISLE_HAMLET && ISLE_RUIN) {

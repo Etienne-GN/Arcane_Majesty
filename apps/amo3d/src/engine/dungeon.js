@@ -14,11 +14,13 @@ import { flat, colliderAt, pushOut } from './lib.js';
 import { createNav } from './nav.js';
 import { createBeasts } from '../content/actors/beast.js';
 import { buildChest } from '../game/chest.js';
+import { setLevelContext } from '../content/actors/enemyCore.js';
 
 const THEMES = {
     mine: { floor: [0x5a4e42, 0x665848], wall: 0x6a5e50, wallTop: 0x4a4238, fog: 0x0c0a08, torch: 0xffa850, ambient: 0x6a5a48, timber: 0x5a3e24 },
     inferno: { floor: [0x4a3e3a, 0x564842], wall: 0x3e3644, wallTop: 0x5a4e5e, fog: 0x2a1008, torch: 0xff7a30, ambient: 0xb87a5a, timber: 0x2a2020, cracks: 0xc8481a },
     crypt: { floor: [0x5a5862, 0x66646e], wall: 0x4e4c58, wallTop: 0x6a6876, fog: 0x0e0e16, torch: 0xb8d0ff, ambient: 0x8a8aa8, timber: 0x3a3430 },
+    sanguine: { floor: [0x5e4044, 0x6a484c], wall: 0x4a2c32, wallTop: 0x6a343c, fog: 0x1a0a0e, torch: 0xe8505a, ambient: 0xb87880, timber: 0x2a1a1c, cracks: 0x6a0a14 },   // the Sanguine Vaults: dark red stone, crimson lamps, old stains in the floor
 };
 
 function rngFrom(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
@@ -74,7 +76,12 @@ export function layoutDungeon({ seed = 1, size = 36, rooms: want = 8, layout = '
     return { grid, rooms, entry: rooms[0], boss, rng };
 }
 
+// Its creatures at the dungeon's level (def.level, bands.js scaling — ±1 each), like the open world's land
 export function buildDungeon(def) {
+    setLevelContext(def.level ? () => def.level : null);
+    try { return buildDungeonLevel(def); } finally { setLevelContext(null); }
+}
+function buildDungeonLevel(def) {
     const T = THEMES[def.theme] ?? THEMES.mine, C = 3.4, N = def.size ?? 36,   /* cells 3.4 m: halls a body could fight in */ half = (N * C) / 2;
     const { grid, rooms, entry, boss, rng } = layoutDungeon(def);
     const scene = new THREE.Scene();
