@@ -40,7 +40,7 @@ through the canon check before it is presented as lore.
 - [x] 2. Nythoria (content/world/nythoria.js): the twin relief, eclipse sky, umbral biomes (biome_maps/nythoria.json), the Gate's twin, the Shadow-Vale's town (the Crossroads' houses in umbral colours, Nythorian people), place markers.
 - [x] 3. Old Ravenspire's ruins (procedural, in nythoria.js).
 - [x] 4. The Emerald Fields' village (tools/gen_fields_village.py), unnamed.
-- [ ] 5. Level bands and quests; the start-world choice at character creation (a new adventurer starting in the Fields or the Shadow-Vale).
+- [x] 5. Level bands and quests; the start-world choice at character creation (a new adventurer starting in the Fields or the Shadow-Vale). (2026-11-22 bands, start choice, starter + band 2–3 quests; 2026-11-25: villagers really offer them, band 4–5 quests, creatures for the Inferno and the Ruins, the Black Lake's Underworld spawn, the Outlander effects — game/outsider.js)
 - [ ] 6. The map bake (user's go). Nythoria's map too.
 
 ## Build order
