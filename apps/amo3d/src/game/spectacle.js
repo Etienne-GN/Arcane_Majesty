@@ -143,7 +143,62 @@ export function createSpectacle({ group, fx, shake, explodeAt, getMap }) {
             shake(0.2);
             return true;
         },
-        riptide(p, r, k) { shockwave(p, r * 1.4, 0x6ac8ff, 0.8); shockwave(p, r, 0xd8f4ff, 0.6); return false; },
+        riptide(p, r, k) {   // a wave rises in a ring round the target and crashes inward
+            const wave = new THREE.Mesh(new THREE.TorusGeometry(r, 0.45 * k, 6, 36), mat(0x4ab0ff, { emissive: 0x1a5a9a, emissiveIntensity: 0.4, transparent: true, opacity: 0.7, roughness: 0.05 }));
+            wave.rotation.x = Math.PI / 2; wave.position.copy(p);
+            add(wave, 1.1, (dt, kk) => { wave.scale.setScalar(1.15 - kk * 0.95); wave.position.y = p.y + Math.sin(kk * Math.PI) * 1.4 * k; fade(wave, 1 - kk * kk);
+                for (let j = 0; j < 3; j++) { const a = R() * 6.28; fx.sparks.emit({ x: p.x + Math.cos(a) * r * (1 - kk), y: wave.position.y, z: p.z + Math.sin(a) * r * (1 - kk), vx: 0, vy: 2, vz: 0, grav: 10, drag: 0.4, life: 0.6, size: [0.14, 0.05], c0: [0.85, 0.95, 1, 1], c1: [0.3, 0.6, 1, 0] }); } });
+            shockwave(p, r * 1.4, 0x6ac8ff, 0.8);
+            return true;
+        },
+        water_conjure(p, r, k) {   // a sphere of water gathers in the air above, then falls and bursts
+            const ball = new THREE.Mesh(new THREE.SphereGeometry(0.9 * k, 14, 10), mat(0x6ac8ff, { emissive: 0x2a6aa8, emissiveIntensity: 0.5, transparent: true, opacity: 0.75, roughness: 0.05 }));
+            add(ball, 0.9, (dt, kk) => { const grow = Math.min(1, kk * 2.2); ball.scale.setScalar(0.2 + grow * 0.8); ball.position.set(p.x, p.y + 6 * k - Math.max(0, kk - 0.55) / 0.45 * 6 * k, p.z); },
+                () => { shockwave(p, r * 1.2, 0xd8f4ff, 0.6); for (let j = 0; j < 40; j++) { const a = R() * 6.28; fx.sparks.emit({ x: p.x, y: p.y + 0.3, z: p.z, vx: Math.cos(a) * (3 + R() * 4), vy: 3 + R() * 4, vz: Math.sin(a) * (3 + R() * 4), grav: 12, drag: 0.3, life: 0.9, size: [0.16, 0.05], c0: [0.85, 0.95, 1, 1], c1: [0.3, 0.6, 1, 0] }); } shake(0.15); });
+            return true;
+        },
+        // ---- nature ----
+        vine_grasp(p, r, k) {   // vines burst out of the ground round the target and coil inward
+            for (let i = 0; i < Math.round(7 * k); i++) {
+                const a = (i / 7) * Math.PI * 2 + R() * 0.4, d = 0.8 + R() * r * 0.6, h = (1.6 + R()) * k;
+                const curve = new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0, 0), new THREE.Vector3(-Math.cos(a) * 0.4, h * 0.45, -Math.sin(a) * 0.4), new THREE.Vector3(-Math.cos(a) * d * 0.8, h, -Math.sin(a) * d * 0.8)]);
+                const vine = new THREE.Mesh(new THREE.TubeGeometry(curve, 10, 0.09 * k, 5), mat(0x3a6a22));
+                erupt(vine, p.x + Math.cos(a) * d, p.z + Math.sin(a) * d, ground(p.x + Math.cos(a) * d, p.z + Math.sin(a) * d, p.y), h, 2.4, i * 0.05);
+            }
+            return true;
+        },
+        petal_storm(p, r, k) {   // a whirl of petals spirals up over the area
+            add(new THREE.Object3D(), 2.2, (dt, kk) => { for (let j = 0; j < 10; j++) { const a = R() * 6.28, d = R() * r, sp = 3 + R() * 2; fx.sparks.emit({ x: p.x + Math.cos(a) * d, y: p.y + R() * 2.5, z: p.z + Math.sin(a) * d, vx: -Math.sin(a) * sp, vy: 0.8 + R(), vz: Math.cos(a) * sp, drag: 0.6, life: 1.0, size: [0.12, 0.08], c0: R() < 0.5 ? [1, 0.6, 0.8, 1] : [1, 0.95, 0.85, 1], c1: [1, 0.4, 0.6, 0] }); } });
+            shockwave(p, r, 0xffa8d0, 0.8);
+            return true;
+        },
+        acid_splash(p, r, k) {   // a green burst, a hissing puddle that smokes
+            const pool = new THREE.Mesh(new THREE.CircleGeometry(r * 0.8, 24), glow(0x8ad830, 0.6)); pool.rotation.x = -Math.PI / 2; pool.position.copy(p); drape(pool, 0.05);
+            add(pool, 2.5, (dt, kk) => { fade(pool, 1 - kk); if (R() < 0.5) fx.smoke.emit({ x: p.x + (R() - 0.5) * r, y: p.y + 0.1, z: p.z + (R() - 0.5) * r, vx: 0, vy: 0.8, vz: 0, drag: 1, life: 0.9, size: [0.3, 0.8], c0: [0.6, 0.8, 0.3, 0.5], c1: [0.4, 0.5, 0.2, 0] }); });
+            for (let j = 0; j < 30; j++) { const a = R() * 6.28; fx.sparks.emit({ x: p.x, y: p.y + 0.5, z: p.z, vx: Math.cos(a) * (2 + R() * 3), vy: 2 + R() * 3, vz: Math.sin(a) * (2 + R() * 3), grav: 12, drag: 0.4, life: 0.7, size: [0.14, 0.05], c0: [0.7, 1, 0.3, 1], c1: [0.3, 0.6, 0.1, 0] }); }
+            return true;
+        },
+        spore_cloud(p, r, k) {   // a slow cloud of spores that hangs over the area
+            add(new THREE.Object3D(), 3.5, (dt, kk) => { for (let j = 0; j < 4; j++) { const a = R() * 6.28, d = R() * r; fx.smoke.emit({ x: p.x + Math.cos(a) * d, y: p.y + 0.3 + R() * 1.5, z: p.z + Math.sin(a) * d, vx: (R() - 0.5) * 0.6, vy: 0.3, vz: (R() - 0.5) * 0.6, drag: 0.8, life: 1.6, size: [0.6, 1.4], c0: [0.8, 0.8, 0.4, 0.4 * (1 - kk)], c1: [0.6, 0.7, 0.3, 0] }); } if (R() < 0.6) fx.sparks.emit({ x: p.x + (R() - 0.5) * r * 2, y: p.y + R() * 2, z: p.z + (R() - 0.5) * r * 2, vx: 0, vy: 0.2, vz: 0, drag: 0.5, life: 1.2, size: [0.06, 0.04], c0: [1, 1, 0.6, 1], c1: [0.8, 0.9, 0.4, 0] }); });
+            return true;
+        },
+        purifying_sweep(p, r, k, dir) {   // a bright wave sweeps across the area along your aim
+            const d = dir ?? new THREE.Vector3(0, 0, 1), side = new THREE.Vector3(-d.z, 0, d.x);
+            const band = new THREE.Mesh(new THREE.PlaneGeometry(r * 2.2, 1.6 * k), glow(0xe8ffd8, 0.6)); band.material.side = THREE.DoubleSide; band.material.blending = THREE.AdditiveBlending;
+            band.lookAt(d); band.rotation.y = Math.atan2(side.x, side.z);
+            add(band, 0.9, (dt, kk) => { const t = -r + kk * r * 2; band.position.set(p.x + d.x * t, ground(p.x + d.x * t, p.z + d.z * t, p.y) + 0.8 * k, p.z + d.z * t); fade(band, Math.sin(kk * Math.PI));
+                for (let j = 0; j < 4; j++) { const s = (R() - 0.5) * r * 2; fx.sparks.emit({ x: band.position.x + side.x * s, y: band.position.y, z: band.position.z + side.z * s, vx: 0, vy: 1.5, vz: 0, drag: 1, life: 0.6, size: [0.1, 0.04], c0: [0.9, 1, 0.8, 1], c1: [0.6, 1, 0.6, 0] }); } });
+            return true;
+        },
+        unravel(p, r, k) {   // threads of light pulled out of the target, snapping one by one
+            for (let i = 0; i < 9; i++) {
+                const a = (i / 9) * Math.PI * 2, len = r * (0.8 + R() * 0.6), line = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 1, 4), glow(0xe0c8ff, 0.9));
+                add(line, 0.8 + i * 0.05, (dt, kk) => { const L = len * Math.min(1, kk * 2.5); line.scale.y = L; line.position.set(p.x + Math.cos(a) * L / 2, p.y + 1.2, p.z + Math.sin(a) * L / 2); line.rotation.set(0, -a, Math.PI / 2); fade(line, kk > 0.6 ? (1 - kk) / 0.4 : 1); },
+                    () => fx.sparks.emit({ x: p.x + Math.cos(a) * len, y: p.y + 1.2, z: p.z + Math.sin(a) * len, vx: Math.cos(a) * 3, vy: 1, vz: Math.sin(a) * 3, drag: 1, life: 0.5, size: [0.12, 0.03], c0: [1, 0.9, 1, 1], c1: [0.7, 0.5, 1, 0] }));
+            }
+            shockwave(p, r * 0.8, 0xc8a8ff, 0.5, 1.2);
+            return true;
+        },
         // ---- lightning, shadow, arcane ----
         thunder_clap(p, r, k) { for (let i = 0; i < Math.round(3 * k); i++) { const a = R() * 6.28, d = R() * r * 0.5, b = new THREE.Vector3(p.x + Math.cos(a) * d, p.y, p.z + Math.sin(a) * d); lightningFrom(b.clone().setY(b.y + 18), b, 3); } shockwave(p, r * 1.5, 0xd8e8ff, 0.5); shake(0.5); return true; },
         static_field(p, r, k) { let t = 0; add(new THREE.Object3D(), 5, dt => { if ((t -= dt) <= 0) { t = 0.35; const a = R() * 6.28, d = R() * r, b = new THREE.Vector3(p.x + Math.cos(a) * d, p.y, p.z + Math.sin(a) * d); lightningFrom(b.clone().setY(b.y + 3.5), b, 1); } }); return false; },
@@ -160,8 +215,14 @@ export function createSpectacle({ group, fx, shake, explodeAt, getMap }) {
             return true;
         },
     };
+    // Quagmire: a pool of dark mud spreads and bubbles while it lasts (its ticks are the caller's zone)
+    SET._quagmire = (p, r, k) => {
+        const pool = new THREE.Mesh(new THREE.CircleGeometry(r, 28), mat(0x3a2a1a, { roughness: 0.3, transparent: true, opacity: 0.9 })); pool.rotation.x = -Math.PI / 2; pool.position.copy(p); drape(pool, 0.04);
+        add(pool, 5, (dt, kk) => { pool.scale.setScalar(Math.min(1, kk * 6)); fade(pool, kk > 0.85 ? (1 - kk) / 0.15 : 1); if (R() < 0.35) fx.smoke.emit({ x: p.x + (R() - 0.5) * r * 1.4, y: p.y + 0.08, z: p.z + (R() - 0.5) * r * 1.4, vx: 0, vy: 0.6, vz: 0, drag: 2, life: 0.4, size: [0.15, 0.35], c0: [0.35, 0.28, 0.2, 0.7], c1: [0.2, 0.15, 0.1, 0] }); });
+        return true;
+    };
     // Spells that share a set-piece.
-    Object.assign(SET, { ember_bloom: SET.fire_nova, mud_trap: SET.tremor, quagmire: null, luminance: SET.arcane_burst, phantom_script: SET.arcane_burst, aetheric_inscription: SET.arcane_burst, hush: SET.void_pulse });
+    Object.assign(SET, { ember_bloom: SET.fire_nova, mud_trap: SET.tremor, quagmire: SET._quagmire, luminance: SET.arcane_burst, phantom_script: SET.arcane_burst, aetheric_inscription: SET.arcane_burst, hush: SET.void_pulse });
 
     // The incantation: a rune circle under the caster, motes of the element spiralling up into the staff.
     let circle = null;
