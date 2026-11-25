@@ -538,8 +538,11 @@ function handUp(side, act) {
     if (!aiming.pending || aiming.side !== side) return;
     const target = aiming.up(side), a = hands.current(side);
     if (!a?.startsWith('spell:')) return;
+    if (dualWandJoin(a.slice(6))) return;
     act.cast = true; act.castSpell = a.slice(6); act.castHand = side; act.castAt = target;   // target null: a tap, cast as usual
 }
+// A wand in each hand: casting the same spell with the other hand while the first is still taking shape overpowers it (player.overpower)
+const dualWandJoin = spellId => hands.handType('L') === 'wand' && hands.handType('R') === 'wand' && player.overpower(spellId);
 function handAction(side, act) {
     const t = hands.handType(side), a = hands.current(side);
     if (!t || !a) return;
@@ -547,7 +550,7 @@ function handAction(side, act) {
         if ((t === 'bow' || t === 'crossbow') && archery.armed()) archery.shoot();
         else if (t === 'shield') player.raiseShield();   // raised for a moment: a perfect block if the blow lands at once
         else { act.strike = true; act.strikeType = t; act.strikeHand = side; }
-    } else if (a.startsWith('spell:')) { act.cast = true; act.castSpell = a.slice(6); act.castHand = side; }
+    } else if (a.startsWith('spell:')) { if (dualWandJoin(a.slice(6))) return; act.cast = true; act.castSpell = a.slice(6); act.castHand = side; }
     else if (a.startsWith('skill:')) skills.useId(a.slice(6), t, side);
 }
 let handsTick = 0, lavaTick = 0, shifting = false;
@@ -949,5 +952,5 @@ window.__poc = {
     setTime: h => { stats.gameMinutes = Math.floor((stats.gameMinutes ?? 0) / 1440) * 1440 + h * 60; },
     setWeather: w => { weatherOverride = w; },
     strike: () => input.press('strike'),
-    sight, workNode, loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, fireballs, aiming, options, slots, bountyBoard, SPELLS: spellsAll.SPELLS, player: player.state, playerApi: player,
+    hands, sight, workNode, loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, fireballs, aiming, options, slots, bountyBoard, SPELLS: spellsAll.SPELLS, player: player.state, playerApi: player,
 };

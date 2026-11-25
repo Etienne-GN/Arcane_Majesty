@@ -221,6 +221,17 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         const id = stats.flags?.activeSpell;
         return CASTABLE.includes(id) && spellRules.SPELLS[id] ? spellRules.SPELLS[id] : FIREBALL;
     }
+    // Dual-wand overpower: with a wand in each hand, the other hand casting the same spell while the first is still
+    // taking shape (before it is released) joins it — one bolt or blast at 2.2× power, bigger, for 60% more mana.
+    function overpower(spellId) {
+        const c = p.cast;
+        if (!c || c.fired || c.power || c.spell?.id !== spellId || c.spell.targetingType === 'self') return false;
+        const extra = Math.round(stats.getSpellManaCost(spellId) * 0.6 * buffMult('manaCostMult'));
+        if (stats.mana < extra) return false;
+        stats.mana -= extra; c.power = 2.2; c.dur *= 1.15;   // (a breath longer to fuse the two)
+        hud.banner(`Overpower — ${c.spell.name}`); cam?.kick?.(0.25);
+        return true;
+    }
     function tryCast(spellId = null, hand = null, target = null) {
         if (p.cast) return;
         if (p.wolf) return hud.message('In wolf form you cannot cast — change back first (V).');
@@ -388,7 +399,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
                     }
                     const at = c.target ? c.target.clone() : best ? best.pos.clone() : p.pos.clone().add(new THREE.Vector3(fx, 0, fz).multiplyScalar(range * 0.85));
                     at.y = map().groundAt ? map().groundAt(at.x, at.z, at.y + 3) : (map().heightAt?.(at.x, at.z) ?? at.y);
-                    fireballs.blastAt(at, sp, lvl, stats.attributes.intelligence, map().hittables ?? [], { dir: new THREE.Vector3(fx, 0, fz), from: p.pos.clone() });
+                    fireballs.blastAt(at, sp, lvl, stats.attributes.intelligence, map().hittables ?? [], { dir: new THREE.Vector3(fx, 0, fz), from: p.pos.clone(), mult: c.power ?? 1 });
                     if (p.buffs.echoing) { const d = new THREE.Vector3(fx, 0, fz), fr = p.pos.clone(); echoes.push({ t: 0.45, fn: () => fireballs.blastAt(at, sp, lvl, stats.attributes.intelligence, map().hittables ?? [], { dir: d, from: fr, mult: 0.5 }) }); }
                     hooks.onCast?.(at, tmp.set(0, 0, 0), sp.id);
                 }
@@ -397,7 +408,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
                 if (c.target) tmp.set(c.target.x - origin.x, c.target.y + (sp.targetingType === 'targeted_aoe' ? 0 : 1.1) - origin.y, c.target.z - origin.z).normalize();   // straight at the ring
                 else if (sp.targetingType === 'targeted_aoe') tmp.copy(c.aim).setY(-(origin.y - p.pos.y) / range).normalize();
                 else tmp.copy(c.aim).setY(-(origin.y - p.pos.y - 1.1) / range).normalize();
-                fireballs.cast(origin, tmp, lvl, stats.attributes.intelligence, { spell: sp });
+                fireballs.cast(origin, tmp, lvl, stats.attributes.intelligence, { spell: sp, mult: c.power ?? 1 });
                 hooks.onCast?.(origin, tmp, sp.id);   // online: the others see it
                 if (p.buffs.echoing) { const o = origin.clone(), d = tmp.clone(); echoes.push({ t: 0.35, fn: () => fireballs.cast(o, d, lvl, stats.attributes.intelligence, { spell: sp, mult: 0.5 }) }); }
                 }
@@ -552,6 +563,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         playSpin: () => { p.spin = { t: 0 }; },
         playMove(id, dur = 0.6, hand = 'R') { p.move = { id, t: 0, dur, hand }; p.strike = null; },   // a style skill's own pose (character.js move)
         spinFor(sec, turns = 1) { p.spin = { t: 0, dur: sec, turns }; },
+        overpower,
         raiseShield() { if (p.dead || p.cast || p.block || (p.blockCd ?? 0) > 0) return false; p.block = { t: 0 }; p.blockCd = 1.2; return true; },
         takePerfect() { const f = p.block?.perfect ?? p.perfectFrom; if (p.block) p.block.perfect = null; p.perfectFrom = null; return f ?? null; },
         buffMult,

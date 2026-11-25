@@ -127,7 +127,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         const inner = new THREE.Sprite(glowMat()); inner.scale.setScalar(aoe ? 0.8 : 0.3);
         inner.material.color.setHex(pal[0]);
         if (shape) inner.visible = false;
-        const sz = sizeOf(spell, level);
+        const sz = sizeOf(spell, level) * (mult > 1.5 ? 1.6 : 1);   // (an overpowered bolt: two wands at once — bigger)
         core.scale.multiplyScalar(sz); halo.scale.multiplyScalar(sz); inner.scale.multiplyScalar(sz);
         group.add(core, halo, inner);
         if (shape && !shape.light) light.color.setHex(0x000000);
