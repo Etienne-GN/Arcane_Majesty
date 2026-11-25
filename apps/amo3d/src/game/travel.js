@@ -141,8 +141,9 @@ export function createTravel({ stats, hud, world, player, allGates, onAttune, in
     }
 
     // The Aetheric Tear: from anywhere, at a price.
-    function tear() {
+    function tear(force = false) {
         if (player.state.dead || channel) return;
+        if (!force && api.beforeTear?.()) return;   // inside a thin place: the crossing Tear's offer first (game/crossing.js)
         if (tearCd > 0 && !settings.god) return hud.message(`Aetheric Tear on cooldown (${Math.ceil(tearCd)}s)`);
         const { pct, cd } = tearRules();
         const cost = Math.floor(stats.maxMana * pct);
@@ -179,5 +180,6 @@ export function createTravel({ stats, hud, world, player, allGates, onAttune, in
         if (e.code === 'KeyT') tear();
         else if (open && e.code === 'Escape') close();
     });
-    return { useGate, tear, update, close, get open() { return open; }, get channelling() { return !!channel; } };
+    const api = { useGate, tear, update, close, beforeTear: null, get open() { return open; }, get channelling() { return !!channel; } };
+    return api;
 }

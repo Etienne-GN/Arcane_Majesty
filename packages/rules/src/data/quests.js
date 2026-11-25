@@ -654,4 +654,15 @@ export const QUESTS = {
         ],
         reward: { xp: 5200, gold: 380, items: [] },
     },
+    // Across the veil (docs/3d/AUTONOMOUS_RUN.md 4b): a place only reached by tearing across from the other world
+    band5_wrong_hill: {
+        id: 'band5_wrong_hill', title: 'The Wrong Hill', type: 'side', giver: 'new_ravenspire_the_map_maker', requires: ['band4_rift_edge'],
+        offer: "Two charts of the same ground, and they disagree. My Eldorian one shows a bare rise south of the city — grass and wind. The Nythorian one, bought off a Legion courier, shows walls on that rise. Walls, and no door. One of them is lying, or neither is. The old ones say there are places where the veil runs thin enough to see through... and, for the reckless, to step through. Go and look at that rise with the sight.",
+        description: "New Ravenspire's map-maker wants to know why his Nythorian chart shows a walled, doorless building on a rise his Eldorian chart shows bare — perhaps the veil runs thin there.",
+        steps: [
+            { id: 'inside', type: 'read_signs', target: 'sealed_reliquary', label: 'Find a way into the walls on the rise (Aether Sight; the Aetheric Tear)', required: 1 },
+            { id: 'report', type: 'talk', target: 'new_ravenspire_the_map_maker', label: 'Tell the map-maker which chart was right', required: 1 },
+        ],
+        reward: { xp: 6000, gold: 420, items: [] },
+    },
 };

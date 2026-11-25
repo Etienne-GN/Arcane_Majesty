@@ -23,9 +23,9 @@ export function createMapManager({ builders, fade, fadeText, onEnter, redirect =
     }
 
     // Start a fade to another map. `before` runs at the black frame, just before the swap.
-    function go(to, spawn, before = null) {
+    function go(to, spawn, before = null, at = null) {   // at: an exact spot instead of a named spawn (the crossing Tear)
         if (transition) return false;
-        transition = { t: 0, to, spawn, before, swapped: false };
+        transition = { t: 0, to, spawn, before, at, swapped: false };
         return true;
     }
 
@@ -40,7 +40,7 @@ export function createMapManager({ builders, fade, fadeText, onEnter, redirect =
                 return true;
             }
             transition.before?.();
-            enter(transition.to, transition.spawn);
+            enter(transition.to, transition.spawn, transition.at ?? null);
             transition.swapped = true;
             transition.t = 0.35;
             fadeText.textContent = '';

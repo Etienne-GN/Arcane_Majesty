@@ -562,6 +562,7 @@ export function makeStamps(quality) {
 // biome keeps a little weight everywhere, so open country between places stays itself. Edited in the Land Editor.
 export const BIOMES = Object.fromEntries(Object.values(import.meta.glob('./biomes/*.json', { eager: true, import: 'default' })).map(b => [b.id, b]));
 import BIOME_MAP from './biome_maps/eldoria.json';
+import { addVeil, RELIQUARY } from './veil.js';
 export { BIOME_MAP };
 const BIOME_MAP_E = BIOME_MAP;
 export function makeBiomes(stamps, BIOME_MAP = BIOME_MAP_E) {   // (a world's biome map: Eldoria's by default; Nythoria passes its own)
@@ -641,7 +642,7 @@ export function createEldoriaWorld({ quality } = {}) {
             return [];
         },
         chart: { pxPerM: 0.04, tileM: 4, detail: true, baked: 'eldoria', biomeLabels: biomeLabels(stamps), groundAt: (x, z) => (roadDist(x, z) < 6 ? 'road' : null) },
-        clearAt: (x, z) => roadDist(x, z) < 5 || (() => { const L = lakeInfo(x, z); return (L.beach > 0.3 && L.inside > -45) || (L.marsh > 0.4 && L.inside > -120 && fbm(x * 0.05, z * 0.05, 2) > 0.45); })() || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || riverDist(x, z) < 9 || polyDist(RIFT, x, z) < 34 || Math.hypot(x - OGATE.x, z - OGATE.z) < 26,   // (nothing grows in the Rift, nor on the Gate's pad)
+        clearAt: (x, z) => roadDist(x, z) < 5 || Math.hypot(x - RELIQUARY.x, z - RELIQUARY.z) < 13 || (() => { const L = lakeInfo(x, z); return (L.beach > 0.3 && L.inside > -45) || (L.marsh > 0.4 && L.inside > -120 && fbm(x * 0.05, z * 0.05, 2) > 0.45); })() || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || riverDist(x, z) < 9 || polyDist(RIFT, x, z) < 34 || Math.hypot(x - OGATE.x, z - OGATE.z) < 26,   // (nothing grows in the Rift, nor on the Gate's pad)
         groundColor: (x, z, h, col) => {
             if (h < WATER + 1.6 && h > WATER - 0.6) { const L = lakeInfo(x, z); if (L.marsh > 0.1 && L.inside > -220 && L.inside < 140) { const n = fbm(x * 0.09, z * 0.09, 2); col.set(n > 0.56 ? '#3e5a2a' : n > 0.44 ? '#4a5a30' : '#4a4630'); return true; } }   // the marsh: mud, rushes, sedge
             if (h < WATER + 0.8) return false;
@@ -830,5 +831,6 @@ export function createEldoriaWorld({ quality } = {}) {
         world.scene.add(g);
         const upd = world.update; world.update = (t2, dt, ctx) => { upd(t2, dt, ctx); g.visible = Math.hypot(ctx.player.pos.x - ARCHI.c.x, ctx.player.pos.z - ARCHI.c.z) < 1500; };
     }
+    addVeil(world, 'eldoria', heightAt);   // thin places, the reliquary's ghost (veil.js)
     return world;
 }

@@ -93,6 +93,7 @@ import THALORIA_DOORS from '../../../packages/rules/src/data/maps/interiors/door
 import * as OUT from './game/outsider.js';
 import { createSight } from './game/sight.js';
 import { createScent } from './game/scent.js';
+import { createCrossing } from './game/crossing.js';
 // amo's Thaloria interiors, each built on first entry; inner doors (the inn's cellar) lead on and back.
 const INTERIORS = Object.fromEntries(Object.entries(import.meta.glob(['../../../packages/rules/src/data/maps/interiors/thaloria_*.js', '../../../packages/rules/src/data/maps/interiors/east_road_cave.js'], { eager: true, import: 'MAP' }))
     .map(([path, def]) => [path.split('/').pop().replace('.js', ''), def]));
@@ -337,7 +338,7 @@ const world = createMapManager({
         return { id: 'eldoria', spawn: ow.spawns[key] ? key : `${id}:start` };
     },
     onEnter(map, id, sp) {
-        OUT.setWorld(id);
+        OUT.setWorld(id); crossing?.arrived(id);
         if (OUT.isOutsider() && !stats.flags?.[`outlander_${id}`]) {   // the first arrival on the other world
             (stats.flags ??= {})[`outlander_${id}`] = true; stats.flags.outlander = true;
             setTimeout(() => hud.banner(id === 'nythoria' ? 'Outlander — the eclipse does not know you' : 'Outlander — Eldoria\'s sun is harsh on you'), 1500);
@@ -606,6 +607,8 @@ travel = createTravel({
         ...NYTHORIA_GATES,   // (Nythoria's monoliths: the Tear reaches the shadow world too)
     ],
 });
+const crossing = createCrossing({ stats, hud, dialogue, world, player, sight, day: () => clockRules.gameDay(stats.gameMinutes ?? 0), onTearToGate: () => travel.tear(true) });   // across the veil (game/crossing.js)
+travel.beforeTear = () => crossing.tryOffer();
 const campfire = createCampfire({
     stats, hud, onCraft: id => quests?.onCook(id), codexPending: () => codex.pending(), onWriteCodex: () => writeCodex(),
     onRest: () => { stats.health = stats.maxHealth; stats.mana = stats.maxMana; stats.vigor = stats.maxVigor; stats.vigorWinded = false; save(); },
@@ -894,6 +897,7 @@ function tick(dt) {
     loot.update(dt, player.state, map);
     archery.update(dt);
     travel.update(dt, map.fx ?? fireballs);
+    crossing.update(dt, map.fx ?? fireballs);
     godSpells();
     // Shadow Veil: the hero half-vanishes while it lasts.
     { const veiled = player.state.veil > 0;
@@ -954,5 +958,5 @@ window.__poc = {
     setTime: h => { stats.gameMinutes = Math.floor((stats.gameMinutes ?? 0) / 1440) * 1440 + h * 60; },
     setWeather: w => { weatherOverride = w; },
     strike: () => input.press('strike'),
-    hands, sight, scent, workNode, loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, fireballs, aiming, options, slots, bountyBoard, SPELLS: spellsAll.SPELLS, player: player.state, playerApi: player,
+    hands, sight, scent, crossing, workNode, loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, fireballs, aiming, options, slots, bountyBoard, SPELLS: spellsAll.SPELLS, player: player.state, playerApi: player,
 };

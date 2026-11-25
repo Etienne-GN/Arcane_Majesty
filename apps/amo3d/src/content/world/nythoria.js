@@ -15,6 +15,7 @@ import { createDeer } from '../actors/deer.js';
 import { flat } from '../../engine/lib.js';
 import { buildMonolith } from '../../game/travel.js';
 import { levelAtNythoria } from './bands.js';
+import { addVeil, RELIQUARY } from './veil.js';
 
 const WATER = -2;
 const REGION_DEFS = Object.fromEntries(Object.values(import.meta.glob('../regions/*.json', { eager: true, import: 'default' })).map(d => [d.id, d]));
@@ -103,7 +104,7 @@ export function createNythoriaWorld({ quality } = {}) {
             return [];
         },
         chart: { pxPerM: 0.04, tileM: 4, detail: true },
-        clearAt: (x, z) => Math.hypot(x - gate.x, z - gate.z) < 26 || [['Lake Aethera', 22], ['Inferno Labyrinth', 60]].some(([n, r]) => { const p = at(n); return p && Math.hypot(x - p.x, z - p.z) < r; }),   // (no trees on the Gate's pad, in old Ravenspire, at the Black Well, in the Citadel)
+        clearAt: (x, z) => Math.hypot(x - gate.x, z - gate.z) < 26 || Math.hypot(x - RELIQUARY.x, z - RELIQUARY.z) < 13 || [['Lake Aethera', 22], ['Inferno Labyrinth', 60]].some(([n, r]) => { const p = at(n); return p && Math.hypot(x - p.x, z - p.z) < r; }),   // (no trees on the Gate's pad, in old Ravenspire, at the Black Well, in the Citadel)
         groundColor: (x, z, h, col) => {
             if (h < WATER + 0.9 && h > WATER - 0.4) { col.set('#1e1c24'); return true; }   // black sand at the black water's edge
             return false;
@@ -173,5 +174,6 @@ export function createNythoriaWorld({ quality } = {}) {
         world.stations.push({ mode: 'sign', id: 'obsidian_citadel', title: 'The bone gate', pos: new THREE.Vector3(gx, heightAt(gx, gz), gz), text: 'The gate stands open, as if nothing here fears a visitor. Its posts are ribs as tall as trees, lashed with black iron; between them the basalt road runs on toward the throne hall\'s red doors. Cut into the threshold stone, worn by many feet: "ALL SOULS COME HOME." Nothing guards it that you can see. That is worse.' }); }
       const upd4 = world.update; world.update = (t2, dt, ctx) => { upd4(t2, dt, ctx); g.visible = Math.hypot(ctx.player.pos.x - C.x, ctx.player.pos.z - C.z) < 1800; };
     }
+    addVeil(world, 'nythoria', heightAt);   // thin places, the sealed reliquary (veil.js)
     return world;
 }
