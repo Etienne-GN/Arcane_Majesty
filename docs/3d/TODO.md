@@ -89,3 +89,8 @@ The lore DB already has 7: **Werewolf** (Guardians of the Wild, the Emerald Fiel
 
 ## 9. Repo cleanup (later — asked 2026-11-25)
 - [ ] Move the old 2D assets and unused related stuff (apps/amo, apps/tool_suite, LPC sheets, 2D-only tools and data) out of this repo to an archive, and clean the repo — plan it with the user first.
+
+## 10. The v2 character models everywhere (asked 2026-11-25 — once the v2 models are polished)
+- [ ] Replace every NPC (townsfolk, villagers, cast, story people) with the v2 skinned models.
+- [ ] Refactor the Forge (forge.html / forge/main.js) onto the v2 models.
+- [ ] Make every Forge item (garments, armour, hair, beards, handhelds, wardrobe.js equipment) compatible with the v2 bodies.
