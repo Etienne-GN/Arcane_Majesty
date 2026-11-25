@@ -86,3 +86,6 @@ The lore DB already has 7: **Werewolf** (Guardians of the Wild, the Emerald Fiel
 - [x] The player manual for 3D (2026-11-19): `apps/amo3d/manual.html`, shipped in the game (title → HOW TO PLAY): controls for keyboard, gamepad and touch, the hands, combat, styles, magic, enemies, the world, living there, the story, menus, options, the Workshop.
 - [x] CI: actions/setup-java v5 (the deprecation warning).
 - [ ] CLAUDE.md: the DB counts are outdated (7 races now, not 6).
+
+## 9. Repo cleanup (later — asked 2026-11-25)
+- [ ] Move the old 2D assets and unused related stuff (apps/amo, apps/tool_suite, LPC sheets, 2D-only tools and data) out of this repo to an archive, and clean the repo — plan it with the user first.

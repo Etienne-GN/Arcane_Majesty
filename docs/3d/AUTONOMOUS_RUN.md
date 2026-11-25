@@ -70,6 +70,9 @@ Check: survey renders, headless walk, no floating ground, relief kept.
 - ☐ 7.3 The game manual updated for what this run added
 - ☐ 7.4 Numbers check: quest rewards vs level bands, creature scaling at 41–50
 
+## 8. Later (asked 2026-11-25, NOT now — at the end of this list)
+- ☐ Move the old 2D assets and the unused related stuff out of this repo (apps/amo, apps/tool_suite, LPC sheets, 2D-only tools and data…) to an archive elsewhere, and clean the repo. Plan it with the user first (what goes where; the 2D game is frozen at tag amo2d-final).
+
 ## For LORE_REVIEW (game-only names added this run — appended at the end of the run)
 - Quests: The Edge of the Wound, Cold Shapes on the Heath, What the Divide Keeps, Cinders on the Wind, The Mountain's Hunger, The Vigil That Never Ended, The Light at the Bottom, The Bone Gate
 - Chapter scenes (from the book, not new names): the golems' rune figures (lock, knot, foundation); the Hermit's return scene
