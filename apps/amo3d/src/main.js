@@ -842,7 +842,7 @@ function tick(dt) {
         else if (station?.mode === 'boat') toggleBoat(true, station.vessel);
         else if (station?.mode === 'cairn') { stats.respawnPoint = { map: map.id, spawn: station.key }; hud.banner('A cairn — if you fall, you will come back here'); save(); }
         else if (station) campfire.toggle(station.mode);
-        else if (person) { cine = { pos: person.pos.clone(), t: 0 }; if (person.r.onTalk) person.r.onTalk({ start: dialogue.start, quests, stats, hud, save }); else dialogue.talk(person, clock()); }   // onTalk: a map's own conversation (the Sanctuary)
+        else if (person) { cine = { pos: person.pos.clone(), t: 0 }; if (person.r.onTalk) person.r.onTalk({ start: dialogue.start, quests, stats, hud, save, talk: () => dialogue.talk(person, clock()) }); else dialogue.talk(person, clock()); }   // onTalk: a map's own conversation (the Sanctuary)
         else gathering.harvest(simT * 1000);
         act.hop = false;
     }

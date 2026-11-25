@@ -36,8 +36,20 @@ export function createVillagers({ scene, map, people: defs, rng = Math.random })
             home: { x: d.x, z: d.z, facing: d.facing ?? 0 }, wander: d.wander ?? 0, target: null, wait: rng() * 4, line: 0,
             r: { id, role: d.role ?? 'villager', npc },
         };
-        if (d.role === 'innkeeper') person.r.onTalk = api => innTalk(api, d);
-        else if (d.role !== 'merchant') person.r.onTalk = api => { const L = d.lines?.length ? d.lines : ['Good day.']; api.start([{ speaker: d.name, text: L[person.line++ % L.length] }]); };
+        // Quests first, whatever the role: talking counts for 'talk' steps, and a quest this person gives is offered
+        // (2026-11-25: villagers' own conversations skipped the quest hook, so their quests were never offered)
+        const questTalk = api => {
+            const M = api.quests?.manager;
+            if (!M) return false;
+            M.onTalk(id);
+            const q = M.offerFor(id, () => true);
+            if (!q) return false;
+            api.start([{ speaker: d.name, text: q.offer ?? q.description, choices: [{ text: `Accept — ${q.title}`, startQuest: q.id }, { text: 'Not now.' }] }]);
+            return true;
+        };
+        if (d.role === 'innkeeper') person.r.onTalk = api => { if (!questTalk(api)) innTalk(api, d); };
+        else if (d.role === 'merchant') person.r.onTalk = api => { if (!questTalk(api)) api.talk?.(); };
+        else person.r.onTalk = api => { if (questTalk(api)) return; const L = d.lines?.length ? d.lines : ['Good day.']; api.start([{ speaker: d.name, text: L[person.line++ % L.length] }]); };
         return person;
     });
 
