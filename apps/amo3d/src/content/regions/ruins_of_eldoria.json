@@ -439,6 +439,30 @@
           "z": -24
         }
       ]
+    },
+    {
+      "type": "beasts",
+      "kind": "grave_wraith",
+      "posts": [
+        {
+          "x": -22,
+          "z": 30
+        },
+        {
+          "x": 34,
+          "z": 40
+        }
+      ]
+    },
+    {
+      "type": "beasts",
+      "kind": "cursed_knight",
+      "posts": [
+        {
+          "x": 4,
+          "z": -44
+        }
+      ]
     }
   ],
   "landmarks": [

@@ -15,7 +15,12 @@
    "dead": 1
   }
  },
- "creatures": [],
+ "creatures": [
+  "lava_elemental",
+  "ember_imp",
+  "ash_crawler",
+  "forge_daemon"
+ ],
  "mood": {
   "fog": "#3a1a12",
   "fogNear": 45,

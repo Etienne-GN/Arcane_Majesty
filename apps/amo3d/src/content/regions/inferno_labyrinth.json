@@ -271,7 +271,40 @@
     "crystal": 3
   },
   "gates": [],
-  "actors": [],
+  "actors": [
+    {
+      "type": "beasts",
+      "kind": "lava_elemental",
+      "posts": [
+        {
+          "x": -40,
+          "z": -34
+        },
+        {
+          "x": 52,
+          "z": 52
+        }
+      ]
+    },
+    {
+      "type": "beasts",
+      "kind": "ember_imp",
+      "posts": [
+        {
+          "x": 44,
+          "z": 6
+        },
+        {
+          "x": -48,
+          "z": 48
+        },
+        {
+          "x": -6,
+          "z": -46
+        }
+      ]
+    }
+  ],
   "landmarks": [
     {
       "name": "The gate of flame",

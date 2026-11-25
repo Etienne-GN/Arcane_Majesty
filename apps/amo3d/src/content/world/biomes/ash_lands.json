@@ -21,7 +21,9 @@
  },
  "creatures": [
   "ash_crawler",
-  "cinder_hawk"
+  "cinder_hawk",
+  "ember_imp",
+  "lava_elemental"
  ],
  "mood": {
   "fog": "#5a4e4a",

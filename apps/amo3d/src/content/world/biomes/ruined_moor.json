@@ -19,7 +19,12 @@
    "dead": "#3a3632"
   }
  },
- "creatures": [],
+ "creatures": [
+  "grave_wraith",
+  "cursed_knight",
+  "arcane_sentinel",
+  "blind_stalker"
+ ],
  "mood": {
   "fog": "#5e6068",
   "fogNear": 72,
