@@ -11,6 +11,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { createPointEditor } from './pointEditor.js';
 import { settings } from '../engine/settings.js';
 import { V2_MODELS } from '../content/models/v2/index.js';
+import { DRESSES } from '../content/models/v2/dress.js';
 import seraphina from '../content/cast/seraphina.json';
 import eldrin from '../content/cast/eldrin.json';
 import anya from '../content/cast/anya.json';
@@ -26,7 +27,8 @@ const sun = new THREE.DirectionalLight(0xffffff, 2.2); sun.position.set(2, 4, 3)
 const floor = new THREE.Mesh(new THREE.CircleGeometry(6, 48).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0x46464c, roughness: 1 })); floor.receiveShadow = true; scene.add(floor);
 
 const HAIRLESS = Q.get('hair') === '0';   // ?hair=0: the base bodies without hair
-const baseLook = (preset, v2) => ({ v2, body: { preset, race: 'human', skin: '#e2b590' }, hair: { style: HAIRLESS ? 'bald' : 'short' }, parts: { right: { id: 'none' }, left: { id: 'none' } } });
+const DRESS = Object.hasOwn(DRESSES, Q.get('dress') ?? '') ? Q.get('dress') : null;   // ?dress=commoner|traveller|robe|dress: the base bodies in a basic outfit (dress.js)
+const baseLook = (preset, v2) => ({ v2, body: { preset, race: 'human', skin: '#e2b590' }, hair: { style: HAIRLESS ? 'bald' : 'short' }, parts: { right: { id: 'none' }, left: { id: 'none' } }, ...(DRESS ? { sculpt: { dress: DRESS } } : {}) });
 // what can stand on either side: the base bodies (v2 only: no clothes, empty hands) and the cast (classic, and v2 when it has one)
 const SUBJECTS = { base_male: { name: 'Male base', look: () => baseLook('adult_male', 'base_male'), sex: 'male', vers: ['new'] },
     base_female: { name: 'Female base', look: () => baseLook('adult_female', 'base_female'), sex: 'female', vers: ['new'] },
@@ -52,7 +54,7 @@ const make = (mode, lk) => { settings.charModels = mode; const c = createCharact
 const ALTS = await fetch('/api/v2alts').then(r => r.json()).catch(() => ({}));
 const altOf = slots.map((sl, i) => { const [layer, name] = (Q.get(`alt${i}`) ?? '').split(':'); return SUBJECTS[sl.id].sex && ALTS[layer]?.includes(name) ? { layer, name } : null; });
 const altData = await Promise.all(altOf.map(a => a ? fetch(`/api/v2layer?layer=${a.layer}&alt=${a.name}`).then(r => r.json()) : null));
-const models = slots.map((sl, i) => { const lk = SUBJECTS[sl.id].look(); if (altOf[i]) lk.sculpt = { swap: { [altOf[i].layer]: altData[i] } }; return make(sl.ver, lk); });
+const models = slots.map((sl, i) => { const lk = SUBJECTS[sl.id].look(); if (altOf[i]) lk.sculpt = { ...(lk.sculpt ?? {}), swap: { [altOf[i].layer]: altData[i] } }; return make(sl.ver, lk); });
 const slotName = sl => `${SUBJECTS[sl.id].name} — ${VER[sl.ver]}` + ((a => a ? ` · ${a.layer}: ${a.name}` : '')(altOf[slots.indexOf(sl)]));
 const BASE = slots.some(sl => SUBJECTS[sl.id].sex);   // a base body on stage: the point editor and the hair toggle are offered
 document.getElementById('labels').innerHTML = slots.map(sl => `<span>${slotName(sl).toUpperCase()}</span>`).join('');
@@ -68,7 +70,8 @@ let mode = BASE ? 'apose' : 'idle', spin = !BASE, yaw = BASE ? 0 : 0.35;
 const top = document.createElement('div'); top.id = 'top';
 top.style.cssText = 'position:fixed;top:10px;left:12px;right:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;font:14px Georgia,serif;color:#e8dcb8;z-index:5';
 const go = changes => { const u = new URL(location.href); u.searchParams.delete('who'); for (const [k, v] of Object.entries(changes)) { if (v == null) u.searchParams.delete(k); else u.searchParams.set(k, v); } location.href = u; };
-slots.forEach((sl, i) => {
+if (LINEUP) { const a = document.createElement('a'); a.textContent = '← Two sides'; a.href = '?'; a.style.cssText = 'color:#f3d88b'; top.append(a); }
+else slots.forEach((sl, i) => {
     const lab = document.createElement('label'); lab.textContent = i ? 'Right ' : 'Left ';
     const sel = document.createElement('select'); sel.style.cssText = 'font:14px Georgia,serif;padding:5px 8px;border-radius:8px;border:1px solid #c8963a88;background:#2e1e12;color:#f1e4c4';
     for (const [id, S] of Object.entries(SUBJECTS)) for (const ver of S.vers) { const o = document.createElement('option'); o.value = `${id}:${ver}`; o.textContent = `${S.name} — ${VER[ver]}`; sel.append(o); }
@@ -76,6 +79,13 @@ slots.forEach((sl, i) => {
     sel.onchange = () => go({ a: i ? `${slots[0].id}:${slots[0].ver}` : sel.value, b: i ? sel.value : `${slots[1].id}:${slots[1].ver}`, edit: null, [`alt${i}`]: null });
     lab.append(sel); top.append(lab);
 });
+if (slots.some(sl => SUBJECTS[sl.id].sex) || LINEUP) {   // dress the base bodies: undressed, or a basic outfit (painted on: every edit still lands)
+    const lab = document.createElement('label'); lab.textContent = 'Dress ';
+    const sel = document.createElement('select'); sel.style.cssText = 'font:14px Georgia,serif;padding:5px 8px;border-radius:8px;border:1px solid #c8963a88;background:#2e1e12;color:#f1e4c4';
+    for (const [v, t] of [['', 'Undressed'], ...Object.entries(DRESSES).map(([id, d]) => [id, d.label])]) { const o = document.createElement('option'); o.value = v; o.textContent = t; sel.append(o); }
+    sel.value = DRESS ?? ''; sel.onchange = () => go({ dress: sel.value || null });
+    lab.append(sel); top.append(lab);
+}
 document.body.append(top);
 const topBtn = (t, fn, hot = false) => { const b = document.createElement('button'); b.textContent = t; b.style.cssText = `font:14px Georgia,serif;padding:6px 12px;border-radius:9px;border:1px solid ${hot ? '#f3d88b' : '#c8963a88'};background:${hot ? '#8a6a2a' : '#2e1e12'};color:#f1e4c4;cursor:pointer`; b.onclick = fn; top.append(b); return b; };
 { const a = document.createElement('a'); a.href = 'index.html'; a.textContent = '← Game'; a.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:50;padding:5px 10px;font:14px Georgia,serif;color:#f3e2b0;background:#120a06d8;border:1px solid #f3d88b66;border-radius:4px;text-decoration:none'; document.body.append(a); }

@@ -3,9 +3,11 @@
 import { buildSeraphina } from './seraphina.js';
 import { buildBase } from './base.js';
 import { buildEldrin } from './eldrin.js';
+import { DRESSES } from './dress.js';
 export const V2_MODELS = {
     seraphina: buildSeraphina,
     eldrin: buildEldrin,
-    base_male: ctx => buildBase(ctx, { sex: 'male' }),
-    base_female: ctx => buildBase(ctx, { sex: 'female' }),
+    // (the base bodies, undressed — or in one of the Sculptor's basic outfits: look.sculpt.dress, dress.js)
+    base_male: ctx => buildBase(ctx, { sex: 'male', outfit: DRESSES[ctx.look?.sculpt?.dress] ?? null }),
+    base_female: ctx => buildBase(ctx, { sex: 'female', outfit: DRESSES[ctx.look?.sculpt?.dress] ?? null }),
 };
