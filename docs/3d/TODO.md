@@ -31,20 +31,20 @@ The lore DB already has 7: **Werewolf** (Guardians of the Wild, the Emerald Fiel
 - [x] Per-weapon attacks (0.17.0): spear and bo thrusts levelled at the foe (they pointed at the sky), greatsword and claymore swung with both hands; shield **Block** (0.15.0).
 - [x] Dual-wielding (0.17.0): a weapon in each hand — the strike key alternates hands, the finisher is a cross-cut with both blades.
 - [x] (0.18.0) Bow loosed from full draw, crossbow kick and crank; a dodge (hop with the stick held while something hunts you within 7 m: a low dive, untouchable all the way); hit-stop on finishers, parries and perfect blocks (engine/hitstop.js); a red tell-fan on the ground under every creature winding up a blow; the left hand keeps its own favourites when both hands hold the same kind of weapon.
-- [ ] Still: dual-wand overpower.
+- [x] Dual-wand overpower (2026-11-25).
 - [ ] Favourites polish: skills in the Spellbook-style ⋯ menus, and style skills on the hands.
 
 ## 4. Magic
 - [x] Enemy magic (0.18.0, content/actors/enemyMagic3d.js on amo's ENEMY_KITS): casters shape spells (a ring fills at their feet, they stand still; a stun, silence or hush breaks it), bolts fly at you (dodge, block, parry, deflect), hexes (curse, silence — no spells — and Unweave, which strips your buffs), wards, empowerment, quickening and mending on their allies (bubbles, embers, sparks); dungeon bosses raise the Void Aegis (blows do a third) at half and a quarter health.
 - [x] Dispels (0.18.0): Unravel and Purifying Sweep tear away wards and the Void Aegis (Unravel hurts again for each); Counterspell and Unravel break a spell being shaped.
-- [ ] Aetheric Sight's active use.
-- [ ] Set-pieces for the remaining area spells, and the incantation for more of them.
-- [ ] Targeting polish: an aim line for bolts, the ring snapping to enemies.
+- [x] Aetheric Sight's active use (2026-11-25: L · SIGHT button · gamepad Y).
+- [x] Set-pieces for the remaining area spells (2026-11-25). (The incantation for more of them: still open.)
+- [x] Targeting polish: an aim line for bolts, the ring snapping to enemies (2026-11-25).
 
 ## 5. World & maps ★
 - [x] **Map and minimap refresh** (2026-11-18): a parchment chart (ink shorelines, watercolour water, inked trees, hatched rock, blank parchment where unexplored; towns show streets, buildings and walls), a leather frame, a compass and a scale, drawn icons, labelled exits, pan and zoom, tap-to-set waypoints; the minimap is a bronze ring with N, turns with the camera (Options: north up), and shows the waypoint or a rim arrow with the distance.
-- [ ] Maps for the other places: let each region give the chart its roads and buildings, as Thaloria does (`mapInfo.groundAt`, `buildings`, `walls`).
-- [ ] **New regions from the lore** (38 DB locations; built so far: Thaloria Glade, Eldrin's Tower, Thaloria city and its interiors, the East Road and the Hollow, the Summit and the mountain, the Sylvan Sanctuary, Whisper-Wood). Missing: the Emerald Fields and the Weeping Stones, the Heartlands (Lake Aethera, Silverrun River, the Crossroads, the Sunken Temple), the Scarlands (Graywatch, New Ravenspire, the Obsidian Gate), the Silver Coast and Port Silver, the Sanguine Vaults, Iron Hollow, the Forbidden Archive, Nythoria, the Great Rift.
+- [x] Maps for the other places (found done 2026-11-25): let each region give the chart its roads and buildings, as Thaloria does (`mapInfo.groundAt`, `buildings`, `walls`).
+- [x] (2026-11-25: every Eldorian DB place is in the open world; the Sanguine Vaults' inside added) **New regions from the lore** (38 DB locations; built so far: Thaloria Glade, Eldrin's Tower, Thaloria city and its interiors, the East Road and the Hollow, the Summit and the mountain, the Sylvan Sanctuary, Whisper-Wood). Missing: the Emerald Fields and the Weeping Stones, the Heartlands (Lake Aethera, Silverrun River, the Crossroads, the Sunken Temple), the Scarlands (Graywatch, New Ravenspire, the Obsidian Gate), the Silver Coast and Port Silver, the Sanguine Vaults, Iron Hollow, the Forbidden Archive, Nythoria, the Great Rift.
 - [ ] Dungeons and caves with puzzles; interiors for the new towns.
 - [ ] Region editor: painting tools, place props, test spawns.
 - [ ] Music per region (the user's tracks).
@@ -87,13 +87,13 @@ The lore DB already has 7: **Werewolf** (Guardians of the Wild, the Emerald Fiel
 - [x] CI: actions/setup-java v5 (the deprecation warning).
 - [ ] CLAUDE.md: the DB counts are outdated (7 races now, not 6).
 
-## 9. Repo cleanup (later — asked 2026-11-25)
+## 11. Repo cleanup (later — asked 2026-11-25)
 - [ ] Move the old 2D assets and unused related stuff (apps/amo, apps/tool_suite, LPC sheets, 2D-only tools and data) out of this repo to an archive, and clean the repo — plan it with the user first.
 
-## 10. The v2 character models everywhere (asked 2026-11-25 — once the v2 models are polished)
+## 12. The v2 character models everywhere (asked 2026-11-25 — once the v2 models are polished)
 - [ ] Replace every NPC (townsfolk, villagers, cast, story people) with the v2 skinned models.
 - [ ] Refactor the Forge (forge.html / forge/main.js) onto the v2 models.
 - [ ] Make every Forge item (garments, armour, hair, beards, handhelds, wardrobe.js equipment) compatible with the v2 bodies.
 
-## 11. Controller mapping screen (asked 2026-11-26)
+## 13. Controller mapping screen (asked 2026-11-26)
 - [ ] Options → Controls → a "map buttons" screen for the gamepad: every action (hop, the hands / cast and strike, cycle, Blink-Step, Aether Sight, satchel, sheet, hotbar, camera cycle, sprint…) listed with its button; press a row then a button to rebind; conflicts shown; reset to defaults; saved per device (engine/settings.js). engine/input.js reads the map instead of fixed indices (today: A hop, X/RT right hand, LT left hand, LB/RB cycle, B Blink-Step, Y tap Aether Sight / hold satchel, Start sheet, Back Blink-Step, D-pad hotbar, L3 sprint, R3 camera / hold change).
