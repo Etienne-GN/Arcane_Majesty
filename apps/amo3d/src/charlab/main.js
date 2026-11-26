@@ -28,7 +28,14 @@ const HAIRLESS = Q.get('hair') === '0';   // ?hair=0: the base bodies without ha
 const baseLook = (preset, v2) => ({ v2, body: { preset, race: 'human', skin: '#e2b590' }, hair: { style: HAIRLESS ? 'bald' : 'short' }, parts: { right: { id: 'none' }, left: { id: 'none' } } });
 // what can stand on either side: the base bodies (v2 only: no clothes, empty hands) and the cast (classic, and v2 when it has one)
 const SUBJECTS = { base_male: { name: 'Male base', look: () => baseLook('adult_male', 'base_male'), sex: 'male', vers: ['new'] },
-    base_female: { name: 'Female base', look: () => baseLook('adult_female', 'base_female'), sex: 'female', vers: ['new'] } };
+    base_female: { name: 'Female base', look: () => baseLook('adult_female', 'base_female'), sex: 'female', vers: ['new'] },
+    // the four other bodies (LAYERS_PLAN step 3): the male or female shape, with the age's proportions and age layer
+    base_boy: { name: 'Boy base', look: () => baseLook('child_male', 'base_male'), sex: 'male', vers: ['new'] },
+    base_girl: { name: 'Girl base', look: () => baseLook('child_female', 'base_female'), sex: 'female', vers: ['new'] },
+    base_old_man: { name: 'Old man base', look: () => baseLook('elder_male', 'base_male'), sex: 'male', vers: ['new'] },
+    base_old_woman: { name: 'Old woman base', look: () => baseLook('elder_female', 'base_female'), sex: 'female', vers: ['new'] } };
+// ?lineup=1: the six bodies side by side (man, woman, boy, girl, old man, old woman), A-pose, to judge them together
+const LINEUP = Q.get('lineup') === '1' ? ['base_male', 'base_female', 'base_boy', 'base_girl', 'base_old_man', 'base_old_woman'] : null;
 for (const [id, c] of Object.entries(CAST)) SUBJECTS[id] = { name: c.name, vers: Object.hasOwn(V2_MODELS, c.look.v2 ?? '') ? ['classic', 'new'] : ['classic'],
     look: () => { const lk = JSON.parse(JSON.stringify(c.look)); if (id === 'seraphina') lk.parts.right = { id: 'spear' }; return lk; } };
 const VER = { new: 'v2', classic: 'classic' };
@@ -45,6 +52,11 @@ const BASE = slots.some(sl => SUBJECTS[sl.id].sex);   // a base body on stage: t
 document.getElementById('labels').innerHTML = slots.map(sl => `<span>${slotName(sl).toUpperCase()}</span>`).join('');
 document.getElementById('labels').style.top = '56px';
 models[0].root.position.x = -0.75; models[1].root.position.x = 0.75;
+if (LINEUP) {   // (the two slots hidden; six bodies in a row instead, view only — editing an age layer comes with the Sculptor)
+    models.forEach(m => { m.root.visible = false; });
+    LINEUP.forEach((id, i) => { const m = make('new', SUBJECTS[id].look()); m.root.position.x = (i - 2.5) * 0.85; models.push(m); });
+    document.getElementById('labels').innerHTML = '';
+}
 let mode = BASE ? 'apose' : 'idle', spin = !BASE, yaw = BASE ? 0 : 0.35;
 // the top bar: what stands on each side (changing one reloads the page with it), then the editor and the hair
 const top = document.createElement('div'); top.id = 'top';
@@ -72,7 +84,7 @@ let drag = null;
 renderer.domElement.addEventListener('pointerdown', e => { drag = e.clientX; spin = false; refresh(); });
 addEventListener('pointerup', () => { drag = null; });
 addEventListener('pointermove', e => { if (drag != null) { yaw += (e.clientX - drag) * 0.01; drag = e.clientX; } });
-function resize() { renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); const d = camera.aspect < 1 ? 9 : 6; camera.position.set(0, 1.1, d); camera.lookAt(0, 0.95, 0); }
+function resize() { renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); const d = (camera.aspect < 1 ? 9 : 6) * (LINEUP ? 1.55 : 1); camera.position.set(0, 1.1, d); camera.lookAt(0, 0.95, 0); }
 addEventListener('resize', resize); resize();
 window.__lab = { ground: () => models.map(m => [-0.4, -0.45, -0.48].map(y => m.rig.legs.L.shin.localToWorld(new THREE.Vector3(0, y, 0)).y.toFixed(3)).join(',')).join(' / '), plain: () => { floor.visible = false; scene.background.set(0x3b3b3b); for (const id of ['bar', 'labels']) document.getElementById(id).style.display = 'none'; }, solo: i => { models.forEach((m, j) => { m.root.visible = j === i; m.root.position.x = 0; }); }, tris: () => models.map(m => { let t = 0; m.root.traverse(o => { if (o.isMesh && o.visible && o.userData.v2) t += (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3; }); return Math.round(t); }).join(' / '), setYaw: v => { yaw = v; spin = false; refresh(); }, setMode: v => { mode = v; refresh(); }, zoom: (d, y, x = 0) => { camera.position.set(x, y, d); camera.lookAt(x, y - 0.05, 0); } };
 // ---- the Blender round trip (docs/3d/characters/BLENDER.md): Export a base body as .glb (one vertex per point, its id in

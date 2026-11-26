@@ -8,6 +8,12 @@ export const BODY_PRESETS = {
     adult_female: { label: 'Adult female', height: 0.97, width: 0.92, head: 0.98, shoulders: 0.90, hips: 1.06, limb: 0.97, stoop: 0 },
     child:        { label: 'Child',        height: 0.68, width: 0.84, head: 1.22, shoulders: 0.82, hips: 0.90, limb: 0.82, stoop: 0 },
     elder:        { label: 'Elder',        height: 0.96, width: 0.95, head: 1.00, shoulders: 0.95, hips: 1.00, limb: 0.95, stoop: 0.12 },
+    // the six bodies (docs/3d/characters/LAYERS_PLAN.md, step 3): a boy and a girl, an old man and an old woman, each with
+    // its own proportions (the v2 bodies also take their age layer from these: /child/ → boy|girl, /elder/ → old_man|old_woman)
+    child_male:   { label: 'Boy',          height: 0.68, width: 0.84, head: 1.22, shoulders: 0.82, hips: 0.88, limb: 0.82, stoop: 0 },
+    child_female: { label: 'Girl',         height: 0.67, width: 0.82, head: 1.21, shoulders: 0.78, hips: 0.92, limb: 0.82, stoop: 0 },
+    elder_male:   { label: 'Old man',      height: 0.96, width: 0.95, head: 1.00, shoulders: 0.95, hips: 1.00, limb: 0.95, stoop: 0.12 },
+    elder_female: { label: 'Old woman',    height: 0.93, width: 0.90, head: 0.98, shoulders: 0.86, hips: 1.05, limb: 0.94, stoop: 0.14 },
 };
 
 // Races (lore DB: Human, Aurorian, Nythorian, Fallen Aurorian; the Werewolf is its own creature, no dwarves in the
