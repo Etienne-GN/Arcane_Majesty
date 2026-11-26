@@ -34,12 +34,13 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const rSex = row(); for (const b of bodies) btn(rSex, b.name, () => load(b.id));
     // the layer the edits are saved into (docs/3d/characters/LAYERS_PLAN.md): Common (every body), the sex, or the age —
     // only the difference from the other layers goes in, so an edit on the boy stays the boy's
-    const LAYER_LABEL = { common: 'Common', male: 'Male', female: 'Female', boy: 'Boy', girl: 'Girl', old_man: 'Old man', old_woman: 'Old woman' };
+    const stackOf = () => [...(bodyMesh?.userData.layers ?? [sex]), ...(B?.io ? ['override'] : [])];   // (a cast character: its own override on top)
+    const LAYER_LABEL = { override: 'This character', common: 'Common', male: 'Male', female: 'Female', boy: 'Boy', girl: 'Girl', old_man: 'Old man', old_woman: 'Old woman' };
     const rLayer = row(), layerBtns = [];
     const showLayers = () => {
         rLayer.replaceChildren(); layerBtns.length = 0;
         const lab = document.createElement('span'); lab.textContent = 'Save into:'; lab.style.cssText = 'align-self:center;margin-right:2px'; rLayer.append(lab);
-        for (const n of bodyMesh?.userData.layers ?? []) { const b = btn(rLayer, LAYER_LABEL[n] ?? n, () => { layer = n; showLayers(); }); b.style.background = n === layer ? '#8a6a2a' : '#4a3220'; layerBtns.push(b); }
+        for (const n of stackOf()) { const b = btn(rLayer, LAYER_LABEL[n] ?? n, () => { layer = n; showLayers(); }); b.style.background = n === layer ? '#8a6a2a' : '#4a3220'; layerBtns.push(b); }
         showVersions();
     };
     // the version of that layer being worked on: the active one (what the game builds) or an alternate (layers/alt/) —
@@ -47,7 +48,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     let B = null;   // (what getBody gave: the alternate this body shows, and how to reload the page)
     const rVer = row();
     const showVersions = () => {
-        rVer.replaceChildren(); if (!B) return;
+        rVer.replaceChildren(); if (!B || layer === 'override') return;   // (a character's override has no alternates)
         const lab = document.createElement('span'); lab.textContent = 'Version:'; lab.style.cssText = 'align-self:center;margin-right:2px'; rVer.append(lab);
         const sel = document.createElement('select'); sel.style.cssText = 'font:13px Georgia,serif;padding:4px;border-radius:7px;background:#4a3220;color:#f1e4c4;border:1px solid #c8963a88;max-width:150px';
         const cur = B.alt?.layer === layer ? B.alt.name : '';
@@ -82,7 +83,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         topoOp('remove', sel, nb.reduce((a, j) => (d(j) < d(a) ? j : a)));
     });
     btn(rPts, 'Undo last', async () => {
-        const points = await (await fetch(`/api/v2layer?${src(layer)}`)).json(), ops = points['@topo'] ?? [];
+        const points = await readL(layer), ops = points['@topo'] ?? [];
         if (!ops.length) { info.textContent = `No added or removed points in the ${LAYER_LABEL[layer]} layer.`; return; }
         const g = ops.at(-1)[3]; let n = 0; while (ops.length && (g == null ? n < 1 : ops.at(-1)[3] === g)) { ops.pop(); n++; }
         await saveTo(B?.alt?.layer === layer ? B.alt.name : null, null, { '@topo': ops });
@@ -149,7 +150,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
 
     function load(s) {
         who = s; B = getBody(s); T = B.table; bodyMesh = B.mesh; sex = bodyMesh.userData.editSex ?? 'male'; sel = -1; undo.length = 0;
-        const Ls = bodyMesh.userData.layers ?? [sex]; if (!Ls.includes(layer)) layer = Ls.at(-1); showLayers();   // (by default the body's own: its age layer, else its sex)
+        const Ls = stackOf(); if (!Ls.includes(layer)) layer = Ls.at(-1); showLayers();   // (by default the body's own: its age layer, else its sex)
         group.clear();
         geo = new THREE.BufferGeometry();
         bind = Float32Array.from(T.P); loaded = Float32Array.from(T.P);   // (loaded: as it came — what was moved here, at saving)   // the rest shape (what is saved); the view shows it posed (T.L, T.t: the A-pose)
@@ -209,6 +210,9 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     }
     // the layer's source as this body is built from it: its alternate if it shows one, else the active file
     const sessionMoves = () => { let c = 0; for (let i = 0; i < (T?.keys.length ?? 0); i++) if (Math.hypot(bind[i * 3] - loaded[i * 3], bind[i * 3 + 1] - loaded[i * 3 + 1], bind[i * 3 + 2] - loaded[i * 3 + 2]) > 1e-6) c++; return c; };
+    // a layer read and written: the shared layers through /api/v2layer; 'override' (the character's own) through getBody's io
+    const readL = n => (n === 'override' ? B.io.read() : fetch(`/api/v2layer?${src(n)}`).then(r => r.json()));
+    const writeL = (n, points, alt) => (n === 'override' ? B.io.write(points) : fetch('/api/v2layer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer: n, points, ...(alt ? { alt } : {}) }) }));
     const src = n => `layer=${n}` + (B?.alt?.layer === n ? `&alt=${B.alt.name}` : '');
     const save = () => saveTo(B?.alt?.layer === layer ? B.alt.name : null);
     const neighbours = i => { const s = new Set(), I = T.idx; for (let f = 0; f < I.length; f += 3) { const a = I[f], b = I[f + 1], c = I[f + 2]; if (a === i || b === i || c === i) for (const v of [a, b, c]) if (v !== i) s.add(v); } return [...s]; };
@@ -226,9 +230,9 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         // of its stack already give, is the chosen layer's entry. Merged into the layer as this body has it (a new alternate
         // starts as a copy of it): entries the table cannot show (the chin's hidden corners) stay, and only what was moved
         // in this session is written — a point derived from others (the chin's rounded tip) keeps following unless moved.
-        const stack = bodyMesh.userData.layers ?? [layer], others = {};
-        for (const n of stack) if (n !== layer) others[n] = await (await fetch(`/api/v2layer?${src(n)}`)).json();
-        const points = await (await fetch(`/api/v2layer?${src(layer)}`)).json(), pm = bodyMesh.userData.points;
+        const stack = stackOf(), others = {};
+        for (const n of stack) if (n !== layer) others[n] = await readL(n);
+        const points = await readL(layer), pm = bodyMesh.userData.points;
         let changed = 0;
         for (let i = 0; i < T.keys.length; i++) {
             const k = T.keys[i], r0 = pm?.get(k); if (!r0) continue;
@@ -242,7 +246,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         if (topoAdd) points['@topo'] = [...(points['@topo'] ?? []), ...topoAdd];
         if (replace) Object.assign(points, replace);
         if (Array.isArray(points['@topo']) && !points['@topo'].length) delete points['@topo'];
-        const r = await fetch('/api/v2layer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer, points, ...(alt ? { alt } : {}) }) });
+        const r = await writeL(layer, points, alt);
         const where = `the ${LAYER_LABEL[layer] ?? layer} layer` + (alt ? ` (alternate "${alt}")` : '');
         info.textContent = r.ok ? `Saved ${changed} moved points into ${where} — reloading…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`;
         if (r.ok) setTimeout(() => B.go({ edit: who, layer, alt: alt ? `${layer}:${alt}` : null }), 700);

@@ -195,11 +195,22 @@ window.__lab_io = { exportBody, importBody, pointTable, bodyMesh };
 // stage (the compare: the split view, edited body left, compare right) and the reference sheet; each can be shown or hidden
 // (by slot: the base bodies on stage — e.g. the male base on the left and the boy on the right; ?edit= takes the slot, 0 or 1,
 // or a sex for old links; ?layer= the layer to save into)
-const EDITABLE = slots.map((sl, i) => ({ id: i, name: SUBJECTS[sl.id].name, sex: SUBJECTS[sl.id].sex })).filter(b => b.sex);
+// A cast character in v2 built on the base body (Eldrin) can be edited too: its own override ("This character", saved in its
+// cast file as look.sculpt.points) on top of the shared layers
+const EDITABLE = slots.map((sl, i) => ({ id: i, name: SUBJECTS[sl.id].name, sex: SUBJECTS[sl.id].sex ?? (sl.ver === 'new' ? bodyMesh(i)?.userData.editSex : null), cast: !SUBJECTS[sl.id].sex ? sl.id : null })).filter(b => b.sex);
+const castIO = id => ({
+    read: async () => ((await fetch('/api/cast').then(r => r.json())).find(d => d.id === id)?.look?.sculpt?.points ?? {}),
+    write: async points => {   // (the whole cast file, its look's sculpt part replaced)
+        const def = (await fetch('/api/cast').then(r => r.json())).find(d => d.id === id); if (!def) return { ok: false, json: async () => ({ error: 'no cast file' }) };
+        const sc = { ...(def.look.sculpt ?? {}), points }; if (!Object.keys(points).length) delete sc.points;
+        if (Object.keys(sc).length) def.look.sculpt = sc; else delete def.look.sculpt;
+        return fetch('/api/cast', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(def) });
+    },
+});
 let cmpIdx = 1;
 const split = () => !!(editor?.on && editor.showCompare);
-const editor = BASE && !LINEUP ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, bodies: EDITABLE, alts: ALTS,
-    getBody: i => { cmpIdx = 1 - i; return { table: posedTable(i), mesh: bodyMesh(i), alt: altOf[i], go: ({ alt, ...ch }) => go({ ...ch, [`alt${i}`]: alt ?? null }) }; },
+const editor = EDITABLE.length && !LINEUP ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, bodies: EDITABLE, alts: ALTS,
+    getBody: i => { cmpIdx = 1 - i; const cast = EDITABLE.find(b => b.id === i)?.cast; return { table: posedTable(i), mesh: bodyMesh(i), alt: altOf[i], io: cast ? castIO(cast) : null, go: ({ alt, ...ch }) => go({ ...ch, [`alt${i}`]: alt ?? null }) }; },
     viewRect: () => ({ left: 0, top: 0, width: split() ? Math.floor(innerWidth / 2) : innerWidth, height: innerHeight }),
     onEnter: () => { models.forEach(m => { m.root.visible = false; }); floor.visible = false; for (const id of ['bar', 'labels', 'blender', 'top']) { const e = document.getElementById(id); if (e) e.style.display = 'none'; } },
     onExit: () => { models.forEach(m => { m.root.visible = true; }); floor.visible = true; for (const id of ['bar', 'labels', 'blender', 'top']) { const e = document.getElementById(id); if (e) e.style.display = ''; } resize(); } }) : null;
