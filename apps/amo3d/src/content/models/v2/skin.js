@@ -9,14 +9,16 @@ import { LITE } from '../../../engine/lib.js';
 // edits (optional): { "x,y,z" (a point's generated position, root-local, 4 decimals): [x, y, z] } — positions moved by hand
 // in Blender (docs/3d/characters/BLENDER.md); every generated point keeps its key so the edits find it again.
 export const pointKey = p => `${p.x.toFixed(4)},${p.y.toFixed(4)},${p.z.toFixed(4)}`;
-export function createSkin(root, bones, { edits = null } = {}) {
+// share (optional): (p) → an edited position or null — for points with no edit of their own (the female head takes
+// the male's head edits this way: base.js)
+export function createSkin(root, bones, { edits = null, share = null } = {}) {
     root.updateMatrixWorld(true);
     const index = new Map(bones.map((b, i) => [b, i]));
     const at = (group, x = 0, y = 0, z = 0) => root.worldToLocal(group.localToWorld(new THREE.Vector3(x, y, z)));
     const lists = { front: { pos: [], col: [], si: [], sw: [], key: [] }, double: { pos: [], col: [], si: [], sw: [], key: [] } };
     const tmp = new THREE.Color();
     function vert(L, p, w, c, key = null) {   // key: a derived point's own stable key (its position may follow other points' edits)
-        const k = key ?? pointKey(p), q = edits?.[k];
+        const k = key ?? pointKey(p), q = edits?.[k] ?? share?.(p);
         L.key.push(k); if (q) L.pos.push(q[0], q[1], q[2]); else L.pos.push(p.x, p.y, p.z); L.col.push(c.r, c.g, c.b);
         const ws = (typeof w === 'function' ? w() : w).slice(0, 4), s = ws.reduce((a, [, v]) => a + v, 0) || 1;
         for (let i = 0; i < 4; i++) { const e = ws[i]; L.si.push(e ? index.get(e[0]) ?? 0 : 0); L.sw.push(e ? e[1] / s : 0); }

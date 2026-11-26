@@ -9,6 +9,7 @@ import * as THREE from 'three';
 import { createSkin, blend, profile, ringPts, pointKey } from './skin.js';
 import EDITS_MALE from './edits_male.json';     // points moved by hand in Blender (the Character Lab's Export / Import)
 import EDITS_FEMALE from './edits_female.json';
+import { BODY_PRESETS } from '../look.js';
 
 const sym = (th, amp, wd) => [{ th, amp, wd }, { th: -th, amp, wd }];
 
@@ -21,8 +22,50 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     const BALD = ctx.look?.hair?.style === 'bald';   // no hair (2026-11-23: hair will be interchangeable; the hairless reference sheet)
     const bones = [hips, spine, head, arms.L.upper, arms.L.fore, arms.R.upper, arms.R.fore, legs.L.thigh, legs.L.shin, legs.R.thigh, legs.R.shin];
     head.position.z += 0.024; head.position.y += 0.005;   // (2026-11-23: lowered 2.5 cm — it sat too high on the neck) root.updateMatrixWorld(true);   // (the head carried a little forward of the shoulders, the neck leaning to it, as the reference)
-    const HV = F ? 0.86 : 0.82;   // the head's height (2026-11-23: it was ~25% too long for its width against the reference)
-    const sk = createSkin(root, bones, { edits: F ? EDITS_FEMALE : EDITS_MALE }), V = (g, x, y, z) => sk.at(g, x, g === head ? y * HV : y, z);
+    const HV = 0.82;   // the head's height (2026-11-23: it was ~25% too long for its width against the reference; the female's the same since — "almost the same head as the male")
+    // The female head takes the male head's shape (2026-11-23: "almost the same as the male's, except the jaw and chin, more
+    // delicate"): each of her head's points with no edit of its own is matched to the male point made from the same head
+    // coordinates, and that point's edit (the user's work on the male face) is carried over, scaled to her head. Her jaw and
+    // chin (below the mouth) keep their own, finer shape and her own edits. The male head's place is the rig's own chain
+    // (body ← hips ← spine ← head) at the male preset's scale, so it follows the rig.
+    const share = F ? (() => {
+        const HK_M = 1.03, HV_M = 0.82, PM = BODY_PRESETS.adult_male;
+        root.updateMatrixWorld(true);
+        const rel = new THREE.Matrix4().copy(root.matrixWorld).invert().multiply(head.matrixWorld), Of = new THREE.Vector3(), Sf = new THREE.Vector3();
+        rel.decompose(Of, new THREE.Quaternion(), Sf);
+        const Om = new THREE.Vector3(head.position.x * PM.width, (hips.position.y + spine.position.y + head.position.y) * PM.height, head.position.z * PM.width), Sm = new THREE.Vector3().setScalar(PM.head);
+        // Where a head-table point lands (root-local), on a head of size hk / height HV placed at O with scale S — the skull's
+        // rings (their centre placed, the ring's own offsets added as they are: skin.loft) and the face's planes (4 mm forward)
+        const skullAt = (O, S, k, hv, row, [x, y, z], s) => { const my = row.reduce((a, p) => a + p[1], 0) / row.length; return O.clone().add(new THREE.Vector3(0, my * k * hv, 0.004).multiply(S)).add(new THREE.Vector3(s * x * k, (y - my) * k, z * k)); };
+        const faceAt = (O, S, k, hv, [x, y, z], s) => O.clone().add(new THREE.Vector3(s * x * k, y * k * hv, z * k + 0.004).multiply(S));
+        let map = null;   // her point → the male edit's displacement, scaled to her head (built by prepare(), once the head's table and hk exist)
+        const build = () => {
+            map = [];
+            const male = Object.entries(EDITS_MALE).map(([key, q]) => [new THREE.Vector3(...key.split(',').map(Number)), new THREE.Vector3(...q)]);
+            const skullScale = new THREE.Vector3().setScalar(hk / HK_M);
+            const faceScale = Sf.clone().divide(Sm).multiplyScalar(hk / HK_M);
+            for (const [a, q] of male) for (const s of [1, -1]) for (let r = 6; r < HEAD.length; r++) for (const pt of HEAD[r]) {
+                if (pt[1] < 0.11) continue;   // (the jaw and chin are hers)
+                const mSkull = skullAt(Om, Sm, HK_M, HV_M, HEAD[r], pt, s), fSkull = skullAt(Of, Sf, hk, HV, HEAD[r], pt, s);
+                const mFace = r === 6 ? faceAt(Om, Sm, HK_M, HV_M, pt, s) : null, fFace = r === 6 ? faceAt(Of, Sf, hk, HV, pt, s) : null;
+                if (mSkull.distanceTo(a) < 1.5e-4) {
+                    const d = q.clone().sub(a);
+                    map.push([fSkull, d.clone().multiply(skullScale)]);
+                    if (fFace) map.push([fFace, d.clone().multiply(faceScale)]);   // (the face's top edge follows the skull's eye row: no deep band)
+                }
+                if (mFace && mFace.distanceTo(a) < 1.5e-4) map.push([fFace, q.clone().sub(a).multiply(faceScale)]);
+            }
+        };
+        const shareAt = p => {
+            if (!map) return null;   // (not ready yet: the torso is built before the head's table and hk exist)
+            for (const [f, d] of map) if (f.distanceTo(p) < 1.5e-4) return [p.x + d.x, p.y + d.y, p.z + d.z];
+            return null;
+        };
+        shareAt.prepare = build;
+        return shareAt;
+    })() : null;
+    let hk = 1;   // (set with the head, below; the share reads it when the head's points are made)
+    const sk = createSkin(root, bones, { edits: F ? EDITS_FEMALE : EDITS_MALE, share }), V = (g, x, y, z) => sk.at(g, x, g === head ? y * HV : y, z);
 
     // ---- the torso, from the neck down to the crotch (body coordinates: the rig's own scale applies) ----
     const torsoW = y => (y > 1.655 ? [[head, 1]] : y > 1.6 ? [[spine, 0.4], [head, 0.6]] : y > 1.57 ? [[spine, 0.75], [head, 0.25]] : y > 1.1 ? [[spine, 1]] : y > 1.0 ? blend(hips, spine, (y - 1.0) / 0.1) : [[hips, 1]]);
@@ -149,7 +192,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     }
 
     // ---- the head: chin, jaw angle, cheekbones, eye sockets, the brow ridge, forehead, crown ----
-    const hk = (F ? 0.97 : 1.03) * headK;   // (smaller: 2026-11-23, "the head is too big")   // (the reference's head is ~40% of the shoulders' width)
+    hk = (F ? 0.97 : 1.03) * headK;   // (smaller: 2026-11-23, "the head is too big")   // (the reference's head is ~40% of the shoulders' width)
     // the head, hand-placed: the face's centre line, the cheek's front, the cheekbone, the side (the ear), the back's side,
     // the back — big planes: the brow overhanging the eyes, the cheekbones, the jaw's angle, the chin
     // The head (2026-11-23): each ring's points placed by hand at their own heights — the jawline slants from the chin up to
@@ -173,6 +216,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         [[0, 0.3, 0.05], [0.028, 0.301, 0.046], [0.05, 0.298, 0.032], [0.063, 0.295, 0.008], [0.066, 0.295, -0.03], [0.054, 0.295, -0.064], [0, 0.297, -0.074]],
         [[0, 0.318, 0.012], [0.018, 0.318, 0.009], [0.03, 0.316, -0.003], [0.036, 0.314, -0.018], [0.036, 0.314, -0.032], [0.026, 0.314, -0.046], [0, 0.314, -0.05]],   // the crown
     ];
+    share?.prepare();   // (the head's table and hk now exist: build her share map before any of her head's points are made)
     // the female face: a narrower jaw and a softer chin
     const fem = (k, i, [x, y, z]) => (F && k >= 1 && k <= 3 && i >= 1 && i <= 4 ? [x * (i === 3 || i === 4 ? 0.88 : 0.9), y, z] : [x, y, z]);
     // the skull, from the eyes up: rings
@@ -208,6 +252,10 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         const TIP = { 1: { CC: tipPts('CC', 0, 'NF', 1), CR: tipPts('CR', 1, 'N2', 1) }, '-1': { CC: tipPts('CC', 0, 'NF', -1), CR: tipPts('CR', 1, 'N2', -1) } };
         const pick = (k, s) => { const m = /^(CC|CR)([fmu])$/.exec(k); return m ? TIP[s][m[1]][m[2]] : null; };
         const shape = (list, s) => sk.poly(list.map(k => (typeof k === 'number' ? at(E[k], s) : pick(k, s) ?? at(Q[k], k === 'CC' || k === 'NF' || k === 'NB' || k === 'BC' ? 1 : s))), skin, centre);
+        // the seam at the eye row closed: the skull's lowest ring and the face's top edge are separate points (each with its
+        // own edits), so a crack can open between them; thin facets bridge the two
+        const skullPt = (k, s) => { const half = E, my = half.reduce((a, p) => a + p[1], 0) / half.length, c = V(head, 0, my * hk, 0.004), [x, y, z] = half[k]; return { p: new THREE.Vector3(c.x + s * x * hk, c.y + (y - my) * hk, c.z + z * hk), w: [[head, 1]] }; };
+        for (const s of [1, -1]) for (let k = 0; k < E.length - 1; k++) sk.poly([skullPt(k, s), skullPt(k + 1, s), at(E[k + 1], s), at(E[k], s)], skin, centre);
         for (const s of [1, -1]) {
             shape([0, 1, 'CRf', 'CCf'], s);            // the trapezoid's half: from under the eye to just above the chin's tip
             shape(['CCf', 'CRf', 'CRm', 'CCm'], s);    // the rounded tip: two narrow facets bending from the front…
