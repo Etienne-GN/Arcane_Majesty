@@ -62,6 +62,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         skin: (() => { const R = RACES[bodyDef.race] ?? RACES.human, m = mat(bodyDef.wolf ? (R.fur ?? '#6a5e54') : bodyDef.skin); if (R.glow) { m.emissive = new THREE.Color(R.glow.color); m.emissiveIntensity = R.glow.k; } return m; })(),   // a race's inner light
         hair: mat(L.hair.color),
         stubble: mat(L.facialHair.color),
+        ear: null,   // (the elven ears: the skin's own material, set below — kept on a v2 head)
         eye: new THREE.MeshStandardMaterial({ color: eye, emissive: eye.clone().multiplyScalar(0.7), emissiveIntensity: 0.6 }),
         brow: mat(darker(L.hair.color, 0.75)),
         gold: mat('#d4a84a', { metalness: 0.7, roughness: 0.35 }),
@@ -71,6 +72,8 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             color: 0x7ff5e6, emissive: 0x3ce0d0, emissiveIntensity: 2.2, flatShading: true, roughness: 0.2,
         }),
     };
+    M.ear = M.skin.clone();
+    const elvenEars = [];
 
     // Local forward is +z; the character's left is +x.
     const root = new THREE.Group();
@@ -134,8 +137,8 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         if (bodyDef.wolf) {   // the wolf form: tall pointed wolf ears on top of the head
             const ear = mesh(new THREE.ConeGeometry(0.04, 0.12, 4), M.skin, s * 0.07, 0.27, -0.03); ear.rotation.z = s * -0.25; head.add(ear);
         } else if ((RACES[bodyDef.race] ?? RACES.human).ears === 'elven') {   // long pointed ears, swept back and up
-            const ear = mesh(new THREE.ConeGeometry(0.026, 0.13, 5), M.skin, s * 0.118, 0.15, -0.02);
-            ear.rotation.set(-0.5, 0, s * -1.05); head.add(ear);
+            const ear = mesh(new THREE.ConeGeometry(0.026, 0.13, 5), M.ear, s * 0.118, 0.15, -0.02);
+            ear.rotation.set(-0.5, 0, s * -1.05); head.add(ear); elvenEars.push([ear, s]);
         } else head.add(mesh(new THREE.SphereGeometry(0.025, 5, 4), M.skin, s * 0.112, 0.13, -0.005));   // ears
     }
     if (RACES[bodyDef.race]?.veins) {   // the Fallen: Void-cracks glowing under the skin of the face
@@ -203,7 +206,10 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     const V2 = OWN ?? (settings.charModels === 'new' && !bodyDef.wolf ? (c => buildBase(c, { sex: F2 ? 'female' : 'male', skin: bodyDef.skin, hair: L.hair.color, bald: !ownHair, outfit: wardrobeOutfit(L, F2) })) : null);
     let v2 = null;
     const keepMats = new Set([M.gold, M.steel, M.wood, M.crystal]);   // (the rigid classic parts worn on a v2 body: their materials stay visible)
-    if (V2 && !OWN) { keepMats.add(M.stubble); if (!ownHair && L.hair.style !== 'bald') keepMats.add(M.hair); }
+    if (V2 && !OWN) {
+        keepMats.add(M.stubble); if (!ownHair && L.hair.style !== 'bald') keepMats.add(M.hair);
+        if (elvenEars.length) { keepMats.add(M.ear); for (const [ear, s] of elvenEars) ear.position.set(s * 0.088, 0.135, -0.03); }   // (the elven points, from the v2 head's own ear)
+    }
     if (V2) { root.traverse(o => { if (o.isMesh) o.visible = false; }); v2 = V2(ctx); if (typeof v2?.update === 'function') hooks.push(v2.update); }
     if (V2 && !OWN) for (const slot of RIGID_SLOTS) {
         const entry = L.parts[slot];

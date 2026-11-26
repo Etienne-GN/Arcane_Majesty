@@ -78,7 +78,7 @@ a point a lower layer removed is reported in the Sculptor, not lost silently.
 4. ✅ (2026-11-26) **The Sculptor**: the Lab renamed; the layer picker (pick, edit, save, compare), **adding and removing points**,
    **alternates** (save as, switch, compare, make active), overrides in the looks, **dress the model** (the Forge's wardrobe), and the Forge's "Sculpt this
    character".
-5. Then **§2**: NPCs and the Forge onto v2 — each character picks its layers from its sex and age; its clothes and hair
+5. ✅ (2026-11-26, first pass — behind Options › Character models: New) Then **§2**: NPCs and the Forge onto v2 — each character picks its layers from its sex and age; its clothes and hair
    dress the shaped body.
 6. **Creatures**, kind by kind: a **v2 model** for the kind (a skinned body on its own rig, like the characters), its point keys, its layer and alternates,
    overrides for single creatures; the werewolves (both forms) when they come.
@@ -113,3 +113,11 @@ the user on the Lab before the next.
   - The Forge's "Sculpt this character" (dev server) and the Sculptor's link back.
   Limits: an override or layer edit does not move a point an outfit reshapes (Eldrin's tube sleeves keep their shape);
   the lineup is view only.
+- **Step 5, first pass (2026-11-26).** With Character models: New, every look without a model of its own is built on the
+  base body of its sex and age (`character.js`), its clothes translated by `v2/wardrobe.js`: torso, legs, feet and arms
+  painted on the shaped body; coat tails, robes, tunics, skirts and gowns hung as a swinging skirt (Eldrin's tails made
+  general); headgear, shoulders, belt, neck, cape, back and accessory kept as the classic parts on the same joints; the v2
+  hair for short and tousled, the classic styles and beards on a bald v2 head; elven ears. The Forge has a Model:
+  Classic / New button. Cost: ~19 ms to build a character (layers cached per body shape; the face's rays on the head
+  only); the Crossroads draws 300 calls instead of 491 with the same triangles. Still classic: the rigid parts' fit
+  (pauldrons sit wide), the classic hair and beards (a v2 hair and beard set to come), Classic stays the default.
