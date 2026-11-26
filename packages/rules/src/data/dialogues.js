@@ -34,19 +34,6 @@ export const DIALOGUES = {
     hermit_hut_after: [
         { speaker: 'Hermit', text: 'The resonance lines converge southeast of here. You will feel it before you see it.' },
         { speaker: 'Hermit', text: 'Trust the pull. That is all the instruction Vorgos left for those who carry his mark.' },
-        {
-            speaker: 'Hermit', unlessFlag: 'offered_hermit_help',
-            text: 'Forty years of reading by firelight. My hands are not what they were.',
-            choices: [
-                { text: 'Can I help?', setFlag: 'offered_hermit_help', startQuest: 'side_hermits_remedy', next: 'hermit_remedy_accepted' },
-                { text: 'Rest well, Hermit.' },
-            ],
-        },
-    ],
-
-    hermit_remedy_accepted: [
-        { speaker: 'Hermit', text: 'Moonpetal, three blooms. Glowcap, two caps. The herb patches and mushroom rings outside will have them.' },
-        { speaker: 'Hermit', text: 'Bring them here and I will show you the tonic in return. A fair trade, for a scholar.' },
     ],
 
     // ── Chapter 3 — Odyssey's Dawn (Thaloria, East Road) ─────────────────────
@@ -59,7 +46,7 @@ export const DIALOGUES = {
     ],
     trader_greeting: [
         { speaker: 'Trader', text: 'You walk east? Then hear this for free — it is the only free thing on this road.' },
-        { speaker: 'Trader', text: 'A stranger paid me well on the road last month. One question, polite as a priest: had I heard tell of "the Anchor"? Then he went on east, and asked no second question.' },
+        { speaker: 'Trader', text: 'Heard a strange one at the inn last month, from a Port Silver captain. Strangers going village to village, one question each, polite as priests: had anyone heard tell of "the Anchor"? Always moving east. One of them stopped on our own road, he said.' },
         { speaker: 'Trader', text: 'I could not tell you why the road felt thinner after he passed. It just did.' },
     ],
     trader_after: [
@@ -95,25 +82,6 @@ export const DIALOGUES = {
     ],
     oren_after: [
         { speaker: 'Oren', text: 'The mountains have been waiting for us. Lead on — I am right behind you.' },
-    ],
-
-    // ── Silvara ───────────────────────────────────────────────────────────────
-
-    merchant_greeting: [
-        { speaker: 'Silvara', text: 'A scholar! In full robes, no less. You are either very brave or have not yet seen what is east of the ridge.' },
-        { speaker: 'Silvara', text: 'I am Silvara. Merchant, occasional scout, and the only person in this forest who keeps a proper inventory.' },
-        { speaker: 'Silvara', text: 'I trade in what I have. Tools, arms, alchemical sundries, things I find in the ruins. Glint is all I ask.' },
-        { speaker: 'Silvara', text: 'Buy what you need. The forest is unkind to the unprepared — and I have been prepared for twenty years.' },
-    ],
-
-    merchant_after: [
-        { speaker: 'Silvara', text: 'Safe travels. Come back when you are bleeding or broke — I handle both.' },
-    ],
-
-    silvara_lore: [
-        { speaker: 'Silvara', text: 'You want to know about the ruins? I have camped near them for two seasons.' },
-        { speaker: 'Silvara', text: 'The stonework is Concord-era — maybe older. The sigils are not decorative. I had a scholar from the capital look at them once. He went pale and left the same day.' },
-        { speaker: 'Silvara', text: 'Whatever happened at 0 GD, it left a scar on the land itself. The resonance here is wrong. Too dense in places, absent in others. Like the world held its breath and never fully exhaled.' },
     ],
 
     // ── Eldrin ────────────────────────────────────────────────────────────────

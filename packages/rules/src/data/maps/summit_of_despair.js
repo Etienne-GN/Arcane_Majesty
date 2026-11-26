@@ -143,8 +143,8 @@ export const SUMMIT_OF_DESPAIR = {
     currencyBias: 'rural',
     music: 'forest',
     quests: [
-        'main_whisperer_of_doubt', 'side_frozen_camp',
-        'side_widows_watch', 'side_echoes_in_the_rime',
+        'main_whisperer_of_doubt',
+        ,
     ],
     chapterTitle: 'Act II: Summit of Despair',
     introDialogue: null,

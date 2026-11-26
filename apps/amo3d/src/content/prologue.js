@@ -18,7 +18,7 @@ export const PROLOGUE_QUESTS = {
         steps: [{ id: 'ch2_vision', type: 'talk', target: 'ch2_vision', label: 'See what the storm shows you', required: 1 }],
         reward: { xp: 120, items: [] } },
     // Book ch. 3 — The Scholar's Life: the compass tested, the three fragments in the Forbidden Archive (Eldrin has held
-    // its key for thirty years), the tower locked behind him.
+    // its key for years), the tower locked behind him.
     main_scholars_life: { id: 'main_scholars_life', title: "The Scholar's Life", type: 'main',
         description: 'Something burned a direction into you. Test it like a scholar — then go down into the Forbidden Archive, where the tidier may have missed something.',
         steps: [
@@ -165,7 +165,7 @@ export function createPrologue({ stats, hud, dialogue, quests, save, player, wor
     function seal() {
         say([
             'The three fragments lie on the desk beside the cores. The Anchor is the Heartstone of Creation; the Anchor is what holds; and the Anchor was carried, in the old age, "to the ruin" — east, over the mountains, where the needle points.',
-            'You pack. It is strange how little a life comes to when it is laid out for travel: the old staff, worn smooth by thirty years of stairs; three changes of clothes for a winter you mean to walk across; the second journal and two blank ones; a rune-kit; the letter from Silverrun, folded soft as cloth.',
+            'You pack. It is strange how little a life comes to when it is laid out for travel: the old staff, worn smooth by years of stairs; three changes of clothes for a winter you mean to walk across; the second journal and two blank ones; a rune-kit; the letter from Silverrun, folded soft as cloth.',
             'You leave the cores in their slots. They told you the truth about the world. They have earned their rest.',
             'On the last page you will write as a man who lives in a tower: "I am a historian. I am going to go and stand in the way of history."',
             'You pull the iron door to behind you and turn the key, and the lock engages with a sound like the closing of a ledger.',

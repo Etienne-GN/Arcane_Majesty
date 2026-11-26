@@ -56,23 +56,23 @@ data/scripts/     Neo4j + conversion scripts
 - New game-only content must set `origin: "game"` (DB nodes carry `origin: "album"` or `"game"`).
 
 ## Neo4j Graph Database — Current State (verified against DB)
-**19 Characters · 8 Albums · 103 Songs · 39 Locations · 15 Organizations · 6 Races · 4 Artifacts · 3 Prophecies · 37 Events · 3 Planes · 10 Regions · 2 TransPlanar**
+**20 Characters · 8 Albums · 103 Songs · 39 Locations · 14 Organizations · 7 Races · 4 Artifacts · 4 Prophecies · 38 Events · 3 Planes · 10 Regions · 2 TransPlanar** (counted 2026-11-26)
 
 ### Node Labels
 | Label | Count | Key Attributes |
 |---|---|---|
-| `Character` | 19 | name, role, race, description, backstory, origin |
+| `Character` | 20 | name, role, race, description, backstory, origin |
 | `Album` | 8 | title, summary, global_timeline, era, timeline_range, origin |
 | `Song` | 103 | title, track_index, plot, lyrics, origin |
 | `Location` | 39 | name, description, origin, x, y (Phaser px coords) |
 | `Plane` | 3 | name, description, origin |
 | `Region` | 10 | name, description, origin |
 | `TransPlanar` | 2 | name, description, origin |
-| `Event` | 37 | name, description, era, timeline_label, origin |
-| `Organization` | 15 | name, description, origin |
-| `Race` | 6 | name, nature, origin |
+| `Event` | 38 | name, description, era, timeline_label, origin |
+| `Organization` | 14 | name, description, origin |
+| `Race` | 7 | name, nature, origin |
 | `Artifact` | 4 | name, description, origin |
-| `Prophecy` | 3 | name, description, origin |
+| `Prophecy` | 4 | name, description, origin |
 
 `The Great Rift` carries both `Location` and `TransPlanar` labels (so it counts in both).
 

@@ -3,42 +3,6 @@ import { playerStats } from './PlayerStats.js';
 import { questSteps, objectivesDone, isQuestDone, canStart, consumeOnTurnIn } from '../data/questRules.js';
 
 const MEMORY_FRAGMENTS = {
-    main_forest_hunt: {
-        title: 'Hunt Log',
-        text:  "Eldrin's Journal — 'The wolves moved as shadows, drawn not by hunger but by void-taint. Whatever befouled this forest ran deeper than root or soil. The Void General was only the surface of something far older.'"
-    },
-    side_supply_run: {
-        title: "Scout's Report",
-        text:  "Recovered note — 'Supplies retrieved from the eastern cache. The roads are less safe than the merchants admit. Three caravans vanished along the ridge trail this season. No bodies found.'"
-    },
-    side_read_the_signs: {
-        title: 'Stone Inscription (Translated)',
-        text:  "Runic carving — 'Here walked the first architects of the Rift-Gate network. Their names have been removed — not by time, but by design. Someone does not want them remembered.'"
-    },
-    hidden_shadow_initiation: {
-        title: 'Void Whisper',
-        text:  "Heard in the veil — 'You have walked in my shadow. The veil remembers every soul it touches. You are marked now, scholar. The darkness knows your name.'"
-    },
-    hidden_covenant_scholar: {
-        title: 'Concord Fragment I',
-        text:  "Arcane inscription — 'The Staff of the First Concord was not forged. It grew — from the first seed of structured arcane intention ever placed in Eldoria. The Concord did not make it. It made the Concord.'"
-    },
-    hidden_hunters_trial: {
-        title: "Hunter's Mark",
-        text:  "Etched on the bow — 'Every arrow loosed in righteous purpose finds its mark. Eternal Draw earns its name not through magic but through the hunter's unbroken will.'"
-    },
-    hidden_void_fragment: {
-        title: 'Void Shard Memory',
-        text:  "Fragment resonance — 'Vorgos the Stormbringer shattered the Void Gate at 0 GD. The cleaver you carry is a remnant of that cataclysm — a shard of an event the historians erased from the record entirely.'"
-    },
-    side_corrupted_hunt: {
-        title: "Hunter's Field Notes",
-        text:  "Eldrin's notation — 'The void-corruption does not kill the animals outright. It twists them — inverts their instincts. A boar that would have fled becomes a thing that charges. Whatever is spreading this corruption is deliberate about it.'"
-    },
-    side_void_offering: {
-        title: 'Hermit Correspondence',
-        text:  "Scrawled on bark — 'The Hermit took the shards without a word and placed them one by one into the campfire. They did not burn. They sang — a low resonance that lasted long after he left the clearing.'"
-    },
     main_odysseys_dawn: {
         title: 'The Second Journal',
         text:  "Eldrin's hand, the fourth day — 'Magic is expensive. It costs what it costs, and then it costs more, because it calls to everything that feeds on cost. I will use it as a man uses money on a long road: sparingly, in the dark, and never twice in the same place.'"

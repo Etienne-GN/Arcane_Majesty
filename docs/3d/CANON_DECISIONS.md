@@ -52,4 +52,8 @@ and the Citadel across the gorge.
 | **Werewolves as a playable race** | game | Keep (the DB has `Race: Werewolf` and the Guardians of the Wild — album canon); the playable change is a game mechanic. |
 
 ## Nythoria's open decisions (from NYTHORIA_PLAN.md)
-N-1, N-2, N-4, N-5, N-6 — to go through in the same session; they unblock N2 (old Ravenspire).
+N-1, N-2, N-4, N-5, N-6 — ✅ **decided** (recorded 2026-11-26, canon check A8): settled by the world plan approved on 2026-11-22 (WORLD_PLAN.md) — the twin land, old Ravenspire's ruins on the citadel's twin spot, the eclipse sky, twins only where they make sense, the world shown in 501 AGD.
+
+## ✅ Decided with the user (2026-11-26) — the canon check (`CANON_CHECK.md`)
+- A1 the 2D-only quests and Silvara dropped from the rules · A2 the Anchor rumor comes from a Port Silver captain (the book's inn) · A3 the student's line made age-neutral · A4 Shadow Veil's "Void Wraith" gone · A5 the Forest Elemental added to the DB (album) · A6 thin places in world_lore's cross-planar table · A7 the Sanguine Vaults stay where the DB puts them · A8 Nythoria's N-decisions recorded.
+- **Eldrin's age:** **34** at the beginning of Eldoria's Prophecy (501 AGD), born ~467 AGD (user, 2026-11-26; written to the DB: `age_at_quest: 34`, `born: '~467 AGD'`). The book's "~60" must be revised.

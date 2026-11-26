@@ -84,7 +84,7 @@ export function createCitadelLibrary() {
         hittables: [], gatherSpots: [], gates: [],
         stations: [
             { mode: 'desk', pos: new THREE.Vector3(-3, 0, 7) }, { mode: 'desk', pos: new THREE.Vector3(3, 0, -7) },
-            { mode: 'sign', text: 'On the lectern, a register open to today: names of readers, the books they asked for, and in a careful hand at the bottom — "The Archive stays sealed by order of the Keeper." Under it, the same entry repeated down thirty years of pages: the key signed out, the key renewed — Master Eldrin, the tower. The librarians stopped asking long ago.', pos: new THREE.Vector3(0, 0, -L / 2 + 7) },
+            { mode: 'sign', text: 'On the lectern, a register open to today: names of readers, the books they asked for, and in a careful hand at the bottom — "The Archive stays sealed by order of the Keeper." Under it, the same entry repeated down years of pages: the key signed out, the key renewed — Master Eldrin, the tower. The librarians stopped asking long ago.', pos: new THREE.Vector3(0, 0, -L / 2 + 7) },
         ],
         update(t) { for (const L0 of lights) L0.l.intensity = L0.base * (1 + Math.sin(t * 7 + L0.seed) * 0.04); },
     };

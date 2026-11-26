@@ -4,7 +4,6 @@
 
 export const NPCS = {
     hermit:  { name: 'the Hermit', place: "Hermit's Hut" },
-    silvara: { name: 'Silvara',    place: 'Prologue Forest' },
     // Chapter 3 (Odyssey's Dawn). Oren is album canon (DB); the inn's people are unnamed roles.
     oren:            { name: 'Oren',       place: 'the East Road (the shepherd\'s lean-to)' },
     innkeeper:       { name: 'the Innkeeper', place: 'Thaloria (the inn)' },

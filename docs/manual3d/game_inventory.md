@@ -2,7 +2,7 @@
 
 _Generated from the game data by `apps/amo3d/tools/gen_manual.mjs` (packages/rules) on 2026-11-26. Regenerate after changing the data; don't hand-edit._
 
-**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 47 status effects · 303 items (56 weapons) · 43 cooking recipes · 27 potion recipes · 45 crafting recipes · 17 enchantments · 116 enemy/creature types + 1 boss · 54 quests · 12 campaign chapters · 43 maps · 5 playable characters · 35 dialogues
+**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 47 status effects · 303 items (56 weapons) · 43 cooking recipes · 27 potion recipes · 45 crafting recipes · 17 enchantments · 116 enemy/creature types + 1 boss · 40 quests · 12 campaign chapters · 43 maps · 5 playable characters · 31 dialogues
 
 ## Contents
 1. [Systems & controls](#systems--controls)
@@ -498,7 +498,7 @@ Values given per tier (Novice / Apprentice / Adept). Learned at = the element ma
 | Spell | Learned at (element mastery) | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
 | **Shadow Bolt** | 2 / 4 / 6 | targeted directional | 20 / 9 / 1 | 18 / 14 / 10 | 1600 / 1300 / 1000 | 160 / 185 / 210 | void_tainted (30%, 20000ms) | scroll, chest, market | A dense projectile of shadow mana. |
-| **Shadow Veil** | 4 / 6 / 8 | self | — | 22 / 18 / 14 | 5000 / 4200 / 3200 | — | — | resonance | The Void Wraith's corruption left a residue in Eldrin's mana pathways. |
+| **Shadow Veil** | 4 / 6 / 8 | self | — | 22 / 18 / 14 | 5000 / 4200 / 3200 | — | — | resonance | A shadow-creature's touch on the winter road left a residue in Eldrin's mana pathways. |
 | **Hush** | 5 / 7 / 9 | targeted aoe | 0 / 0 / 0 | 18 / 14 / 10 | 6000 / 4800 / 3800 | 160 / 180 / 200 (area 80 / 95 / 112) | hushed (80%, 12000ms) | scroll, npc, tome | Silence, enforced. |
 | **Void Pulse** | 6 / 8 / 10 | targeted aoe | 12 / 6 / 0.8 | 20 / 16 / 12 | 3200 / 2600 / 2000 | 160 / 180 / 200 (area 70 / 85 / 100) | void_tainted (45%, 20000ms) | scroll, npc, chest | Shadow mana, compressed and released. |
 | **Eclipse Mark** | 8 / 10 / 10 | targeted directional | 0 / 0 / 0 | 12 / 10 / 8 | 2800 / 2200 / 1700 | 150 / 170 / 190 | marked (100%, 4000ms) | scroll, quest | A sigil inscribed upon an enemy in shadow mana. |
@@ -801,7 +801,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Void-Slicer | 4 | epic | +7 INT +5 STR | 780 / 260 | A blade that cuts through reality. Hits cost 2 MP, +35% arcane. +7 INT, +5 STR. [Void-Touched] [Lore: 20% void stun] | crafting |
 | Arcane War-Blade | 4 | epic | +6 INT +6 STR | 800 / 267 | Battle-tested arcane fury. Hits cost 2 MP, +35% arcane. +6 INT, +6 STR. [Flame-Kissed] [Lore: 20% arcane burst hits 2 more] | crafting |
 | Blade of the Concord | 5 | legendary | +9 INT +7 STR | 0 / 999 | One of the original Concord weapons. Hits cost 2 MP, deal +35% arcane. +9 INT, +7 STR. [Blade strikes grant 2 MP if INT > 12] | — |
-| The Warlord's Cleaver | 5 | legendary | +12 STR +4 INT | 0 / 999 | A nameless warlord's legendary blade. Hits cost 2 MP, deal +35% arcane. +12 STR, +4 INT. [3× damage vs enemies below 30% HP] | quest: The Void Fragment |
+| The Warlord's Cleaver | 5 | legendary | +12 STR +4 INT | 0 / 999 | A nameless warlord's legendary blade. Hits cost 2 MP, deal +35% arcane. +12 STR, +4 INT. [3× damage vs enemies below 30% HP] | — |
 
 **wand** (2)
 
@@ -867,7 +867,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Crystalline Rod | 3 | rare | +5 INT +2 STA | 360 / 120 | Aether-crystal rod that amplifies mana flow. +5 INT, +2 STA. [Arcane Surge] | crafting |
 | Void Channel | 4 | epic | +9 INT +3 AGI | 750 / 250 | Channels void-energy into spells. +9 INT, +3 AGI. [Void-Touched] [Lore: 20% void pulse on hit] | crafting |
 | Arcane Sceptre | 4 | epic | +8 INT +3 STA | 720 / 240 | Pure arcane authority. +8 INT, +3 STA. [Flame-Kissed] [Lore: 25% chain-lightning arc] | crafting |
-| Staff of the First Concord | 5 | legendary | +12 INT +4 AGI | 0 / 999 | Forged at the founding of the Arcane Concord. +12 INT, +4 AGI. [+25% all spell damage] | quest: The Concord Scholar |
+| Staff of the First Concord | 5 | legendary | +12 INT +4 AGI | 0 / 999 | Forged at the founding of the Arcane Concord. +12 INT, +4 AGI. [+25% all spell damage] | — |
 | Heartwood Resonator | 5 | legendary | +10 INT +5 STA | 0 / 999 | Resonates with the forest's living heartbeat. +10 INT, +5 STA. [+50% mana regen] | — |
 
 **umbral dagger** (10)
@@ -882,7 +882,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Dusk Fang | 3 | rare | +5 AGI +2 STR | 370 / 123 | The last light before darkness. Augmented double-hit costs 1 MP. +5 AGI, +2 STR. [Swiftness] | void_stalker 10% |
 | Midnight Reaver | 4 | epic | +7 AGI +4 STR | 800 / 267 | Cuts through shadow and flesh alike. Double-hit costs 1 MP. +7 AGI, +4 STR. [Vampiric] [Lore: 25% shadow clone second strike] | chest, crafting |
 | Ecliptic Stiletto | 4 | epic | +6 AGI +5 INT | 820 / 273 | Eclipse-forged precision weapon. Double-hit costs 1 MP. +6 AGI, +5 INT. [Void-Touched] [Lore: 20% eclipse mark — next hit 2×] | crafting |
-| The Dusk-Fang | 5 | legendary | +9 AGI +5 INT | 0 / 999 | Fang of the Order of the Grey Hour. Augmented double-hit costs 1 MP. +9 AGI, +5 INT. [Enemies killed in Shadow Veil drop +50% Glint] | quest: Initiation of the Order of the Grey Hour |
+| The Dusk-Fang | 5 | legendary | +9 AGI +5 INT | 0 / 999 | Fang of the Order of the Grey Hour. Augmented double-hit costs 1 MP. +9 AGI, +5 INT. [Enemies killed in Shadow Veil drop +50% Glint] | — |
 | Dagger of the Void | 5 | legendary | +10 AGI +6 STR | 0 / 999 | Born from pure void energy. Double-hit is always augmented — no mana cost. +10 AGI, +6 STR. | — |
 
 **resonance bow** (10)
@@ -897,7 +897,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Spirit Bow | 3 | rare | +3 INT +4 AGI | 375 / 125 | Guided by ancestral spirits. Ranged strikes cost 3 MP, reach 150px. +3 INT, +4 AGI. [Swiftness] | chest, crafting |
 | Celestial Arc | 4 | epic | +6 INT +6 AGI | 820 / 273 | Forged under a celestial alignment. Ranged strikes cost 3 MP. +6 INT, +6 AGI. [Arcane Surge] [Lore: 25% arrow bounce to second enemy] | crafting |
 | Tempest Bow | 4 | epic | +8 AGI +3 STR | 800 / 267 | Crackling with storm-energy. Ranged strikes cost 3 MP. +8 AGI, +3 STR. [Void-Touched] [Lore: 20% storm burst AoE on impact] | crafting |
-| The Eternal Draw | 5 | legendary | +10 AGI +6 INT | 0 / 999 | A bow that never misses. Ranged strikes cost 3 MP, reach 150px. +10 AGI, +6 INT. [Every 3rd consecutive shot deals 2× damage] | quest: The Hunter's Trial |
+| The Eternal Draw | 5 | legendary | +10 AGI +6 INT | 0 / 999 | A bow that never misses. Ranged strikes cost 3 MP, reach 150px. +10 AGI, +6 INT. [Every 3rd consecutive shot deals 2× damage] | — |
 | The Void-Piercer | 5 | legendary | +8 INT +8 AGI | 0 / 999 | Arrows pierce through the first enemy struck. Range 220px. Ranged strikes cost 3 MP. +8 INT, +8 AGI. [Arrows pierce first enemy] | — |
 
 ### Armor & accessories (27)
@@ -934,7 +934,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 ### Other consumables, tools & key items (79)
 | Item | Description | Buy / sell | Source |
 |---|---|---|---|
-| Eldrin's Journal | Forty years of notes on the erasure, and the coordinates the vision gave: where the Heartstone was hidden. | 0 / 0 | — |
+| Eldrin's Journal | Years of notes on the erasure, and the coordinates the vision gave: where the Heartstone was hidden. | 0 / 0 | — |
 | The Heart Stone of Creation | Warm in the hand, and heavier than a stone that size should be. It read your hand before it let you take it. It is yours to keep — for a long time. | 0 / 0 | — |
 | Chart of Thaloria | A surveyor's chart of the city's streets and landmarks. Read it to mark them on your map (M). | 40 / 12 | — |
 | Chart of the East Road | The road from the East Gate to the foot of the mountains, with its waystones and shelters. Read it to mark them on your map (M). | 60 / 18 | — |
@@ -943,8 +943,8 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Turkey Meat | Plump and savoury. Restores 12 HP. | 0 / 5 | turkey 80% |
 | Expanded Haversack | Aether-Oak fiber reinforcement. Upgrades Satchel to Tier II (20 slots). | 120 / 40 | shop |
 | Void-Fold Relic | Folds micro-rifts into your pouch. Upgrades Satchel to Tier IV (60 slots). | 600 / 200 | — |
-| Legion Lore Fragment | A page from the frozen scout's journal, describing the Legion's movements before the cold took them. Grants 60 XP. | 0 / 15 | quest: The Frozen Camp |
-| Soul-Gem of Still Waters | A relic gem recovered from the Widow's Overlook shrine. Permanently increases Max Mana by 15. | 0 / 60 | quest: The Widow's Watch |
+| Legion Lore Fragment | A page from the frozen scout's journal, describing the Legion's movements before the cold took them. Grants 60 XP. | 0 / 15 | — |
+| Soul-Gem of Still Waters | A relic gem recovered from the Widow's Overlook shrine. Permanently increases Max Mana by 15. | 0 / 60 | — |
 | Scattered Journal Page | A page of your own field notes, frost-stiff, torn loose when your saddlebag split on the East Road. | 0 / 0 | — |
 | Recipe: Grand Feast | Teaches the recipe for Grand Feast. Read it to learn it for good. | 0 / 25 | quest: The Hunter's Larder |
 | Recipe: Hearty Stew | Teaches the recipe for Hearty Stew. Read it to learn it for good. | 0 / 25 | shop |
@@ -956,7 +956,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Recipe: Moonveil Tonic | Teaches the recipe for Moonveil Tonic. Read it to learn it for good. | 0 / 25 | — |
 | Recipe: Double-Down Elixir | Teaches the recipe for Double-Down Elixir. Read it to learn it for good. | 0 / 25 | — |
 | Recipe: Wildfire Tonic | Teaches the recipe for Wildfire Tonic. Read it to learn it for good. | 0 / 25 | — |
-| Recipe: Void Tonic | Teaches the recipe for Void Tonic. Read it to learn it for good. | 0 / 25 | quest: The Hermit's Offering |
+| Recipe: Void Tonic | Teaches the recipe for Void Tonic. Read it to learn it for good. | 0 / 25 | — |
 | Recipe: Moonpetal Elixir | Teaches the recipe for Moonpetal Elixir. Read it to learn it for good. | 0 / 25 | shop |
 | Manual: Guard | Teaches the Guard style of the one-handed sword (+40%), and practice counts double after. Stop their blow, then answer it. | 150 / 40 | — |
 | Manual: Reaver | Teaches the Reaver style of the two-handed sword (+40%), and practice counts double after. Big swings that clear a crowd. | 150 / 40 | — |
@@ -1024,7 +1024,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Forest Herb | 19 recipes | werewolf 30%, wolf 35%, scout 25%, treant 40%, blight_ent 40%, root_wraith 35% (+8 more) |
 | Ember Stone | 9 recipes | ember_imp 50%, lava_elemental 70%, ash_crawler 40%, forge_daemon 60%, cinder_hawk 30%, fire_lizard 25% (+2 more) |
 | Bone Fragment | 5 recipes | skeleton_archer 60%, grizzly_bear 40%, giant_rat 50%, polar_bear 45%, shark 60% |
-| Void Shard | 11 recipes | rift_walker 40%, soul_eater 40%, carrion_crow 30%, hollow_cat 35%, plague_heron 35%, rot_frog 30% (+11 more) |
+| Void Shard | 11 recipes | rift_walker 40%, soul_eater 40%, carrion_crow 30%, hollow_cat 35%, plague_heron 35%, rot_frog 30% (+10 more) |
 | Rabbit's Foot | 5 recipes | rabbit 25% |
 | Ice Crystal | 7 recipes | frost_bear 50%, ice_revenant 60%, blizzard_sprite 50%, wendigo 50%, glacier_crab 60%, corrupted_elk 30% (+1 more) |
 | River Trout | 2 recipes | gathering: Fishing Spot |
@@ -1048,7 +1048,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | River Pearl | 5 recipes | gathering: Shallows |
 | Venom Sac | 7 recipes | giant_spider 40%, bog_lurker 40%, rot_toad 50%, plague_rat 15%, giant_rat 20%, amanita_walker 35% (+13 more) |
 | Boar Tusk | 3 recipes | feral_boar 25%, boar 30%, corrupted_boar 20% |
-| Ancient Scroll | 1 recipes | shadow_sprite 15%, dark_druid 20%, cursed_knight 10%, runic_turret 15%, forge_daemon 10%, wendigo 10% (+7 more) |
+| Ancient Scroll | 1 recipes | shadow_sprite 15%, dark_druid 20%, cursed_knight 10%, runic_turret 15%, forge_daemon 10%, wendigo 10% (+5 more) |
 | Wolf Pelt | 4 recipes | werewolf 50%, grizzly_bear 50%, black_bear 40%, lion 60%, lioness 50%, polar_bear 65% (+2 more) |
 | Deer Hide | 8 recipes | deer 50%, deer_doe 45%, dark_deer 55%, dark_deer_doe 45%, cow 50%, llama 70% (+5 more) |
 | Mineral Ore | 10 recipes | corrupted_sentinel 60%, stone_golem 50%, runic_turret 40%, crystal_golem 60%, crag_fiend 40%, gathering: Ore Seam |
@@ -1056,7 +1056,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Silver Ore | 12 recipes | gathering: Ore Seam |
 | Tree Resin | 7 recipes | gathering: Deadwood |
 | Heartwood | 8 recipes | blight_ent 25%, gathering: Deadwood |
-| Aether-Shard | 7 recipes | gathering: Crystal Outcrop, quest: Echoes in the Rime |
+| Aether-Shard | 7 recipes | gathering: Crystal Outcrop |
 | Reed Fibre | 8 recipes | gathering: Shallows, gathering: Reed Bed |
 | Stick | 2 recipes | gathering: Deadwood, crafting |
 | Feather | 1 recipes | cinder_hawk 60%, crow 60%, carrion_crow 60%, turkey 60%, chicken 60%, heron 60% (+4 more) |
@@ -1150,7 +1150,7 @@ Walk up to a node and press **E**. Some need a tool in the satchel. Each harvest
 | ember_crystals | Ember Stone 1–2 (100%), Heart Crystal 1 (bonus 10%) | The Grand Tour (Test) ×3 |
 | deep_crystals | Ice Crystal 1 (33%), Ember Stone 1 (33%), Aether-Shard 1 (33%), Heart Crystal 1 (bonus 15%) | The Grand Tour (Test) ×5 |
 
-Prologue world objects: 3 campfires, 3 chests, 3 rift-gates, 3 readable signs, 3 pillar gates, 3 cracked boulders, 1 NPC (Silvara).
+Prologue world objects: 3 campfires, 3 chests, 3 rift-gates, 3 readable signs, 3 pillar gates, 3 cracked boulders, 0 NPC ().
 
 ## Enemies & creatures
 ### Hostile (81)
@@ -1316,22 +1316,8 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 ## Quests
 | Quest | Type | Given by | Requires | Steps | Reward |
 |---|---|---|---|---|---|
-| The Forest Hunt | main | — | — | Speak with the Hermit → Defeat Forest Wolves → Defeat Shadow Sprites → Attune to an Aetheric Monolith → Defeat the Void General | 300 XP, 150 Glint |
-| Silvara's Supply Run | side | — | — | Gather Wood (0/3) → Gather Mineral Ore (0/2) → Return to Silvara | 100 XP, 80 Glint, Health Potion, Mana Potion |
-| Echoes of the Ancient Ones | side | — | — | Read Ancient Signs (0/3) | 80 XP, 60 Glint, Ancient Scroll |
-| Initiation of the Order of the Grey Hour | hidden | — | — | Comprehend Shadow Veil → Defeat enemies in Shadow Veil (0/8) | 250 XP, The Dusk-Fang |
-| The Concord Scholar | hidden | — | — | Reach 30 Arcane Resonance (0/30) → Attune to 3 Rift-Gates (0/3) | 300 XP, Staff of the First Concord |
-| The Hunter's Trial | hidden | — | — | Defeat enemies with a Resonance Bow (0/12) → Defeat the Void General with a bow | 250 XP, The Eternal Draw |
-| Void-Touched Beasts | side | — | — | Hunt Corrupted Boars (0/3) → Hunt Corrupted Deer (0/2) → Hunt Corrupted Rabbits (0/3) | 90 XP, 70 Glint, Health Potion, Void Shard |
-| The Hermit's Offering | side | — | — | Collect Void Shards (0/5) → Return to the Hermit | 100 XP, 60 Glint, Mana Potion, Mana Potion, Ancient Scroll, Recipe: Void Tonic |
 | The Hunter's Larder | side | — | — | Cook Roasted Boar → Cook Roasted Venison → Cook Roasted Rabbit | 70 XP, 50 Glint, Roasted Boar, Hearty Stew, Recipe: Grand Feast |
-| The Hermit's Remedy | side | the Hermit | — | Bring Moonpetal → Bring Glowcap → Return to the Hermit | 120 XP, 40 Gold, Recipe: Moonveil Tonic, 1 Insight |
-| Shadows at the Threshold | side | the Hermit | The Hermit's Remedy | Defeat Shadow Sprites (0/6) → Return to the Hermit | 200 XP, 60 Glint, Spell: Cleanse |
-| The Void Fragment | hidden | — | — | Defeat Shadow Sprites (0/10) → Defeat the Void General | 250 XP, The Warlord's Cleaver |
 | Whisperer of Doubt | main | — | — | Force Malphas to retreat | 400 XP, 200 Glint |
-| The Frozen Camp | side | — | — | Read the scout's journal | 60 XP, 40 Glint, Legion Lore Fragment |
-| The Widow's Watch | side | — | — | Gather Wood (0/1) → Gather Mineral Ore (0/1) | 80 XP, Soul-Gem of Still Waters |
-| Echoes in the Rime | side | — | — | Clear the Frost-Shades (0/2) | 100 XP, Aether-Shard, Aether-Shard |
 | Odyssey's Dawn | main | — | — | Survive the void-stalkers on the road (0/3) → Attune to the Rift-Gate node on the East Road → Meet the traveler at the shepherd's lean-to | 250 XP, 60 Glint, Iron Spell-Blade |
 | Trader's Rumor | side | the Trader | — | Read the waystone on the East Road → Return to the Trader | 100 XP, 30 Gold |
 | The Scholar's Saddlebags | side | the Innkeeper | — | Recover your journal pages → Return to the Innkeeper | 120 XP, 45 Gold, Health Potion, Mana Potion |
@@ -1450,4 +1436,4 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 | Eldoria's Prophecy | Vorgos activates Eldrin Nightshade to secure the Heart Stone of Creation — a contingency for a wound the world has not yet suffered. |
 
 ## Dialogues
-`hermit_intro`, `hermit_after`, `hermit_quest_done`, `hermit_hut_greeting`, `hermit_hut_after`, `hermit_remedy_accepted`, `innkeeper_greeting`, `innkeeper_after`, `trader_greeting`, `trader_after`, `thaloria_merchant_greeting`, `archivist_guild_greeting`, `cartographer_greeting`, `oren_meeting`, `oren_joined`, `oren_declined`, `oren_after`, `merchant_greeting`, `merchant_after`, `silvara_lore`, `eldrin_premonition`, `eldrin_second_vision`, `boss_encounter`, `boss_defeated`, `ancient_scroll_read`, `eldritch_tome_read`, `stub_ch02_dreamweavers_call_greeting`, `stub_ch05_sylvan_sanctuary_greeting`, `stub_ch06_treacherys_bite_greeting`, `stub_ch07_the_solitary_path_greeting`, `stub_ch08_infernos_trial_greeting`, `stub_ch09_eldorias_heartbeat_greeting`, `stub_ch10_heart_of_war_greeting`, `stub_ch11_the_weight_of_eternity_greeting`, `stub_ch12_dawns_embrace_greeting`
+`hermit_intro`, `hermit_after`, `hermit_quest_done`, `hermit_hut_greeting`, `hermit_hut_after`, `innkeeper_greeting`, `innkeeper_after`, `trader_greeting`, `trader_after`, `thaloria_merchant_greeting`, `archivist_guild_greeting`, `cartographer_greeting`, `oren_meeting`, `oren_joined`, `oren_declined`, `oren_after`, `eldrin_premonition`, `eldrin_second_vision`, `boss_encounter`, `boss_defeated`, `ancient_scroll_read`, `eldritch_tome_read`, `stub_ch02_dreamweavers_call_greeting`, `stub_ch05_sylvan_sanctuary_greeting`, `stub_ch06_treacherys_bite_greeting`, `stub_ch07_the_solitary_path_greeting`, `stub_ch08_infernos_trial_greeting`, `stub_ch09_eldorias_heartbeat_greeting`, `stub_ch10_heart_of_war_greeting`, `stub_ch11_the_weight_of_eternity_greeting`, `stub_ch12_dawns_embrace_greeting`

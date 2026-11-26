@@ -89,7 +89,7 @@ export function createChapters({ stats, hud, dialogue, quests, save, player, wor
                 'The shadow-blade turns in his hand, quick as a thought, and the flat of it takes you across the temple. The stone of the landing comes up to meet you.',
                 ['Oren', "Don't get up. I mean that kindly — the kindness was never the lie. The scholarship was real, the road was real. The loyalty was a job. Thirty years of it."],
                 ['Oren', 'The Stone will not let me take it. It reads the hand that reaches. Yours, it will accept. So you live, and you walk on, and when you open the door I will be there.'],
-                'He kneels and takes the journal from your satchel — forty years of notes, and the coordinates the vision gave. Not the compass. He leaves you the compass.',
+                'He kneels and takes the journal from your satchel — years of notes, and the coordinates the vision gave. Not the compass. He leaves you the compass.',
                 ['Oren', 'He has been waiting the longest. Goodbye, Eldrin.'],
                 'He goes down the black-glass stair without looking back. The runes in the stone are warm. Somewhere far above, the storm that moved you east says nothing at all.',
             ], () => {
@@ -132,7 +132,7 @@ export function createChapters({ stats, hud, dialogue, quests, save, player, wor
         const FIGS = [
             { id: 'lock', label: 'The lock — a closed square, its bar across', seen: 'a closed square with a bar laid across it — the lock, the first figure a student is beaten for drawing crooked' },
             { id: 'knot', label: 'The knot — but a quarter-tone lower', seen: 'the knot, three loops through each other — but with the sight you hear its note sit a quarter-tone under the one you were taught' },
-            { id: 'foundation', label: 'The foundation — the first figure of all', seen: 'a figure you have not drawn in forty years: a line, and a line beneath it, and the point where they would meet — the foundation, the one every scholar cuts into his first staff' },
+            { id: 'foundation', label: 'The foundation — the first figure of all', seen: 'a figure you have not drawn since your first year of study: a line, and a line beneath it, and the point where they would meet — the foundation, the one every scholar cuts into his first staff' },
         ];
         const WRONG = { lock: ['The knot — three loops', 'The stopper — a circle stopped by a line'], knot: ['The knot — as you were taught it', 'The lock — a closed square'], foundation: ['The stopper — a circle stopped by a line', 'The lock — a closed square'] };
         if (room && !f.halls_golems) {
@@ -441,7 +441,7 @@ export function createChapters({ stats, hud, dialogue, quests, save, player, wor
             if (active('main_dawns_embrace') && flags().hermit_return && !flags().tower_return) {   // the book's ch. 22: home
                 flags().tower_return = true;
                 setTimeout(() => say([
-                    'Thaloria rose out of the snow on the last day of the return, and the city did not know you. A scholar you have known for forty years looked through you the way the ordinary world looks through what it is not looking for. You could not tell him. You could not tell anyone.',
+                    'Thaloria rose out of the snow on the last day of the return, and the city did not know you. A scholar you have known half your life looked through you the way the ordinary world looks through what it is not looking for. You could not tell him. You could not tell anyone.',
                     'The tower stands as you left it. The runes of the door come up blue and patient under your palm, and the cold dark closes round you — the strata cores in their slots, the journals on their shelves, the dust of a year on everything.',
                     'The pulse of the Stone beats against your ribs like a thing that has finally come home. The old ward-lines are cut into the hall floor, by the hearth.',
                 ]), 900);

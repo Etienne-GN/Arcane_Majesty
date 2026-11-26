@@ -45,8 +45,8 @@ export const PROLOGUE_FOREST = {
     currencyBias: 'rural',
     music: 'forest',
     quests: [
-        'main_forest_hunt', 'side_supply_run', 'side_read_the_signs',
-        'side_corrupted_hunt', 'side_hunters_larder',
+        ,
+        'side_hunters_larder',
     ],
     chapterTitle: 'Prologue: The Forest Hunt',
     introDialogue: 'eldrin_premonition',

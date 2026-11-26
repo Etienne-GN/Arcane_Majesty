@@ -389,7 +389,7 @@ export const SPELLS = {
         name: 'Shadow Veil',
         element: 'shadow',
         targetingType: 'self',
-        lore: "The Void Wraith's corruption left a residue in Eldrin's mana pathways. Rather than purge it, he studied it for three days. Shadow mana does not hide you — it makes you briefly become less real. The difference matters.",
+        lore: "A shadow-creature's touch on the winter road left a residue in Eldrin's mana pathways. Rather than purge it, he studied it for three days. Shadow mana does not hide you — it makes you briefly become less real. The difference matters.",
         passive: false,
         manaCost:  [22, 18, 14],
         cooldown:  [5000, 4200, 3200],

@@ -778,7 +778,6 @@ export const ENEMY_TYPES = {
 export const PLAYER_START = { x: 3, y: 4 };
 
 export const NPC_POSITIONS = [
-    { x: 22, y: 6, id: 'silvara', dialogue: 'merchant_greeting', afterDialogue: 'merchant_after', name: 'Silvara', isShop: true, spriteKey: 'spr_merchant', animProfile: 'lpc_universal' },
 ];
 
 export const ENEMY_SPAWNS = [

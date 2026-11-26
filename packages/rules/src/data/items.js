@@ -138,7 +138,7 @@ export const CATALOGS = { cartographer: CARTOGRAPHER_CATALOG, guild: GUILD_CATAL
 export const ITEMS = {
     // ── Eldoria's Prophecy: the story's own things (never sold, never dropped) ──
     eldrins_journal: {
-        id: 'eldrins_journal', name: "Eldrin's Journal", description: 'Forty years of notes on the erasure, and the coordinates the vision gave: where the Heartstone was hidden.',
+        id: 'eldrins_journal', name: "Eldrin's Journal", description: 'Years of notes on the erasure, and the coordinates the vision gave: where the Heartstone was hidden.',
         color: 0x6a4a2a, icon: 'itm_book', stackable: false, quest: true, buyPrice: 0, sellPrice: 0,
     },
     heartstone: {

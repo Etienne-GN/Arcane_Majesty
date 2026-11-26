@@ -5,7 +5,7 @@ import { isExplored } from './fog.js';
 import { doorLockState } from './interiors.js';
 
 // The id a talk step targets for this NPC (same rule as GameScene's interaction code).
-export const npcQuestId = npc => npc.id ?? (npc.isShop ? 'silvara' : (npc.dialogue?.replace(/_greeting$|_prolog$/, '') ?? null));
+export const npcQuestId = npc => npc.id ?? (npc.dialogue?.replace(/_greeting$|_prolog$/, '') ?? null);
 
 // `mapId` is only needed for charted landmarks (playerStats.charted[mapId]).
 export function visibleFeatures(def, fog, stats, mapId = def.id) {

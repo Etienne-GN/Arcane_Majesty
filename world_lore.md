@@ -36,6 +36,7 @@ Channel | Type | Connects | Used by
 **Underworld's Gate** | Natural descent point | Great Rift threshold → Underworld | Kael's descent
 **Rift-Gates** | Ancient attuned monuments | Local hubs within Eldoria | Eldrin's fast-travel network
 **Aetheric Tear** | Master-level space-fold | Any visited coordinate | Eldrin (late-game)
+**Thin places** | The veil worn thin (Whisper-Wood, the Sanguine Vaults' depths, the Great Rift's lip…) | The same spot on the other plane | Frequency-masters directly (Acheron's Crossing, pre-Rift); Eldrin late-game with the Aetheric Tear, at a great cost (game-origin)
 
 ## 2. The First Apostate: Acheron's Fall
 Centuries before the Great Darkness (0 GD), the Aurorian Seer **Acheron** attempted to harvest the dormant energy of the Void. He was exiled to the Material Plane for this heresy.
