@@ -4,6 +4,7 @@
 //   hop, cast    — pressed this frame (edge-triggered, consumed by poll)
 // The camera is orbited directly (mouse drag, right stick, touch drag on the right half).
 import { settings } from './settings.js';
+import { ACTIONS, HOLD_MS, mapFor, modeOf, padCapture } from './padmap.js';
 const DEAD = 0.18;
 
 export function createInput({ canvas, cam }) {
@@ -11,7 +12,7 @@ export function createInput({ canvas, cam }) {
     const pressed = new Set();          // edge-triggered actions waiting for the next poll
     const touch = { x: 0, y: 0, sprint: false };
     const fan = { open: false, x: 0, y: 0 };   // a hand's fan is open: the right stick points into it instead of turning the camera
-    let padPrev = [], r3Down = null, yDown = null;   // (Y: tap = Aether Sight, hold = the satchel)   // R3: a click cycles the camera; held, its old action (a werewolf's change / skill 3)
+    let padPrev = [], holdT = {};   // (buttons with a held binding: when each went down, and whether its hold fired)   // R3: a click cycles the camera; held, its old action (a werewolf's change / skill 3)
     let lastDevice = 'keyboard';
 
     // Typing in a text field (a name, a server address, chat) stays in the field: the keys never reach the game's
@@ -94,39 +95,25 @@ export function createInput({ canvas, cam }) {
             const lx = dz(pad.axes[0] ?? 0), ly = dz(pad.axes[1] ?? 0), rx = dz(pad.axes[2] ?? 0), ry = dz(pad.axes[3] ?? 0);
             if (lx || ly) { mx = lx; my = -ly; lastDevice = 'gamepad'; }
             if (fan.open) { fan.x = rx; fan.y = ry; } else if (rx || ry) cam.orbit(-rx * dt * 2.6, ry * dt * 1.6);
-            const two = settings.hands;   // two-hand actions: LT / RT act (X too), LB / RB cycle, B Blink-Step; sprint on the left-stick click
-            if ((b(4) && !two) || b(10)) sprint = true;
-            const edge = i => b(i) && !padPrev[i];
-            if (edge(0)) pressed.add('hop');
-            if (two) {
-                const up = i => !b(i) && padPrev[i];
-                if (edge(7) || edge(2)) pressed.add('handR:down:pad');   // held: the right stick aims (aiming.js)
-                if (edge(6)) pressed.add('handL:down:pad');
-                if (up(7) || up(2)) pressed.add('handR:up');
-                if (up(6)) pressed.add('handL:up');
-                if (edge(1)) pressed.add('blink');   // B: Blink-Step (LT is the left hand)
-                const rel = i => !b(i) && padPrev[i];
-                if (edge(4)) pressed.add('cycleL:pad');
-                if (edge(5)) pressed.add('cycleR:pad');
-                if (rel(4)) pressed.add('cycleL:up');
-                if (rel(5)) pressed.add('cycleR:up');
-            } else {
-                if (edge(2) || edge(7)) pressed.add('cast');
-                if (edge(1)) pressed.add('strike');
+            // The buttons come from the map (engine/padmap.js; Options → Controls → Gamepad buttons): each binding is a
+            // button, tapped or held. A button that also has a held binding fires its tap on release.
+            const edge = i => b(i) && !padPrev[i], up = i => !b(i) && padPrev[i];
+            if (!padCapture.on) {
+                const mode = modeOf(settings.hands), M = mapFor(mode), kinds = Object.fromEntries(ACTIONS[mode].map(a => [a.id, a]));
+                const holdOn = new Set(); for (const list of Object.values(M)) for (const x of list) if (x.hold) holdOn.add(x.b);
+                for (const [id, list] of Object.entries(M)) {
+                    const a = kinds[id]; if (!a) continue;
+                    for (const { b: bi, hold } of list) {
+                        if (a.kind === 'state') { if (b(bi)) sprint = true; continue; }
+                        if (a.kind === 'hand') { if (edge(bi)) pressed.add(`${a.token}:down:pad`); if (up(bi)) pressed.add(`${a.token}:up`); continue; }
+                        if (a.kind === 'cycle') { if (edge(bi)) pressed.add(`${a.token}:pad`); if (up(bi)) pressed.add(`${a.token}:up`); continue; }
+                        if (hold) { const h = holdT[bi]; if (h && !h.fired && b(bi) && performance.now() - h.t > HOLD_MS) { h.fired = true; pressed.add(a.token); } }
+                        else if (holdOn.has(bi)) { const h = holdT[bi]; if (h && up(bi) && !h.fired) pressed.add(a.token); }
+                        else if (edge(bi)) pressed.add(a.token);
+                    }
+                }
+                for (const bi of holdOn) { if (edge(bi)) holdT[bi] = { t: performance.now(), fired: false }; else if (!b(bi) && !up(bi)) holdT[bi] = null; }
             }
-            // Y: a tap opens Aether Sight, held half a second the satchel (2026-11-25: the sight needed a button)
-            if (edge(3)) yDown = { t: performance.now(), fired: false };
-            if (yDown && b(3) && !yDown.fired && performance.now() - yDown.t > 450) { yDown.fired = true; pressed.add('inventory'); }
-            if (yDown && !b(3)) { if (!yDown.fired) pressed.add('sight'); yDown = null; }
-            if (edge(8)) pressed.add('blink');   // Back / Select: Blink-Step
-            if (edge(9)) pressed.add('sheet');
-            if (!two) [5, 6].forEach((bi, i) => { if (edge(bi)) pressed.add(`skill:${i}`); });
-            // R3 (the right stick's click): a quick click cycles the camera — first person, near, middle, far; held half a
-            // second it does what it always did (two hands: a werewolf's change; one hand: the third skill)
-            if (edge(11)) r3Down = { t: performance.now(), fired: false };
-            if (r3Down && b(11) && !r3Down.fired && performance.now() - r3Down.t > 450) { r3Down.fired = true; pressed.add(two ? 'shift' : 'skill:2'); }
-            if (r3Down && !b(11)) { if (!r3Down.fired) pressed.add('camcycle'); r3Down = null; }
-            [12, 15, 13, 14].forEach((bi, i) => { if (edge(bi)) pressed.add(`hotbar:${i}`); });   // D-pad up, right, down, left
             if (edge(0) || edge(2) || edge(7)) lastDevice = 'gamepad';
             padPrev = pad.buttons.map(x => x.pressed);
         }

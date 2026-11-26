@@ -3,6 +3,7 @@
 import { settings, setSetting } from '../engine/settings.js';
 import { checkForUpdate, openDownload, latestKnown, lastError, VERSION } from './updates.js';
 import { PRESETS, getTweaks, setTweaks } from '../engine/quality.js';
+import { ACTIONS, HOLD_MS, mapFor, modeOf, bind, resetMap, padCapture, label as padLabel } from '../engine/padmap.js';
 
 export function createOptions({ quality, onQuality, onApply, onFps, onOnline }) {
     const css = document.createElement('style');
@@ -159,15 +160,60 @@ export function createOptions({ quality, onQuality, onApply, onFps, onOnline }) 
             ['WASD', 'move'], ['Shift', 'sprint'], ['Space', 'hop (through a swing to dodge it)'], ['F / right-click', 'fireball'], ['Click / R', 'strike'],
             ['1–4', 'hotbar'], ['Z X V', 'style skills'], ['G', 'talk, open, gather'], ['I / Tab', 'satchel'], ['C', 'character'], ['M', 'map'],
             ['J', 'journal'], ['K', 'codex'], ['T', 'Aetheric Tear'], ['L', 'Aether Sight'], ['O', 'options'], ['B', 'the Book: skills, spells, styles'], ['Esc', 'pause · save · quit'], ['Enter', 'chat (online)'], ['H', 'Blink-Step (once learned)'], ['F1', 'controls card'], ['Drag mouse / wheel', 'turn / zoom the camera'], ['Q / E', 'turn the camera'],
-            ['Gamepad', 'left stick move, right stick camera, A hop, RB/LT skills, Back Blink-Step, Y Aether Sight (hold Y: satchel)'],
+            ['Gamepad', 'left stick move, right stick camera; every button is listed (and remappable) below'],
         ];
         for (const [k, d] of rows) keys.append(el('b', null, k), el('span', null, d));
         p.append(keys);
+        // The gamepad's buttons, remappable (engine/padmap.js): select an action, press its new button (hold it for a
+        // held binding). A button another action uses swaps the two.
+        const mode = modeOf(settings.hands !== false), M = mapFor(mode);
+        p.append(el('h3', null, `Gamepad buttons — ${mode === 'hands' ? 'two-hand actions' : 'classic controls'}`));
+        p.append(el('div', 'note', padMsg || 'Select an action, then press its new button on the gamepad. Hold the button to make it a held binding (it then fires after half a second; the same button\'s tap fires on release). A button already in use is taken over (the other action gets this one\'s old button when it can).'));
+        for (const a of ACTIONS[mode]) {
+            const row = el('div', 'row'), btn = el('button', null, padWait === a.id ? 'Press a button…' : (M[a.id] ?? []).map(padLabel).join(' · ') || '—');
+            btn.style.cssText = 'min-width:150px;padding:6px 12px;border-radius:8px;font:inherit;cursor:pointer;' + (padWait === a.id ? 'outline:2px solid #f3d88b' : '');
+            btn.onclick = () => (padWait === a.id ? stopCapture('') : startCapture(mode, a));
+            row.append(el('span', null, a.label), btn);
+            p.append(row);
+        }
+        const reset = el('button', null, 'Reset to defaults');
+        reset.style.cssText = 'margin:8px 0;padding:8px 14px;border-radius:8px;font:inherit;cursor:pointer';
+        reset.onclick = () => { resetMap(mode); padMsg = 'The default buttons are back.'; render(); };
+        p.append(reset);
         }
         root.append(p);
     }
+    // Waiting for a gamepad button (the mapping screen): every button released first, then the first one pressed;
+    // held past HOLD_MS it is a held binding. Gameplay and menu navigation leave the pad alone meanwhile.
+    let padWait = null, padMsg = '', padRaf = 0;
+    function stopCapture(msg) { padWait = null; padCapture.on = false; clearTimeout(padRaf); padMsg = msg; render(); }
+    function startCapture(mode, a) {
+        clearTimeout(padRaf); padWait = a.id; padCapture.on = true; padMsg = `Press the new button for “${a.label}” (hold it for a held binding) — or select it again to cancel.`; render();
+        let clear = false, down = null; const t0 = performance.now();
+        const step = () => {
+            const pad = [...(navigator.getGamepads?.() ?? [])].find(q => q && q.connected);
+            const pressedNow = pad ? pad.buttons.map((x, i) => (x.pressed ? i : -1)).filter(i => i >= 0) : [];
+            if (!clear) { if (!pressedNow.length) clear = true; }
+            else if (down == null) { if (pressedNow.length) down = { b: pressedNow[0], t: performance.now() }; }
+            else {
+                const held = performance.now() - down.t;
+                if (!pressedNow.includes(down.b) || held > HOLD_MS + 50) {
+                    const binding = { b: down.b, hold: held > HOLD_MS }, other = bind(mode, a.id, binding);
+                    const otherLabel = other ? ACTIONS[mode].find(x => x.id === other)?.label : null;
+                    // (a held button must be let go before the game reads it again: wait for the release, then hand the pad back)
+                    const finish = () => { const pd = [...(navigator.getGamepads?.() ?? [])].find(q => q && q.connected); if (pd?.buttons[down.b]?.pressed) { padRaf = setTimeout(finish, 16); return; }
+                        stopCapture(`${a.label}: ${padLabel(binding)}${otherLabel ? ` — taken from ${otherLabel}, which now has: ${(mapFor(mode)[other] ?? []).map(padLabel).join(' · ') || 'no button'}` : ''}.`); };
+                    finish(); return;
+                }
+            }
+            if (performance.now() - t0 > 10000) return stopCapture(pad ? 'No button pressed — nothing changed.' : 'No gamepad found — connect one and press any button first.');
+            padRaf = setTimeout(step, 16);   // (a timer, not a frame callback: browsers throttle those)
+        };
+        padRaf = setTimeout(step, 16);
+    }
     function toggle(on = !root.classList.contains('open')) {
         root.classList.toggle('open', on);
+        if (!on && padWait) stopCapture('');
         if (on) { tw = getTweaks(); preset = quality.preset ?? quality.name; dirty = false; render(); }
     }
     addEventListener('keydown', e => {

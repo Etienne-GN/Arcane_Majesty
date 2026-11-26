@@ -1,3 +1,4 @@
+import { padCapture } from './padmap.js';
 // Gamepad in the menus (Phase 7): whenever a menu or panel is open (or the title menu is up), the D-pad or the
 // left stick moves a gold focus ring to the nearest button in that direction, A presses it, B backs out
 // (Escape), and left/right nudges a focused slider. Gameplay input is paused while a menu is open, so the
@@ -41,6 +42,7 @@ export function createPadNav() {
         const p = panel();
         const b = pad.buttons.map(x => x.pressed), was = prev, edge = i => b[i] && !was[i];
         prev = b;
+        if (padCapture.on) return;   // the mapping screen is waiting for a button (engine/padmap.js)
         if (!p) { if (focus) setFocus(null); shown = null; return; }
         if (p !== shown) { shown = p; since = 0; }   // a panel just opened: ignore the press that opened it
         since += dt;
