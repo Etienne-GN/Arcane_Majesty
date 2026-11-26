@@ -42,6 +42,23 @@ export/import per layer. "Show the layers below" toggles (e.g. see the Boy layer
 a toggle to show a set of basic clothes and hair on the body being sculpted (plain tunic and trousers, a simple gown, a few
 hairstyles; or a character's own) — only a view, to judge the shape dressed; it saves nothing into the layers.
 
+## The Sculptor (the Character Lab, renamed — decided 2026-11-26)
+The Lab becomes **the Sculptor**: the workbench where the models' shapes are made — a developer's tool, never shown to
+players. **The Forge** stays the place where characters are created and dressed (players' heroes, the cast, NPCs). They are
+linked both ways: the Forge's **"Sculpt this character"** opens the Sculptor on that character's override (dressed in its
+own clothes and hair); the Sculptor's **"dress the model"** takes its clothes and hair from the Forge's wardrobe (one
+wardrobe). In the Workshop menu: *The Forge — create and dress characters*; *The Sculptor — shape the bodies and creatures*.
+
+**Alternate bodies.** Any layer can have alternates — named drafts to work on beside the one in use ("Man — broader jaw",
+"Girl — draft 2"): save as, switch, compare side by side, and **make active** when one is right (the game uses only the
+active one). Saved beside the layer (`layers/<layer>@<name>.json`).
+
+**Every entity, total control.** The Sculptor shapes not only the six bodies but **the mobs and the animals** (and the
+werewolves, in both forms, when they come): each creature kind is a base with its own layer (and alternates), and a single
+creature can have an override (a named elite, a boss). Today the creatures are built from simple shapes (boxes, cones,
+spheres — a box has 8 points), so each kind first gets a finer body to sculpt — kind by kind, the ones the user wants
+first — then joins the same point keys and layers.
+
 ## Steps
 1. **Design-space keys** for every point of the body and face and **migrate** the present male and female
    edits into the Common/Male/Female layers — checked by rendering: the male and female faces and bodies must come out
@@ -49,10 +66,13 @@ hairstyles; or a character's own) — only a view, to judge the shape dressed; i
 2. **The layer stack** in `buildBase` (common → sex → age → garments → hair → override), scaled onto each body.
 3. **Ages:** boy, girl, old man, old woman as real bodies (proportions and starting shapes to sculpt from — a child's
    rounder face and larger eyes, an elder's heavier lines and stoop), each with its empty age layer.
-4. **Overrides** in the looks, and **the Lab's layer picker** (pick, edit, save, compare), with **Dress the model** (basic
-   clothes and hair shown on the body while sculpting).
+4. **The Sculptor**: the Lab renamed; the layer picker (pick, edit, save, compare), **alternates** (save as, switch,
+   compare, make active), overrides in the looks, **dress the model** (the Forge's wardrobe), and the Forge's "Sculpt this
+   character".
 5. Then **§2**: NPCs and the Forge onto v2 — each character picks its layers from its sex and age; its clothes and hair
    dress the shaped body.
+6. **Creatures** in the Sculptor, kind by kind: a finer body for the kind, its point keys, its layer and alternates,
+   overrides for single creatures; the werewolves (both forms) when they come.
 
 Each step is tested headless (point counts, keys stable across proportions, the composed result) and checked by eye with
 the user on the Lab before the next.
