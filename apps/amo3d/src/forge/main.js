@@ -445,6 +445,17 @@ function actionsSection() {
             a.click();
         };
         row.append(save, exp);
+        if (import.meta.env.DEV) {   // the Sculptor (dev server only): shape the body this character is built on — or, for a cast
+            // character on its v2 model, the character itself (its own override), beside the base body it stands on
+            const sc = el('button', { type: 'button' }, 'Sculpt this character');
+            sc.onclick = () => {
+                const lk = normalizeLook(def.look), p = lk.body.preset, F = /female/.test(p);
+                const base = /child/.test(p) ? (F ? 'base_girl' : 'base_boy') : /elder/.test(p) ? (F ? 'base_old_woman' : 'base_old_man') : F ? 'base_female' : 'base_male';
+                const cast = lk.v2 && ['eldrin', 'seraphina', 'anya'].includes(def.id) ? def.id : null;
+                location.href = `sculptor.html?a=${base}:new&b=${cast ? `${cast}:new` : (F ? 'base_male' : 'base_female') + ':new'}${cast ? '&edit=1' : ''}`;
+            };
+            row.append(sc);
+        }
     }
     frag.append(row);
     if (!CREATE) {

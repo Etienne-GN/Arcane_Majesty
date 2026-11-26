@@ -145,7 +145,9 @@ export function normalizeLook(lookIn = {}) {
     // the Sculptor's part of a look (docs/3d/characters/LAYERS_PLAN.md): { points } — this character's own shape override,
     // layer offsets on top of its body's layers; { swap: { layer: points } } — a layer replaced (an alternate being viewed)
     const sculpt = look.sculpt && typeof look.sculpt === 'object' && !Array.isArray(look.sculpt) ? look.sculpt : null;
-    return { body, face, hair, facialHair, parts, ...(sculpt ? { sculpt } : {}) };
+    // (and its v2 model's key, kept: the Forge saving a cast file must not drop it — 2026-11-26)
+    const v2 = typeof look.v2 === 'string' && /^[a-z0-9_]{1,40}$/.test(look.v2) ? look.v2 : null;
+    return { body, face, hair, facialHair, parts, ...(v2 ? { v2 } : {}), ...(sculpt ? { sculpt } : {}) };
 }
 
 /** Weapons have no dominance: the id is the weapon type, or null for an empty hand. */
