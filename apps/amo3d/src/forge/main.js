@@ -3,6 +3,7 @@
 // for the selected slot, role archetypes, body presets, preview poses and save/export controls.
 import * as THREE from 'three';
 import { createCharacter } from '../content/models/character.js';
+import { settings, setSetting } from '../engine/settings.js';
 import {
     BODY_PRESETS, RACES, DEFAULT_LOOK, HANDHELD, HAND_ITEM, PART_SLOTS,
     handSpec, normalizeLook,
@@ -278,7 +279,7 @@ function identitySection() {
 function bodySection() {
     const frag = document.createDocumentFragment();
     frag.append(el('h2', { id: 'slot-heading' }, 'Body'));
-    const presets = Object.keys(BODY_PRESETS).map(id => [id, BODY_PRESETS[id].label]);
+    const presets = Object.keys(BODY_PRESETS).filter(id => !BODY_PRESETS[id].legacy || def.look.body.preset === id).map(id => [id, BODY_PRESETS[id].label]);   // (Child and Elder: old looks only — Boy, Girl, Old man, Old woman since 2026-11-26)
     frag.append(chipRow(presets, () => def.look.body.preset, id => {
         def.look.body.preset = id;
         rebuild(); renderRail(); renderSide();
@@ -573,7 +574,7 @@ function randomize() {
     const hue = Math.random();
 
     if (!locks.has('body')) {
-        const preset = pick(['adult_male', 'adult_male', 'adult_female', 'adult_female', 'child', 'elder']);
+        const preset = pick(['adult_male', 'adult_male', 'adult_female', 'adult_female', 'child_male', 'child_female', 'elder_male', 'elder_female']);
         def.look.body.preset = preset;
         def.look.body.height = +(0.95 + Math.random() * 0.1).toFixed(2);
         def.look.body.width = +(0.95 + Math.random() * 0.1).toFixed(2);
@@ -706,4 +707,10 @@ window.__forge = {
 };
 
 // Back to the game (the title's Workshop opens this page).
+// the model the preview is built on: Classic, or New (v2: the shaped bodies, the clothes translated — v2/wardrobe.js);
+// the same setting as Options › Display › Character models
+{ const b = document.createElement('button'); const label = () => { b.textContent = `Model: ${settings.charModels === 'new' ? 'New (v2)' : 'Classic'}`; };
+    b.style.cssText = 'position:absolute;left:96px;top:10px;z-index:5;padding:5px 10px;font:14px Georgia,serif;color:#f3e2b0;background:#120a06d8;border:1px solid #f3d88b66;border-radius:4px;cursor:pointer';
+    b.onclick = () => { setSetting('charModels', settings.charModels === 'new' ? 'classic' : 'new'); label(); rebuild(); }; label();
+    (document.getElementById('stage') ?? document.body).append(b); }
 { const a = document.createElement('a'); a.href = 'index.html'; a.textContent = '← Game'; a.style.cssText = 'position:absolute;left:10px;top:10px;z-index:5;padding:5px 10px;font:14px Georgia,serif;color:#f3e2b0;background:#120a06d8;border:1px solid #f3d88b66;border-radius:4px;text-decoration:none'; (document.getElementById('stage') ?? document.body).append(a); }   // inside the model view: clear of the rail on any layout

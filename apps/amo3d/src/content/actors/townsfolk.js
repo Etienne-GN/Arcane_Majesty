@@ -29,8 +29,9 @@ export function lookFor(r) {   // (the Forge's cast list reads it too)
         case 'noble': return o('longcoat', pick(['#5a2a6a', '#2a4a3a', '#6a1a2a', '#2a3a6a'], h, 2), '#2a1a2a', { cape: (h & 2) === 2 });
         case 'child': {
             const l = o('tunic', pick(['#c86a3a', '#3a8ac8', '#6aa83a', '#c8a83a'], h, 2), '#5a3a22');
-            l.build = { height: 0.68, width: 0.82 };
-            l.body = { preset: 'child' };
+            // (2026-11-26: a boy or a girl; the child's height comes from the preset — the build's 0.68 shrank them twice)
+            l.build = { height: 0.94 + ((h >>> 11) % 10) * 0.012, width: 1 };
+            l.body = { preset: (h >>> 4) & 1 ? 'child_female' : 'child_male' };
             return l;
         }
         case 'beggar': return o('robe', '#5a4a3a', '#3a2a1a', { hood: true, hoodColor: '#4a3a2a' });

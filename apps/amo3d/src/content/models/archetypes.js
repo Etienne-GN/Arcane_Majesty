@@ -140,7 +140,7 @@ export const ARCHETYPES = {
     child: {
         label: 'Child', name: 'Child', lore: 'Small, quick, and always somewhere they were told not to be.',
         look: make({
-            body: { preset: 'child', skin: '#e2b48f' },
+            body: { preset: 'child_male', skin: '#e2b48f' },
             hair: { style: 'tousled', color: '#5a3a22' },
             facialHair: { style: 'none', color: '#5a3a22' },
             parts: {

@@ -15,7 +15,7 @@ export const LOOKS = {
     balrog: normalizeLook({ body: { preset: 'adult_male', race: 'fallen_aurorian', skin: '#16121c', width: 1.25 }, face: { eyes: '#ff5a20' }, hair: { style: 'none', color: '#000000' }, facialHair: { style: 'none' },
         parts: { torso: { id: 'armour', colors: { primary: '#0e0c12', steel: '#1e1a24', trim: '#ff5a20' } }, legs: { id: 'trousers', colors: { primary: '#0e0c12' } }, feet: { id: 'bare' }, arms: { id: 'bare' },
             shoulders: { id: 'steel_pauldrons', colors: { primary: '#1e1a24', trim: '#ff5a20' } }, headgear: { id: 'great_helm', colors: { primary: '#1a1620', trim: '#ff5a20' } }, cape: { id: 'travelling_cloak', colors: { primary: '#08060a', trim: '#2a1a1a' } }, right: { id: 'sword', accent: '#ff5a20' }, left: { id: 'none' } } }),
-    vorgos: normalizeLook({ body: { preset: 'elder', skin: '#b8b8c0', height: 1.12 }, face: { eyes: '#e8f0ff' }, hair: { style: 'long', color: '#c8c8d0' }, facialHair: { style: 'beard', color: '#c8c8d0' },
+    vorgos: normalizeLook({ body: { preset: 'elder_male', skin: '#b8b8c0', height: 1.12 }, face: { eyes: '#e8f0ff' }, hair: { style: 'long', color: '#c8c8d0' }, facialHair: { style: 'beard', color: '#c8c8d0' },
         parts: { torso: { id: 'robe', colors: { primary: '#6a6a74', collar: '#4a4a54', trim: '#c8d0e0' } }, headgear: { id: 'hood', colors: { primary: '#5a5a64' } }, right: { id: 'staff', accent: '#c8e0ff' }, left: { id: 'none' }, feet: { id: 'bare' } } }),
 };
 
