@@ -13,7 +13,8 @@ const REF = {
     male: { front: [[70, 75, 360, 615], [130, 70, 250, 215]], side: [[380, 75, 560, 615], [395, 70, 520, 215]], back: [[560, 75, 860, 615], [650, 70, 770, 215]] },
     female: { front: [[70, 655, 360, 1195], [130, 650, 250, 800]], side: [[380, 655, 560, 1195], [385, 650, 530, 800]], back: [[560, 655, 860, 1195], [640, 650, 780, 800]] },
 };
-export function createPointEditor({ hairless = false, THREE, scene, camera, renderer, getBody, bodies = [], viewRect = null, onEnter, onExit }) {
+export function createPointEditor({ hairless = false, THREE, scene, camera, renderer, getBody, bodies = [], alts = {}, viewRect = null, onEnter, onExit }) {
+    // alts: { layer: [alternate names] } (the Sculptor's alternates); getBody(id) also gives { alt: { layer, name } | null, go(changes) }
     // bodies: [{ id, name }] — what can be edited (the Sculptor's base bodies on stage); getBody(id) → { table, mesh }
     let loaded = null, bodyMesh = null, on = false, sex = 'male', who = bodies[0]?.id, layer = null, T = null, geo = null, mesh = null, wire = null, dots = null, sel = -1, mirrorOf = [], drag = null;
     let region = 'head', yaw = 0, pitch = 0.05, dist = 0.55, target = new THREE.Vector3(0, 1.66, 0);
@@ -39,6 +40,34 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         rLayer.replaceChildren(); layerBtns.length = 0;
         const lab = document.createElement('span'); lab.textContent = 'Save into:'; lab.style.cssText = 'align-self:center;margin-right:2px'; rLayer.append(lab);
         for (const n of bodyMesh?.userData.layers ?? []) { const b = btn(rLayer, LAYER_LABEL[n] ?? n, () => { layer = n; showLayers(); }); b.style.background = n === layer ? '#8a6a2a' : '#4a3220'; layerBtns.push(b); }
+        showVersions();
+    };
+    // the version of that layer being worked on: the active one (what the game builds) or an alternate (layers/alt/) —
+    // switch, save the work as a new alternate, make the alternate active (the old active is kept as an alternate), delete it
+    let B = null;   // (what getBody gave: the alternate this body shows, and how to reload the page)
+    const rVer = row();
+    const showVersions = () => {
+        rVer.replaceChildren(); if (!B) return;
+        const lab = document.createElement('span'); lab.textContent = 'Version:'; lab.style.cssText = 'align-self:center;margin-right:2px'; rVer.append(lab);
+        const sel = document.createElement('select'); sel.style.cssText = 'font:13px Georgia,serif;padding:4px;border-radius:7px;background:#4a3220;color:#f1e4c4;border:1px solid #c8963a88;max-width:150px';
+        const cur = B.alt?.layer === layer ? B.alt.name : '';
+        for (const [v, t] of [['', 'Active'], ...(alts[layer] ?? []).map(a => [a, a])]) { const o = document.createElement('option'); o.value = v; o.textContent = t; sel.append(o); }
+        sel.value = cur; sel.onchange = () => B.go({ alt: sel.value ? `${layer}:${sel.value}` : null, edit: who, layer });
+        rVer.append(sel);
+        btn(rVer, 'Save as new…', async () => { const name = (prompt('Name of the new alternate (a-z, 0-9, _ or -):') ?? '').trim().toLowerCase(); if (name) await saveTo(name); });
+        if (cur) {
+            btn(rVer, 'Make active', async () => {
+                if (sessionMoves() > 0 && !confirm('Unsaved moves will be lost. Make it active anyway?')) return;
+                const r = await fetch('/api/v2alts', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'activate', layer, alt: cur }) });
+                const j = await r.json().catch(() => ({})); info.textContent = r.ok ? `"${cur}" is now the ${LAYER_LABEL[layer]} layer (the old one kept as "${j.kept}")` : `Refused: ${j.error ?? r.status}`;
+                if (r.ok) setTimeout(() => B.go({ alt: null, edit: who, layer }), 900);
+            });
+            btn(rVer, 'Delete', async () => {
+                if (!confirm(`Delete the alternate "${cur}"?`)) return;
+                const r = await fetch('/api/v2alts', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'delete', layer, alt: cur }) });
+                if (r.ok) B.go({ alt: null, edit: who, layer });
+            });
+        }
     };
     // what to see beside the body: the reference sheet, the compare (the Sculptor's other model, same angle), both or neither
     let refOn = true, cmpOn = true;
@@ -101,7 +130,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const inRegion = i => { const y = T.P[i * 3 + 1], top = T.P.reduce((m, v, j) => (j % 3 === 1 && v > m ? v : m), 0); return region === 'all' || (region === 'head' ? y > top - 0.42 : y > top - 0.9); };
 
     function load(s) {
-        who = s; const B = getBody(s); T = B.table; bodyMesh = B.mesh; sex = bodyMesh.userData.editSex ?? 'male'; sel = -1; undo.length = 0;
+        who = s; B = getBody(s); T = B.table; bodyMesh = B.mesh; sex = bodyMesh.userData.editSex ?? 'male'; sel = -1; undo.length = 0;
         const Ls = bodyMesh.userData.layers ?? [sex]; if (!Ls.includes(layer)) layer = Ls.at(-1); showLayers();   // (by default the body's own: its age layer, else its sex)
         group.clear();
         geo = new THREE.BufferGeometry();
@@ -160,30 +189,33 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         if (sel < 0) { info.textContent = `${bodies.find(b => b.id === who)?.name ?? sex} · ${n} points moved (not saved) → ${LAYER_LABEL[layer] ?? layer} layer`; return; }
         info.textContent = `point ${sel}${mirrorOf[sel] === -2 ? ' (centre line)' : ''} · x ${bind[sel * 3].toFixed(3)} y ${bind[sel * 3 + 1].toFixed(3)} z ${bind[sel * 3 + 2].toFixed(3)} · ${n} moved`;
     }
-    async function save() {
-        const edits = {};
-        for (let i = 0; i < T.keys.length; i++) if (moved(i)) edits[T.keys[i]] = [+bind[i * 3].toFixed(5), +bind[i * 3 + 1].toFixed(5), +bind[i * 3 + 2].toFixed(5)];
+    // the layer's source as this body is built from it: its alternate if it shows one, else the active file
+    const sessionMoves = () => { let c = 0; for (let i = 0; i < (T?.keys.length ?? 0); i++) if (Math.hypot(bind[i * 3] - loaded[i * 3], bind[i * 3 + 1] - loaded[i * 3 + 1], bind[i * 3 + 2] - loaded[i * 3 + 2]) > 1e-6) c++; return c; };
+    const src = n => `layer=${n}` + (B?.alt?.layer === n ? `&alt=${B.alt.name}` : '');
+    const save = () => saveTo(B?.alt?.layer === layer ? B.alt.name : null);
+    async function saveTo(alt) {   // alt: the alternate to write (null: the active layer)
         // (2026-11-26: saved into the chosen shape layer, as offsets in each point's bone frame, so they land on every body
         // that stacks it whatever its proportions.) The body's total offset from its plain build, less what the other layers
-        // of its stack already give, is the chosen layer's entry. Merged into the layer as it is: entries the table cannot
-        // show (the chin's hidden corners) stay, and a point derived from others (the chin's rounded tip) is saved only if it
-        // was moved by hand here — otherwise it keeps following.
+        // of its stack already give, is the chosen layer's entry. Merged into the layer as this body has it (a new alternate
+        // starts as a copy of it): entries the table cannot show (the chin's hidden corners) stay, and only what was moved
+        // in this session is written — a point derived from others (the chin's rounded tip) keeps following unless moved.
         const stack = bodyMesh.userData.layers ?? [layer], others = {};
-        for (const n of stack) if (n !== layer) others[n] = await (await fetch(`/api/v2layer?layer=${n}`)).json();
-        const points = await (await fetch(`/api/v2layer?layer=${layer}`)).json(), pm = bodyMesh.userData.points;
+        for (const n of stack) if (n !== layer) others[n] = await (await fetch(`/api/v2layer?${src(n)}`)).json();
+        const points = await (await fetch(`/api/v2layer?${src(layer)}`)).json(), pm = bodyMesh.userData.points;
         let changed = 0;
         for (let i = 0; i < T.keys.length; i++) {
             const k = T.keys[i], r0 = pm?.get(k); if (!r0) continue;
             const here = Math.hypot(bind[i * 3] - loaded[i * 3], bind[i * 3 + 1] - loaded[i * 3 + 1], bind[i * 3 + 2] - loaded[i * 3 + 2]) > 1e-6;
-            if (!here) continue;   // (only what was moved in this session: the rest of the layer stays as it is)
+            if (!here) continue;
             const tot = layerFromPositions(bodyMesh, { [k]: [bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2]] })[r0.t] ?? [0, 0, 0];
             const v = tot.map((x, j) => Object.values(others).reduce((a, L) => a - (L[r0.t]?.[j] ?? 0), x));
             if (Math.hypot(...v) < 1e-6) delete points[r0.t]; else points[r0.t] = v.map(x => +x.toFixed(6));
             changed++;
         }
-        const r = await fetch('/api/v2layer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer, points }) });
-        info.textContent = r.ok ? `Saved ${changed} moved points into the ${LAYER_LABEL[layer] ?? layer} layer — reloading…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`;
-        if (r.ok) setTimeout(() => { const u = new URL(location.href); u.searchParams.set('edit', who); u.searchParams.set('layer', layer); location.href = u; }, 700);
+        const r = await fetch('/api/v2layer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer, points, ...(alt ? { alt } : {}) }) });
+        const where = `the ${LAYER_LABEL[layer] ?? layer} layer` + (alt ? ` (alternate "${alt}")` : '');
+        info.textContent = r.ok ? `Saved ${changed} moved points into ${where} — reloading…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`;
+        if (r.ok) setTimeout(() => B.go({ edit: who, layer, alt: alt ? `${layer}:${alt}` : null }), 700);
     }
 
     // ---- input ----
@@ -233,6 +265,6 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     return {
         enter: (s, l) => { if (l) layer = l; load(s ?? who); }, exit, get on() { return on; }, get showCompare() { return cmpOn; }, group,
         frame() { if (!on) return; drawRef(); camera.position.set(target.x + Math.sin(yaw) * Math.cos(pitch) * dist, target.y + Math.sin(pitch) * dist, target.z + Math.cos(yaw) * Math.cos(pitch) * dist); camera.lookAt(target); },
-        state: () => ({ who, sex, layer, sel, region, points: T?.keys.length ?? 0 }), _move: (i, dx, dy, dz) => { sel = i; snapshot(); movePoint(i, dx, dy, dz); }, _save: save,
+        state: () => ({ who, sex, layer, sel, region, points: T?.keys.length ?? 0 }), _move: (i, dx, dy, dz) => { sel = i; snapshot(); movePoint(i, dx, dy, dz); }, _save: save, _saveAs: saveTo,
     };
 }

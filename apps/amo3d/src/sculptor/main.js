@@ -47,8 +47,13 @@ if (!slots[0] || !slots[1]) {
     slots.forEach((sl, i) => { if (!sl) slots[i] = parseSlot(L[i]); });
 }
 const make = (mode, lk) => { settings.charModels = mode; const c = createCharacter(lk); scene.add(c.root); return c; };
-const models = slots.map(sl => make(sl.ver, SUBJECTS[sl.id].look()));
-const slotName = sl => `${SUBJECTS[sl.id].name} — ${VER[sl.ver]}`;
+// Alternates (other versions of a layer, layers/alt/): ?alt0=boy:round shows the left side's body with its boy layer
+// replaced by the alternate "round", ?alt1=… the right side's — the same body on both sides compares two versions
+const ALTS = await fetch('/api/v2alts').then(r => r.json()).catch(() => ({}));
+const altOf = slots.map((sl, i) => { const [layer, name] = (Q.get(`alt${i}`) ?? '').split(':'); return SUBJECTS[sl.id].sex && ALTS[layer]?.includes(name) ? { layer, name } : null; });
+const altData = await Promise.all(altOf.map(a => a ? fetch(`/api/v2layer?layer=${a.layer}&alt=${a.name}`).then(r => r.json()) : null));
+const models = slots.map((sl, i) => { const lk = SUBJECTS[sl.id].look(); if (altOf[i]) lk.sculpt = { swap: { [altOf[i].layer]: altData[i] } }; return make(sl.ver, lk); });
+const slotName = sl => `${SUBJECTS[sl.id].name} — ${VER[sl.ver]}` + ((a => a ? ` · ${a.layer}: ${a.name}` : '')(altOf[slots.indexOf(sl)]));
 const BASE = slots.some(sl => SUBJECTS[sl.id].sex);   // a base body on stage: the point editor and the hair toggle are offered
 document.getElementById('labels').innerHTML = slots.map(sl => `<span>${slotName(sl).toUpperCase()}</span>`).join('');
 document.getElementById('labels').style.top = '56px';
@@ -68,7 +73,7 @@ slots.forEach((sl, i) => {
     const sel = document.createElement('select'); sel.style.cssText = 'font:14px Georgia,serif;padding:5px 8px;border-radius:8px;border:1px solid #c8963a88;background:#2e1e12;color:#f1e4c4';
     for (const [id, S] of Object.entries(SUBJECTS)) for (const ver of S.vers) { const o = document.createElement('option'); o.value = `${id}:${ver}`; o.textContent = `${S.name} — ${VER[ver]}`; sel.append(o); }
     sel.value = `${sl.id}:${sl.ver}`;
-    sel.onchange = () => go({ a: i ? `${slots[0].id}:${slots[0].ver}` : sel.value, b: i ? sel.value : `${slots[1].id}:${slots[1].ver}`, edit: null });
+    sel.onchange = () => go({ a: i ? `${slots[0].id}:${slots[0].ver}` : sel.value, b: i ? sel.value : `${slots[1].id}:${slots[1].ver}`, edit: null, [`alt${i}`]: null });
     lab.append(sel); top.append(lab);
 });
 document.body.append(top);
@@ -193,8 +198,8 @@ window.__lab_io = { exportBody, importBody, pointTable, bodyMesh };
 const EDITABLE = slots.map((sl, i) => ({ id: i, name: SUBJECTS[sl.id].name, sex: SUBJECTS[sl.id].sex })).filter(b => b.sex);
 let cmpIdx = 1;
 const split = () => !!(editor?.on && editor.showCompare);
-const editor = BASE && !LINEUP ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, bodies: EDITABLE,
-    getBody: i => { cmpIdx = 1 - i; return { table: posedTable(i), mesh: bodyMesh(i) }; },
+const editor = BASE && !LINEUP ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, bodies: EDITABLE, alts: ALTS,
+    getBody: i => { cmpIdx = 1 - i; return { table: posedTable(i), mesh: bodyMesh(i), alt: altOf[i], go: ({ alt, ...ch }) => go({ ...ch, [`alt${i}`]: alt ?? null }) }; },
     viewRect: () => ({ left: 0, top: 0, width: split() ? Math.floor(innerWidth / 2) : innerWidth, height: innerHeight }),
     onEnter: () => { models.forEach(m => { m.root.visible = false; }); floor.visible = false; for (const id of ['bar', 'labels', 'blender', 'top']) { const e = document.getElementById(id); if (e) e.style.display = 'none'; } },
     onExit: () => { models.forEach(m => { m.root.visible = true; }); floor.visible = true; for (const id of ['bar', 'labels', 'blender', 'top']) { const e = document.getElementById(id); if (e) e.style.display = ''; } resize(); } }) : null;

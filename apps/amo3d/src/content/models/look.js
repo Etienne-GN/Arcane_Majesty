@@ -142,7 +142,10 @@ export function normalizeLook(lookIn = {}) {
     if (look.eyes) face.eyes = look.eyes;
     const hair = { style: 'tousled', color: '#3a2418', ...(look.hair ?? {}) };
     const facialHair = { style: 'stubble', color: '#a07a62', ...(look.facialHair ?? {}) };
-    return { body, face, hair, facialHair, parts };
+    // the Sculptor's part of a look (docs/3d/characters/LAYERS_PLAN.md): { points } — this character's own shape override,
+    // layer offsets on top of its body's layers; { swap: { layer: points } } — a layer replaced (an alternate being viewed)
+    const sculpt = look.sculpt && typeof look.sculpt === 'object' && !Array.isArray(look.sculpt) ? look.sculpt : null;
+    return { body, face, hair, facialHair, parts, ...(sculpt ? { sculpt } : {}) };
 }
 
 /** Weapons have no dominance: the id is the weapon type, or null for an empty hand. */

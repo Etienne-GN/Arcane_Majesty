@@ -9,7 +9,7 @@ import * as THREE from 'three';
 import { createSkin, blend, profile, ringPts, pointKey } from './skin.js';
 // The shape layers (docs/3d/characters/LAYERS_PLAN.md): models/v2/layers/<layer>.json — { structural key: [dx, dy, dz] },
 // offsets in the frame of the bone each point follows, so they land right on every body's proportions. Stacked
-// common → sex (male | female) → age (boy | girl | old_man | old_woman) → the character's own override (look.v2.override).
+// common → sex (male | female) → age (boy | girl | old_man | old_woman) → the character's own override (look.sculpt.points); look.sculpt.swap replaces a layer (the Sculptor's alternates).
 const LAYER_FILES = import.meta.glob('./layers/*.json', { eager: true, import: 'default' });
 export const LAYERS = Object.fromEntries(Object.entries(LAYER_FILES).map(([f, d]) => [f.replace(/^.*\/|\.json$/g, ''), d]));
 
@@ -23,8 +23,10 @@ export function layerNames(ctx, sex) {   // the stack by name: ['common', 'male'
     const age = /child/.test(preset) ? (F ? 'girl' : 'boy') : /elder/.test(preset) ? (F ? 'old_woman' : 'old_man') : null;
     return ['common', F ? 'female' : 'male', age].filter(Boolean);
 }
-export function layerStack(ctx, sex) {
-    return [...layerNames(ctx, sex).map(n => LAYERS[n]), ctx.look?.v2?.override?.points].filter(Boolean);
+const okLayer = L => L && typeof L === 'object' && !Array.isArray(L) ? Object.fromEntries(Object.entries(L).filter(([, v]) => Array.isArray(v) && v.length === 3 && v.every(n => Number.isFinite(n) && Math.abs(n) < 0.5))) : null;
+export function layerStack(ctx, sex) {   // (a look's sculpt part — from a cast file, or a look off the network — is checked: sane numbers only)
+    const sc = ctx.look?.sculpt, swap = sc?.swap ?? {};
+    return [...layerNames(ctx, sex).map(n => (Object.hasOwn(swap, n) ? okLayer(swap[n]) : null) ?? LAYERS[n]), okLayer(sc?.points)].filter(Boolean);
 }
 // buildBase: three quick passes — the plain body mapped (dry), the dressed body mapped (dry, when there is an outfit), then
 // the real build with the layers turned into positions for this body. A layer moves a point only where the body's surface

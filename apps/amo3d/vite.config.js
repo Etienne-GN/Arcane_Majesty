@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import { fileURLToPath } from 'node:url';
-import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, unlinkSync } from 'node:fs';
 import { join } from 'node:path';
 import { networkInterfaces } from 'node:os';
 
@@ -75,15 +75,17 @@ function v2EditsApi() {
                 });
             });
             // The shape layers (docs/3d/characters/LAYERS_PLAN.md): models/v2/layers/<layer>.json — { structural key: [dx, dy, dz] }
-            const LAYER_NAMES = ['common', 'male', 'female', 'boy', 'girl', 'old_man', 'old_woman'];
+            const LAYER_NAMES = ['common', 'male', 'female', 'boy', 'girl', 'old_man', 'old_woman'], ALT_RE = /^[a-z0-9_-]{1,40}$/;
+            const layerFile = (layer, alt) => alt ? join(v2Dir, 'layers', 'alt', layer, `${alt}.json`) : join(v2Dir, 'layers', `${layer}.json`);
             server.middlewares.use('/api/v2layer', (req, res) => {
                 const send = (code, body) => { res.statusCode = code; res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(body)); };
                 const ok = own();
                 if (!ok.has(hostOf(req.headers.host))) return send(403, { error: 'only when reached as this machine' });
                 if (req.method === 'GET') {
-                    const layer = new URL(req.url, 'http://x').searchParams.get('layer');
-                    if (!LAYER_NAMES.includes(layer)) return send(400, { error: 'layer' });
-                    return send(200, JSON.parse(readFileSync(join(v2Dir, 'layers', `${layer}.json`), 'utf8')));
+                    const q = new URL(req.url, 'http://x').searchParams, layer = q.get('layer'), alt = q.get('alt');
+                    if (!LAYER_NAMES.includes(layer) || (alt && !ALT_RE.test(alt))) return send(400, { error: 'layer' });
+                    const f = layerFile(layer, alt); if (!existsSync(f)) return send(404, { error: 'no such alternate' });
+                    return send(200, JSON.parse(readFileSync(f, 'utf8')));
                 }
                 if (req.method !== 'POST') return send(405, { error: 'GET or POST' });
                 const origin = req.headers.origin;
@@ -93,7 +95,8 @@ function v2EditsApi() {
                 req.on('data', c => { raw += c; if (raw.length > 2_000_000) req.destroy(); });
                 req.on('end', () => {
                     try {
-                        const { layer, points } = JSON.parse(raw);
+                        const { layer, points, alt } = JSON.parse(raw);
+                        if (alt != null && !ALT_RE.test(alt)) return send(400, { error: 'bad alternate name' });
                         if (!LAYER_NAMES.includes(layer) || !points || typeof points !== 'object' || Array.isArray(points)) return send(400, { error: 'bad body' });
                         const keyRe = /^[a-z]+\.[A-Za-z0-9.?-]{1,40}$/, out = {}, entries = Object.entries(points);
                         if (entries.length > 20000) return send(400, { error: 'too many points' });
@@ -101,8 +104,39 @@ function v2EditsApi() {
                             if (!keyRe.test(k) || !Array.isArray(v) || v.length !== 3 || !v.every(n => typeof n === 'number' && Number.isFinite(n) && Math.abs(n) < 5)) return send(400, { error: `bad point ${k}` });
                             out[k] = v;
                         }
-                        writeFileSync(join(v2Dir, 'layers', `${layer}.json`), JSON.stringify(out) + '\n');
+                        if (alt) mkdirSync(join(v2Dir, 'layers', 'alt', layer), { recursive: true });
+                        writeFileSync(layerFile(layer, alt), JSON.stringify(out) + '\n');
                         send(200, { ok: true, points: entries.length });
+                    } catch { send(400, { error: 'bad JSON' }); }
+                });
+            });
+            // Alternates (the Sculptor): other versions of a layer to work on — layers/alt/<layer>/<name>.json, never built into
+            // the game until made active. GET → { layer: [names] }; POST { action: 'activate' | 'delete', layer, alt }:
+            // activate puts the alternate in the layer's place and keeps what was active as an alternate (was_active_<time>).
+            server.middlewares.use('/api/v2alts', (req, res) => {
+                const send = (code, body) => { res.statusCode = code; res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(body)); };
+                const ok = own();
+                if (!ok.has(hostOf(req.headers.host))) return send(403, { error: 'only when reached as this machine' });
+                const list = () => Object.fromEntries(LAYER_NAMES.map(l => { const d = join(v2Dir, 'layers', 'alt', l); return [l, existsSync(d) ? readdirSync(d).filter(f => f.endsWith('.json')).map(f => f.slice(0, -5)).sort() : []]; }));
+                if (req.method === 'GET') return send(200, list());
+                if (req.method !== 'POST') return send(405, { error: 'GET or POST' });
+                const origin = req.headers.origin;
+                if (origin && (!ok.has(hostOf(new URL(origin).host)) || new URL(origin).host !== req.headers.host)) return send(403, { error: 'cross-origin write refused' });
+                if (!/^application\/json\b/.test(req.headers['content-type'] ?? '')) return send(415, { error: 'JSON only' });
+                let raw = '';
+                req.on('data', c => { raw += c; if (raw.length > 10_000) req.destroy(); });
+                req.on('end', () => {
+                    try {
+                        const { action, layer, alt } = JSON.parse(raw);
+                        if (!LAYER_NAMES.includes(layer) || !ALT_RE.test(alt ?? '')) return send(400, { error: 'bad body' });
+                        const f = layerFile(layer, alt); if (!existsSync(f)) return send(404, { error: 'no such alternate' });
+                        if (action === 'delete') { unlinkSync(f); return send(200, { ok: true, alts: list() }); }
+                        if (action !== 'activate') return send(400, { error: 'action' });
+                        const t = new Date(), pad = n => String(n).padStart(2, '0');
+                        const keep = `was_active_${t.getFullYear()}${pad(t.getMonth() + 1)}${pad(t.getDate())}_${pad(t.getHours())}${pad(t.getMinutes())}${pad(t.getSeconds())}`;
+                        writeFileSync(layerFile(layer, keep), readFileSync(layerFile(layer), 'utf8'));
+                        writeFileSync(layerFile(layer), readFileSync(f, 'utf8')); unlinkSync(f);
+                        send(200, { ok: true, kept: keep, alts: list() });
                     } catch { send(400, { error: 'bad JSON' }); }
                 });
             });
