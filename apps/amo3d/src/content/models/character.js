@@ -9,6 +9,8 @@ import { DEFAULT_LOOK, normalizeLook, BODY_PRESETS, RACES, handSpec } from './lo
 import { PART_CATALOG, partDef, COVERING_HEADGEAR } from './parts/index.js';
 import { settings } from '../../engine/settings.js';
 import { V2_MODELS } from './v2/index.js';
+import { buildBase } from './v2/base.js';
+import { wardrobeOutfit, RIGID_SLOTS } from './v2/wardrobe.js';
 
 const mat = (color, opts = {}) =>
     new THREE.MeshStandardMaterial({ color, flatShading: true, roughness: 0.85, ...opts });
@@ -190,9 +192,23 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         onUpdate: fn => hooks.push(fn),
     };
     // Character models v2 (Options › Display › Character models: New): a hand-shaped continuous model for this character
-    const V2 = settings.charModels === 'new' && typeof lookIn?.v2 === 'string' && Object.hasOwn(V2_MODELS, lookIn.v2) ? V2_MODELS[lookIn.v2] : null;   // (own keys only: a look from the network can't reach the prototype)
+    // Any other look (the NPCs, the Forge's characters) is built on the base body of its sex and age, its clothes translated
+    // (v2/wardrobe.js); its rigid pieces (hat, shoulders, belt…) stay the classic parts on the same joints — kept visible
+    // below by their materials. Not for the wolf form (its own shape).
+    const OWN = settings.charModels === 'new' && typeof lookIn?.v2 === 'string' && Object.hasOwn(V2_MODELS, lookIn.v2) ? V2_MODELS[lookIn.v2] : null;   // (own keys only: a look from the network can't reach the prototype)
+    const F2 = /female/.test(bodyDef.preset);
+    const V2 = OWN ?? (settings.charModels === 'new' && !bodyDef.wolf ? (c => buildBase(c, { sex: F2 ? 'female' : 'male', skin: bodyDef.skin, hair: L.hair.color, bald: L.hair.style === 'bald' || COVERING_HEADGEAR.has(L.parts.headgear?.id), outfit: wardrobeOutfit(L, F2) })) : null);
     let v2 = null;
+    const keepMats = new Set([M.gold, M.steel, M.wood, M.crystal]);   // (the rigid classic parts worn on a v2 body: their materials stay visible)
     if (V2) { root.traverse(o => { if (o.isMesh) o.visible = false; }); v2 = V2(ctx); if (typeof v2?.update === 'function') hooks.push(v2.update); }
+    if (V2 && !OWN) for (const slot of RIGID_SLOTS) {
+        const entry = L.parts[slot];
+        if (!entry?.id || entry.id === 'none') continue;
+        const def = partDef(slot, entry.id); if (!def) continue;
+        const colors = { ...(def.colors ?? {}), ...(entry.colors ?? {}) };
+        const res = def.build({ ...ctx, colors, slot, entry, mat: (c, o) => { const m = ctx.mat(c, o); keepMats.add(m); return m; } });
+        if (res?.update) hooks.push(res.update);
+    }
     for (const slot of V2 ? [] : Object.keys(PART_CATALOG)) {
         const entry = L.parts[slot];
         if (!entry?.id || entry.id === 'none') continue;
@@ -212,7 +228,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
 
     root.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     bakeRig(root);
-    if (V2) root.traverse(o => { if (o.isMesh && !o.userData.v2) o.visible = false; });   // (the classic body, merged by bakeRig, stays hidden)
+    if (V2) root.traverse(o => { if (o.isMesh && !o.userData.v2) o.visible = keepMats.has(o.material); });   // (the classic body, merged by bakeRig, stays hidden)
 
     // main / off: { type, accent } (amo weapon type + the item's colour), false for an empty main
     // hand, or null for an empty off hand. Shields can go in either hand.

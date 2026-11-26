@@ -38,12 +38,20 @@ export function stackTopo(ctx, sex) {
     const Ls = [...layerNames(ctx, sex).map(n => (Object.hasOwn(swap, n) && swap[n] && typeof swap[n] === 'object' ? swap[n] : LAYERS[n])), sc?.points];
     return Ls.flatMap(L => (Array.isArray(L?.['@topo']) ? L['@topo'].filter(TOPO_OK) : [])).slice(0, 2000);
 }
+const EDIT_CACHE = new Map();
 export function buildBase(ctx, opts = {}) {
     const { root, head } = ctx;
     if (!ctx._v2Head) { ctx._v2Head = true; head.position.z += 0.024; head.position.y += 0.005; }   // (2026-11-23: lowered 2.5 cm — it sat too high on the neck; carried a little forward of the shoulders, the neck leaning to it, as the reference)
     const topo = stackTopo(ctx, opts.sex);
+    // (2026-11-26, the NPCs on v2: the layers turned into positions depend on the body's shape only — its sex, proportions,
+    // head and feet — not on painted clothes: cached, so a town of NPCs builds each body once. Not for a look with its own
+    // sculpt part, nor an outfit that reshapes the cloth.)
+    const O = opts.outfit, reshapes = !!(O && (O.armTube || O.legTube || O.armLoose || O.legLoose));
+    const P = ctx.preset ?? {}, B = ctx.look?.body ?? {};
+    const ckey = !ctx.look?.sculpt && !reshapes ? [opts.sex, ctx.look?.body?.preset, B.height, B.width, P.height, P.width, opts.headK ?? 1, opts.footK ?? 1, ctx.look?.hair?.style === 'bald' || opts.bald ? 1 : 0].join('|') : null;
+    if (ckey && EDIT_CACHE.has(ckey)) { const out = genBase(ctx, opts, { edits: EDIT_CACHE.get(ckey), topo }); if (out?.mesh) out.mesh.userData.layers = layerNames(ctx, opts.sex); return out; }
     const plain = genBase(ctx, { ...opts, outfit: null }, { dry: true, topo });
-    const dressed = opts.outfit ? genBase(ctx, opts, { dry: true, topo }) : plain;
+    const dressed = opts.outfit && reshapes ? genBase(ctx, opts, { dry: true, topo }) : plain;
     const stack = layerStack(ctx, opts.sex), edits = {};
     if (stack.length) {
         root.updateMatrixWorld(true);
@@ -58,16 +66,18 @@ export function buildBase(ctx, opts = {}) {
             d.set(x, y, z).applyMatrix3(M[r.bone]); edits[k] = [r.p.x + d.x, r.p.y + d.y, r.p.z + d.z];
         }
     }
+    if (ckey) { if (EDIT_CACHE.size > 64) EDIT_CACHE.clear(); EDIT_CACHE.set(ckey, edits); }
     const out = genBase(ctx, opts, { edits, topo });
     if (out?.mesh) out.mesh.userData.layers = layerNames(ctx, opts.sex);   // (the Sculptor's layer picker: which layers this body stacks)
     return out;
 }
 
-function genBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair = null, outfit = null, headK = 1, footK = 1 } = {}, { edits = null, dry = false, topo = null } = {}) {   // headK: the head's size; footK: the feet (boots are bigger)
+function genBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair = null, bald = null, outfit = null, headK = 1, footK = 1 } = {}, { edits = null, dry = false, topo = null } = {}) {   // headK: the head's size; footK: the feet (boots are bigger)
     const F = sex === 'female';
     const { root, body, hips, spine, head, arms, legs } = ctx;
     const HAIR = hair ?? (F ? '#151922' : '#2a1d16');
-    const BALD = ctx.look?.hair?.style === 'bald';   // no hair (2026-11-23: hair will be interchangeable; the hairless reference sheet)
+    const BALD = bald ?? ctx.look?.hair?.style === 'bald';   // (bald: true under a covering hat — the wardrobe)
+    //   // no hair (2026-11-23: hair will be interchangeable; the hairless reference sheet)
     const bones = [hips, spine, head, arms.L.upper, arms.L.fore, arms.R.upper, arms.R.fore, legs.L.thigh, legs.L.shin, legs.R.thigh, legs.R.shin];
     const HV = 0.82;   // the head's height (2026-11-23: it was ~25% too long for its width against the reference; the female's the same since — "almost the same head as the male")
     // (2026-11-26: the female head's "share" of the male face's edits is gone — the layers carry it now: Common for both
@@ -343,7 +353,14 @@ function genBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair 
     // hair's colour, thick at the inner end, arching, thinning toward the temple. Each point is projected onto the head as
     // built (the point editor's edits applied), so they sit on the visible face whatever shape it is given.
     {
-        const probe = new THREE.Mesh(mesh.geometry, new THREE.MeshBasicMaterial({ side: THREE.DoubleSide })), rc = new THREE.Raycaster();
+        // (the probe: the head's faces only — those with a point on the head bone (2); 2026-11-26, a third of the rays' cost)
+        const pg = (() => {
+            const g = mesh.geometry, pos = g.attributes.position, si = g.attributes.skinIndex, sw = g.attributes.skinWeight, keep = [];
+            const onHead = v => { for (let n = 0; n < 4; n++) if (si.getComponent(v, n) === 2 && sw.getComponent(v, n) > 0.3) return true; return false; };
+            for (let v = 0; v < pos.count; v += 3) if (onHead(v) || onHead(v + 1) || onHead(v + 2)) for (let n = 0; n < 3; n++) keep.push(pos.getX(v + n), pos.getY(v + n), pos.getZ(v + n));
+            return new THREE.BufferGeometry().setAttribute('position', new THREE.Float32BufferAttribute(keep, 3));
+        })();
+        const probe = new THREE.Mesh(pg, new THREE.MeshBasicMaterial({ side: THREE.DoubleSide })), rc = new THREE.Raycaster();
         const fs = createSkin(root, [head]), centre = V(head, 0, 0.17 * hk, 0), dir = new THREE.Vector3();
         const P = (x, y, lift) => {   // (x, y) head-local, before the head's scale; lift: how far off the surface
             const a = V(head, x * hk, y * hk, 0.3 * hk), b = V(head, x * hk, y * hk, 0);
