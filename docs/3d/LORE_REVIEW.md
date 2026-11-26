@@ -387,3 +387,16 @@ The region lore lines, signs and villager lines are listed under each place in �
 
 ---
 _Sources: `apps/amo3d/src/content/` (regions, maps, chapters, actors), `packages/rules/src/data/` (items, spells, quests, dialogues, bestiary, worldMap), the lore DB on scarif (read only). Regenerate after big content changes._
+
+
+## Added by the autonomous run of 2026-11-25 (game-only, `origin: "game"` — canon check pending)
+Nothing below is in the DB. The DB on scarif did not answer that day; these were checked against `world_lore.md`, `data/lore/world_systems.md`, the album XMLs and the book only.
+
+- [ ] **Quests, levels 31–50:** The Edge of the Wound, Cold Shapes on the Heath, What the Divide Keeps, Cinders on the Wind, The Mountain's Hunger, The Vigil That Never Ended, The Light at the Bottom, The Bone Gate, The Wrong Hill.
+- [ ] **Signs:** a Legion post on the Great Rift's lip ("THE RIFT. NO CLOSER."); the Obsidian Citadel's bone gate ("ALL SOULS COME HOME.").
+- [ ] **The Black Lake's shore** (Nythoria): Underworld spawn round the Black Well (WORLD_PLAN: "Underworld spawn round the Black Well").
+- [ ] **The Outlander** (status and greeting) — from WORLD_PLAN's "outsider start".
+- [ ] **Across the veil:** thin places (Whisper-Wood, before the Sanguine Vaults and the Great Rift's lip have canon backing; the bare rise south of New Ravenspire is game-only), and **the crossing Tear**, an extension of the Aetheric Tear (world_lore lists it as "any visited coordinate", not across planes; precedent: Malakar striking Acheron across dimensions).
+- [ ] **The sealed reliquary** on the rise (Nythoria): "SEALED BY THOSE WHO STAYED…".
+- [ ] **The Sanguine Vaults' inside** (album Crimson Covenant: the Covenant's subterranean headquarters and soul-bank): the tithe halls, the soul-cisterns, the Tithe-Keeper, What Drinks in the Cisterns, the seal read with the sight ("a tithe-mark").
+- [ ] **Chapter scenes from the book** (not new names, check the wording only): the vow below the landing, the gate of flame, the three golems' figures (the lock, the knot, the foundation), the Magma-Eaters and Cinder-Souls trial, the Hermit's return scene.
