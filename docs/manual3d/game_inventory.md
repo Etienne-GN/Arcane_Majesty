@@ -1,0 +1,1453 @@
+# Arcane Majesty 3D — the game manual
+
+_Generated from the game data by `apps/amo3d/tools/gen_manual.mjs` (packages/rules) on 2026-11-26. Regenerate after changing the data; don't hand-edit._
+
+**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 47 status effects · 303 items (56 weapons) · 43 cooking recipes · 27 potion recipes · 45 crafting recipes · 17 enchantments · 116 enemy/creature types + 1 boss · 54 quests · 12 campaign chapters · 43 maps · 5 playable characters · 35 dialogues
+
+## Contents
+1. [Systems & controls](#systems--controls)
+2. [Combat](#combat)
+3. [Character & progression](#character--progression)
+4. [Magic — all spells](#magic--all-spells)
+5. [Status effects](#status-effects)
+6. [Cooking](#cooking)
+7. [Brewing (potions)](#brewing-potions)
+8. [Crafting](#crafting)
+9. [Enchantments](#enchantments)
+10. [Items](#items)
+11. [Shops](#shops)
+12. [Gathering & world objects](#gathering--world-objects)
+13. [Enemies & creatures](#enemies--creatures)
+14. [Boss](#boss)
+15. [Quests](#quests)
+16. [Campaign](#campaign)
+17. [Maps](#maps)
+18. [Characters & stories](#characters--stories)
+19. [Dialogues](#dialogues)
+
+## Systems & controls
+
+_The 3D game (apps/amo3d). Keys below; the same actions are on touch (left half: move — push past the ring to sprint; right half: the camera; CAST / HIT / HOP; MENU for everything else) and on a gamepad._
+
+| Key | Action |
+|---|---|
+| WASD | Move |
+| Shift | Sprint (spends Vigor) |
+| Space | Hop — hop through a swing to dodge it; with the stick held while something hunts you, a low dive |
+| F / right-click | The right hand: its spell or blow (two-hand actions: R / left-click for the left hand) |
+| Hold F / R | Aim a spell: a ring on the ground (area spells) or a dotted path (bolts); it snaps onto a creature near the aim; let go to cast |
+| Z / C | Cycle a hand's favourite actions (hold: the fan of the others) |
+| 1–4 | Hotbar |
+| G / Enter | Talk, open, gather, read |
+| T | Aetheric Tear (inside a thin place: the crossing Tear) |
+| L | Aether Sight |
+| H | Blink-Step (once learned) |
+| I / Tab | Satchel |
+| C | Character |
+| M | Map |
+| J | Journal |
+| K | Codex |
+| B | The Book: skills, spells, styles, favourites |
+| O | Options |
+| Esc | Pause · save · quit |
+| Enter | Chat (online) |
+| F1 | The controls card |
+
+| System | How it works |
+|---|---|
+| The open world | Eldoria is one seamless land (~11 km); Nythoria, the Umbral Plane, is its twin in the same space — the same land, its own buildings. Interiors and dungeons are behind doors. The Obsidian Gate crosses between the two. |
+| Levels of the land | Every point of both worlds has a level from 1 to 50, in five bands: the starters (1–10), the heartlands, lake and coast (11–20), the western woods, Iron Hollow and the isles (21–30), the Scarlands and beyond the Divide (31–40), the fire mountain, the Ruins and the Obsidian Citadel (41–50). A creature takes the level of the land where it lives (±1); dungeons have their own. |
+| Where you begin | A hero of your own chooses: the Emerald Fields' village (Eldoria), the Shadow-Vale (Nythoria) or Thaloria's inn. Eldrin begins at his tower. |
+| The Outlander | A hero whose people belong to the other world (a Nythorian or Fallen Aurorian in Eldoria; a Human, Aurorian or Werewolf in Nythoria): traders there ask 25% more, wounds heal 25% slower, kills give 10% more experience. The character sheet says so while it applies. |
+| Quests | People with work for you offer it when you talk to them (Accept / Not now); talk to them again to turn it in. The journal (J) keeps your notes. Every band has its quests, from the starter villages to New Ravenspire and the Vale. |
+| Aether Sight (L) | The second hand of the world, for 4–6 s: creatures within 25 m are slowed, each one's detection range shows as a ring on the ground, the near-invisible show themselves, illusions show hollow; thin places show as columns of violet motes. 18 mana, 14 s. Eldrin has it from the Hermit; others learn the Aetheric Sight skill. |
+| Mana Scent | Magic leaves a scent predators follow: every spell raises it by its cost, it fades by 12 a second. Creatures within 4 m + 0.36 m a point (40 m at full) smell it and hunt you past their sight. A violet bar under the mana shows it. |
+| Aetheric Tear (T) | Tear the world open to an attuned rift gate: most of your mana, a cooldown; you arrive with 100% Mana Scent and a 2 s Resonance Stun. |
+| Across the veil | In a thin place (Whisper-Wood, before the Sanguine Vaults, the Great Rift's lip, and others the sight finds) the Tear can cross to the same spot on the other side. It takes the sight and level 30, ALL your mana (come full), once per game day, and you arrive with full Mana Scent and stunned. Some places can only be reached this way. |
+| Dual-wand overpower | A wand in each hand: cast the same spell with the other hand while the first is still taking shape — one bolt or blast at 2.2× power, bigger, for 60% more mana. |
+| Dungeons | Behind doors: the Deep Shaft under Iron Hollow, the Inferno Labyrinth's halls, the Keepers' Vaults under the Ruins, the Sanguine Vaults (open its seal with the sight). Rooms of creatures at the dungeon's level, chests, a boss who bars the way down. |
+| Campaign | Eldoria's Prophecy, chapters 1–12, for Eldrin: from the strata of Echoes of Stone to the vigil in his tower — the Summit, the Sanctuary and the Hermit, the Fire Gate, the Labyrinth's golems and the crucible, the Ruins, the Balrog, Vorgos's condition, the road home. |
+| Day & night, weather | One real minute is one game hour. Nights are dark; each land has its weather. |
+| Saving | Three save slots; everything is kept: the world, quests, the journal, the codex, what you have explored. |
+
+## Combat
+
+### Your two hands
+You have a **main hand** and an **off hand**. Put a weapon in each, or one big weapon in both.
+
+- **One-handed** weapons (wand, staff, dagger, sword, mace, axe) can go in either hand. Mix them: a sword and a staff, two daggers, a wand and a dagger.
+- **Two-handed** weapons (bo staff, spear, two-handed sword, bow, crossbow) take both hands.
+- A **shield** goes in the off hand only.
+- An **empty hand** is a fist. You can always punch.
+
+To equip: open the satchel (I), pick the weapon, then **Equip** (E) for the main hand or **Off hand** (O). Whatever was in the way goes back into your satchel — you never lose it.
+
+### Your two buttons
+**Attack** (Z, or the big attack button) and the **second button** (X, or PWR) each do one move. The game picks good ones when you equip:
+
+- Attack: your main hand's move.
+- Second button: your off hand's move — or **Block** with a shield — or, with nothing in the off hand or a two-handed weapon, your main weapon's **power strike** (slower, stronger; learn Power Slash in the skill tree first).
+
+You can change them in the satchel, under **BUTTONS**: tap a button's line to switch to the next move.
+
+**Example — Eldrin with a sword and a staff.** He puts the sword in his main hand and the staff in his off hand. Attack slashes, the second button casts a Blast. He prefers magic first, so he taps BUTTONS → Attack until it says *Blast*: now Z casts and X slashes.
+
+**Spells** stay on Q / R / F / T. You can cast them with any weapon in hand — or none.
+
+### The weapons
+| Weapon | Hands | Basic move | What it is good for | Speed (ms between hits) | Reach |
+|---|---|---|---|---|---|
+| Wand | one | Bolt | quick, light magic — best against one enemy up close | 300 | 140 px (ranged) |
+| Staff | one | Blast | slow, strong magic — best against a crowd | 400 | 30 px |
+| Bo staff | two | Strike | fast pole blows with good reach | 360 | 40 px |
+| Spear | two | Thrust | the longest reach — keep enemies away | 520 | 48 px |
+| Dagger | one | Stab | very fast, very close | 260 | 26 px |
+| One-handed sword | one | Slash | balanced — good at everything | 480 | 30 px |
+| Two-handed sword | two | Sweep | slow, wide and heavy — for crowds and big hits | 750 | 34 px |
+| Mace | one | Smash | slow blows that crack armour | 600 | 30 px |
+| Axe | one | Chop | strong chops that can hit two | 560 | 30 px |
+| Shield | off hand | Block | raise it to stop most of a hit from the front | 700 | — |
+| Bow | two | Shoot | long range — hit them before they reach you | 650 | 150 px (ranged) |
+| Crossbow | two | Shoot bolt | slow to reload, hits very hard at range | 1100 | 220 px (ranged) |
+| Fists | one | Punch | weak but always there | 300 | 24 px |
+
+
+### Blocking
+With a shield, the Block move raises it: for a moment, a hit **from the front** does only **30%** of its damage (never less than 1), and you move at half speed. Hits from behind get through — face your enemy! Lightning and poison are never blocked. Hold the button to keep the shield up (keyboard, gamepad); on touch, tap again.
+
+### Getting better: mastery
+Every weapon, and every kind of magic, has a **mastery from 1 to 10**. Everyone starts at 1. You get better at what you **use**:
+
+- Each hit with a weapon teaches it a little; each **kill** teaches more. Weak enemies teach you almost nothing — fight things your size.
+- Each spell that hits teaches its element (fire, water…) — and your wand or staff, if you hold one.
+- Every level makes it better: **+8% damage** and a little faster. At 10 that is +72%.
+- The character screen (P) shows every mastery as *level / your best*. A notice pops up each time one goes up.
+
+### Talent: how far you can go
+Nobody is great at everything. Each hero has a talent for each weapon and each kind of magic:
+
+| Talent | Mastery can reach |
+|---|---|
+| Gifted | 10 — the very best |
+| Trained | 6 — solid |
+| Untrained | 3 — a usable backup |
+
+
+|  | Eldrin | Kael | Anya | Seraphina |
+|---|---|---|---|---|
+| Wand | Gifted | · | Gifted | Trained |
+| Staff | Gifted | · | Gifted | Trained |
+| Bo staff | Trained | · | Trained | · |
+| Spear | · | Trained | · | Trained |
+| Dagger | · | Trained | Trained | Gifted |
+| One-handed sword | · | Gifted | · | Gifted |
+| Two-handed sword | · | Gifted | · | Trained |
+| Mace | · | Trained | · | · |
+| Axe | · | Trained | · | Trained |
+| Shield | · | Gifted | · | Trained |
+| Bow | · | · | Trained | Trained |
+| Crossbow | · | Trained | · | Trained |
+| Fists | · | Trained | · | Trained |
+| Elemental magic | Gifted | · | Trained | · |
+| Light magic (arcane) | Trained | Trained | Gifted | · |
+| Dark magic (shadow) | Trained | · | Gifted | Gifted |
+
+
+A dot (·) means Untrained: the hero can still use it, up to 3.
+
+**Example — Eldrin with a sword.** He can fight with a sword, and he gets better at it — but only up to 3. His staff can reach 10.
+
+### Classes (characters you create)
+A character you create picks a **class** the first time it enters the world. The class sets its talents — you can still pick up any weapon.
+
+| Class | What it is | Gifted (10) | Trained (6) |
+|---|---|---|---|
+| Warrior | Swords and shield — the front line. | One-handed sword, Two-handed sword, Shield | Dagger, Spear, Mace, Axe, Crossbow, Fists |
+| Ranger | Bow, crossbow and dagger — strike from afar. | Bow, Crossbow, Dagger | One-handed sword, Spear, Elemental magic |
+| Mage | Wand, staff and the elements. | Wand, Staff, Elemental magic | Light magic (arcane), Dark magic (shadow), Bo staff, Dagger |
+| Brawler | Fists and the bo staff — the monk. | Fists, Bo staff | Dagger, Two-handed sword, Mace, Axe |
+| Spellsword | Sword, shield and light magic — the holy knight. | One-handed sword, Shield, Light magic (arcane) | Mace, Wand, Elemental magic |
+| Shadowblade | Dagger, sword and dark magic — fast and cruel. | Dagger, One-handed sword, Dark magic (shadow) | Bow, Wand, Fists |
+| Seer | Wand and light magic — healer and guide. | Wand, Light magic (arcane) | Staff, Bo staff, Dagger, Elemental magic |
+| Druid | Bo staff, staff and the elements — the hermit. | Bo staff, Staff, Elemental magic | Spear, Bow, Light magic (arcane) |
+
+
+### Fighting styles
+Every weapon has **fighting styles**. A style gives you **three skills** — special moves you put on Q / R / F / T, next to your spells.
+
+- Each skill opens at a **weapon mastery**: the first at **2**, the second at **5**, the third at **8**.
+- So your talent decides how many you get: **Untrained** (up to 3) gets the first skill, **Trained** (up to 6) two, **Gifted** (up to 10) all three.
+- A skill only works with its weapon **in your hands**. If it is not, the skill is greyed out and does nothing.
+- Skills cost no mana (except **Release**, which pours out all of it). Each one has a wait (shown on its slot) before you can use it again.
+- **Bow, crossbow and wand skills shoot straight ahead, the way you are facing** — turn towards your target first.
+
+**One-handed sword — Guard.** Stop their blow, then answer it.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Parry | 2 | Raise your blade: the next hit from the front does nothing and dazes the attacker. | 4 s |
+| Riposte | 5 | A hard counter-cut. Even harder right after a parry. | 5 s |
+| Steady Advance | 8 | Hold your guard: take 40% less damage for 5 seconds. | 20 s |
+
+
+**Two-handed sword — Reaver.** Big swings that clear a crowd.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Whirlwind | 2 | Spin with the blade and hit everyone around you. | 5 s |
+| Cleave | 5 | One huge swing that cuts up to four enemies in front. | 6 s |
+| Rampage | 8 | For 6 seconds: 40% more damage and faster swings. | 25 s |
+
+
+**Dagger — Shadow.** Disappear, then strike from behind.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Vanish | 2 | Enemies lose sight of you for 3 seconds. Your next hit does double damage. | 15 s |
+| Backstab | 5 | A quick stab — three times as strong from behind. | 6 s |
+| Shadowstep | 8 | Step behind the nearest enemy and face its back. | 10 s |
+
+
+**Spear — Lancer.** Lunge and leap — strike from far away.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Piercing Lunge | 2 | Lunge forward and pierce everything in a line. | 5 s |
+| Leaping Strike | 5 | Jump ahead and land in the middle of them. | 8 s |
+| Run Through | 8 | A thrust that goes through a whole row of enemies. | 9 s |
+
+
+**Bo staff — Spinning Staff.** Fast blows and a guard against arrows.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Flurry of Blows | 2 | Four fast blows in front of you. | 5 s |
+| Deflect Arrows | 5 | Spin the staff: for 3 seconds, hits from far away do nothing. | 15 s |
+| Windmill | 8 | A wide spin that throws enemies back. | 9 s |
+
+
+**Mace — Crusher.** Break bones, stun, crack armour.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Bone Breaker | 2 | A heavy blow that slows the target for 4 seconds. | 6 s |
+| Stunning Blow | 5 | A blow to the head: the target is stunned. | 9 s |
+| Shatter Armour | 8 | Crack their armour: they take 30% more damage for 8 seconds. | 12 s |
+
+
+**Axe — Berserker.** Rage, bleed them, swing faster.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Rage | 2 | For 8 seconds: 25% more damage, but you take 10% more. | 25 s |
+| Bleeding Chop | 5 | A chop that makes the target bleed. | 6 s |
+| Frenzy | 8 | Swing 40% faster for 5 seconds. | 25 s |
+
+
+**Shield — Bulwark.** Hold the line — nothing gets through.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Perfect Block | 2 | For a moment, every hit does nothing and dazes the attacker. | 5 s |
+| Taunt | 5 | Call enemies to you: they stop casting and come. You take 30% less damage for 4 seconds. | 15 s |
+| Shield Wall | 8 | For 6 seconds hits from the front do almost nothing, but you walk slower. | 25 s |
+
+
+**Fists — Brawler.** Big punches, throws and headbutts.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Haymaker | 2 | A big punch that knocks the target back. | 5 s |
+| Grab & Throw | 5 | Grab the enemy and throw it away. It is stunned for a second. | 8 s |
+| Headbutt | 8 | A headbutt that stuns the target for 2 seconds. | 10 s |
+
+
+**Bow — Hunter.** Patient shots: hit hard, hold them, mark them.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Aimed Shot | 2 | A careful shot that flies farther and hits hard. | 5 s |
+| Snare | 5 | A shot at the legs: the target cannot move for 3 seconds. | 9 s |
+| Mark Prey | 8 | Mark the target: it takes 40% more damage from everything for 8 seconds. | 15 s |
+
+
+**Crossbow — Marksman.** Steady aim, a bolt to the head, a bolt through a row.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Steady Aim | 2 | For 6 seconds your shots do 50% more damage, but you walk slower. | 20 s |
+| Headshot | 5 | A bolt to the head: huge damage, and the target is stunned. | 9 s |
+| Pierce | 8 | A bolt that goes through every enemy in the row. | 8 s |
+
+
+**Wand — Quickcast.** Fast bolts, echoing spells, a bolt that jumps.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Snap Cast | 2 | Three quick bolts, one after another. | 4 s |
+| Echo | 5 | For 6 seconds, every spell you aim happens again a moment later, at half power. | 20 s |
+| Chain | 8 | A bolt that jumps from enemy to enemy — up to three more. | 8 s |
+
+
+**Staff — Channeler.** Gather mana, overload your spells, then let it all out.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Channel | 2 | For 4 seconds you get back 6 mana a second, but walk at half speed. | 15 s |
+| Overload | 5 | For 6 seconds spells do 40% more damage but cost 50% more mana. | 20 s |
+| Release | 8 | Pour out all your mana in a blast around you. More mana, bigger blast. | 12 s |
+
+
+**Coming later:** Hex (wand) and Warder (staff). Their manuals are on sale already — reading one now gives you a head start.
+
+### Learning a style
+A style is learned by filling its bar to **100%**. There are three ways, from slow to fast:
+
+| Way | How much | Where |
+|---|---|---|
+| **Practice** (free, slow) | 1% for each enemy you defeat with that weapon — less for weak enemies, more for strong ones. With a wand or staff in hand, enemies your **spells** defeat count too | Anywhere. The STYLES screen shows which style you are practising. |
+| **A manual** (faster) | +40% at once, and after that your practice counts **double** | The Archivist's Guild in Thaloria (150 gold each: Reaver, Shadow, Lancer, Spinning Staff, Berserker, Bulwark, Brawler, Hunter, Marksman, Quickcast, Channeler, Hex, Warder). Elites sometimes drop one (10%). Read it from your satchel (I). |
+| **A teacher** (fastest, costs gold) | +35% a lesson, **one lesson a day**, during the teacher's working hours. Lessons cost 100, then 200, then 300 gold | In Thaloria: the **sergeant** in the barracks teaches Guard (one-handed sword), the **smith** in the smithy teaches Crusher (mace). |
+
+
+When the bar is full you get a message, and the style's skills appear as your mastery allows.
+
+**To use a skill:** open **STYLES** (Y, or STYLE on the touch menu). Pick a skill, then press **Q, R, F or T** (gamepad: B, X, Y, RB — the same buttons that use them in a fight) to put it on that slot. Press the same key again to take it off. Close with Esc or Y (gamepad: Start).
+
+**Example — Kael with a sword.** Kael wins fights with his sword until Guard is learned (or takes lessons from the sergeant). At sword mastery 2 he opens STYLES and puts **Parry** on Q. When a wolf leaps at him, he presses Q just before it bites: the bite does nothing and the wolf is dazed. At mastery 5 he adds **Riposte** on R — right after a parry it hits even harder.
+
+**Example — Seraphina with a wand.** She puts **Snap Cast** on Q and **Echo** on R. She presses R, then casts a fire spell at a wolf pack: the spell bursts, and a moment later it bursts again at half strength. With a staff instead, **Release** (mastery 8) pours out all her mana in one blast around her — the more mana she has, the bigger it is (it needs at least 10).
+
+### Learning spells
+Spells are learned the same three ways as styles:
+
+| Way | What you get | Where |
+|---|---|---|
+| **Practice** (free) | Casting spells in fights raises that element's level, and new spells and tiers open as it grows | Anywhere. |
+| **A spell scroll** | One spell at **Novice**, at once — even one your element level has not reached yet | The Archivist's Guild sells the easy ones (Fireball 55, Tidal Bolt 55, Drying Wind 65, Rock Bullet 70, Frost Shard 80, Water Conjure 80, Vine Grasp 80, Wind Knife 80, Shadow Bolt 90 gold). Elites sometimes drop others (8%). Read it from your satchel (I); a scroll for a spell you know is kept. |
+| **A teacher** (costs gold) | One spell at **Novice** a lesson, **one lesson a day**, easiest first | In Thaloria: the **priest** in the temple teaches arcane spells (Seeker Dart, Cleanse, Counterspell, Unravel, Benediction, Arcane Circle, Aetheric Ward, Aetheric Inscription). Lessons cost 100, then 200, then 300 gold. |
+
+
+A spell from a scroll or a teacher starts at **Novice**. Its **Apprentice** and **Adept** tiers still come only from that element's level — practise it.
+
+### Arrows, bolts and quivers
+A **bow** shoots arrows and a **crossbow** shoots bolts. Each shot uses one. You can only shoot what is **in your quiver**.
+
+- **Out of a fight** (3 seconds without attacking or being hit), your quiver fills itself from the arrows in your satchel.
+- **In a fight** it does not: when it is empty you are **"Out of arrows"** until you step back for a moment.
+- **Without a quiver** you can still keep 10 arrows ready.
+- Your quiver sits in its own slot in the satchel (I), under your two hands. Next to your weapon at the bottom of the screen, ➶ shows how many arrows are ready, and (+…) how many more are in your satchel. It turns red when you have none ready.
+
+| Quiver | Holds | Kinds | Where |
+|---|---|---|---|
+| (none) | 10 | 1 | — |
+| Small Quiver | 30 | 1 (30 each) | Merchant, 25 gold |
+| Large Quiver | 60 | 2 (30 each) | Craft (C): 2× Deer Hide + Tree Resin |
+| Hunter's Quiver | 90 | 3 (30 each) | Craft (C): 3× Deer Hide + Wolf Pelt + 2× Tree Resin |
+
+A **kind** is one sort of ammunition: basic arrows, poison arrows, bolts… Each part of the quiver holds one kind.
+
+| Ammunition | For | Make it (C) | Buy it | What it does | Comes back |
+|---|---|---|---|---|---|
+| Basic Arrow | Bow | 2× Stick + Feather → 10 | Merchant: 10 for 8 gold | Plain | About 1 in 3 |
+| Broadhead Arrow | Bow | 10× Basic Arrow + Mineral Ore + Tree Resin → 10 | — | +35% damage | About 1 in 3 |
+| Poison Arrow | Bow | 10× Basic Arrow + Venom Sac → 10 | — | Poisons the enemy it hits | About 1 in 3, as Basic Arrows |
+| Explosive Arrow | Bow | 10× Basic Arrow + Ember Stone + Tree Resin → 10 | — | Bursts and hurts every enemy within 48 px (60% of the hit) | Never |
+| Bolt | Crossbow | 2× Stick + Mineral Ore → 10 | Merchant: 10 for 12 gold | Plain | About 1 in 3 |
+
+**Materials:** **Sticks** — 1 Wood makes 4 (C), and chopping deadwood sometimes gives a few. **Feathers** — dropped by birds (hawks, crows, herons, vultures, chickens, turkeys); the Merchant sells 5 for 4 gold. Mineral Ore, Resin, Venom Sacs and Ember Stones you already know.
+
+**Getting arrows back.** When an enemy dies, about a third of the arrows and bolts that hit it fall on the ground where it died — walk over them to pick them up.
+- A **poison** arrow comes back as a basic arrow (its poison is used up).
+- An **explosive** arrow never comes back — and if it is the one that **kills** the enemy, the blast destroys **every** arrow in it.
+- Arrows shot at the **boss** do not come back.
+
+**Choosing an arrow.** Plain **Shoot** (and the bow and crossbow skills) uses the first kind in your quiver. To shoot another kind, open the satchel (I) and click the **Second** button until it says, for example, **Shoot: Poison Arrow**.
+
+**Example — Anya with a bow and a Large Quiver.** Basic arrows fill the first part of her quiver and poison arrows the second. **Attack** shoots basic arrows. She sets the **Second** button to **Shoot: Poison Arrow** and saves it for the wolf leader. After the fight she picks up the arrows that fell, waits a few seconds, and her quiver is full again.
+
+A new character who starts with a bow gets a Small Quiver, 30 basic arrows, and a few Sticks and Feathers.
+
+### Spells and the elements
+Your spells belong to you, not to your stick: you can cast them with a wand, a staff, a sword in hand — or nothing.
+
+- A **wand** makes spells quicker (shorter waits) but a little weaker.
+- A **staff** makes spells stronger and wider, but slower to come back.
+- New spells come with your **element mastery**: the higher your water mastery, the more water spells you know, and the stronger their tiers (Novice → Apprentice → Adept).
+- Being around an element — rain, a campfire, fighting its creatures — gives you a **feel** for it, but only up to mastery 2: enough for the easiest spell of each element. After that, you learn by **casting its spells in fights**: every hit counts.
+- Each hero starts knowing one or two spells: Eldrin Fireball and Tidal Bolt, Anya Mana Dart and Shadow Bolt, Seraphina Shadow Bolt. Kael knows none — he is a swordsman.
+
+## Character & progression
+
+Starting attributes: strength 5, intelligence 5, stamina 5, agility 5. Max HP = 60 + 8 × Stamina (100 at start); Max MP = 10 + 8 × Intelligence (50). Each level gives 1 attribute point and 1 skill point and fully restores HP/MP.
+
+Combat formulas: melee damage 8 + 2 × Strength (weapon type modifiers apply); crit chance 8% + 1.2% × Agility + 5% × Keen Eye level; spell blades add 1.4 × Intelligence.
+
+| Level | XP to next | Total XP to reach |
+|---|---|---|
+| 1 | 100 | 0 |
+| 2 | 283 | 100 |
+| 3 | 520 | 383 |
+| 5 | 1118 | 1703 |
+| 10 | 3162 | 11106 |
+| 15 | 5809 | 31998 |
+| 20 | 8944 | 67135 |
+| 25 | 12500 | 118809 |
+| 30 | 16432 | 189029 |
+
+### Skills
+| Skill | Type | Max level | Requirements | Effect |
+|---|---|---|---|---|
+| Basic Strike | active / normalattack | 5 | — | A simple melee attack. |
+| Power Slash | active / infight | 5 | level 2, strength 10 | Deals heavy damage to a single target. |
+| Keen Eye | passive / crit | 5 | agility 8 | Increases critical hit chance. |
+| Arcane Ward | passive / subtle | 3 | level 2, intelligence 8 | Reduces damage taken by 10% per level. |
+| Blink-Step | active / infight | 3 | level 3, agility 8, arcane mastery 2 | Aether dash in facing direction. 8 MP. [H] |
+| Mana-Shield | passive / subtle | 3 | level 2, intelligence 8, arcane mastery 2 | Absorbs 30/50/70% of incoming damage using mana. |
+| Aetheric Sight | active / subtle | 3 | level 4, intelligence 12, arcane mastery 3 | Slow enemies for 2/3/4s. Reveals detection ranges. [V] |
+| Shadow Step | passive / subtle | 3 | shadow mastery 3 | Shadow Veil lasts +1s/lv, costs 10% less MP/lv. |
+| Arcane Mastery | passive / subtle | 3 | arcane mastery 4 | +10% spell damage per level. |
+
+### Masteries (bought with Resonance Insights from quests: hidden 3, main 2, side 1)
+| Mastery | Cost | Effect |
+|---|---|---|
+| Aetheric Comprehension | 3 | Aetheric Tear cooldown 60s → 45s, mana cost 85% → 75%. |
+| Spatial Attunement | 5 | Aetheric Tear tier 2 — freely target any explored location on the world map. |
+| Scholar's Vigilance | 2 | Scholar's Eye echo zones extend 30% further. |
+| Mana Efficiency | 2 | All spells cost 10% less mana. |
+| Void Sense | 3 | Aetheric Scent dissipates 25% faster. |
+| Resonant Mind | 4 | Spell discovery resonance thresholds reduced by 15%. |
+
+### The feel for an element (counts only up to element mastery 2)
+| Action | Resonance gained |
+|---|---|
+| kill wisp | lightning +3 |
+| kill wolf | nature +2, fire +1 |
+| kill shadow sprite | shadow +4 |
+| kill void stalker | shadow +5, arcane +2 |
+| kill scout | arcane +2 |
+| kill treant | earth +4, nature +2 |
+| kill boss | shadow +10, arcane +5 |
+| take shadow damage | shadow +2 |
+| use scroll | arcane +4 |
+| use tome | arcane +6 |
+| cast fire nova | fire +2 |
+| rest campfire | fire +1 |
+| cast earth pillar | earth +2 |
+| cast quagmire | earth +1 |
+| stand in rain | ice +1, nature +1, water +2 |
+| find nature herb | nature +2 |
+| use nature item | nature +3 |
+| cast in wind | wind +2 |
+| kill ice elemental | ice +4 |
+| cast water | water +1 |
+| kill shark | water +6 |
+| kill giant frog | water +2, nature +1 |
+| kill heron | water +1 |
+| kill cave fish | water +2 |
+| kill glacier crab | water +2, ice +2 |
+| kill bog lurker | water +3, nature +1 |
+| kill rot toad | water +1, nature +1 |
+| kill rot frog | water +1, nature +1 |
+| kill plague heron | water +2 |
+
+## Magic — all spells
+
+Values given per tier (Novice / Apprentice / Adept). Learned at = the element mastery that teaches the spell, then raises it to Apprentice and Adept.
+
+### Fire (7)
+| Spell | Learned at (element mastery) | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
+|---|---|---|---|---|---|---|---|---|---|
+| **Fireball** | 2 / 4 / 6 | targeted aoe | 20 / 8 / 1 | 14 / 12 / 10 | 1600 / 1300 / 1000 | 200 / 220 / 240 (area 40 / 48 / 56) | burning (60%, 8000ms) | scroll, market, npc | The first spell every fire-minded student learns and the last one they stop using. |
+| **Fire Nova** | 2 / 4 / 6 | targeted aoe | 14 / 7 / 0.9 | 20 / 18 / 15 | 2500 / 2100 / 1700 | 160 / 180 / 200 (area 80 / 90 / 105) | burning (35%, 10000ms) | resonance | An eruption of compressed fire mana, released outward in a ring. |
+| **Warmth Aura** | 3 / 5 / 7 | self | — | 15 / 12 / 9 | 7000 / 5600 / 4200 | — | regen (100%, 15000ms) | npc, scroll | A gentle warmth — not the burning, not the nova, but the kind of fire that lives in a hearth and does not want to consume anything. |
+| **Ember Bloom** | 5 / 7 / 9 | targeted aoe | 4 / 2 / 0.3 | 12 / 10 / 8 | 3500 / 2800 / 2200 | 160 / 180 / 200 (area 90 / 105 / 120) | burning (80%, 12000ms) | npc, market, chest | In Eldoria's south, a flower blooms once a year in wildfire season, its petals igniting on contact with air. |
+| **Flame Wall** | 6 / 8 / 10 | targeted aoe | 8 / 4 / 0.5 | 26 / 21 / 16 | 6000 / 4800 / 3800 | 160 / 180 / 200 (area 70 / 85 / 100) | burning (75%, 10000ms) | tome, quest, scroll | A curtain of fire, raised between you and whatever you are trying not to think about right now. |
+| **Flame Lance** | 7 / 9 / 10 | targeted directional | 22 / 10 / 1.1 | 24 / 20 / 16 | 2000 / 1600 / 1200 | 180 / 200 / 225 | burning (50%, 8000ms) | tome, scroll | A narrow, concentrated lance of fire mana. |
+| **Fire Rain** | 8 / 10 / 10 | targeted aoe | 10 / 5 / 0.6 | 30 / 24 / 18 | 5500 / 4400 / 3500 | 160 / 180 / 200 (area 95 / 115 / 135) | burning (40%, 8000ms) | tome, chest | Fire mana, dispersed upward and allowed to fall. |
+
+### Arcane (15)
+| Spell | Learned at (element mastery) | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
+|---|---|---|---|---|---|---|---|---|---|
+| **Mana Dart** | 2 / 4 / 6 | targeted directional | 8 / 4 / 0.6 | 10 / 8 / 6 | 1100 / 900 / 700 | 160 / 180 / 200 | — | resonance | The first spell Eldrin ever truly understood. |
+| **Counterspell** · interrupts | 3 / 5 / 7 | targeted directional | 6 / 3 / 0.4 | 12 / 10 / 8 | 5000 / 4000 / 3000 | 170 / 190 / 210 | silenced (100%, 5000ms) | scroll, tome, npc | A sharp, precise pulse of mana aimed at a spell still being shaped. |
+| **Arcane Burst** | 4 / 6 / 8 | targeted aoe | 18 / 8 / 0.8 | 22 / 18 / 14 | 2200 / 1800 / 1400 | 160 / 180 / 200 (area 55 / 70 / 85) | — | scroll, chest | A wide, short-range detonation of raw mana — no finesse, no geometry. |
+| **Luminance** | 5 / 7 / 9 | targeted aoe | 5 / 2 / 0.3 | 14 / 11 / 8 | 4000 / 3200 / 2500 | 160 / 180 / 200 (area 100 / 120 / 140) | silenced (40%, 5000ms) | tome, scroll, market | A bright light, sustained. |
+| **Unravel** · dispels · interrupts | 5 / 7 / 9 | targeted aoe | 10 / 5 / 0.6 | 24 / 20 / 16 | 7000 / 5800 / 4600 | 160 / 180 / 200 (area 80 / 95 / 110) | — | tome, npc, chest | Every ward, every borrowed strength, every stolen swiftness is a mana structure — and every structure has a loose thread. |
+| **Benediction** | 6 / 8 / 10 | self | — | 25 / 20 / 15 | 10000 / 8000 / 6200 | — | blessed (100%, 45000ms) | npc, tome | An academic ritual formalized into a single cast. |
+| **Needle Volley** | 6 / 8 / 10 | targeted directional | 3 / 2 / 0.25 | 22 / 18 / 14 | 2500 / 2000 / 1600 | 140 / 160 / 180 | — | scroll, chest | Five needles. |
+| **Phantom Script** | 7 / 9 / 10 | targeted aoe | 20 / 9 / 1.1 | 18 / 14 / 10 | 8000 / 6400 / 5000 | 160 / 180 / 200 (area 120 / 140 / 165) | — | scroll, quest, chest | A rune, inscribed in light, that exists for a few seconds then releases itself as a wave of arcane force. |
+| **Arcane Circle** | 8 / 10 / 10 | self | — | 40 / 32 / 24 | 120000 / 90000 / 60000 | — | — | tome, npc | A teleportation circle inscribed in living mana. |
+| **Phantom Dart** | 8 / 10 / 10 | targeted directional | 12 / 6 / 0.8 | 16 / 13 / 10 | 2000 / 1600 / 1200 | 220 / 250 / 280 | — | tome, quest | It passes through the first target. |
+| **Aetheric Ward** | 10 / 10 / 10 | self | — | 30 / 24 / 18 | 15000 / 12000 / 9000 | — | warded (100%, -1ms) | tome, quest, npc | A standing field of defensive mana. |
+| **Aetheric Inscription** | 10 / 10 / 10 | targeted aoe | 28 / 12 / 1.5 | 35 / 28 / 22 | 4500 / 3500 / 2600 | 160 / 180 / 200 (area 120 / 140 / 165) | — | quest, npc | Eldrin's signature. |
+| **Triple Dart** | — | targeted directional | 5 / 3 / 0.4 | 18 / 15 / 12 | 1800 / 1500 / 1200 | 150 / 170 / 190 | — | scroll, chest, market | Firing three darts at once is not harder than firing one — it is a different understanding of intent. |
+| **Seeker Dart** | — | targeted directional | 10 / 5 / 0.7 | 14 / 11 / 8 | 1400 / 1100 / 850 | 200 / 230 / 260 | — | tome, npc | Conventional darts travel straight. |
+| **Cleanse** | — | self | — | 20 / 16 / 12 | 5000 / 4000 / 3000 | — | — | npc, tome, quest | Strips away attached mana structures from the self. |
+
+### Lightning (5)
+| Spell | Learned at (element mastery) | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
+|---|---|---|---|---|---|---|---|---|---|
+| **Arc Bolt** | 2 / 4 / 6 | targeted directional | 16 / 8 / 1 | 18 / 15 / 12 | 1800 / 1500 / 1200 | 130 / 150 / 170 | shocked (25%, 3000ms) | resonance | Wisps carry electrical mana in their cores. |
+| **Static Field** | 4 / 6 / 8 | targeted aoe | 6 / 3 / 0.4 | 22 / 18 / 14 | 7000 / 5600 / 4400 | 160 / 180 / 200 (area 70 / 85 / 100) | shocked (50%, 2500ms) | scroll, runestone | A zone of charged air. |
+| **Thunder Clap** | 6 / 8 / 10 | targeted aoe | 10 / 5 / 0.7 | 20 / 16 / 12 | 3000 / 2400 / 1800 | 160 / 180 / 200 (area 60 / 75 / 90) | shocked (60%, 3000ms) | scroll, chest, market | The sound arrives before you expect it. |
+| **Chain Lightning** | 7 / 9 / 10 | targeted directional | 14 / 7 / 0.9 | 24 / 19 / 14 | 3800 / 3000 / 2300 | 155 / 175 / 200 | shocked (30%, 2500ms) | tome, scroll, chest | Hits one. |
+| **Lightning Lance** | 9 / 10 / 10 | targeted directional | 30 / 14 / 1.4 | 32 / 26 / 20 | 5000 / 4000 / 3000 | 210 / 240 / 270 | shocked (40%, 3000ms) | tome, quest | Not a bolt. |
+
+### Shadow (6)
+| Spell | Learned at (element mastery) | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
+|---|---|---|---|---|---|---|---|---|---|
+| **Shadow Bolt** | 2 / 4 / 6 | targeted directional | 20 / 9 / 1 | 18 / 14 / 10 | 1600 / 1300 / 1000 | 160 / 185 / 210 | void_tainted (30%, 20000ms) | scroll, chest, market | A dense projectile of shadow mana. |
+| **Shadow Veil** | 4 / 6 / 8 | self | — | 22 / 18 / 14 | 5000 / 4200 / 3200 | — | — | resonance | The Void Wraith's corruption left a residue in Eldrin's mana pathways. |
+| **Hush** | 5 / 7 / 9 | targeted aoe | 0 / 0 / 0 | 18 / 14 / 10 | 6000 / 4800 / 3800 | 160 / 180 / 200 (area 80 / 95 / 112) | hushed (80%, 12000ms) | scroll, npc, tome | Silence, enforced. |
+| **Void Pulse** | 6 / 8 / 10 | targeted aoe | 12 / 6 / 0.8 | 20 / 16 / 12 | 3200 / 2600 / 2000 | 160 / 180 / 200 (area 70 / 85 / 100) | void_tainted (45%, 20000ms) | scroll, npc, chest | Shadow mana, compressed and released. |
+| **Eclipse Mark** | 8 / 10 / 10 | targeted directional | 0 / 0 / 0 | 12 / 10 / 8 | 2800 / 2200 / 1700 | 150 / 170 / 190 | marked (100%, 4000ms) | scroll, quest | A sigil inscribed upon an enemy in shadow mana. |
+| **Life Drain** | 9 / 10 / 10 | targeted directional | 15 / 7 / 0.8 | 20 / 16 / 12 | 4000 / 3200 / 2500 | 140 / 160 / 185 | — | scroll, npc, quest | Shadow mana follows the oldest rule: what is taken must go somewhere. |
+
+### Earth (10)
+| Spell | Learned at (element mastery) | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
+|---|---|---|---|---|---|---|---|---|---|
+| **Rock Bullet** | 2 / 4 / 6 | targeted directional | 16 / 8 / 0.7 | 14 / 11 / 8 | 1500 / 1200 / 950 | 140 / 160 / 185 | — | resonance, scroll | Stone, accelerated. |
+| **Stone Skin** (passive) | 3 / 5 / 7 |  | — |  |  | — | — | resonance | The treants of Eldoria do not resist force — they simply grow, over centuries, into something that does not care about force. |
+| **Rubble Spray** | 4 / 6 / 8 | targeted directional | 6 / 3 / 0.4 | 15 / 12 / 9 | 2000 / 1600 / 1200 | 90 / 105 / 120 | dirty (60%, -1ms) | scroll, runestone | A cone of stone fragments — not precision magic. |
+| **Earth Pillar** | 4 / 6 / 8 | targeted aoe | 18 / 9 / 0.8 | 16 / 13 / 10 | 2200 / 1800 / 1400 | 160 / 180 / 200 (area 70 / 85 / 100) | — | resonance | Stone remembers what it once was — compressed, buried, waiting to rise. |
+| **Mud Trap** | 5 / 7 / 9 | targeted aoe | 8 / 4 / 0.5 | 18 / 14 / 10 | 6000 / 5000 / 4000 | 160 / 180 / 200 (area 100 / 115 / 130) | entangled (85%, 5000ms) | scroll, chest, market | Place it and walk away. |
+| **Quagmire** | 6 / 8 / 10 | targeted aoe | 4 / 2 / 0.3 | 24 / 20 / 16 | 4000 / 3200 / 2500 | 160 / 180 / 200 (area 55 / 70 / 88) | entangled (70%, 4000ms) | resonance | The earth does not fight — it holds. |
+| **Spike Field** | 7 / 9 / 10 | targeted aoe | 12 / 6 / 0.6 | 24 / 19 / 14 | 4500 / 3600 / 2800 | 160 / 180 / 200 (area 75 / 90 / 108) | entangled (60%, 4000ms) | tome, runestone, chest | The ground opens. |
+| **Mud Wall** | 7 / 9 / 10 | targeted aoe | 6 / 3 / 0.3 | 22 / 18 / 14 | 5000 / 4000 / 3200 | 160 / 180 / 200 (area 80 / 95 / 110) | dirty (90%, -1ms) | scroll, npc, chest | Raises a wall of compressed earth and water at the target point. |
+| **Stone Cannon** | 8 / 10 / 10 | targeted directional | 32 / 14 / 1.2 | 28 / 23 / 18 | 3500 / 2800 / 2200 | 160 / 185 / 210 | — | tome, scroll, market | A boulder, compressed to the size of a fist, launched at speed that makes it briefly glow from friction. |
+| **Tremor** | 10 / 10 / 10 | targeted aoe | 10 / 5 / 0.6 | 30 / 24 / 18 | 7000 / 5600 / 4200 | 160 / 180 / 200 (area 50 / 65 / 80) | entangled (50%, 3500ms) | tome, quest | The ground shifts. |
+
+### Ice (5)
+| Spell | Learned at (element mastery) | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
+|---|---|---|---|---|---|---|---|---|---|
+| **Frost Shard** | 2 / 4 / 6 | targeted directional | 14 / 7 / 0.9 | 16 / 13 / 10 | 1600 / 1300 / 1000 | 150 / 170 / 195 | cold (60%, 15000ms) | scroll, market, chest | Ice mana compressed to a single crystal, launched with velocity. |
+| **Frostbite** | 4 / 6 / 8 | targeted aoe | 8 / 4 / 0.5 | 20 / 16 / 12 | 3200 / 2600 / 2000 | 160 / 180 / 200 (area 80 / 95 / 110) | cold (90%, 20000ms) | scroll, npc, tome | An area of cold mana, sustained long enough for flesh to begin to lose sensation. |
+| **Glacial Spike** | 5 / 7 / 9 | targeted directional | 28 / 12 / 1.1 | 25 / 20 / 15 | 3000 / 2400 / 1900 | 165 / 190 / 215 | cold (80%, 15000ms) | scroll, tome, chest | A single spike of solid ice, large enough to be alarming, launched on a flat trajectory. |
+| **Blizzard Shard** | 7 / 9 / 10 | targeted aoe | 7 / 4 / 0.6 | 28 / 22 / 16 | 4500 / 3600 / 2800 | 160 / 180 / 200 (area 85 / 100 / 118) | cold (55%, 15000ms) | tome, quest, chest | Seven shards at once, arranged by mana geometry rather than aim. |
+| **Ice Prison** | 9 / 10 / 10 | targeted directional | 10 / 5 / 0.5 | 28 / 22 / 16 | 6000 / 4800 / 3800 | 140 / 160 / 185 | frozen (90%, 6000ms) | tome, quest | Ice, grown rapidly around a single point of warmth. |
+
+### Nature (8)
+| Spell | Learned at (element mastery) | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
+|---|---|---|---|---|---|---|---|---|---|
+| **Vine Grasp** | 2 / 4 / 6 | targeted aoe | 6 / 3 / 0.3 | 18 / 14 / 10 | 3800 / 3000 / 2400 | 160 / 180 / 200 (area 75 / 90 / 108) | entangled (85%, 5000ms) | scroll, npc, runestone | In the old forests of Whisper-Wood, the roots move toward warmth. |
+| **Vessel Mend** | 3 / 5 / 7 | self | — | 20 / 16 / 12 | 8000 / 6400 / 5000 | — | regen (100%, 20000ms) | npc, scroll, tome | Draws on nature mana to accelerate the body's own repair. |
+| **Acid Splash** | 4 / 6 / 8 | targeted aoe | 8 / 4 / 0.5 | 16 / 13 / 10 | 2600 / 2100 / 1700 | 160 / 180 / 200 (area 80 / 95 / 112) | poison (70%, 15000ms) | scroll, chest, market | Nature produces toxins for reasons nature does not explain. |
+| **Barkskin** | 5 / 7 / 9 | self | — | 18 / 15 / 12 | 8000 / 6400 / 5000 | — | blessed (100%, 30000ms) | scroll, npc, quest | The surface hardens, briefly. |
+| **Spore Cloud** | 6 / 8 / 10 | targeted aoe | 2 / 1 / 0.2 | 20 / 16 / 12 | 5000 / 4000 / 3200 | 160 / 180 / 200 (area 90 / 110 / 130) | poison (90%, 15000ms) | tome, chest, runestone | A cloud of toxic spores, dispersed from a single point. |
+| **Thornwall** | 8 / 10 / 10 | targeted aoe | 5 / 2 / 0.3 | 22 / 18 / 14 | 7000 / 5600 / 4400 | 160 / 180 / 200 (area 70 / 85 / 100) | poison (40%, 12000ms) | npc, runestone, quest | Dense thornbriar, grown in seconds. |
+| **Petal Storm** | — | targeted aoe | 1 / 0 / 0.1 | 8 / 6 / 4 | 6000 / 5000 / 4000 | 160 / 180 / 200 (area 100 / 115 / 130) | — | npc, scroll | It is beautiful. |
+| **Purifying Sweep** · dispels | — | targeted aoe | 0 / 0 / 0 | 10 / 8 / 6 | 3000 / 2400 / 1800 | 160 / 180 / 200 (area 80 / 95 / 110) | — | npc, market | Removes applied substances from the target area. |
+
+### Wind (6)
+| Spell | Learned at (element mastery) | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
+|---|---|---|---|---|---|---|---|---|---|
+| **Drying Wind** | 2 / 4 / 6 | targeted aoe | 0 / 0 / 0 | 12 / 10 / 8 | 4000 / 3200 / 2500 | 160 / 180 / 200 (area 85 / 100 / 118) | dried (100%, 10000ms) | scroll, npc, market | A warm, dry wind that strips moisture from anything in range. |
+| **Wind Knife** | 3 / 5 / 7 | targeted directional | 12 / 6 / 0.7 | 10 / 8 / 6 | 900 / 720 / 560 | 200 / 225 / 255 | — | scroll, market | Fast. |
+| **Gale Slash** | 3 / 5 / 7 | targeted directional | 18 / 9 / 0.8 | 16 / 13 / 10 | 1400 / 1100 / 850 | 170 / 195 / 220 | — | scroll, chest, market | Compressed wind, released in a single blade shape. |
+| **Tempest Step** | 4 / 6 / 8 | self | — | 15 / 12 / 9 | 4000 / 3200 / 2500 | — | blessed (100%, 4000ms) | scroll, npc | Move very quickly in the direction you are facing. |
+| **Wind Barrier** | 5 / 7 / 9 | self | — | 20 / 16 / 12 | 9000 / 7200 / 5600 | — | blessed (100%, 15000ms) | scroll, tome | A rotating shell of wind mana around the caster. |
+| **Cyclone** | 6 / 8 / 10 | targeted aoe | 8 / 4 / 0.5 | 28 / 22 / 16 | 6500 / 5200 / 4000 | 160 / 180 / 200 (area 80 / 95 / 112) | — | tome, quest | A column of rotating wind, sustained. |
+
+### Water (10)
+| Spell | Learned at (element mastery) | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
+|---|---|---|---|---|---|---|---|---|---|
+| **Tidal Bolt** | 2 / 4 / 6 | targeted directional | 12 / 6 / 0.8 | 10 / 8 / 6 | 1100 / 900 / 700 | 150 / 170 / 190 | wet (50%, 15000ms) | scroll, market, npc | A fist of river water thrown hard enough to knock the breath out of a wolf. |
+| **Water Conjure** | 3 / 5 / 7 | targeted aoe | 0 / 0 / 0 | 14 / 11 / 8 | 4000 / 3200 / 2500 | 160 / 180 / 200 (area 80 / 95 / 110) | wet (100%, 25000ms) | scroll, market, npc | Draws moisture from ambient mana and releases it as a wave of cold water. |
+| **Healing Spring** | 3 / 5 / 7 | self | — | 22 / 18 / 14 | 12000 / 10000 / 8000 | — | regen (100%, 20000ms) | scroll, npc, tome | Clean water drawn up through the caster's own feet, as if the ground had a spring in it that only answers to thirst. |
+| **Riptide** | 4 / 6 / 8 | targeted aoe | 16 / 7 / 0.8 | 20 / 16 / 13 | 3200 / 2700 / 2200 | 160 / 180 / 200 (area 80 / 95 / 110) | cold (80%, 15000ms) | scroll, market, chest | A patch of ground turns, for a heartbeat, into the pull of an ebbing tide. |
+| **Water Blade** | 5 / 7 / 9 | targeted directional | 26 / 11 / 1 | 22 / 18 / 14 | 2200 / 1800 / 1400 | 180 / 205 / 230 | wet (100%, 20000ms) | scroll, npc | A thin, pressurized blade of water — the same principle used in Iron Hollow's quarrying equipment, reduced to a shape a single mage can manage. |
+| **Tide Step** | 6 / 8 / 10 | self | — | 18 / 15 / 12 | 14000 / 11500 / 9000 | — | swift (100%, 20000ms) | scroll, tome | The caster moves the way water moves downhill: without hurry, and faster than anything that has to think about its footing. |
+| **Geyser** | 8 / 10 / 10 | targeted aoe | 30 / 12 / 1.1 | 30 / 25 / 20 | 5000 / 4200 / 3400 | 160 / 180 / 200 (area 70 / 82 / 95) | wet (100%, 20000ms) | tome, chest, npc | Water forced up out of the ground in a single scalding column. |
+| **Torrent Lance** | 9 / 10 / 10 | targeted directional | 38 / 15 / 1.3 | 34 / 28 / 22 | 4200 / 3500 / 2800 | 190 / 215 / 240 | wet (70%, 15000ms) | tome, chest | A spear of water under such pressure that it cuts before it splashes. |
+| **Mistward** | 10 / 10 / 10 | self | — | 26 / 21 / 16 | 16000 / 13000 / 10000 | — | blessed (100%, 30000ms) | tome, npc | A cloak of cold sea-mist that clings to the caster. |
+| **Maelstrom** | 10 / 10 / 10 | targeted aoe | 52 / 20 / 1.6 | 48 / 40 / 32 | 9000 / 7500 / 6000 | 160 / 180 / 200 (area 95 / 110 / 125) | entangled (60%, 3500ms) | tome | A whirlpool torn open in the air. |
+
+## Status effects
+| Status | Duration | Effect |
+|---|---|---|
+| Wet | 30.0s | fireDmgMult: 0.5, lightningDmgMult: 2 |
+| Dried | 15.0s | fireDmgMult: 1.3 |
+| Cold | 20.0s | speedMult: 0.7 |
+| Frozen | 6.0s | speedMult: 0, stunned: true |
+| Burning | 10.0s | dotDmg: 3, dotInterval: 1000 |
+| Shocked | 3.0s | stunned: true |
+| Poisoned | 15.0s | dotDmg: 2, dotInterval: 2000, maxStacks: 3 |
+| Dirty | until removed | speedMult: 0.9 |
+| Silenced | 6.0s | (flag used by spells/AI) |
+| Entangled | 5.0s | speedMult: 0, stunned: true |
+| Cursed | 20.0s | statsMult: 0.85, damageTakenMult: 1.15 |
+| Blessed | 30.0s | statsMult: 1.1, damageTakenMult: 0.9, magical: true, buff: true |
+| Swift | 20.0s | speedMult: 1.25, magical: true, buff: true |
+| Warming | 90.0s | buff: true |
+| Regen | 15.0s | regenAmt: 3, regenInterval: 1000, magical: true, buff: true |
+| Void-Tainted | 30.0s | shadowDmgTakenMult: 1.25 |
+| Marked | 4.0s | (flag used by spells/AI) |
+| Warded | until removed | magical: true, buff: true |
+| Mana Ward | 12.0s | damageTakenMult: 0.5, magical: true, buff: true |
+| Empowered | 14.0s | statsMult: 1.5, magical: true, buff: true |
+| Hastened | 10.0s | speedMult: 1.4, magical: true, buff: true |
+| Mending | 10.0s | regenAmt: 3, regenInterval: 1000, magical: true, buff: true |
+| Void Aegis | until removed | damageTakenMult: 0.35, magical: true, buff: true |
+| Hushed | 15.0s | (flag used by spells/AI) |
+| Resonance Stun | 2.0s | speedMult: 0, stunned: true |
+| Casting | 1.0s | speedMult: 0 |
+| Staggered | 0.4s | speedMult: 0, stunned: true |
+| Dazed | 2.0s | speedMult: 0, stunned: true |
+| Crippled | 4.0s | speedMult: 0.5 |
+| Sundered | 8.0s | damageTakenMult: 1.3 |
+| Bleeding | 6.0s | dotDmg: 3, dotInterval: 1000 |
+| Parry | 2.0s | buff: true |
+| Steady | 5.0s | buff: true, damageTakenMult: 0.6 |
+| Rampage | 6.0s | buff: true, statsMult: 1.4, swingMult: 0.8 |
+| Vanished | 3.0s | buff: true |
+| Rage | 8.0s | buff: true, statsMult: 1.25, damageTakenMult: 1.1 |
+| Frenzy | 5.0s | buff: true, swingMult: 0.6 |
+| Deflect | 3.0s | buff: true |
+| Perfect Block | 2.0s | buff: true |
+| Taunt | 4.0s | buff: true, damageTakenMult: 0.7 |
+| Shield Wall | 6.0s | buff: true, speedMult: 0.6 |
+| Snared | 3.0s | speedMult: 0 |
+| Hunted | 8.0s | damageTakenMult: 1.4 |
+| Steady Aim | 6.0s | buff: true, rangedMult: 1.5, speedMult: 0.7 |
+| Echo | 6.0s | buff: true |
+| Channel | 4.0s | buff: true, manaRegen: 6, regenInterval: 1000, speedMult: 0.5 |
+| Overload | 6.0s | buff: true, spellMult: 1.4, manaCostMult: 1.5 |
+
+**Reactions:** Freeze — cold on a wet target freezes it for 3 s. Conduct — lightning on a wet target arcs to every other wet enemy within 90 px for 50% damage. Detonate — fire on a void-tainted target bursts for 15 + 30% of the hit around it. Steam — fire and water cancel out. Shatter — a physical hit on a frozen target deals ×1.5.
+
+## Cooking
+At a campfire (REST / **COOK** / BREW) or a cooking hearth. Recipes appear as their ingredients are discovered; 🔒 recipes need their scroll.
+
+| Dish | Where | Ingredients | Effect |
+|---|---|---|---|
+| Roasted Boar | Campfire | Boar Meat | Slow-cooked over an open flame. Restores 40 HP and regenerates 5 HP/s for 10s. |
+| Roasted Venison | Campfire | Venison | Lean and flavourful. Restores 30 HP and regenerates 4 HP/s for 10s. |
+| Roasted Rabbit | Campfire | Rabbit Meat | Small but nourishing. Restores 18 HP and regenerates 3 HP/s for 8s. |
+| Mushroom Soup | Campfire | 2× Mushroom Spore | Earthy and warm. Restores 20 HP and 20 MP, then regenerates 15 HP over time. |
+| Herb Tea | Campfire | 3× Forest Herb | Steeped forest herbs. Slowly regenerates 35 HP and boosts mana recovery for 12s. |
+| Forest Salad | Campfire | 4× Forest Herb | Fresh herbs tossed together. Restores 18 MP and regenerates 15 HP over time. |
+| Spiced Venison | Campfire | Venison + 2× Forest Herb | Venison rubbed with forest herbs. Restores 45 HP and regenerates 30 HP over time. |
+| Ember-Glazed Boar | Campfire | Boar Meat + Ember Stone | Boar crust-seared with ember stone. Restores 55 HP instantly. |
+| Spicy Rabbit Skewer | Campfire | Rabbit Meat + Ember Stone | Rabbit glazed with ember spice. Restores 28 HP and regenerates 22 HP over time. |
+| Bone Broth | Campfire | Venison + 2× Bone Fragment | Rich marrow broth. Regenerates 60 HP over time and raises max HP by 8 for 10 minutes. |
+| Mushroom Medley | Campfire | 3× Mushroom Spore + Forest Herb | Sautéed spores and herbs. Restores 15 HP, 30 MP, and triples mana recovery for 10s. |
+| Void Stew | Campfire | Venison + Void Shard | Tainted meat in corrupted broth. Restores 75 HP but drains 25 MP. Eat at your own risk. |
+| Hearty Stew | Cooking Hearth 2 🔒 scroll | Boar Meat + Venison + Rabbit Meat | A thick hunter's stew. Restores 60 HP, full mana regen, and +10 max HP for 10 minutes. |
+| Hunter's Feast | Cooking Hearth 1 | Boar Meat + Venison | A mixed grill of boar and venison. Restores 50 HP, 18 MP, and regenerates 30 HP. |
+| Herb-Crusted Rabbit | Cooking Hearth 1 | Rabbit Meat + 2× Forest Herb + Mushroom Spore | Rabbit rolled in forest herbs and mushroom dust. Restores 30 HP, 15 MP, and regenerates 20 HP. |
+| Wild Herb Broth | Campfire | Venison + 3× Forest Herb | Thin venison broth steeped with herbs. Restores 12 HP and 25 MP. |
+| Herb & Mushroom Pie | Cooking Hearth 1 🔒 scroll | Venison + 2× Forest Herb + 2× Mushroom Spore | A hearty forest pie. Restores 35 HP, 25 MP, and regenerates 20 HP over time. |
+| Lucky Rabbit's Stew | Cooking Hearth 1 | Rabbit Meat + Rabbit's Foot + Forest Herb | Brewed with a rabbit's foot. Restores 22 HP and applies Blessed for 20s. |
+| Frost-Cured Venison | Campfire | Venison + Ice Crystal | Venison slowly cured in enchanted ice. Restores 35 HP and regenerates 28 HP over time. |
+| Double Boar Rack | Campfire | 2× Boar Meat | Two whole boar ribs roasted to perfection. Restores 65 HP instantly. |
+| Char-Seared Venison | Campfire | 2× Venison + Ember Stone | Venison blackened over fierce ember heat. Restores 60 HP instantly. |
+| Ice-Smoked Boar | Campfire | Boar Meat + Ice Crystal | Boar slow-smoked over crystalline ice vapour. Restores 50 HP and regenerates 30 HP. |
+| Boar & Mushroom Stew | Cooking Hearth 1 | Boar Meat + 2× Mushroom Spore + Bone Fragment | Boar simmered with rich mushrooms. Restores 50 HP and regenerates 40 HP over time. |
+| Grilled Trout | Campfire | River Trout | Trout on a stick over the fire. Restores 35 HP and regenerates 30 HP. |
+| Salt-Baked Perch | Campfire | Lake Perch + Sea Salt | Perch baked in a crust of salt. Restores 45 HP and regenerates 40 HP. |
+| Smoked Eel | Campfire | Cave Eel + Forest Herb | Oily eel smoked over herbs. Restores 30 HP and 20 MP. |
+| Aether Carp Broth | Campfire | Aether Carp + Moonpetal | A clear broth that tastes faintly of lightning. Restores 60 MP and deepens water (+3) and arcane (+2) resonance. |
+| Tidewater Chowder | Cooking Hearth 1 | 3× Freshwater Mussel + Sea Salt + Forest Herb | Mussels, salt and herbs in a thick broth. Restores 40 HP, +10 max HP for 10 minutes, and deepens water resonance (+2). |
+| Berry Compote | Campfire | 3× Wild Berries + Honeyberry | Stewed berries sweetened with honeyberry. Restores 25 HP and applies Swift for 20s. |
+| Honey-Glazed Boar | Campfire | Boar Meat + 2× Honeyberry | Boar roasted under a honeyberry glaze. Restores 55 HP and regenerates 40 HP. |
+| Bolete & Rabbit Skewer | Campfire | Rabbit Meat + 2× Bitter Bolete | Rabbit and bolete, charred together. Restores 35 HP and regenerates 20 HP. |
+| Glowcap Soup | Campfire | 2× Glowcap + Mushroom Spore | A faintly glowing soup. Restores 40 MP and boosts mana recovery for 12s. |
+| Silverleaf Salad | Campfire | 2× Silverleaf + 2× Wild Berries | Silverleaf and wild berries. Applies Regenerating for 20s. |
+| Emberroot Stew | Campfire | Venison + 2× Emberroot | Venison stewed with fiery root. Restores 45 HP and drives out Cold and Frozen. |
+| Frostmoss Tea | Campfire | 2× Frostmoss + Forest Herb | A cold, bitter tea. Restores 20 HP and puts out Burning. |
+| Angler's Platter | Cooking Hearth 2 🔒 scroll | River Trout + Lake Perch + Cave Eel + Sea Salt | Trout, perch and eel, salted and grilled. Restores 80 HP and applies Blessed for 60s. |
+| Mushroom Risotto | Cooking Hearth 1 | 3× Mushroom Spore + Venison + Forest Herb | Dense spore risotto with venison bits. Restores 22 HP, 40 MP, and boosts mana regen for 15s. |
+| Venison Tartare | Campfire | 2× Venison | Finely prepared raw venison. Restores 20 HP and 20 MP instantly. |
+| Spectral Broth | Campfire 🔒 scroll | Venison + Spectral Dust | Venison simmered with spectral dust. Restores 25 HP and 35 MP, and triples mana regen for 8s. |
+| Void Jerky | Campfire | Rabbit Meat + Void Shard | Rabbit dried in void brine. Restores 40 HP but drains 10 MP. Unsettling aftertaste. |
+| Corrupted Stew | Campfire | Boar Meat + Corrupted Essence | Boar cooked in corrupted essence. Restores 90 HP but drains 30 MP. Power comes at a price. |
+| Bone & Herb Soup | Campfire | 2× Bone Fragment + 2× Forest Herb | Slow-simmered bone stock with herbs. Raises max HP by 12 for 10 minutes and regenerates 25 HP over time. |
+| Grand Feast | Cooking Hearth 2 🔒 scroll | Boar Meat + Venison + Rabbit Meat + Mushroom Spore | The ultimate campfire meal — all meats, all flavours. Fully restores HP and MP, regenerates 80 HP and leaves you Blessed for a minute. |
+
+## Brewing (potions)
+At a campfire (BREW) or an alchemy table. Every potion needs an Empty Bottle; 🔒 recipes need their scroll.
+
+| Potion | Where | Ingredients | Effect |
+|---|---|---|---|
+| Health Potion | Campfire | 2× Forest Herb + Empty Bottle | Restores 30 HP. |
+| Greater Health Potion | Alchemy Table 1 | 4× Forest Herb + Empty Bottle | A concentrated herbal tincture. Restores 60 HP. |
+| Mana Potion | Campfire | 2× Mushroom Spore + Empty Bottle | Restores 25 MP instantly and accelerates mana regen for 8s. |
+| Greater Mana Potion | Alchemy Table 1 | 4× Mushroom Spore + Empty Bottle | A concentrated spore infusion. Restores 60 MP. |
+| Double-Down Elixir | Alchemy Table 2 🔒 scroll | 2× Forest Herb + 2× Mushroom Spore + Empty Bottle | Equal parts health and mana restoration. Restores 35 HP and 35 MP at once. |
+| Regeneration Potion | Alchemy Table 1 | 3× Forest Herb + Heart Crystal + Empty Bottle | Crystallised heart essence in herb tincture. Regenerates 80 HP over 20 seconds. |
+| Frost Vial | Campfire | 2× Ice Crystal + Empty Bottle | A cooling draught of condensed tundra ice. Restores 20 HP and regenerates 24 HP over 8s. |
+| Ember Tonic | Campfire | 2× Ember Stone + Empty Bottle | Volcanic stone dissolved into a burning brew. Restores 35 HP instantly. |
+| Iron Skin Tonic | Campfire | 2× Bone Fragment + Empty Bottle | Ground bone dissolved in water. Raises max HP by 15 for 10 minutes. |
+| Silverleaf Draught | Campfire | 2× Silverleaf + Empty Bottle | A bright green draught. Restores 50 HP. |
+| Warming Draught | Campfire | 2× Emberroot + Empty Bottle | Emberroot steeped hot. Drives out Cold and Frozen, applies Regenerating for 10s and Warming for 90s (no chill from snow). |
+| Cooling Draught | Campfire | 2× Frostmoss + Empty Bottle | Frostmoss steeped cold. Puts out Burning and restores 25 HP. |
+| Moonpetal Elixir | Alchemy Table 2 🔒 scroll | 2× Moonpetal + Glowcap + Empty Bottle | Moonpetal and glowcap. Restores 60 MP and boosts mana recovery for 15s. |
+| Berry Cordial | Campfire | 2× Honeyberry + 2× Wild Berries + Empty Bottle | A sweet, heady cordial. Applies Swift for 30s. |
+| Tidewater Draught | Campfire | 2× Freshwater Mussel + Sea Salt + Empty Bottle | River water, salt and mussel, drunk cold. Restores 15 MP and deepens water resonance (+6). |
+| Deepwater Elixir | Alchemy Table 3 🔒 scroll | River Pearl + Aether Carp + Empty Bottle | A river pearl dissolved with aether carp. Fully restores MP and deepens water resonance (+4). |
+| Antidote | Campfire | Venom Sac + Forest Herb + Empty Bottle | Neutralises poison. Clears the Poisoned status and restores 5 HP. |
+| Antitoxin | Campfire | 2× Venom Sac + Ice Crystal + Empty Bottle | Double-strength venom neutraliser. Clears Poisoned, restores 12 HP, and applies Blessed for 15s. |
+| Blessing Draught | Campfire | 2× Rabbit's Foot + Spectral Dust + Empty Bottle | Brewed from lucky charms and spectral essence. Applies Blessed for 30s (+10% all stats). |
+| Speed Draught | Campfire | Rabbit's Foot + Ice Crystal + Empty Bottle | Lucky charm and frost combined. Applies Swift for 20s — you move 25% faster. |
+| Thorn Potion | Campfire | Venom Sac + 2× Forest Herb + Empty Bottle | Venom and herb extract. Applies Blessed for 15s and regenerates 20 HP over time. |
+| Wildfire Tonic | Campfire 🔒 scroll | 2× Ember Stone + Venom Sac + Empty Bottle | Ember and venom fused. Restores 30 HP and applies Blessed for 18s. |
+| Void Tonic | Campfire 🔒 scroll | 2× Void Shard + Spectral Dust + Empty Bottle | Crystallised void energy dissolved in spectral dust. Restores 45 MP and triples mana regen for 12s. |
+| Spectral Veil | Campfire | 2× Spectral Dust + Empty Bottle | Pure spectral essence bottled. Applies Blessed for 25s and restores 10 MP. |
+| Elixir of Clarity | Alchemy Table 3 🔒 scroll | Spectral Dust + Heart Crystal + Empty Bottle | Spectral dust and heart crystal. Restores 40 MP and triples mana recovery for 20s. |
+| Moonveil Tonic | Alchemy Table 2 🔒 scroll | Ice Crystal + Spectral Dust + Rabbit's Foot + Empty Bottle | Ice, spectral dust and luck fused. Restores 22 HP, 22 MP, and applies Blessed for 30s. |
+| Corrupted Flask | Campfire | Corrupted Essence + Empty Bottle | Distilled corrupted essence. Restores 55 MP but drains 20 HP. Dangerous. |
+
+## Crafting
+At the crafting bench (C).
+
+| Item | Tier | Category | Ingredients | Result |
+|---|---|---|---|---|
+| Bone Ring | 1 | accessory | Boar Tusk + 2× Rabbit's Foot | Carved from tusk and bone. Crude but effective. +1 STR, +1 AGI. |
+| Void Pendant | 3 | accessory | 4× Void Shard + Ancient Scroll | Crystallised corruption shaped into a focus. +3 INT. Deepens shadow resonance. |
+| Hunter's Cloak | 2 | armor | 2× Wolf Pelt + 2× Deer Hide | Stitched from wolf pelt and deer hide. Light but durable. +2 AGI, +1 STA. |
+| Corrupted Hide Armor | 3 | armor | 3× Deer Hide + 3× Void Shard | Void-tainted leather that hums with dark energy. +2 STR, +2 INT. |
+| Tusk Blade | 2 | weapon | 2× Boar Tusk + 2× Mineral Ore | A dagger ground from boar ivory and iron. Brutal at close range. +3 STR. |
+| Void Fang | 3 | weapon | Boar Tusk + 4× Void Shard + Wolf Pelt | A corrupted blade that pulses with shadow energy. +2 STR, +3 INT. |
+| Longsword | 1 | weapon | 3× Mineral Ore + Wood | A well-balanced longsword. Hits cost 2 MP, deal +35% arcane. +3 STR, +1 INT. |
+| Katana | 2 | weapon | 3× Mineral Ore + Silver Ore + Tree Resin | A razor-sharp katana. Swift strikes cost 2 MP, deal +40% arcane. +4 STR, +2 INT. |
+| Verdant Focus | 3 | weapon | 2× Heartwood + 3× Silverleaf + Aether-Shard | Living crystal infused with nature-energy. +6 INT, +2 AGI. [Resonant] |
+| Crystalline Rod | 3 | weapon | Heartwood + 3× Ice Crystal + 2× Glowcap | Aether-crystal rod that amplifies mana flow. +5 INT, +2 STA. [Arcane Surge] |
+| Resonant Edge | 3 | weapon | 3× Silver Ore + 2× Mineral Ore + Aether-Shard | Hums with resonant energy. Hits cost 2 MP, deal +35% arcane. +4 INT, +3 STR. [Resonant] |
+| Voidwhisper Dagger | 3 | weapon | 3× Void Shard + Silver Ore + 2× Venom Sac | Whispers of the void guide your strikes. Augmented double-hit costs 1 MP. +4 AGI, +3 INT. [Vampiric] |
+| Aether-Strung Bow | 3 | weapon | 2× Heartwood + 3× Reed Fibre + Aether-Shard | Bowstring of pure aether. Ranged strikes cost 3 MP, reach 150px. +4 INT, +3 AGI. [Resonant] |
+| Spirit Bow | 3 | weapon | 2× Heartwood + 3× Spectral Dust + Tree Resin | Guided by ancestral spirits. Ranged strikes cost 3 MP, reach 150px. +3 INT, +4 AGI. [Swiftness] |
+| Void Channel | 4 | weapon | 2× Heartwood + 4× Void Shard + 2× Corrupted Essence + Heart Crystal | Channels void-energy into spells. +9 INT, +3 AGI. [Void-Touched] [Lore: 20% void pulse on hit] |
+| Arcane Sceptre | 4 | weapon | 3× Silver Ore + 3× Ember Stone + 2× Aether-Shard + Heart Crystal | Pure arcane authority. +8 INT, +3 STA. [Flame-Kissed] [Lore: 25% chain-lightning arc] |
+| Void Slicer | 4 | weapon | 3× Silver Ore + 4× Void Shard + 2× Corrupted Essence | A blade that cuts through reality. Hits cost 2 MP, +35% arcane. +7 INT, +5 STR. [Void-Touched] [Lore: 20% void stun] |
+| Arcane War Blade | 4 | weapon | 4× Silver Ore + 3× Ember Stone + 2× Aether-Shard | Battle-tested arcane fury. Hits cost 2 MP, +35% arcane. +6 INT, +6 STR. [Flame-Kissed] [Lore: 20% arcane burst hits 2 more] |
+| Midnight Reaver | 4 | weapon | 2× Silver Ore + 3× Venom Sac + Corrupted Essence + Heart Crystal | Cuts through shadow and flesh alike. Double-hit costs 1 MP. +7 AGI, +4 STR. [Vampiric] [Lore: 25% shadow clone second strike] |
+| Ecliptic Stiletto | 4 | weapon | 2× Silver Ore + 3× Void Shard + River Pearl + Aether-Shard | Eclipse-forged precision weapon. Double-hit costs 1 MP. +6 AGI, +5 INT. [Void-Touched] [Lore: 20% eclipse mark — next hit 2×] |
+| Celestial Arc | 4 | weapon | 3× Heartwood + 3× Moonpetal + River Pearl + 2× Aether-Shard | Forged under a celestial alignment. Ranged strikes cost 3 MP. +6 INT, +6 AGI. [Arcane Surge] [Lore: 25% arrow bounce to second enemy] |
+| Tempest Bow | 4 | weapon | 3× Heartwood + 4× Reed Fibre + 3× Void Shard + Heart Crystal | Crackling with storm-energy. Ranged strikes cost 3 MP. +8 AGI, +3 STR. [Void-Touched] [Lore: 20% storm burst AoE on impact] |
+| Fisher's Hat | 1 | armor | 3× Reed Fibre | A wide hat woven from reeds. Keeps off sun and rain. +1 AGI, +1 STA. |
+| Bone Helm | 2 | armor | 4× Bone Fragment + Wolf Pelt | Bone plates lashed over a wolf-pelt cap. +2 STA, +1 STR. |
+| Frostweave Hood | 2 | armor | 3× Frostmoss + Deer Hide + 2× Reed Fibre | Hide lined with woven frostmoss. Clears the head. +2 INT, +1 STA. |
+| Violet Silk Robes | 2 | armor | 4× Reed Fibre + 2× Moonpetal + Spectral Dust | Conductive silk that enhances Aether flow. +2 INT, +2 STA. |
+| Tidecaller Robe | 3 | armor | 4× Reed Fibre + 2× Moonpetal + River Pearl + Deer Hide | Reed-woven robes stitched with moonpetal thread and a river pearl at the collar. +3 INT, +2 STA. |
+| Silver Ring | 2 | accessory | 2× Silver Ore + Mineral Ore | A plain band of worked silver. +2 INT, +1 AGI. |
+| Ember Amulet | 2 | accessory | 2× Ember Stone + Silver Ore | An ember stone set in silver, always warm against the chest. +2 STR, +1 INT. |
+| Resonance Amulet | 2 | accessory | Silver Ore + 2× Spectral Dust + Moonpetal | Hums faintly with Aether. +2 INT, +1 AGI. |
+| Heartwood Bracer | 3 | accessory | 2× Heartwood + 2× Tree Resin + Deer Hide | A bracer of resin-hardened heartwood. +2 STR, +2 AGI. |
+| Pearl Pendant | 3 | accessory | 2× River Pearl + 2× Silver Ore | Two river pearls on a silver chain. Water mages swear by it. +3 INT, +1 STA. |
+| Fishing Rod | 1 | tool | 2× Wood + 2× Reed Fibre | Required to fish at Fishing Spots. |
+| Sickle | 1 | tool | 2× Mineral Ore + Wood | Required to cut Reed Beds. |
+| Iron Axe | 1 | tool | 2× Mineral Ore + 2× Wood | Required to gather Wood nodes. |
+| Iron Pickaxe | 1 | tool | 3× Mineral Ore + Wood | Required to gather Mineral Ore nodes. |
+| Runic Satchel | 3 | tool | 3× Deer Hide + 4× Reed Fibre + 2× Spectral Dust | "Weightless" runes stitched into the lining. Upgrades Satchel to Tier III (35 slots). |
+| Sticks ×4 | 1 | ammo | Wood | A straight, dry stick. Two make the shafts for ten arrows or ten bolts. Cut from Wood (1 Wood → 4 Sticks). |
+| Basic Arrows ×10 | 1 | ammo | 2× Stick + Feather | A plain arrow. Shot by a bow from your quiver. About a third come back after a kill. |
+| Bolts ×10 | 1 | ammo | 2× Stick + Mineral Ore | A short, heavy crossbow bolt. About a third come back after a kill. |
+| Broadhead Arrows ×10 | 2 | ammo | 10× Basic Arrow + Mineral Ore + Tree Resin | A wide iron head: +35% damage. About a third come back. |
+| Poison Arrows ×10 | 2 | ammo | 10× Basic Arrow + Venom Sac | Dipped in venom: the enemy it hits is Poisoned. The poison is spent — about a third come back as basic arrows. |
+| Explosive Arrows ×10 | 3 | ammo | 10× Basic Arrow + Ember Stone + Tree Resin | Bursts where it lands and hurts every enemy close by. Nothing comes back from an enemy it kills. |
+| Large Quiver | 2 | ammo | 2× Deer Hide + Tree Resin | Two kinds, 30 of each (60) — say basic and poison arrows. |
+| Hunter's Quiver | 3 | ammo | 3× Deer Hide + Wolf Pelt + 2× Tree Resin | Three kinds, 30 of each (90). |
+
+**Gear upgrades** at the forge (UPGRADE EQUIPPED), materials by item tier:
+
+| Tier | +1 | +2 | +3 |
+|---|---|---|---|
+| 1 | 2× Mineral Ore | 4× Mineral Ore | 6× Mineral Ore + Aether-Shard |
+| 2 | 2× Silver Ore | 4× Silver Ore | 6× Silver Ore + Aether-Shard |
+| 3 | 2× Heartwood | 4× Heartwood | 6× Heartwood + Aether-Shard |
+| 4–5 | Heartwood + Ice Crystal | 2× Heartwood + 2× Ice Crystal | 3× Heartwood + 3× Ice Crystal + Aether-Shard |
+
+## Enchantments
+Some weapons come with an enchantment. At the forge (Crafting) any enchantment can be bound to the **equipped weapon**, replacing the one it had.
+
+| Enchantment | Effect | Forge materials | Found on |
+|---|---|---|---|
+| Resonant | Physical hits reduce active spell cooldowns by 300ms. | Aether-Shard + 2× Spectral Dust | Verdant Focus, Resonant Edge, Aether-Strung Bow |
+| Arcane Surge | 10% chance on hit to restore 3 MP. | 3× Glowcap + Spectral Dust | Crystalline Rod, Mana-Etched Sword, Celestial Arc |
+| Flame-Kissed | Hits deal bonus fire damage equal to STR × 0.6. | 3× Ember Stone + Tree Resin | Arcane Sceptre, Arcane War-Blade |
+| Vampiric | Steal 15% of damage dealt as HP. | 2× Venom Sac + Corrupted Essence + 2× Bone Fragment | Voidwhisper Dagger, Midnight Reaver |
+| Swiftness | Attack cooldown reduced by 15%. | 2× Rabbit's Foot + 2× Reed Fibre | Dusk Fang, Spirit Bow |
+| Void-Touched | +40% damage vs shadow and void enemies. | 3× Void Shard + Corrupted Essence | Void Channel, Void-Slicer, Ecliptic Stiletto, Tempest Bow |
+| Frostbitten | 20% chance on hit to make the target Cold (slowed). | 2× Ice Crystal + 2× Frostmoss | — |
+| Scorching | 20% chance on hit to set the target Burning. | 2× Ember Stone + 2× Emberroot | — |
+| Tidal | 30% chance on hit to soak the target (Wet). | River Pearl + 2× Reed Fibre | — |
+| Stormcall | +50% damage vs Wet targets. | Silver Ore + 2× Spectral Dust + River Pearl | — |
+| Tempest | 8% chance on hit to Shock (stun) the target. | Aether-Shard + 2× Silver Ore | — |
+| Venomous | 20% chance on hit to Poison the target. | 3× Venom Sac + Bitter Bolete | — |
+| Keen | +8% critical hit chance. | 2× Silver Ore + Tree Resin | — |
+| Lifebloom | Killing blows restore 8 HP. | 3× Silverleaf + Heart Crystal | — |
+| Hunter's Bane | +30% damage vs beasts. | Wolf Pelt + 2× Boar Tusk | — |
+| Radiant | +40% damage vs the undead. | 2× Moonpetal + 2× Silver Ore | — |
+| Silvered | +30% damage vs corrupted creatures. | 3× Silver Ore | — |
+
+## Items
+
+### Weapons (56)
+**spell blade** (14)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Longsword | 1 | common | +3 STR +1 INT | 90 / 30 | A well-balanced longsword. Hits cost 2 MP, deal +35% arcane. +3 STR, +1 INT. | crafting |
+| Iron Spell-Blade | 1 | common | +2 STR +1 INT | 70 / 24 | Iron blade with a mana crystal at the hilt. Hits cost 2 MP, deal +35% arcane. +2 STR, +1 INT. | shop, quest: Odyssey's Dawn |
+| Etched Shortsword | 1 | common | +1 STR +2 INT | 60 / 20 | Simple blade etched with arcane runes. Hits cost 2 MP, deal +35% arcane. +1 STR, +2 INT. | shop |
+| Tusk Blade | 2 | uncommon | +3 STR | 0 / 40 | A dagger ground from boar ivory and iron. Brutal at close range. +3 STR. | crafting |
+| Katana | 2 | uncommon | +4 STR +2 INT | 160 / 55 | A razor-sharp katana. Swift strikes cost 2 MP, deal +40% arcane. +4 STR, +2 INT. | crafting |
+| Spell-Blade | 2 | uncommon | +3 INT +2 STR | 180 / 60 | Arcane-forged short sword. Hits cost 2 MP, deal +35% arcane. +3 INT, +2 STR. | shop |
+| Arcane Saber | 2 | uncommon | +2 INT +3 STR | 165 / 55 | Longer blade for wider swings. Hits cost 2 MP, deal +35% arcane. +2 INT, +3 STR. | shop |
+| Void Fang | 3 | rare | +2 STR +3 INT | 0 / 80 | A corrupted blade that pulses with shadow energy. +2 STR, +3 INT. | crafting |
+| Resonant Edge | 3 | rare | +4 INT +3 STR | 370 / 123 | Hums with resonant energy. Hits cost 2 MP, deal +35% arcane. +4 INT, +3 STR. [Resonant] | crafting |
+| Mana-Etched Sword | 3 | rare | +5 INT +2 STR | 390 / 130 | Runes cover every inch. Hits cost 2 MP, deal +35% arcane. +5 INT, +2 STR. [Arcane Surge] | shadow_sprite 8% |
+| Void-Slicer | 4 | epic | +7 INT +5 STR | 780 / 260 | A blade that cuts through reality. Hits cost 2 MP, +35% arcane. +7 INT, +5 STR. [Void-Touched] [Lore: 20% void stun] | crafting |
+| Arcane War-Blade | 4 | epic | +6 INT +6 STR | 800 / 267 | Battle-tested arcane fury. Hits cost 2 MP, +35% arcane. +6 INT, +6 STR. [Flame-Kissed] [Lore: 20% arcane burst hits 2 more] | crafting |
+| Blade of the Concord | 5 | legendary | +9 INT +7 STR | 0 / 999 | One of the original Concord weapons. Hits cost 2 MP, deal +35% arcane. +9 INT, +7 STR. [Blade strikes grant 2 MP if INT > 12] | — |
+| The Warlord's Cleaver | 5 | legendary | +12 STR +4 INT | 0 / 999 | A nameless warlord's legendary blade. Hits cost 2 MP, deal +35% arcane. +12 STR, +4 INT. [3× damage vs enemies below 30% HP] | quest: The Void Fragment |
+
+**wand** (2)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Willow Wand | 1 | common | +2 INT | 60 / 20 | A slim willow wand. Quick, light bolts — best against one enemy up close. +2 INT. | shop |
+| Crystal Wand | 2 | uncommon | +4 INT +1 AGI | 170 / 55 | A wand tipped with clear crystal. Quick bolts that bite harder. +4 INT, +1 AGI. | — |
+
+**bo** (1)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Ash Bo Staff | 1 | common | +2 AGI +1 STR | 55 / 18 | A fighting pole of seasoned ash. Fast blows with good reach. Two hands. +2 AGI, +1 STR. | shop |
+
+**spear** (2)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Hunting Spear | 1 | common | +3 STR | 70 / 24 | A plain ash spear with an iron point. The longest reach — keep enemies away. Two hands. +3 STR. | shop |
+| Iron Spear | 2 | uncommon | +5 STR +1 AGI | 180 / 60 | A soldier's spear, iron from socket to point. Two hands. +5 STR, +1 AGI. | — |
+
+**mace** (1)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Iron Mace | 1 | common | +4 STR | 75 / 25 | A flanged iron head on a short haft. Slow blows that crack armour. +4 STR. | shop |
+
+**axe** (1)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Hand Axe | 1 | common | +3 STR +1 STA | 70 / 23 | A woodsman's axe balanced for fighting. Strong chops that can hit two. +3 STR, +1 STA. | shop |
+
+**shield** (2)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Wooden Shield | 1 | common | +2 STA | 50 / 16 | Planks bound in iron. Off hand. Raise it to stop most of the damage. +2 STA. | shop |
+| Iron Heater Shield | 2 | uncommon | +4 STA +1 STR | 160 / 52 | A knight's heater shield faced with iron. Off hand. +4 STA, +1 STR. | — |
+
+**crossbow** (1)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Light Crossbow | 1 | common | +3 AGI +2 STR | 95 / 32 | A hunter's crossbow. Slow to reload, hits very hard at range. Two hands. +3 AGI, +2 STR. | shop |
+
+**greatsword** (1)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Claymore | 2 | uncommon | +6 STR | 210 / 70 | A great two-handed sword. Slow, wide, heavy sweeps. Two hands. +6 STR. | shop |
+
+**staff** (11)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Novice Staff | 1 | common | +2 INT | 80 / 28 | Oak wood. Basic arcane focus. +2 INT. | shop |
+| Weathered Sage's Staff | 1 | common | +1 INT +1 STA | 65 / 22 | Worn smooth by years of use. +1 INT, +1 STA. | shop |
+| Scholar's Staff | 1 | common | +2 INT | 0 / 28 | Eldrin's own study focus — worn smooth by decades of quiet reading. +2 INT. | — |
+| Adept's Spire | 2 | uncommon | +4 INT +1 AGI | 200 / 70 | Crystal-tipped. Faster spell structuring. +4 INT, +1 AGI. | shop |
+| Mossy Branch Staff | 2 | uncommon | +3 INT +1 STA | 175 / 60 | A living branch from an ancient tree. +3 INT, +1 STA. | shop |
+| Verdant Focus | 3 | rare | +6 INT +2 AGI | 380 / 125 | Living crystal infused with nature-energy. +6 INT, +2 AGI. [Resonant] | chest, crafting |
+| Crystalline Rod | 3 | rare | +5 INT +2 STA | 360 / 120 | Aether-crystal rod that amplifies mana flow. +5 INT, +2 STA. [Arcane Surge] | crafting |
+| Void Channel | 4 | epic | +9 INT +3 AGI | 750 / 250 | Channels void-energy into spells. +9 INT, +3 AGI. [Void-Touched] [Lore: 20% void pulse on hit] | crafting |
+| Arcane Sceptre | 4 | epic | +8 INT +3 STA | 720 / 240 | Pure arcane authority. +8 INT, +3 STA. [Flame-Kissed] [Lore: 25% chain-lightning arc] | crafting |
+| Staff of the First Concord | 5 | legendary | +12 INT +4 AGI | 0 / 999 | Forged at the founding of the Arcane Concord. +12 INT, +4 AGI. [+25% all spell damage] | quest: The Concord Scholar |
+| Heartwood Resonator | 5 | legendary | +10 INT +5 STA | 0 / 999 | Resonates with the forest's living heartbeat. +10 INT, +5 STA. [+50% mana regen] | — |
+
+**umbral dagger** (10)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Crude Dagger | 1 | common | +2 AGI +1 STR | 55 / 18 | A simple, sharp blade. Augmented double-hit costs 1 MP. +2 AGI, +1 STR. | shop |
+| Shadow Shiv | 1 | common | +1 AGI +2 STR | 55 / 18 | Darkness-stained iron blade. Augmented double-hit costs 1 MP. +1 AGI, +2 STR. | shop |
+| Umbral Dagger | 2 | uncommon | +3 AGI +1 STR | 160 / 55 | Shadow-infused blade. Augmented double-hit costs 1 MP. +3 AGI, +1 STR. | shop |
+| Phantom Blade | 2 | uncommon | +2 AGI +2 INT | 155 / 52 | Slightly translucent — strikes like a ghost. Augmented double-hit costs 1 MP. +2 AGI, +2 INT. | shop |
+| Voidwhisper Dagger | 3 | rare | +4 AGI +3 INT | 390 / 130 | Whispers of the void guide your strikes. Augmented double-hit costs 1 MP. +4 AGI, +3 INT. [Vampiric] | crafting |
+| Dusk Fang | 3 | rare | +5 AGI +2 STR | 370 / 123 | The last light before darkness. Augmented double-hit costs 1 MP. +5 AGI, +2 STR. [Swiftness] | void_stalker 10% |
+| Midnight Reaver | 4 | epic | +7 AGI +4 STR | 800 / 267 | Cuts through shadow and flesh alike. Double-hit costs 1 MP. +7 AGI, +4 STR. [Vampiric] [Lore: 25% shadow clone second strike] | chest, crafting |
+| Ecliptic Stiletto | 4 | epic | +6 AGI +5 INT | 820 / 273 | Eclipse-forged precision weapon. Double-hit costs 1 MP. +6 AGI, +5 INT. [Void-Touched] [Lore: 20% eclipse mark — next hit 2×] | crafting |
+| The Dusk-Fang | 5 | legendary | +9 AGI +5 INT | 0 / 999 | Fang of the Order of the Grey Hour. Augmented double-hit costs 1 MP. +9 AGI, +5 INT. [Enemies killed in Shadow Veil drop +50% Glint] | quest: Initiation of the Order of the Grey Hour |
+| Dagger of the Void | 5 | legendary | +10 AGI +6 STR | 0 / 999 | Born from pure void energy. Double-hit is always augmented — no mana cost. +10 AGI, +6 STR. | — |
+
+**resonance bow** (10)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Carved Shortbow | 1 | common | +2 AGI +1 INT | 75 / 25 | A simple carved bow. Ranged strikes cost 3 MP, reach 150px. +2 AGI, +1 INT. | shop |
+| Hunter's Shortbow | 1 | common | +1 AGI +1 INT +1 STR | 70 / 23 | A hunter's trusted bow. Ranged strikes cost 3 MP, reach 150px. +1 AGI, +1 INT, +1 STR. | shop |
+| Resonance Bow | 2 | uncommon | +2 INT +2 AGI | 200 / 70 | Aether-thread strung bow. Ranged strikes cost 3 MP, reach 150px. +2 INT, +2 AGI. | shop |
+| Forest Longbow | 2 | uncommon | +3 AGI +1 STR | 185 / 62 | Carved from elder wood. Ranged strikes cost 3 MP, reach 150px. +3 AGI, +1 STR. | shop |
+| Aether-Strung Bow | 3 | rare | +4 INT +3 AGI | 380 / 127 | Bowstring of pure aether. Ranged strikes cost 3 MP, reach 150px. +4 INT, +3 AGI. [Resonant] | crafting |
+| Spirit Bow | 3 | rare | +3 INT +4 AGI | 375 / 125 | Guided by ancestral spirits. Ranged strikes cost 3 MP, reach 150px. +3 INT, +4 AGI. [Swiftness] | chest, crafting |
+| Celestial Arc | 4 | epic | +6 INT +6 AGI | 820 / 273 | Forged under a celestial alignment. Ranged strikes cost 3 MP. +6 INT, +6 AGI. [Arcane Surge] [Lore: 25% arrow bounce to second enemy] | crafting |
+| Tempest Bow | 4 | epic | +8 AGI +3 STR | 800 / 267 | Crackling with storm-energy. Ranged strikes cost 3 MP. +8 AGI, +3 STR. [Void-Touched] [Lore: 20% storm burst AoE on impact] | crafting |
+| The Eternal Draw | 5 | legendary | +10 AGI +6 INT | 0 / 999 | A bow that never misses. Ranged strikes cost 3 MP, reach 150px. +10 AGI, +6 INT. [Every 3rd consecutive shot deals 2× damage] | quest: The Hunter's Trial |
+| The Void-Piercer | 5 | legendary | +8 INT +8 AGI | 0 / 999 | Arrows pierce through the first enemy struck. Range 220px. Ranged strikes cost 3 MP. +8 INT, +8 AGI. [Arrows pierce first enemy] | — |
+
+### Armor & accessories (27)
+| Item | Slot | Tier | Stats | Description | Source |
+|---|---|---|---|---|---|
+| Gambeson | body | 1 | +1 STA | A quilted padded coat. Warm, and it turns a glancing blow. | — |
+| Leather Jerkin | body | 1 | +1 AGI | A sleeveless jerkin laced over a linen shirt — a hunter’s or a ranger’s. | — |
+| Chain Shirt | body | 2 | +2 STA | Riveted mail to mid-thigh. Heavy on the shoulders, hard to cut through. | — |
+| Knight’s Tabard | body | 2 | +2 STA +1 STR | Mail under a long blue tabard with a gold sigil, as the Thalorian guard wear it. | — |
+| Plate Cuirass | body | 3 | +3 STA +1 STR | A polished breastplate and backplate with tassets over a padded coat. | — |
+| Silk Gown | body | 2 | +2 INT | A fitted gown to the ground with a gold neckline. Court wear, not road wear. | — |
+| Mail Coif | head | 2 | +1 STA | A hood of mail that frames the face and falls over the shoulders. | — |
+| Great Helm | head | 3 | +2 STA | A flat-topped barrel helm with a narrow eye slit and a gold cross. | — |
+| Feathered Cap | head | 1 | +1 AGI | A soft cap tilted to one side, with a long feather. | — |
+| Gold Circlet | head | 2 | +2 INT | A thin gold band with a pale gem that holds a little light. | — |
+| Hunter's Cloak | body | 2 | +2 AGI +1 STA | Stitched from wolf pelt and deer hide. Light but durable. +2 AGI, +1 STA. | crafting |
+| Corrupted Hide Armor | body | 3 | +2 STR +2 INT | Void-tainted leather that hums with dark energy. +2 STR, +2 INT. | crafting |
+| Scholar's Tunic | body | 1 | +1 STA | Standard scholarly attire. +1 STA. | shop |
+| Violet Silk Robes | body | 2 | +2 INT +2 STA | Conductive silk that enhances Aether flow. +2 INT, +2 STA. | crafting |
+| Scholar's Cowl | head | 1 | +1 INT | A simple hood. +1 INT. | shop |
+| Fisher's Hat | head | 1 | +1 AGI +1 STA | A wide hat woven from reeds. Keeps off sun and rain. +1 AGI, +1 STA. | crafting |
+| Bone Helm | head | 2 | +2 STA +1 STR | Bone plates lashed over a wolf-pelt cap. +2 STA, +1 STR. | crafting |
+| Frostweave Hood | head | 2 | +2 INT +1 STA | Hide lined with woven frostmoss. Clears the head. +2 INT, +1 STA. | crafting |
+| Tidecaller Robe | body | 3 | +3 INT +2 STA | Reed-woven robes stitched with moonpetal thread and a river pearl at the collar. +3 INT, +2 STA. | crafting |
+| Bone Ring | accessory | 1 | +1 STR +1 AGI | Carved from tusk and bone. Crude but effective. +1 STR, +1 AGI. | crafting |
+| Void Pendant | accessory | 3 | +3 INT | Crystallised corruption shaped into a focus. +3 INT. Deepens shadow resonance. | crafting |
+| Iron Ring | accessory | 1 | +1 STR | A plain iron ring. +1 STR. | shop |
+| Resonance Amulet | accessory | 2 | +2 INT +1 AGI | Hums faintly with Aether. +2 INT, +1 AGI. | corrupted_sentinel 100%, crafting |
+| Silver Ring | accessory | 2 | +2 INT +1 AGI | A plain band of worked silver. +2 INT, +1 AGI. | crafting |
+| Ember Amulet | accessory | 2 | +2 STR +1 INT | An ember stone set in silver, always warm against the chest. +2 STR, +1 INT. | crafting |
+| Heartwood Bracer | accessory | 3 | +2 STR +2 AGI | A bracer of resin-hardened heartwood. +2 STR, +2 AGI. | crafting |
+| Pearl Pendant | accessory | 3 | +3 INT +1 STA | Two river pearls on a silver chain. Water mages swear by it. +3 INT, +1 STA. | crafting |
+
+### Other consumables, tools & key items (79)
+| Item | Description | Buy / sell | Source |
+|---|---|---|---|
+| Eldrin's Journal | Forty years of notes on the erasure, and the coordinates the vision gave: where the Heartstone was hidden. | 0 / 0 | — |
+| The Heart Stone of Creation | Warm in the hand, and heavier than a stone that size should be. It read your hand before it let you take it. It is yours to keep — for a long time. | 0 / 0 | — |
+| Chart of Thaloria | A surveyor's chart of the city's streets and landmarks. Read it to mark them on your map (M). | 40 / 12 | — |
+| Chart of the East Road | The road from the East Gate to the foot of the mountains, with its waystones and shelters. Read it to mark them on your map (M). | 60 / 18 | — |
+| Eldritch Tome | Forbidden knowledge. Grants 150 XP, 1 skill point, and deep arcane resonance. | 150 / 50 | void_stalker 15%, chest |
+| Traveler's Tent | A compact tent. Full rest: restores HP and MP to max, clears exhaustion, grants 50 bonus XP. | 120 / 40 | shop |
+| Turkey Meat | Plump and savoury. Restores 12 HP. | 0 / 5 | turkey 80% |
+| Expanded Haversack | Aether-Oak fiber reinforcement. Upgrades Satchel to Tier II (20 slots). | 120 / 40 | shop |
+| Void-Fold Relic | Folds micro-rifts into your pouch. Upgrades Satchel to Tier IV (60 slots). | 600 / 200 | — |
+| Legion Lore Fragment | A page from the frozen scout's journal, describing the Legion's movements before the cold took them. Grants 60 XP. | 0 / 15 | quest: The Frozen Camp |
+| Soul-Gem of Still Waters | A relic gem recovered from the Widow's Overlook shrine. Permanently increases Max Mana by 15. | 0 / 60 | quest: The Widow's Watch |
+| Scattered Journal Page | A page of your own field notes, frost-stiff, torn loose when your saddlebag split on the East Road. | 0 / 0 | — |
+| Recipe: Grand Feast | Teaches the recipe for Grand Feast. Read it to learn it for good. | 0 / 25 | quest: The Hunter's Larder |
+| Recipe: Hearty Stew | Teaches the recipe for Hearty Stew. Read it to learn it for good. | 0 / 25 | shop |
+| Recipe: Angler's Platter | Teaches the recipe for Angler's Platter. Read it to learn it for good. | 0 / 25 | shop |
+| Recipe: Herb & Mushroom Pie | Teaches the recipe for Herb & Mushroom Pie. Read it to learn it for good. | 0 / 25 | — |
+| Recipe: Spectral Broth | Teaches the recipe for Spectral Broth. Read it to learn it for good. | 0 / 25 | — |
+| Recipe: Elixir of Clarity | Teaches the recipe for Elixir of Clarity. Read it to learn it for good. | 0 / 25 | — |
+| Recipe: Deepwater Elixir | Teaches the recipe for Deepwater Elixir. Read it to learn it for good. | 0 / 25 | — |
+| Recipe: Moonveil Tonic | Teaches the recipe for Moonveil Tonic. Read it to learn it for good. | 0 / 25 | — |
+| Recipe: Double-Down Elixir | Teaches the recipe for Double-Down Elixir. Read it to learn it for good. | 0 / 25 | — |
+| Recipe: Wildfire Tonic | Teaches the recipe for Wildfire Tonic. Read it to learn it for good. | 0 / 25 | — |
+| Recipe: Void Tonic | Teaches the recipe for Void Tonic. Read it to learn it for good. | 0 / 25 | quest: The Hermit's Offering |
+| Recipe: Moonpetal Elixir | Teaches the recipe for Moonpetal Elixir. Read it to learn it for good. | 0 / 25 | shop |
+| Manual: Guard | Teaches the Guard style of the one-handed sword (+40%), and practice counts double after. Stop their blow, then answer it. | 150 / 40 | — |
+| Manual: Reaver | Teaches the Reaver style of the two-handed sword (+40%), and practice counts double after. Big swings that clear a crowd. | 150 / 40 | — |
+| Manual: Shadow | Teaches the Shadow style of the dagger (+40%), and practice counts double after. Disappear, then strike from behind. | 150 / 40 | — |
+| Manual: Lancer | Teaches the Lancer style of the spear (+40%), and practice counts double after. Lunge and leap — strike from far away. | 150 / 40 | — |
+| Manual: Spinning Staff | Teaches the Spinning Staff style of the bo staff (+40%), and practice counts double after. Fast blows and a guard against arrows. | 150 / 40 | — |
+| Manual: Crusher | Teaches the Crusher style of the mace (+40%), and practice counts double after. Break bones, stun, crack armour. | 150 / 40 | — |
+| Manual: Berserker | Teaches the Berserker style of the axe (+40%), and practice counts double after. Rage, bleed them, swing faster. | 150 / 40 | — |
+| Manual: Bulwark | Teaches the Bulwark style of the shield (+40%), and practice counts double after. Hold the line — nothing gets through. | 150 / 40 | — |
+| Manual: Brawler | Teaches the Brawler style of the fists (+40%), and practice counts double after. Big punches, throws and headbutts. | 150 / 40 | — |
+| Manual: Hunter | Teaches the Hunter style of the bow (+40%), and practice counts double after. Patient shots: hit hard, hold them, mark them. | 150 / 40 | — |
+| Manual: Marksman | Teaches the Marksman style of the crossbow (+40%), and practice counts double after. Steady aim, a bolt to the head, a bolt through a row. | 150 / 40 | — |
+| Manual: Quickcast | Teaches the Quickcast style of the wand (+40%), and practice counts double after. Fast bolts, echoing spells, a bolt that jumps. | 150 / 40 | — |
+| Manual: Channeler | Teaches the Channeler style of the staff (+40%), and practice counts double after. Gather mana, overload your spells, then let it all out. | 150 / 40 | — |
+| Manual: Hex | Starts the Hex style of the wand (+40%). Its skills come in a later update. Curse them: weaken, slow, drain. | 150 / 40 | — |
+| Manual: Warder | Starts the Warder style of the staff (+40%). Its skills come in a later update. Circles and barriers that keep you safe. | 150 / 40 | — |
+| Scroll: Needle Volley | Teaches the arcane spell Needle Volley (Novice). Practise arcane magic for its higher tiers. | 190 / 47 | — |
+| Scroll: Luminance | Teaches the arcane spell Luminance (Novice). Practise arcane magic for its higher tiers. | 140 / 35 | — |
+| Scroll: Phantom Script | Teaches the arcane spell Phantom Script (Novice). Practise arcane magic for its higher tiers. | 215 / 53 | — |
+| Scroll: Fireball | Teaches the fire spell Fireball (Novice). Practise fire magic for its higher tiers. | 55 / 13 | — |
+| Scroll: Flame Lance | Teaches the fire spell Flame Lance (Novice). Practise fire magic for its higher tiers. | 215 / 53 | — |
+| Scroll: Warmth Aura | Teaches the fire spell Warmth Aura (Novice). Practise fire magic for its higher tiers. | 100 / 25 | — |
+| Scroll: Thunder Clap | Teaches the lightning spell Thunder Clap (Novice). Practise lightning magic for its higher tiers. | 165 / 41 | — |
+| Scroll: Void Pulse | Teaches the shadow spell Void Pulse (Novice). Practise shadow magic for its higher tiers. | 180 / 45 | — |
+| Scroll: Hush | Teaches the shadow spell Hush (Novice). Practise shadow magic for its higher tiers. | 140 / 35 | — |
+| Scroll: Eclipse Mark | Teaches the shadow spell Eclipse Mark (Novice). Practise shadow magic for its higher tiers. | 230 / 57 | — |
+| Scroll: Rubble Spray | Teaches the earth spell Rubble Spray (Novice). Practise earth magic for its higher tiers. | 115 / 28 | — |
+| Scroll: Mud Wall | Teaches the earth spell Mud Wall (Novice). Practise earth magic for its higher tiers. | 210 / 52 | — |
+| Scroll: Mud Trap | Teaches the earth spell Mud Trap (Novice). Practise earth magic for its higher tiers. | 150 / 37 | — |
+| Scroll: Stone Cannon | Teaches the earth spell Stone Cannon (Novice). Practise earth magic for its higher tiers. | 240 / 60 | — |
+| Scroll: Frost Shard | Teaches the ice spell Frost Shard (Novice). Practise ice magic for its higher tiers. | 80 / 20 | — |
+| Scroll: Water Conjure | Teaches the water spell Water Conjure (Novice). Practise water magic for its higher tiers. | 80 / 20 | — |
+| Scroll: Frostbite | Teaches the ice spell Frostbite (Novice). Practise ice magic for its higher tiers. | 130 / 32 | — |
+| Scroll: Water Blade | Teaches the water spell Water Blade (Novice). Practise water magic for its higher tiers. | 160 / 40 | — |
+| Scroll: Vine Grasp | Teaches the nature spell Vine Grasp (Novice). Practise nature magic for its higher tiers. | 80 / 20 | — |
+| Scroll: Acid Splash | Teaches the nature spell Acid Splash (Novice). Practise nature magic for its higher tiers. | 115 / 28 | — |
+| Scroll: Vessel Mend | Teaches the nature spell Vessel Mend (Novice). Practise nature magic for its higher tiers. | 100 / 25 | — |
+| Scroll: Barkskin | Teaches the nature spell Barkskin (Novice). Practise nature magic for its higher tiers. | 150 / 37 | — |
+| Scroll: Counterspell | Teaches the arcane spell Counterspell (Novice). Practise arcane magic for its higher tiers. | 100 / 25 | — |
+| Scroll: Arcane Burst | Teaches the arcane spell Arcane Burst (Novice). Practise arcane magic for its higher tiers. | 115 / 28 | — |
+| Scroll: Flame Wall | Teaches the fire spell Flame Wall (Novice). Practise fire magic for its higher tiers. | 180 / 45 | — |
+| Scroll: Chain Lightning | Teaches the lightning spell Chain Lightning (Novice). Practise lightning magic for its higher tiers. | 200 / 50 | — |
+| Scroll: Static Field | Teaches the lightning spell Static Field (Novice). Practise lightning magic for its higher tiers. | 130 / 32 | — |
+| Scroll: Shadow Bolt | Teaches the shadow spell Shadow Bolt (Novice). Practise shadow magic for its higher tiers. | 90 / 22 | — |
+| Scroll: Life Drain | Teaches the shadow spell Life Drain (Novice). Practise shadow magic for its higher tiers. | 265 / 66 | — |
+| Scroll: Rock Bullet | Teaches the earth spell Rock Bullet (Novice). Practise earth magic for its higher tiers. | 70 / 17 | — |
+| Scroll: Glacial Spike | Teaches the ice spell Glacial Spike (Novice). Practise ice magic for its higher tiers. | 150 / 37 | — |
+| Scroll: Wind Knife | Teaches the wind spell Wind Knife (Novice). Practise wind magic for its higher tiers. | 80 / 20 | — |
+| Scroll: Drying Wind | Teaches the wind spell Drying Wind (Novice). Practise wind magic for its higher tiers. | 65 / 16 | — |
+| Scroll: Gale Slash | Teaches the wind spell Gale Slash (Novice). Practise wind magic for its higher tiers. | 100 / 25 | — |
+| Scroll: Tempest Step | Teaches the wind spell Tempest Step (Novice). Practise wind magic for its higher tiers. | 130 / 32 | — |
+| Scroll: Wind Barrier | Teaches the wind spell Wind Barrier (Novice). Practise wind magic for its higher tiers. | 160 / 40 | — |
+| Scroll: Tidal Bolt | Teaches the water spell Tidal Bolt (Novice). Practise water magic for its higher tiers. | 55 / 13 | — |
+| Scroll: Healing Spring | Teaches the water spell Healing Spring (Novice). Practise water magic for its higher tiers. | 100 / 25 | — |
+| Scroll: Riptide | Teaches the water spell Riptide (Novice). Practise water magic for its higher tiers. | 130 / 32 | — |
+| Scroll: Tide Step | Teaches the water spell Tide Step (Novice). Practise water magic for its higher tiers. | 190 / 47 | — |
+
+### Ingredients & materials (44)
+| Ingredient | Used in | Source |
+|---|---|---|
+| Boar Meat | 10 recipes | feral_boar 70%, boar 80%, grizzly_bear 70%, black_bear 65%, pig 90%, corrupted_boar 60% |
+| Venison | 15 recipes | deer 85%, deer_doe 80%, dark_deer 85%, dark_deer_doe 80%, lion 50%, lioness 45% (+4 more) |
+| Rabbit Meat | 8 recipes | rabbit 90%, chicken 90%, arctic_fox 50% |
+| Mushroom Spore | 11 recipes | mushroom_shaman 60%, mushroom_walker 70%, amanita_walker 80%, blight_moth 30%, gathering: Mushroom Ring |
+| Forest Herb | 19 recipes | werewolf 30%, wolf 35%, scout 25%, treant 40%, blight_ent 40%, root_wraith 35% (+8 more) |
+| Ember Stone | 9 recipes | ember_imp 50%, lava_elemental 70%, ash_crawler 40%, forge_daemon 60%, cinder_hawk 30%, fire_lizard 25% (+2 more) |
+| Bone Fragment | 5 recipes | skeleton_archer 60%, grizzly_bear 40%, giant_rat 50%, polar_bear 45%, shark 60% |
+| Void Shard | 11 recipes | rift_walker 40%, soul_eater 40%, carrion_crow 30%, hollow_cat 35%, plague_heron 35%, rot_frog 30% (+11 more) |
+| Rabbit's Foot | 5 recipes | rabbit 25% |
+| Ice Crystal | 7 recipes | frost_bear 50%, ice_revenant 60%, blizzard_sprite 50%, wendigo 50%, glacier_crab 60%, corrupted_elk 30% (+1 more) |
+| River Trout | 2 recipes | gathering: Fishing Spot |
+| Lake Perch | 2 recipes | gathering: Fishing Spot |
+| Sea Salt | 4 recipes | shop |
+| Cave Eel | 2 recipes | gathering: Fishing Spot |
+| Aether Carp | 2 recipes | gathering: Fishing Spot |
+| Moonpetal | 6 recipes | gathering: Herb Patch |
+| Freshwater Mussel | 2 recipes | gathering: Shallows |
+| Wild Berries | 3 recipes | gathering: Berry Bush |
+| Honeyberry | 3 recipes | gathering: Berry Bush |
+| Bitter Bolete | 1 recipes | gathering: Mushroom Ring |
+| Glowcap | 3 recipes | gathering: Mushroom Ring |
+| Silverleaf | 3 recipes | gathering: Herb Patch |
+| Emberroot | 2 recipes | gathering: Herb Patch |
+| Frostmoss | 3 recipes | gathering: Herb Patch |
+| Spectral Dust | 10 recipes | grave_wraith 50%, cursed_knight 30%, ice_revenant 30%, blind_stalker 40% |
+| Corrupted Essence | 5 recipes | deep_horror 40%, void_spawn 50%, mirror_shade 40%, arcane_sentinel 50%, rift_walker 50%, soul_eater 60% |
+| Empty Bottle | 27 recipes | shop |
+| Heart Crystal | 6 recipes | gathering: Crystal Outcrop, chest |
+| River Pearl | 5 recipes | gathering: Shallows |
+| Venom Sac | 7 recipes | giant_spider 40%, bog_lurker 40%, rot_toad 50%, plague_rat 15%, giant_rat 20%, amanita_walker 35% (+13 more) |
+| Boar Tusk | 3 recipes | feral_boar 25%, boar 30%, corrupted_boar 20% |
+| Ancient Scroll | 1 recipes | shadow_sprite 15%, dark_druid 20%, cursed_knight 10%, runic_turret 15%, forge_daemon 10%, wendigo 10% (+7 more) |
+| Wolf Pelt | 4 recipes | werewolf 50%, grizzly_bear 50%, black_bear 40%, lion 60%, lioness 50%, polar_bear 65% (+2 more) |
+| Deer Hide | 8 recipes | deer 50%, deer_doe 45%, dark_deer 55%, dark_deer_doe 45%, cow 50%, llama 70% (+5 more) |
+| Mineral Ore | 10 recipes | corrupted_sentinel 60%, stone_golem 50%, runic_turret 40%, crystal_golem 60%, crag_fiend 40%, gathering: Ore Seam |
+| Wood | 6 recipes | gathering: Deadwood |
+| Silver Ore | 12 recipes | gathering: Ore Seam |
+| Tree Resin | 7 recipes | gathering: Deadwood |
+| Heartwood | 8 recipes | blight_ent 25%, gathering: Deadwood |
+| Aether-Shard | 7 recipes | gathering: Crystal Outcrop, quest: Echoes in the Rime |
+| Reed Fibre | 8 recipes | gathering: Shallows, gathering: Reed Bed |
+| Stick | 2 recipes | gathering: Deadwood, crafting |
+| Feather | 1 recipes | cinder_hawk 60%, crow 60%, carrion_crow 60%, turkey 60%, chicken 60%, heron 60% (+4 more) |
+| Basic Arrow | 3 recipes | shop, crafting |
+
+## Shops
+Merchant catalogue (46 entries). Each item has one price, in gold (mundane goods) or glint (arcane goods).
+
+| Item | Price | Currency |
+|---|---|---|
+| Empty Bottle | 4 | gold |
+| Health Potion | 18 | glint |
+| Mana Potion | 20 | glint |
+| Forest Herb | 7 | gold |
+| Iron Axe | 32 | gold |
+| Iron Pickaxe | 36 | gold |
+| Fishing Rod | 25 | gold |
+| Sickle | 22 | gold |
+| Torch | 6 | gold |
+| Sea Salt | 5 | gold |
+| Scholar's Cowl | 60 | gold |
+| Scholar's Tunic | 70 | gold |
+| Iron Ring | 30 | gold |
+| Expanded Haversack | 90 | gold |
+| Traveler's Tent | 85 | gold |
+| Novice Staff | 80 | glint |
+| Weathered Sage's Staff | 65 | glint |
+| Iron Spell-Blade | 70 | glint |
+| Etched Shortsword | 44 | glint |
+| Crude Dagger | 38 | glint |
+| Shadow Shiv | 55 | glint |
+| Carved Shortbow | 58 | gold |
+| Hunter's Shortbow | 52 | gold |
+| Willow Wand | 60 | glint |
+| Ash Bo Staff | 55 | gold |
+| Hunting Spear | 70 | gold |
+| Iron Mace | 75 | gold |
+| Hand Axe | 70 | gold |
+| Wooden Shield | 50 | gold |
+| Light Crossbow | 95 | gold |
+| Basic Arrow ×10 | 8 | gold |
+| Bolt ×10 | 12 | gold |
+| Feather ×5 | 4 | gold |
+| Small Quiver | 25 | gold |
+| Adept's Spire | 200 | glint |
+| Mossy Branch Staff | 175 | glint |
+| Claymore | 210 | gold |
+| Spell-Blade | 180 | glint |
+| Arcane Saber | 165 | glint |
+| Umbral Dagger | 160 | glint |
+| Phantom Blade | 155 | glint |
+| Resonance Bow | 200 | gold |
+| Forest Longbow | 140 | gold |
+| Recipe: Hearty Stew | 90 | glint |
+| Recipe: Moonpetal Elixir | 120 | glint |
+| Recipe: Angler's Platter | 140 | glint |
+
+## Gathering & world objects
+Walk up to a node and press **E**. Some need a tool in the satchel. Each harvest rolls the node's pool (rare extras roll on top); a harvested node regrows after a few minutes, and every node is full again when the map loads.
+
+| Node | Tool | Default pool | Rolls | Regrows |
+|---|---|---|---|---|
+| Deadwood | Iron Axe | deadwood | 1 | 4 min |
+| Ore Seam | Iron Pickaxe | ore_seam | 1 | 5 min |
+| Herb Patch | — | forest_herbs | 2 | 2.5 min |
+| Mushroom Ring | — | forest_mushrooms | 2 | 3 min |
+| Berry Bush | — | berries | 1 | 2.5 min |
+| Reed Bed | Sickle | reeds | 1 | 3 min |
+| Fishing Spot | Fishing Rod | river_fish | 1 | 2 min |
+| Shallows | — | shallows | 1 | 3.3 min |
+| Crystal Outcrop | Iron Pickaxe | ice_crystals | 1 | 6 min |
+
+### Yield pools
+| Pool | Gives | Placed on |
+|---|---|---|
+| deadwood | Wood 1–2 (100%), Tree Resin 1 (bonus 20%), Heartwood 1 (bonus 8%), Stick 2–4 (bonus 30%) | Prologue Forest ×3, Northern Dense Forest ×1, The Thalorian Wilds ×6, The Grand Tour (Test) ×4 |
+| ore_seam | Mineral Ore 1–2 (100%), Silver Ore 1 (bonus 25%) | Prologue Forest ×3, The Thalorian Wilds ×4, The Grand Tour (Test) ×7 |
+| forest_herbs | Forest Herb 1–2 (67%), Silverleaf 1 (25%), Moonpetal 1 (8%) | Prologue Forest ×4, Northern Dense Forest ×1, The Thalorian Wilds ×2, The Grand Tour (Test) ×6 |
+| meadow_herbs | Silverleaf 1–2 (45%), Forest Herb 1–2 (36%), Moonpetal 1 (18%) | Prologue Forest ×1, Northern Dense Forest ×1, The Thalorian Wilds ×2, The Grand Tour (Test) ×2 |
+| mountain_herbs | Frostmoss 1–2 (64%), Forest Herb 1 (27%), Silverleaf 1 (9%) | Summit of Despair ×2, The Grand Tour (Test) ×4 |
+| desert_herbs | Emberroot 1–2 (78%), Forest Herb 1 (22%) | The Grand Tour (Test) ×4 |
+| forest_mushrooms | Mushroom Spore 1–2 (55%), Bitter Bolete 1 (36%), Glowcap 1 (9%) | Prologue Forest ×3, Northern Dense Forest ×2, The Grand Tour (Test) ×5 |
+| cave_mushrooms | Glowcap 1–2 (56%), Mushroom Spore 1–2 (44%) | The Grand Tour (Test) ×4 |
+| berries | Wild Berries 2–4 (70%), Honeyberry 1–2 (30%) | Prologue Forest ×3, Northern Dense Forest ×2, The Grand Tour (Test) ×7 |
+| reeds | Reed Fibre 2–3 (100%) | The Grand Tour (Test) ×7 |
+| river_fish | River Trout 1 (80%), Lake Perch 1 (20%) | The Grand Tour (Test) ×3 |
+| lake_fish | Lake Perch 1 (70%), River Trout 1 (20%), Aether Carp 1 (10%) | The Grand Tour (Test) ×7 |
+| cave_pool | Cave Eel 1 (88%), Aether Carp 1 (13%) | The Grand Tour (Test) ×2 |
+| shallows | Freshwater Mussel 1–3 (70%), Reed Fibre 1–2 (20%), River Pearl 1 (10%) | The Grand Tour (Test) ×4 |
+| ice_crystals | Ice Crystal 1–2 (100%), Heart Crystal 1 (bonus 10%) | Summit of Despair ×2, The Grand Tour (Test) ×3 |
+| ember_crystals | Ember Stone 1–2 (100%), Heart Crystal 1 (bonus 10%) | The Grand Tour (Test) ×3 |
+| deep_crystals | Ice Crystal 1 (33%), Ember Stone 1 (33%), Aether-Shard 1 (33%), Heart Crystal 1 (bonus 15%) | The Grand Tour (Test) ×5 |
+
+Prologue world objects: 3 campfires, 3 chests, 3 rift-gates, 3 readable signs, 3 pillar gates, 3 cracked boulders, 1 NPC (Silvara).
+
+## Enemies & creatures
+### Hostile (81)
+| Creature | Family | HP | Damage | Speed | XP | Loot |
+|---|---|---|---|---|---|---|
+| werewolf | — | 120 | 14 | 120 | 70 | Wolf Pelt 50%, Forest Herb 30% |
+| wisp | — | 18 | 5 | 85 | 15 | Mana Potion 30% |
+| wolf | — | 28 | 8 | 95 | 20 | Forest Herb 35%, Health Potion 20% |
+| shadow sprite | Void-touched | 22 | 13 | 72 | 25 | Mana Potion 35%, Ancient Scroll 15%, Mana-Etched Sword 8% |
+| void stalker | Void-touched | 55 | 18 | 48 | 38 | Mana Potion 45%, Eldritch Tome 15%, Dusk Fang 10% |
+| scout | — | 32 | 9 | 56 | 22 | Health Potion 35%, Forest Herb 25% |
+| treant | Plant / fungus | 65 | 16 | 30 | 42 | Health Potion 50%, Forest Herb 40% |
+| giant spider | — | 45 | 11 | 55 | 28 | Venom Sac 40%, Health Potion 25% |
+| dark druid | — | 38 | 14 | 48 | 32 | Ancient Scroll 20%, Mana Potion 35% |
+| feral boar | — | 30 | 16 | 115 | 24 | Boar Meat 70%, Boar Tusk 25% |
+| skeleton archer | Undead | 30 | 10 | 45 | 28 | Bone Fragment 60%, Health Potion 20% |
+| blight ent | Plant / fungus | 80 | 18 | 26 | 46 | Heartwood 25%, Forest Herb 40% |
+| root wraith | Plant / fungus | 22 | 7 | 105 | 20 | Forest Herb 35% |
+| corrupted sentinel | Construct | 240 | 17 | 22 | 140 | Resonance Amulet 100%, Mineral Ore 60% |
+| stone golem | Construct | 120 | 22 | 28 | 55 | Mineral Ore 50%, Health Potion 30% |
+| grave wraith | Undead | 35 | 18 | 90 | 38 | Spectral Dust 50%, Mana Potion 30% |
+| cursed knight | Undead | 80 | 20 | 50 | 48 | Health Potion 40%, Spectral Dust 30%, Ancient Scroll 10% |
+| runic turret | Construct | 50 | 12 | 0 | 35 | Mineral Ore 40%, Ancient Scroll 15% |
+| bog lurker | Aquatic | 55 | 15 | 60 | 35 | Venom Sac 40%, Health Potion 20% |
+| rot toad | Aquatic | 40 | 10 | 45 | 28 | Venom Sac 50% |
+| will o wisp | — | 22 | 8 | 78 | 20 | Mana Potion 30% |
+| vine horror | Plant / fungus | 65 | 14 | 35 | 40 | Forest Herb 50%, Health Potion 35% |
+| plague rat | — | 12 | 5 | 95 | 8 | Venom Sac 15% |
+| ember imp | Fire-born | 28 | 12 | 110 | 30 | Ember Stone 50%, Mana Potion 20% |
+| lava elemental | Fire-born | 90 | 20 | 35 | 52 | Ember Stone 70%, Health Potion 30% |
+| ash crawler | Fire-born | 42 | 16 | 70 | 35 | Ember Stone 40% |
+| forge daemon | Fire-born | 100 | 25 | 45 | 60 | Ember Stone 60%, Health Potion 40%, Ancient Scroll 10% |
+| cinder hawk | Fire-born | 22 | 14 | 130 | 28 | Feather 60%, Ember Stone 30% |
+| frost bear | Frost-born | 100 | 22 | 70 | 55 | Ice Crystal 50%, Health Potion 40% |
+| ice revenant | Frost-born | 45 | 16 | 65 | 38 | Ice Crystal 60%, Spectral Dust 30% |
+| blizzard sprite | Frost-born | 30 | 12 | 58 | 32 | Ice Crystal 50%, Mana Potion 30% |
+| wendigo | Frost-born | 75 | 28 | 80 | 58 | Ice Crystal 50%, Health Potion 40%, Ancient Scroll 10% |
+| glacier crab | Frost-born | 85 | 18 | 38 | 45 | Ice Crystal 60%, Health Potion 30% |
+| cave bat | — | 14 | 8 | 100 | 10 | — |
+| crystal golem | Construct | 80 | 18 | 35 | 48 | Mineral Ore 60%, Health Potion 30% |
+| blind stalker | — | 55 | 20 | 75 | 42 | Spectral Dust 40% |
+| deep horror | — | 70 | 22 | 50 | 50 | Corrupted Essence 40%, Mana Potion 30% |
+| mushroom shaman | Plant / fungus | 45 | 12 | 38 | 38 | Mushroom Spore 60%, Health Potion 30% |
+| void spawn | Void-touched | 55 | 20 | 85 | 45 | Corrupted Essence 50%, Mana Potion 30% |
+| mirror shade | Void-touched | 40 | 16 | 70 | 40 | Corrupted Essence 40%, Ancient Scroll 15% |
+| arcane sentinel | Construct | 90 | 24 | 0 | 60 | Corrupted Essence 50%, Mana Potion 40%, Ancient Scroll 20% |
+| rift walker | Void-touched | 75 | 22 | 65 | 58 | Corrupted Essence 50%, Void Shard 40%, Ancient Scroll 15% |
+| soul eater | Void-touched | 60 | 18 | 78 | 52 | Corrupted Essence 60%, Void Shard 40% |
+| grizzly bear | — | 70 | 20 | 80 | 40 | Boar Meat 70%, Wolf Pelt 50%, Bone Fragment 40% |
+| black bear | — | 55 | 16 | 90 | 32 | Boar Meat 65%, Wolf Pelt 40% |
+| giant rat | — | 18 | 7 | 88 | 12 | Bone Fragment 50%, Venom Sac 20% |
+| carrion crow | — | 15 | 6 | 110 | 8 | Feather 60%, Void Shard 30% |
+| hollow cat | — | 20 | 8 | 95 | 10 | Void Shard 35% |
+| lion | — | 65 | 18 | 95 | 38 | Wolf Pelt 60%, Venison 50% |
+| lioness | — | 55 | 15 | 105 | 32 | Wolf Pelt 50%, Venison 45% |
+| mushroom walker | Plant / fungus | 22 | 6 | 45 | 14 | Mushroom Spore 70%, Forest Herb 30% |
+| amanita walker | Plant / fungus | 28 | 9 | 42 | 18 | Mushroom Spore 80%, Venom Sac 35% |
+| polar bear | Frost-born | 80 | 24 | 75 | 45 | Wolf Pelt 65%, Bone Fragment 45% |
+| shark | Aquatic | 90 | 28 | 110 | 55 | Venison 50%, Bone Fragment 60% |
+| bird eagle | — | 18 | 8 | 130 | 12 | Deer Hide 25% |
+| plague heron | — | 20 | 7 | 90 | 10 | Feather 60%, Void Shard 35% |
+| rot frog | Aquatic | 28 | 9 | 65 | 12 | Venom Sac 40%, Void Shard 30% |
+| ember lizard | Fire-born | 22 | 8 | 100 | 10 | Ember Stone 50%, Void Shard 30% |
+| ash vulture | — | 20 | 7 | 85 | 10 | Feather 60%, Void Shard 40% |
+| corrupted elk | — | 55 | 18 | 100 | 22 | Deer Hide 40%, Void Shard 50%, Ice Crystal 30% |
+| void fox | Void-touched | 25 | 10 | 115 | 12 | Wolf Pelt 30%, Void Shard 40% |
+| void crawler | Void-touched | 18 | 9 | 85 | 10 | Void Shard 40% |
+| blight moth | — | 16 | 7 | 95 | 8 | Void Shard 35%, Mushroom Spore 30% |
+| corrupted boar | — | 38 | 12 | 88 | 18 | Boar Meat 60%, Boar Tusk 20%, Void Shard 45% |
+| corrupted deer | — | 28 | 9 | 100 | 14 | Deer Hide 40%, Void Shard 50% |
+| corrupted rabbit | — | 12 | 5 | 110 | 8 | Void Shard 35% |
+| spider green | — | 18 | 6 | 95 | 10 | Venom Sac 35% |
+| spider brown | — | 18 | 6 | 90 | 10 | Venom Sac 35% |
+| spider red | — | 22 | 8 | 100 | 14 | Venom Sac 45%, ruby_dust 15% |
+| spider blue | — | 20 | 7 | 105 | 12 | Venom Sac 40% |
+| spider gray | — | 20 | 7 | 92 | 12 | Venom Sac 35% |
+| spider yellow | — | 16 | 5 | 110 | 8 | Venom Sac 25% |
+| spider orange | — | 18 | 6 | 95 | 10 | Venom Sac 35% |
+| spider pink | — | 16 | 5 | 108 | 8 | Venom Sac 25% |
+| spider white | — | 24 | 9 | 88 | 16 | Venom Sac 50%, bone_dust 20% |
+| spider dark | — | 28 | 11 | 100 | 20 | Venom Sac 60%, shadow_essence 25% |
+| spider queen | — | 55 | 15 | 85 | 45 | Venom Sac 90%, spider_silk 70%, Void Shard 30% |
+| gloom beak | — | 20 | 10 | 135 | 22 | Mana Potion 15% |
+| frost shade | Frost-born | 26 | 14 | 70 | 28 | Mana Potion 30% |
+| crag fiend | — | 70 | 20 | 40 | 45 | Mineral Ore 40% |
+| resonance wisp | — | 12 | 1 | 30 | 5 | — |
+
+### Passive animals (35) — flee, hunted for meat and hides
+| Creature | Family | HP | Damage | Speed | XP | Loot |
+|---|---|---|---|---|---|---|
+| boar | — | 20 | 0 | 105 | 0 | Boar Meat 80%, Boar Tusk 30% |
+| deer | — | 14 | 0 | 120 | 0 | Venison 85%, Deer Hide 50% |
+| deer doe | — | 12 | 0 | 125 | 0 | Venison 80%, Deer Hide 45% |
+| forest fox | — | 10 | 0 | 135 | 0 | Forest Herb 30% |
+| rabbit | — | 6 | 0 | 130 | 0 | Rabbit Meat 90%, Rabbit's Foot 25% |
+| crow | — | 8 | 0 | 140 | 0 | Feather 60% |
+| stray cat | — | 10 | 0 | 120 | 0 | — |
+| dark deer | — | 16 | 0 | 118 | 0 | Venison 85%, Deer Hide 55% |
+| dark deer doe | — | 12 | 0 | 122 | 0 | Venison 80%, Deer Hide 45% |
+| field mouse | — | 4 | 0 | 110 | 0 | — |
+| white mouse | — | 4 | 0 | 110 | 0 | — |
+| shiba | — | 12 | 0 | 100 | 0 | — |
+| goat | — | 14 | 0 | 90 | 0 | Venison 60% |
+| turkey | — | 8 | 0 | 85 | 0 | Feather 60%, Turkey Meat 80% |
+| cow | — | 22 | 0 | 50 | 0 | Venison 90%, Deer Hide 50% |
+| llama | — | 18 | 0 | 70 | 0 | Deer Hide 70% |
+| pig | — | 16 | 0 | 80 | 0 | Boar Meat 90% |
+| sheep | — | 14 | 0 | 55 | 0 | Deer Hide 80%, Forest Herb 30% |
+| chicken | — | 6 | 0 | 90 | 0 | Feather 60%, Rabbit Meat 90%, Forest Herb 20% |
+| arctic fox | — | 10 | 0 | 135 | 0 | Wolf Pelt 40%, Rabbit Meat 50% |
+| bird bluejay | — | 4 | 0 | 150 | 0 | — |
+| bird sparrow | — | 4 | 0 | 140 | 0 | — |
+| bird robin | — | 4 | 0 | 140 | 0 | — |
+| bird cardinal | — | 4 | 0 | 145 | 0 | — |
+| bird brown | — | 4 | 0 | 140 | 0 | — |
+| bird black | — | 4 | 0 | 138 | 0 | — |
+| bird blue | — | 4 | 0 | 142 | 0 | — |
+| bird white | — | 4 | 0 | 140 | 0 | — |
+| heron | — | 10 | 0 | 115 | 0 | Feather 60% |
+| giant frog | Aquatic | 18 | 0 | 80 | 0 | Venom Sac 20% |
+| fire lizard | Fire-born | 12 | 0 | 120 | 0 | Ember Stone 25% |
+| vulture | — | 14 | 0 | 100 | 0 | Feather 60% |
+| elk | — | 22 | 0 | 125 | 0 | Venison 80%, Deer Hide 50% |
+| cave fish | — | 6 | 0 | 90 | 0 | — |
+| glow moth | — | 5 | 0 | 110 | 0 | — |
+
+### Families: resistances, weaknesses, immunities
+Spell damage of an element is multiplied by the creature's affinity; immune statuses cannot be applied. "weak!" / "resist" shows on the hit.
+
+| Family | Multipliers | Immune to | Creatures |
+|---|---|---|---|
+| Fire-born | fire ×0.25, water ×1.5, ice ×1.5 | burning | ember imp, lava elemental, ash crawler, forge daemon, cinder hawk, fire lizard, ember lizard |
+| Frost-born | ice ×0.25, fire ×1.5 | cold, frozen | frost bear, ice revenant, blizzard sprite, wendigo, glacier crab, frost shade, polar bear |
+| Void-touched | shadow ×0.5, arcane ×1.4 | — | void stalker, void spawn, void crawler, void fox, shadow sprite, soul eater, rift walker, mirror shade, void general |
+| Undead | fire ×1.3, arcane ×1.3 | poison | skeleton archer, grave wraith, cursed knight |
+| Plant / fungus | fire ×1.5, earth ×0.5, nature ×0.5 | — | treant, blight ent, root wraith, vine horror, mushroom shaman, mushroom walker, amanita walker |
+| Construct | lightning ×1.3 | poison | stone golem, corrupted sentinel, crystal golem, runic turret, arcane sentinel |
+| Aquatic | water ×0.5, lightning ×1.4 | — | shark, bog lurker, giant frog, rot frog, rot toad |
+
+### Elites
+Each hostile map spawn has a 8% chance to be elite (at most one per six spawns): ×2.5 HP, ×1.4 damage, ×3 XP and gold, an extra loot roll and a rare regional item. Affixes (1–2): Warded, Swift, Vampiric, Arcane, Thorned — Warded renews a Mana Ward every 20 s, Swift is permanently Hastened, Vampiric heals 30% of the damage it deals, Arcane gains Arcane Bolt, Thorned reflects 15% of melee damage.
+
+### Enemy magic
+Caster creatures shape spells in the open: a coloured ring fills around them while they cast. **Silence, Hush, stuns, Counterspell and Unravel break the cast.** The buffs they raise (Mana Ward, Empowered, Hastened, Mending) are dispellable: **Unravel** and **Purifying Sweep** strip them, and Unravel hurts the target for every buff torn away. Mirror shades can *Unweave* your own protections (Blessed, Regen, Swift, Aetheric Ward).
+
+| Spell | Effect | Cast | Cooldown | Range | Cast by |
+|---|---|---|---|---|---|
+| Mana Ward | Mana Ward on itself or an ally | 1.2s | 9s | 140 | arcane sentinel, forge daemon, cursed knight, deep horror |
+| Dark Empowerment | Empowered on itself or an ally | 1s | 10s | 140 | mushroom shaman, soul eater, forge daemon |
+| Quicken | Hastened on itself or an ally | 0.8s | 11s | 120 | blizzard sprite, rift walker |
+| Mend | heals the most hurt ally 20% + Mending | 1.4s | 8s | 140 | dark druid, mushroom shaman |
+| Arcane Bolt | 10 damage | 0.9s | 3.5s | 170 | arcane sentinel, runic turret |
+| Frost Bolt | 9 damage + Cold (60%) | 1s | 4s | 160 | ice revenant, blizzard sprite, frost shade |
+| Void Bolt | 12 damage + Cursed (30%) | 1.1s | 4.5s | 170 | corrupted sentinel, rift walker, deep horror |
+| Thorn Lash | 8 damage + Entangled (35%) | 0.9s | 4s | 150 | dark druid, root wraith |
+| Hex of Weakness | Cursed on you | 1.3s | 12s | 150 | grave wraith |
+| Hex of Silence | Silenced on you | 1.1s | 14s | 150 | blight ent, mirror shade |
+| Unweave | strips your magical buffs | 1.2s | 15s | 150 | mirror shade |
+
+## Boss
+**The Void General** — 350 HP, 20 damage, 280 XP. Three phases (enrages at 75/50/25% HP) with a burst attack and phase-3 special attacks. From 50% HP he channels a **Void Aegis** (1.6s, every 16s): silence or stun him to break the channel, or Unravel the shield once it is up — while it holds he takes 35% damage. Guaranteed drops: Void Channel and Arcane Sceptre (tier 4 staves).
+
+## Quests
+| Quest | Type | Given by | Requires | Steps | Reward |
+|---|---|---|---|---|---|
+| The Forest Hunt | main | — | — | Speak with the Hermit → Defeat Forest Wolves → Defeat Shadow Sprites → Attune to an Aetheric Monolith → Defeat the Void General | 300 XP, 150 Glint |
+| Silvara's Supply Run | side | — | — | Gather Wood (0/3) → Gather Mineral Ore (0/2) → Return to Silvara | 100 XP, 80 Glint, Health Potion, Mana Potion |
+| Echoes of the Ancient Ones | side | — | — | Read Ancient Signs (0/3) | 80 XP, 60 Glint, Ancient Scroll |
+| Initiation of the Order of the Grey Hour | hidden | — | — | Comprehend Shadow Veil → Defeat enemies in Shadow Veil (0/8) | 250 XP, The Dusk-Fang |
+| The Concord Scholar | hidden | — | — | Reach 30 Arcane Resonance (0/30) → Attune to 3 Rift-Gates (0/3) | 300 XP, Staff of the First Concord |
+| The Hunter's Trial | hidden | — | — | Defeat enemies with a Resonance Bow (0/12) → Defeat the Void General with a bow | 250 XP, The Eternal Draw |
+| Void-Touched Beasts | side | — | — | Hunt Corrupted Boars (0/3) → Hunt Corrupted Deer (0/2) → Hunt Corrupted Rabbits (0/3) | 90 XP, 70 Glint, Health Potion, Void Shard |
+| The Hermit's Offering | side | — | — | Collect Void Shards (0/5) → Return to the Hermit | 100 XP, 60 Glint, Mana Potion, Mana Potion, Ancient Scroll, Recipe: Void Tonic |
+| The Hunter's Larder | side | — | — | Cook Roasted Boar → Cook Roasted Venison → Cook Roasted Rabbit | 70 XP, 50 Glint, Roasted Boar, Hearty Stew, Recipe: Grand Feast |
+| The Hermit's Remedy | side | the Hermit | — | Bring Moonpetal → Bring Glowcap → Return to the Hermit | 120 XP, 40 Gold, Recipe: Moonveil Tonic, 1 Insight |
+| Shadows at the Threshold | side | the Hermit | The Hermit's Remedy | Defeat Shadow Sprites (0/6) → Return to the Hermit | 200 XP, 60 Glint, Spell: Cleanse |
+| The Void Fragment | hidden | — | — | Defeat Shadow Sprites (0/10) → Defeat the Void General | 250 XP, The Warlord's Cleaver |
+| Whisperer of Doubt | main | — | — | Force Malphas to retreat | 400 XP, 200 Glint |
+| The Frozen Camp | side | — | — | Read the scout's journal | 60 XP, 40 Glint, Legion Lore Fragment |
+| The Widow's Watch | side | — | — | Gather Wood (0/1) → Gather Mineral Ore (0/1) | 80 XP, Soul-Gem of Still Waters |
+| Echoes in the Rime | side | — | — | Clear the Frost-Shades (0/2) | 100 XP, Aether-Shard, Aether-Shard |
+| Odyssey's Dawn | main | — | — | Survive the void-stalkers on the road (0/3) → Attune to the Rift-Gate node on the East Road → Meet the traveler at the shepherd's lean-to | 250 XP, 60 Glint, Iron Spell-Blade |
+| Trader's Rumor | side | the Trader | — | Read the waystone on the East Road → Return to the Trader | 100 XP, 30 Gold |
+| The Scholar's Saddlebags | side | the Innkeeper | — | Recover your journal pages → Return to the Innkeeper | 120 XP, 45 Gold, Health Potion, Mana Potion |
+| Read the Erasure | main | — | — | Examine the strata cores on your desk (the study, top of the tower) → Read the letter from Silverrun | 30 XP |
+| Dreamweaver's Call (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| Sylvan Sanctuary (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| Treachery's Bite (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| The Solitary Path (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| Inferno's Trial (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| Eldoria's Heartbeat (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| Heart of War (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| The Weight of Eternity (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| Dawn's Embrace (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| Work for Willing Hands | side | emerald fields village elder | — | Defeat creatures round the Fields (0/4) → Report to the village elder | 90 XP, 20 Gold, Health Potion |
+| The Yard's First Lesson | side | emerald fields yard trainer | — | Defeat three foes (0/3) → Touch the Monolith by the Fields' gate → Return to emerald fields yard trainer | 110 XP, 15 Gold, Mana Potion |
+| The Road to the Crossroads | side | emerald fields village elder | Work for Willing Hands | Meet the innkeeper of the Worn Stone at the Crossroads → Return to emerald fields village elder | 160 XP, 30 Gold |
+| Those Who Stayed | side | shadow vale elder of the vale | — | Defeat shadow beasts round the Vale (0/5) → Return to the elder of the Vale | 100 XP, 18 Gold, Health Potion |
+| The Watch Before the Dark Hours | side | shadow vale vale warden | — | Defeat Void-Stalkers (0/3) → Return to shadow vale vale warden | 140 XP, 25 Gold |
+| The Broken Silhouette | side | shadow vale elder of the vale | Those Who Stayed | Find the inscription in old Ravenspire's hall → Tell the elder what you found | 260 XP, 40 Gold |
+| What Crawls from the Rift | side | new ravenspire herald of the legion | — | Defeat Void-Stalkers near the Rift (0/6) → Defeat Gloom-Beaks (0/2) → Claim the bounty from the Herald | 950 XP, 140 Gold |
+| Trouble on the Roads | side | the crossroads guard | — | Defeat creatures on the roads (0/6) → Report to the guard | 320 XP, 45 Gold, Health Potion |
+| Lights Beneath the Water | side | the crossroads well keeper | — | Read the carvings at the Sunken Temple → Tell the well-keeper what you saw | 380 XP, 30 Gold, Ancient Scroll |
+| Rats and Worse on the Quays | side | port silver harbour master | — | Defeat creatures round the port (0/6) → Report to the harbour master | 420 XP, 60 Gold |
+| The Deep Knocks | side | iron hollow foreman | — | Defeat creatures round Iron Hollow (0/8) → Report to the foreman | 700 XP, 80 Gold |
+| Lamps Against the Dark | side | duskmeet old woman | — | Defeat Giant Spiders (0/4) → Return to the old woman | 820 XP, 70 Gold, Health Potion |
+| Shadow-Touched | side | graywatch sergeant of the watch | — | Defeat Dark Druids (0/2) → Defeat Giant Spiders (0/4) → Report to the sergeant | 980 XP, 110 Gold |
+| The Door That Breathes | side | duskmeet lamplighter | — | Find the red door of the Sanguine Vaults → Tell the lamplighter what you found | 900 XP, 50 Gold |
+| What the Black Water Gives | side | shadow harbour harbour mistress | — | Defeat creatures round the harbour (0/6) → Report to the harbour-mistress | 600 XP, 60 Gold |
+| Something Knocks Back | side | deep miners mine foreman | — | Defeat creatures in the hills (0/8) → Report to the foreman | 900 XP, 90 Gold |
+| The Edge of the Wound | side | new ravenspire the map maker | — | Read the Legion's post on the Rift's lip → Defeat Root-Wraiths by the Rift (0/4) → Return to the map-maker | 2200 XP, 160 Gold |
+| Cold Shapes on the Heath | side | new ravenspire legion quartermaster | — | Defeat Frost-Shades round the Rift (0/5) → Report to the quartermaster | 2400 XP, 180 Gold, Health Potion |
+| What the Divide Keeps | side | graywatch quartermaster | — | Defeat Blight-Ents beyond the Divide (0/3) → Defeat Crag-Fiends beyond the Divide (0/3) → Report to the quartermaster | 2600 XP, 200 Gold |
+| Cinders on the Wind | side | new ravenspire legion gate warden | — | Defeat Ash Crawlers in the ash lands (0/4) → Defeat Cinder Hawks (0/3) → Report to the gate-warden | 3000 XP, 220 Gold |
+| The Mountain's Hunger | side | new ravenspire exchange factor | Cinders on the Wind | Defeat Magma-Eaters on the fire mountain (0/3) → Defeat Cinder-Souls (0/4) → Return to the exchange factor | 4200 XP, 320 Gold |
+| The Vigil That Never Ended | side | new ravenspire the map maker | The Edge of the Wound | Lay Grave-Wraiths to rest at the Ruins (0/4) → Defeat Cursed Knights (0/2) → Return to the map-maker | 4800 XP, 360 Gold |
+| The Light at the Bottom | side | shadow vale vale warden | The Watch Before the Dark Hours | Look into the Black Well → Defeat Blind Stalkers by the Black Lake (0/3) → Return to the warden | 900 XP, 80 Gold, Health Potion |
+| The Bone Gate | side | shadow vale elder of the vale | The Broken Silhouette, The Light at the Bottom | Break Corrupted Sentinels on the crater road (0/2) → Find the Obsidian Citadel's gate → Tell the elder what you saw | 5200 XP, 380 Gold |
+| The Wrong Hill | side | new ravenspire the map maker | The Edge of the Wound | Find a way into the walls on the rise (Aether Sight; the Aetheric Tear) → Tell the map-maker which chart was right | 6000 XP, 420 Gold |
+
+## Campaign
+**Eldoria's Prophecy** — protagonist: eldrin.
+
+| # | Chapter | Maps | Quests to complete | Unlocks |
+|---|---|---|---|---|
+| 1 | Echoes of Stone | eldrin_tower, echoes_of_stone | Read the Erasure | — |
+| 2 | Dreamweaver's Call | aetheric_vision | Dreamweaver's Call (placeholder) | — |
+| 3 | Odyssey's Dawn | thaloria, east_road | Odyssey's Dawn | — |
+| 4 | Summit of Despair | summit_of_despair | Whisperer of Doubt | — |
+| 5 | Sylvan Sanctuary | sylvan_sanctuary | Sylvan Sanctuary (placeholder) | ability aetheric_sight |
+| 6 | Treachery's Bite | fire_gate | main_treacherys_bite | — |
+| 7 | The Solitary Path | the_descent | main_solitary_path | — |
+| 8 | Inferno's Trial | inferno_labyrinth | main_infernos_trial | — |
+| 9 | Eldoria's Heartbeat | ruins_of_eldoria | main_eldorias_heartbeat | — |
+| 10 | Heart of War | heartstone_chamber, ancient_door | main_heart_of_war | — |
+| 11 | The Weight of Eternity | ruins_of_eldoria, thaloria | main_weight_of_eternity | — |
+| 12 | Dawn's Embrace | eldrin_tower | main_dawns_embrace | — |
+
+## Maps
+| Map id | Name | Size (tiles) | Kind | Biome (weather) |
+|---|---|---|---|---|
+| prologue_forest | Prologue Forest | 50×40 | game map | forest |
+| hermit_hut | Hermit's Hut | 20×14 | game map | indoor |
+| eldrin_tower | Eldrin's Tower | 50×45 | game map | temperate |
+| northern_forest | Northern Dense Forest | 40×45 | game map | forest |
+| big_forest | Big Forest (Test) | 64×56 | game map | forest |
+| samplemap | Sample Map (Tiled Import) |  | test / showcase | temperate |
+| summit_of_despair | Summit of Despair | 18×20 | game map | snow |
+| echoes_of_stone | Echoes of Stones | 12×12 | game map | indoor |
+| aetheric_vision | Aetheric Vision | 14×10 | chapter placeholder | indoor |
+| thaloria | Thaloria | 128×112 | game map | temperate |
+| east_road | The Thalorian Wilds | 192×160 | game map | temperate |
+| sylvan_sanctuary | Sylvan Sanctuary | 14×10 | chapter placeholder | forest |
+| fire_gate | Fire Gate | 14×10 | chapter placeholder | arid |
+| the_descent | The Descent | 14×10 | chapter placeholder | indoor |
+| inferno_labyrinth | Inferno Labyrinth | 14×10 | chapter placeholder | indoor |
+| ruins_of_eldoria | Ruins of Eldoria | 14×10 | chapter placeholder | temperate |
+| heartstone_chamber | Heartstone Chamber | 14×10 | chapter placeholder | indoor |
+| ancient_door | The Ancient Door | 14×10 | chapter placeholder | indoor |
+| lpc_showcase | LPC Collection Showcase (Test) | 82×100 | test / showcase | temperate |
+| pipoya_showcase | Pipoya Collection Showcase (Test) | 50×205 | test / showcase | temperate |
+| forestest | The Forestest (Test) | 64×48 | test / showcase | forest |
+| wintertest | Winter Test | 48×36 | test / showcase | snow |
+| dungeontest | Dungeon Test | 50×40 | test / showcase | indoor |
+| worldtest | The Grand Tour (Test) | 128×100 | test / showcase | temperate |
+| streamtest | Stream Test (256×256) | 256×256 | test / showcase | forest |
+| east_road_cave | The Thalorian Wilds — the Hollow | 15×11 | game map | indoor |
+| thaloria_alchemist | Thaloria — the alchemist's | 10×10 | game map | indoor |
+| thaloria_barracks | Thaloria — the barracks | 16×10 | game map | indoor |
+| thaloria_bell_tower | Thaloria — the Bell Tower | 11×9 | game map | indoor |
+| thaloria_guild_hall | Thaloria — the Archivist's Guild | 18×12 | game map | indoor |
+| thaloria_house_low_a | Thaloria — a house | 9×8 | game map | indoor |
+| thaloria_house_low_c | Thaloria — a house | 11×10 | game map | indoor |
+| thaloria_house_low_e | Thaloria — a house | 9×8 | game map | indoor |
+| thaloria_house_market_a | Thaloria — a house | 11×9 | game map | indoor |
+| thaloria_house_noble_a | Thaloria — a fine house | 8×8 | game map | indoor |
+| thaloria_house_noble_c | Thaloria — a fine house | 11×8 | game map | indoor |
+| thaloria_house_teal | Thaloria — a house | 11×9 | game map | indoor |
+| thaloria_inn | Thaloria — the Inn | 18×13 | game map | indoor |
+| thaloria_inn_cellar | Thaloria — the Inn's cellar | 13×8 | game map | indoor |
+| thaloria_manor | Thaloria — the manor | 14×11 | game map | indoor |
+| thaloria_market_hall | Thaloria — the market hall | 12×8 | game map | indoor |
+| thaloria_smithy | Thaloria — the smithy | 11×9 | game map | indoor |
+| thaloria_temple | Thaloria — the temple | 15×14 | game map | indoor |
+
+## Characters & stories
+| Character | Role | About |
+|---|---|---|
+| Eldrin |  | Activated by Vorgos in the Epoch of Silence to secure the Heart Stone of Creation — a cure for a wound the world has not yet suffered. |
+| Eldrin |  | The same Eldrin, rendered from the lpc-forge composition — a variant skin, not a different character. |
+| Kael |  | Descendant of Acheron's most loyal servant — his bloodline was chosen to carry the Aurorian Spark so the Thirst could never fully consume Acheron's divine light. |
+| Anya |  | Torn from Auroria by Vorgos at the moment of the Great Darkness and cast into the Underworld — her sacrifice sealed Nyktoros and made her the Silent Guardian of the prison. |
+| Seraphina |  | A rebel who stood against Malakar during the Shadow Civil War. |
+
+| Story | Summary |
+|---|---|
+| Eldoria's Prophecy | Vorgos activates Eldrin Nightshade to secure the Heart Stone of Creation — a contingency for a wound the world has not yet suffered. |
+
+## Dialogues
+`hermit_intro`, `hermit_after`, `hermit_quest_done`, `hermit_hut_greeting`, `hermit_hut_after`, `hermit_remedy_accepted`, `innkeeper_greeting`, `innkeeper_after`, `trader_greeting`, `trader_after`, `thaloria_merchant_greeting`, `archivist_guild_greeting`, `cartographer_greeting`, `oren_meeting`, `oren_joined`, `oren_declined`, `oren_after`, `merchant_greeting`, `merchant_after`, `silvara_lore`, `eldrin_premonition`, `eldrin_second_vision`, `boss_encounter`, `boss_defeated`, `ancient_scroll_read`, `eldritch_tome_read`, `stub_ch02_dreamweavers_call_greeting`, `stub_ch05_sylvan_sanctuary_greeting`, `stub_ch06_treacherys_bite_greeting`, `stub_ch07_the_solitary_path_greeting`, `stub_ch08_infernos_trial_greeting`, `stub_ch09_eldorias_heartbeat_greeting`, `stub_ch10_heart_of_war_greeting`, `stub_ch11_the_weight_of_eternity_greeting`, `stub_ch12_dawns_embrace_greeting`
