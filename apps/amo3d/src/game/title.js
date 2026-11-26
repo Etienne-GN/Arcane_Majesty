@@ -175,11 +175,11 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         panel.textContent = '';
         const head = document.createElement('div'); head.textContent = 'THE WORKSHOP'; head.style.cssText = 'letter-spacing:.3em;margin-bottom:10px;color:#f3d88b';
         panel.append(head);
-        // The Character Lab and the Land Editor are makers' tools for the dev server only (npm run dev): never in a build
+        // The Sculptor and the Land Editor are makers' tools for the dev server only (npm run dev): never in a build
         // (phone, desktop) — vite.config.js leaves their pages out of the build too.
         const pages = [['THE FORGE', 'Make a hero — or open any NPC of the game and leave notes on it', 'forge.html'],
             ['THE BESTIARY', 'Every creature on its turntable, with notes', 'bestiary.html']];
-        if (import.meta.env.DEV) pages.push(['THE CHARACTER LAB', 'The new character models: compare two, reshape the base bodies', 'charlab.html'], ['THE LAND EDITOR', 'The regions: paint, place, test', 'editor.html']);
+        if (import.meta.env.DEV) pages.push(['THE SCULPTOR', 'The models: the six bodies, their layers, sculpted by hand', 'sculptor.html'], ['THE LAND EDITOR', 'The regions: paint, place, test', 'editor.html']);
         for (const [label, sub, href] of pages) {
             const b = document.createElement('button');
             b.innerHTML = `${label}<br><small style="letter-spacing:.05em;opacity:.75;font-size:.72em">${sub}</small>`;

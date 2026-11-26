@@ -3,8 +3,8 @@
 // you; its mirror on the other side follows). Arrows nudge the selected point (Shift: toward/away from you). Save writes
 // the moved points to src/content/models/v2/edits_<sex>.json (the same edits the Blender round trip uses) and reloads.
 //   createPointEditor({ THREE, scene, camera, renderer, getBody(id) → { table, mesh }, bodies: [{ id, name }], viewRect() → the part of the canvas
-//   the edited body is drawn in (the Lab splits the screen when the compare is shown), onEnter, onExit })
-// The panel's Show row turns the reference sheet and the compare (the Lab's other model, drawn by the Lab) on or off.
+//   the edited body is drawn in (the Sculptor splits the screen when the compare is shown), onEnter, onExit })
+// The panel's Show row turns the reference sheet and the compare (the Sculptor's other model, drawn by the Lab) on or off.
 import REF_HAIR from './base_mesh_reference.jpg';
 import REF_BALD from './base_mesh_reference_bald.jpg';   // (the hairless sheet: same layout)   // the reference sheet (docs/3d/characters/base_mesh_reference.jpg), 896 × 1200
 import { layerFromPositions } from '../content/models/v2/skin.js';
@@ -14,7 +14,7 @@ const REF = {
     female: { front: [[70, 655, 360, 1195], [130, 650, 250, 800]], side: [[380, 655, 560, 1195], [385, 650, 530, 800]], back: [[560, 655, 860, 1195], [640, 650, 780, 800]] },
 };
 export function createPointEditor({ hairless = false, THREE, scene, camera, renderer, getBody, bodies = [], viewRect = null, onEnter, onExit }) {
-    // bodies: [{ id, name }] — what can be edited (the Lab's base bodies on stage); getBody(id) → { table, mesh }
+    // bodies: [{ id, name }] — what can be edited (the Sculptor's base bodies on stage); getBody(id) → { table, mesh }
     let loaded = null, bodyMesh = null, on = false, sex = 'male', who = bodies[0]?.id, layer = null, T = null, geo = null, mesh = null, wire = null, dots = null, sel = -1, mirrorOf = [], drag = null;
     let region = 'head', yaw = 0, pitch = 0.05, dist = 0.55, target = new THREE.Vector3(0, 1.66, 0);
     const undo = [], group = new THREE.Group(); scene.add(group); group.visible = false;
@@ -40,7 +40,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         const lab = document.createElement('span'); lab.textContent = 'Save into:'; lab.style.cssText = 'align-self:center;margin-right:2px'; rLayer.append(lab);
         for (const n of bodyMesh?.userData.layers ?? []) { const b = btn(rLayer, LAYER_LABEL[n] ?? n, () => { layer = n; showLayers(); }); b.style.background = n === layer ? '#8a6a2a' : '#4a3220'; layerBtns.push(b); }
     };
-    // what to see beside the body: the reference sheet, the compare (the Lab's other model, same angle), both or neither
+    // what to see beside the body: the reference sheet, the compare (the Sculptor's other model, same angle), both or neither
     let refOn = true, cmpOn = true;
     const rShow = row(), showLab = document.createElement('span'); showLab.textContent = 'Show:'; showLab.style.cssText = 'align-self:center;margin-right:2px'; rShow.append(showLab);
     const tog = (b, v) => { b.style.background = v ? '#8a6a2a' : '#4a3220'; b.style.opacity = v ? '1' : '.7'; };

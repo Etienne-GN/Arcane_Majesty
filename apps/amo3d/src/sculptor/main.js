@@ -1,4 +1,5 @@
-// The Character Lab (2026-11-22): two character models side by side, turning on a plain grey stage (like the reference
+// The Sculptor (the Character Lab until 2026-11-26; the Forge makes characters, the Sculptor shapes the models they are
+// built on: docs/3d/characters/LAYERS_PLAN.md) (2026-11-22): two character models side by side, turning on a plain grey stage (like the reference
 // sheet, docs/3d/characters/reference_v2.jpg), in A-pose / idle / walk / run / strike. Dev server only (not in any build).
 // Pick each side at the top: ?a=<who>:<new|classic>&b=… (who: base_male, base_female or a cast id). Old links still work:
 // ?who=base (the two base bodies), ?who=seraphina (classic beside v2). The base bodies can be reshaped in the point editor,

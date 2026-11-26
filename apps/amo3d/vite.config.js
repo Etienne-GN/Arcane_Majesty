@@ -33,7 +33,7 @@ function mapBakeApi() {
     };
 }
 
-// Dev-only: the Character Lab's Blender round trip saves points moved by hand here (src/content/models/v2/edits_<sex>.json).
+// Dev-only: the Sculptor's Blender round trip saves points moved by hand here (src/content/models/v2/edits_<sex>.json).
 // Writes are accepted when the request is addressed to this machine — localhost or one of its own network addresses (so
 // the Lab can be used from another computer on the LAN, Blender there) — never via a foreign hostname (DNS rebinding).
 const v2Dir = fileURLToPath(new URL('./src/content/models/v2', import.meta.url));
@@ -158,7 +158,7 @@ export default defineConfig({
     },
     plugins: [v2EditsApi(), mapBakeApi(), jsonDirApi('/api/cast', castDir, 'cast'), jsonDirApi('/api/region', regionDir, 'regions'), jsonDirApi('/api/mobnotes', mobNotesDir, 'mob_notes'), jsonDirApi('/api/npcnotes', npcNotesDir, 'npc_notes'), jsonDirApi('/api/biomes', biomesDir, 'biomes'), jsonDirApi('/api/biomemaps', biomeMapsDir, 'biome_maps')],
     build: {
-        // (the Character Lab, the Land Editor and its biomes page: dev server only — not in the phone or desktop builds)
+        // (the Sculptor, the Land Editor and its biomes page: dev server only — not in the phone or desktop builds)
         rollupOptions: { input: { main: 'index.html', forge: 'forge.html', bestiary: 'bestiary.html', manual: 'manual.html' } },
     },
     server: {

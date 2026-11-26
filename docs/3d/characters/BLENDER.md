@@ -7,7 +7,7 @@ every time it builds the body (in the Lab, in the game, under Eldrin's clothes).
 ## The round trip
 
 1. On any computer on the same network, open the Character Lab:
-   `http://192.168.0.206:5190/charlab.html?who=base` (the dev server must be running on the PC).
+   `http://192.168.0.206:5190/sculptor.html?who=base&blender=1` (the dev server must be running on the PC).
 2. Click **Export male body (Blender)** (or female). A `base_male.glb` downloads.
 3. In Blender: **File › Import › glTF 2.0** and pick the file.
 4. Select the body, **Tab** into Edit Mode, and **turn on X-mirror** (the butterfly icon at the top right of the

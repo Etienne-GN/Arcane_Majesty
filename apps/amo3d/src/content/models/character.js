@@ -626,7 +626,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
 
     return {
         root, update, setWeapons, setSheathed,
-        rig: { hips, spine, head, arms, legs },   // (the joints: the Character Lab poses them)
+        rig: { hips, spine, head, arms, legs },   // (the joints: the Sculptor poses them)
         get mainType() { return mainType; },
         bladeWorld: (hand, base, tipV) => { const m = hand === 'L' ? offMount : mainMount, tp = hand === 'L' ? offTip : tip; if (!tp) return false; m.getWorldPosition(base); tp.getWorldPosition(tipV); return true; },
         crystalWorld: (v, hand = 'R') => (hand === 'L' ? (offTip ?? arms.L.fore) : (tip ?? arms.R.fore)).getWorldPosition(v),
