@@ -390,7 +390,9 @@ _Sources: `apps/amo3d/src/content/` (regions, maps, chapters, actors), `packages
 
 
 ## Added by the autonomous run of 2026-11-25 (game-only, `origin: "game"` — canon check pending)
-Nothing below is in the DB. The DB on scarif did not answer that day; these were checked against `world_lore.md`, `data/lore/world_systems.md`, the album XMLs and the book only.
+Nothing below is in the DB. Checked 2026-11-26 against the DB on scarif (it timed out the day before), `world_lore.md`, `data/lore/world_systems.md`, the album XMLs and the book.
+
+**DB support for crossing the veil:** Event *Acheron's Crossing* — "traverses the Aether across the thinning veil between Eldoria and Nythoria… frequency-masters crossed the Aether directly"; Region *Whisper-Wood* — "where the planar veil thins"; Region *Sanguine Vaults* — "frequency dips close to Nythoria's"; *Malakar KILLED Acheron* — "cross-dimensional strike" (event *The Threshold Assassination*). The crossing Tear at thin places fits these; it still needs its verdict.
 
 - [ ] **Quests, levels 31–50:** The Edge of the Wound, Cold Shapes on the Heath, What the Divide Keeps, Cinders on the Wind, The Mountain's Hunger, The Vigil That Never Ended, The Light at the Bottom, The Bone Gate, The Wrong Hill.
 - [ ] **Signs:** a Legion post on the Great Rift's lip ("THE RIFT. NO CLOSER."); the Obsidian Citadel's bone gate ("ALL SOULS COME HOME.").

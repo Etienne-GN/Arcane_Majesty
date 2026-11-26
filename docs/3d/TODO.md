@@ -94,3 +94,6 @@ The lore DB already has 7: **Werewolf** (Guardians of the Wild, the Emerald Fiel
 - [ ] Replace every NPC (townsfolk, villagers, cast, story people) with the v2 skinned models.
 - [ ] Refactor the Forge (forge.html / forge/main.js) onto the v2 models.
 - [ ] Make every Forge item (garments, armour, hair, beards, handhelds, wardrobe.js equipment) compatible with the v2 bodies.
+
+## 11. Controller mapping screen (asked 2026-11-26)
+- [ ] Options → Controls → a "map buttons" screen for the gamepad: every action (hop, the hands / cast and strike, cycle, Blink-Step, Aether Sight, satchel, sheet, hotbar, camera cycle, sprint…) listed with its button; press a row then a button to rebind; conflicts shown; reset to defaults; saved per device (engine/settings.js). engine/input.js reads the map instead of fixed indices (today: A hop, X/RT right hand, LT left hand, LB/RB cycle, B Blink-Step, Y tap Aether Sight / hold satchel, Start sheet, Back Blink-Step, D-pad hotbar, L3 sprint, R3 camera / hold change).
