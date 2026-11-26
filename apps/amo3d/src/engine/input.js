@@ -14,6 +14,14 @@ export function createInput({ canvas, cam }) {
     let padPrev = [], r3Down = null, yDown = null;   // (Y: tap = Aether Sight, hold = the satchel)   // R3: a click cycles the camera; held, its old action (a werewolf's change / skill 3)
     let lastDevice = 'keyboard';
 
+    // Typing in a text field (a name, a server address, chat) stays in the field: the keys never reach the game's
+    // shortcuts on window (2026-11-26: typing a name in Options opened the satchel). Escape leaves the field.
+    const editable = t => t && (t.isContentEditable || (t.tagName === 'INPUT' && !/^(range|checkbox|radio|button|submit|color)$/i.test(t.type)) || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT');
+    for (const kind of ['keydown', 'keyup', 'keypress']) document.addEventListener(kind, e => {
+        if (!editable(e.target)) return;
+        if (kind === 'keydown' && e.code === 'Escape') e.target.blur();
+        e.stopPropagation();   // (the field's own handlers have run; window's — the game's — do not)
+    });
     addEventListener('keydown', e => {
         if (/^(INPUT|TEXTAREA)$/.test(e.target?.tagName) && e.target.type !== 'range') return;   // typing (chat, names) is not playing
         if (e.code === 'Space') e.preventDefault();
