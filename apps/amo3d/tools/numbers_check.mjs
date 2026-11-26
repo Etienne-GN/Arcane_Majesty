@@ -7,7 +7,7 @@ const { PlayerStats, xpForLevel } = await import(R + 'systems/PlayerStats.js');
 const { ENEMY_TYPES } = await import(R + 'data/worldMap.js');
 const { QUESTS } = await import(R + 'data/quests.js');
 // (bands.js's scaleToLevel, inlined: bands.js imports a JSON node cannot load bare)
-const hpAt = L => 30 + 9 * L, dmgAt = L => 4 + 1.2 * L;
+const hpAt = L => 30 + 9 * L, dmgAt = L => 4 + 0.7 * L;
 const scaleToLevel = (B, L) => { const nat = Math.max(1, Math.min(50, (B.health - 30) / 9)); return { ...B, health: Math.round(B.health * hpAt(L) / hpAt(nat)), damage: Math.round(B.damage * dmgAt(L) / dmgAt(nat)) }; };
 
 const hero = (L, all = null) => {   // points spent evenly over the four attributes, or all on one

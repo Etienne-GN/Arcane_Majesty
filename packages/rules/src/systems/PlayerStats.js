@@ -64,6 +64,9 @@ export const SKILL_CATEGORY = {
 // XP needed to go from `level` to the next one. Polynomial, not exponential:
 // the old ×1.5-per-level curve needed ~660k XP for level 21 against enemies
 // worth ~28 XP. This puts level 10 at ~12k and level 20 at ~63k total.
+// Health every level brings, besides Stamina's 8 a point
+export const HEALTH_PER_LEVEL = 6;
+
 export function xpForLevel(level) {
     return Math.round(100 * Math.pow(level, 1.5));
 }
@@ -385,6 +388,7 @@ export class PlayerStats {
         this.xpToNextLevel = xpForLevel(this.level);
         this.skillPoints++;
         this.attributePoints++;
+        this.maxHealth += HEALTH_PER_LEVEL;   // (2026-11-26: health grows with the level too — only Stamina added any, and the land's creatures outgrew the hero)
         // Full restore on level-up (stat gains applied when player distributes points)
         this.health = this.maxHealth;
         this.mana   = this.maxMana;

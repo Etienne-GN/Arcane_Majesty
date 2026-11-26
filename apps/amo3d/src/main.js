@@ -196,6 +196,7 @@ stats.mana = stats.maxMana;
 stats.vigor = stats.maxVigor;
 stats.learnSpell('fireball');
 const savedAt = loadGame(stats);
+if (!stats.flags?.hpPerLevel) { (stats.flags ??= {}).hpPerLevel = true; const add = 6 * Math.max(0, (stats.level ?? 1) - 1); stats.maxHealth += add; stats.health = Math.min(stats.maxHealth, (stats.health ?? 0) + add); }   // older saves: the health per level they earned (PlayerStats.HEALTH_PER_LEVEL)
 // Who you play: the campaign plays Eldrin (lore cast); "your own hero" comes from the Forge's creator
 // (forge.html?mode=create) and is kept in the save (stats.flags.hero: name, class, look).
 if (params.get('hero') === 'new') {

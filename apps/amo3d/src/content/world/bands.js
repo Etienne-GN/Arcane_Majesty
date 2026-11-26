@@ -35,7 +35,7 @@ export const levelAtNythoria = blend(NYTHORIA);
 
 // A creature's stats at a level: its type keeps its character (a wolf stays a wolf), scaled from its natural level
 // (estimated from its health) to the level of the land it lives in.
-const hpAt = L => 30 + 9 * L, dmgAt = L => 4 + 1.2 * L;
+const hpAt = L => 30 + 9 * L, dmgAt = L => 4 + 0.7 * L;   // (damage 1.2 → 0.7 a level, 2026-11-26: a level-30 creature felled an even-level hero in two blows)
 export function scaleToLevel(BASE, L) {
     const nat = Math.max(1, Math.min(50, (BASE.health - 30) / 9)), k = hpAt(L) / hpAt(nat), kd = dmgAt(L) / dmgAt(nat);
     return { ...BASE, health: Math.max(5, Math.round(BASE.health * k)), damage: Math.max(1, Math.round(BASE.damage * kd)), xpReward: Math.max(1, Math.round((BASE.xpReward ?? 10) * Math.pow(L / nat, 1.1))), level: L };
