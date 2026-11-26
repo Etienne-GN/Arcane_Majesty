@@ -18,10 +18,13 @@ const sym = (th, amp, wd) => [{ th, amp, wd }, { th: -th, amp, wd }];
 // outfit (optional): { torso(y, θ, base), arm(part, y), leg(part, y, base), armLoose(part, y), legLoose(part, y), armTube(part, y), legTube(part, y), foot, extra(helpers) } — colours painted onto the body's
 // own surface, and extra pieces (coat tails, a collar…) added before the mesh is built. Used by the dressed cast (eldrin.js).
 // The layers a body takes: its sex, its age (from the look's body preset), and the character's override
-export function layerStack(ctx, sex) {
+export function layerNames(ctx, sex) {   // the stack by name: ['common', 'male' | 'female', the age layer if any]
     const preset = ctx.look?.body?.preset ?? '', F = sex === 'female';
     const age = /child/.test(preset) ? (F ? 'girl' : 'boy') : /elder/.test(preset) ? (F ? 'old_woman' : 'old_man') : null;
-    return [LAYERS.common, LAYERS[F ? 'female' : 'male'], age && LAYERS[age], ctx.look?.v2?.override?.points].filter(Boolean);
+    return ['common', F ? 'female' : 'male', age].filter(Boolean);
+}
+export function layerStack(ctx, sex) {
+    return [...layerNames(ctx, sex).map(n => LAYERS[n]), ctx.look?.v2?.override?.points].filter(Boolean);
 }
 // buildBase: three quick passes — the plain body mapped (dry), the dressed body mapped (dry, when there is an outfit), then
 // the real build with the layers turned into positions for this body. A layer moves a point only where the body's surface
@@ -45,7 +48,9 @@ export function buildBase(ctx, opts = {}) {
             d.set(x, y, z).applyMatrix3(M[r.bone]); edits[k] = [r.p.x + d.x, r.p.y + d.y, r.p.z + d.z];
         }
     }
-    return genBase(ctx, opts, { edits });
+    const out = genBase(ctx, opts, { edits });
+    if (out?.mesh) out.mesh.userData.layers = layerNames(ctx, opts.sex);   // (the Sculptor's layer picker: which layers this body stacks)
+    return out;
 }
 
 function genBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair = null, outfit = null, headK = 1, footK = 1 } = {}, { edits = null, dry = false } = {}) {   // headK: the head's size; footK: the feet (boots are bigger)

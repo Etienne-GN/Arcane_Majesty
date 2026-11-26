@@ -2,7 +2,7 @@
 // The body is shown still (its rest shape) with every point as a dot; click a dot and drag it (it moves in the plane facing
 // you; its mirror on the other side follows). Arrows nudge the selected point (Shift: toward/away from you). Save writes
 // the moved points to src/content/models/v2/edits_<sex>.json (the same edits the Blender round trip uses) and reloads.
-//   createPointEditor({ THREE, scene, camera, renderer, getBody(sex) → { table }, sexes, viewRect() → the part of the canvas
+//   createPointEditor({ THREE, scene, camera, renderer, getBody(id) → { table, mesh }, bodies: [{ id, name }], viewRect() → the part of the canvas
 //   the edited body is drawn in (the Lab splits the screen when the compare is shown), onEnter, onExit })
 // The panel's Show row turns the reference sheet and the compare (the Lab's other model, drawn by the Lab) on or off.
 import REF_HAIR from './base_mesh_reference.jpg';
@@ -13,8 +13,9 @@ const REF = {
     male: { front: [[70, 75, 360, 615], [130, 70, 250, 215]], side: [[380, 75, 560, 615], [395, 70, 520, 215]], back: [[560, 75, 860, 615], [650, 70, 770, 215]] },
     female: { front: [[70, 655, 360, 1195], [130, 650, 250, 800]], side: [[380, 655, 560, 1195], [385, 650, 530, 800]], back: [[560, 655, 860, 1195], [640, 650, 780, 800]] },
 };
-export function createPointEditor({ hairless = false, THREE, scene, camera, renderer, getBody, sexes = ['male', 'female'], viewRect = null, onEnter, onExit }) {
-    let loaded = null, bodyMesh = null, on = false, sex = 'male', T = null, geo = null, mesh = null, wire = null, dots = null, sel = -1, mirrorOf = [], drag = null;
+export function createPointEditor({ hairless = false, THREE, scene, camera, renderer, getBody, bodies = [], viewRect = null, onEnter, onExit }) {
+    // bodies: [{ id, name }] — what can be edited (the Lab's base bodies on stage); getBody(id) → { table, mesh }
+    let loaded = null, bodyMesh = null, on = false, sex = 'male', who = bodies[0]?.id, layer = null, T = null, geo = null, mesh = null, wire = null, dots = null, sel = -1, mirrorOf = [], drag = null;
     let region = 'head', yaw = 0, pitch = 0.05, dist = 0.55, target = new THREE.Vector3(0, 1.66, 0);
     const undo = [], group = new THREE.Group(); scene.add(group); group.visible = false;
     const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), tmpM = new THREE.Matrix4(), col = new THREE.Color();
@@ -29,7 +30,16 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const help = document.createElement('div'); help.style.cssText = 'font-style:italic;font-size:12px;opacity:.85;line-height:1.35';
     help.innerHTML = 'Click a dot, drag it (its mirror follows).<br>Drag empty space: turn. Wheel: zoom.<br>Arrows: nudge · Shift+arrows: forward/back · Ctrl+Z: undo';
     panel.append(help);
-    const rSex = row(); if (sexes.includes('male')) btn(rSex, 'Male', () => load('male')); if (sexes.includes('female')) btn(rSex, 'Female', () => load('female'));
+    const rSex = row(); for (const b of bodies) btn(rSex, b.name, () => load(b.id));
+    // the layer the edits are saved into (docs/3d/characters/LAYERS_PLAN.md): Common (every body), the sex, or the age —
+    // only the difference from the other layers goes in, so an edit on the boy stays the boy's
+    const LAYER_LABEL = { common: 'Common', male: 'Male', female: 'Female', boy: 'Boy', girl: 'Girl', old_man: 'Old man', old_woman: 'Old woman' };
+    const rLayer = row(), layerBtns = [];
+    const showLayers = () => {
+        rLayer.replaceChildren(); layerBtns.length = 0;
+        const lab = document.createElement('span'); lab.textContent = 'Save into:'; lab.style.cssText = 'align-self:center;margin-right:2px'; rLayer.append(lab);
+        for (const n of bodyMesh?.userData.layers ?? []) { const b = btn(rLayer, LAYER_LABEL[n] ?? n, () => { layer = n; showLayers(); }); b.style.background = n === layer ? '#8a6a2a' : '#4a3220'; layerBtns.push(b); }
+    };
     // what to see beside the body: the reference sheet, the compare (the Lab's other model, same angle), both or neither
     let refOn = true, cmpOn = true;
     const rShow = row(), showLab = document.createElement('span'); showLab.textContent = 'Show:'; showLab.style.cssText = 'align-self:center;margin-right:2px'; rShow.append(showLab);
@@ -91,7 +101,8 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const inRegion = i => { const y = T.P[i * 3 + 1], top = T.P.reduce((m, v, j) => (j % 3 === 1 && v > m ? v : m), 0); return region === 'all' || (region === 'head' ? y > top - 0.42 : y > top - 0.9); };
 
     function load(s) {
-        sex = s; const B = getBody(s); T = B.table; bodyMesh = B.mesh; sel = -1; undo.length = 0;
+        who = s; const B = getBody(s); T = B.table; bodyMesh = B.mesh; sex = bodyMesh.userData.editSex ?? 'male'; sel = -1; undo.length = 0;
+        const Ls = bodyMesh.userData.layers ?? [sex]; if (!Ls.includes(layer)) layer = Ls.at(-1); showLayers();   // (by default the body's own: its age layer, else its sex)
         group.clear();
         geo = new THREE.BufferGeometry();
         bind = Float32Array.from(T.P); loaded = Float32Array.from(T.P);   // (loaded: as it came — what was moved here, at saving)   // the rest shape (what is saved); the view shows it posed (T.L, T.t: the A-pose)
@@ -146,27 +157,33 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     function resetAll() { for (let i = 0; i < T.keys.length; i++) { const [x, y, z] = keyPos(T.keys[i]); setPoint(i, x, y, z); } geo.attributes.position.needsUpdate = true; undo.length = 0; placeDots(); describe(); }
     function describe() {
         const n = T.keys.filter((_, i) => moved(i)).length;
-        if (sel < 0) { info.textContent = `${sex} body · ${n} points moved (not saved)`; return; }
+        if (sel < 0) { info.textContent = `${bodies.find(b => b.id === who)?.name ?? sex} · ${n} points moved (not saved) → ${LAYER_LABEL[layer] ?? layer} layer`; return; }
         info.textContent = `point ${sel}${mirrorOf[sel] === -2 ? ' (centre line)' : ''} · x ${bind[sel * 3].toFixed(3)} y ${bind[sel * 3 + 1].toFixed(3)} z ${bind[sel * 3 + 2].toFixed(3)} · ${n} moved`;
     }
     async function save() {
         const edits = {};
         for (let i = 0; i < T.keys.length; i++) if (moved(i)) edits[T.keys[i]] = [+bind[i * 3].toFixed(5), +bind[i * 3 + 1].toFixed(5), +bind[i * 3 + 2].toFixed(5)];
-        // (2026-11-26: saved into the shape layers — the body's sex layer, as offsets in each point's bone frame, so they land
-        // on every body of that sex whatever its proportions; the layer picker comes with the Sculptor)
-        // Merged into the layer as it is: entries the table cannot show (the chin's hidden corners) stay, and a point derived
-        // from others (the chin's rounded tip) is saved only if it was moved by hand here — otherwise it keeps following.
-        const points = await (await fetch(`/api/v2layer?layer=${sex}`)).json(), pm = bodyMesh.userData.points;
+        // (2026-11-26: saved into the chosen shape layer, as offsets in each point's bone frame, so they land on every body
+        // that stacks it whatever its proportions.) The body's total offset from its plain build, less what the other layers
+        // of its stack already give, is the chosen layer's entry. Merged into the layer as it is: entries the table cannot
+        // show (the chin's hidden corners) stay, and a point derived from others (the chin's rounded tip) is saved only if it
+        // was moved by hand here — otherwise it keeps following.
+        const stack = bodyMesh.userData.layers ?? [layer], others = {};
+        for (const n of stack) if (n !== layer) others[n] = await (await fetch(`/api/v2layer?layer=${n}`)).json();
+        const points = await (await fetch(`/api/v2layer?layer=${layer}`)).json(), pm = bodyMesh.userData.points;
+        let changed = 0;
         for (let i = 0; i < T.keys.length; i++) {
             const k = T.keys[i], r0 = pm?.get(k); if (!r0) continue;
             const here = Math.hypot(bind[i * 3] - loaded[i * 3], bind[i * 3 + 1] - loaded[i * 3 + 1], bind[i * 3 + 2] - loaded[i * 3 + 2]) > 1e-6;
-            if (r0.derived && !here) continue;
-            const one = layerFromPositions(bodyMesh, { [k]: [bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2]] });
-            if (one[r0.t]) points[r0.t] = one[r0.t]; else delete points[r0.t];
+            if (!here) continue;   // (only what was moved in this session: the rest of the layer stays as it is)
+            const tot = layerFromPositions(bodyMesh, { [k]: [bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2]] })[r0.t] ?? [0, 0, 0];
+            const v = tot.map((x, j) => Object.values(others).reduce((a, L) => a - (L[r0.t]?.[j] ?? 0), x));
+            if (Math.hypot(...v) < 1e-6) delete points[r0.t]; else points[r0.t] = v.map(x => +x.toFixed(6));
+            changed++;
         }
-        const r = await fetch('/api/v2layer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer: sex, points }) });
-        info.textContent = r.ok ? `Saved ${Object.keys(points).length} moved points into the ${sex} layer — reloading…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`;
-        if (r.ok) setTimeout(() => { const u = new URL(location.href); u.searchParams.set('edit', sex); location.href = u; }, 700);
+        const r = await fetch('/api/v2layer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer, points }) });
+        info.textContent = r.ok ? `Saved ${changed} moved points into the ${LAYER_LABEL[layer] ?? layer} layer — reloading…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`;
+        if (r.ok) setTimeout(() => { const u = new URL(location.href); u.searchParams.set('edit', who); u.searchParams.set('layer', layer); location.href = u; }, 700);
     }
 
     // ---- input ----
@@ -214,8 +231,8 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     function show() { on = true; group.visible = true; panel.style.display = 'flex'; refBox.style.display = refOn ? 'flex' : 'none'; drawRef(true); onEnter?.(); describe(); }
     function exit() { on = false; group.visible = false; panel.style.display = 'none'; refBox.style.display = 'none'; onExit?.(); }
     return {
-        enter: s => load(s ?? sex), exit, get on() { return on; }, get showCompare() { return cmpOn; }, group,
+        enter: (s, l) => { if (l) layer = l; load(s ?? who); }, exit, get on() { return on; }, get showCompare() { return cmpOn; }, group,
         frame() { if (!on) return; drawRef(); camera.position.set(target.x + Math.sin(yaw) * Math.cos(pitch) * dist, target.y + Math.sin(pitch) * dist, target.z + Math.cos(yaw) * Math.cos(pitch) * dist); camera.lookAt(target); },
-        state: () => ({ sex, sel, region, points: T?.keys.length ?? 0 }), _move: (i, dx, dy, dz) => { sel = i; snapshot(); movePoint(i, dx, dy, dz); }, _save: save,
+        state: () => ({ who, sex, layer, sel, region, points: T?.keys.length ?? 0 }), _move: (i, dx, dy, dz) => { sel = i; snapshot(); movePoint(i, dx, dy, dz); }, _save: save,
     };
 }

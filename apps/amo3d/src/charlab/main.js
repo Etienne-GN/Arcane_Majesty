@@ -164,9 +164,13 @@ async function importBody(i, file) {
         edits[k] = [+nx.toFixed(5), +ny.toFixed(5), +nz.toFixed(5)]; moved++;
     }
     if (!moved) return say(`No point moved (${sum.size} points read).`);
-    const points = { ...(await (await fetch(`/api/v2layer?layer=${sex}`)).json()), ...layerFromPositions(sm, edits) };   // (into the sex layer, as offsets: docs/3d/characters/LAYERS_PLAN.md)
-    const r = await fetch('/api/v2layer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer: sex, points }) });
-    say(r.ok ? `Saved ${moved} moved points into the ${sex} layer — reloading…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`);
+    // into the body's own layer (its age layer, else its sex), as offsets less what its other layers give: LAYERS_PLAN.md
+    const stack = sm.userData.layers ?? [sex], layer = stack.at(-1), tot = layerFromPositions(sm, edits);
+    const others = await Promise.all(stack.filter(n => n !== layer).map(async n => (await fetch(`/api/v2layer?layer=${n}`)).json()));
+    const points = await (await fetch(`/api/v2layer?layer=${layer}`)).json();
+    for (const [t, v] of Object.entries(tot)) points[t] = v.map((x, j) => +others.reduce((a, L) => a - (L[t]?.[j] ?? 0), x).toFixed(6));
+    const r = await fetch('/api/v2layer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer, points }) });
+    say(r.ok ? `Saved ${moved} moved points into the ${layer} layer — reloading…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`);
     if (r.ok) setTimeout(() => location.reload(), 900);
 }
 if (BASE && Q.get('blender') === '1') {   // the Blender round trip: not in use for now — kept, shown only with ?blender=1
@@ -183,19 +187,21 @@ if (BASE && Q.get('blender') === '1') {   // the Blender round trip: not in use 
 window.__lab_io = { exportBody, importBody, pointTable, bodyMesh };
 // the point editor (in the browser): the base bodies, reshaped by hand — beside it, from the same angle, the other side of the
 // stage (the compare: the split view, edited body left, compare right) and the reference sheet; each can be shown or hidden
-const slotOf = sex => slots.findIndex(sl => SUBJECTS[sl.id].sex === sex);
-const SEXES = ['male', 'female'].filter(x => slotOf(x) >= 0);
+// (by slot: the base bodies on stage — e.g. the male base on the left and the boy on the right; ?edit= takes the slot, 0 or 1,
+// or a sex for old links; ?layer= the layer to save into)
+const EDITABLE = slots.map((sl, i) => ({ id: i, name: SUBJECTS[sl.id].name, sex: SUBJECTS[sl.id].sex })).filter(b => b.sex);
 let cmpIdx = 1;
 const split = () => !!(editor?.on && editor.showCompare);
-const editor = BASE ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, sexes: SEXES,
-    getBody: s => { const i = slotOf(s); cmpIdx = 1 - i; return { table: posedTable(i), mesh: bodyMesh(i) }; },
+const editor = BASE && !LINEUP ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, bodies: EDITABLE,
+    getBody: i => { cmpIdx = 1 - i; return { table: posedTable(i), mesh: bodyMesh(i) }; },
     viewRect: () => ({ left: 0, top: 0, width: split() ? Math.floor(innerWidth / 2) : innerWidth, height: innerHeight }),
     onEnter: () => { models.forEach(m => { m.root.visible = false; }); floor.visible = false; for (const id of ['bar', 'labels', 'blender', 'top']) { const e = document.getElementById(id); if (e) e.style.display = 'none'; } },
     onExit: () => { models.forEach(m => { m.root.visible = true; }); floor.visible = true; for (const id of ['bar', 'labels', 'blender', 'top']) { const e = document.getElementById(id); if (e) e.style.display = ''; } resize(); } }) : null;
 if (editor) {
-    for (const x of SEXES) topBtn(`✎ Edit ${x} points`, () => editor.enter(x), true);
-    topBtn(HAIRLESS ? 'Hair: off' : 'Hair: on', () => go({ hair: HAIRLESS ? null : '0', edit: editor.on ? editor.state().sex : null }));
-    const want = Q.get('edit'); if (SEXES.includes(want)) setTimeout(() => editor.enter(want), 50);
+    for (const b of EDITABLE) topBtn(`✎ Edit ${b.name}`, () => editor.enter(b.id), true);
+    topBtn(HAIRLESS ? 'Hair: off' : 'Hair: on', () => go({ hair: HAIRLESS ? null : '0', edit: editor.on ? editor.state().who : null, layer: editor.on ? editor.state().layer : null }));
+    const want = Q.get('edit'), wb = EDITABLE.find(b => String(b.id) === want) ?? EDITABLE.find(b => b.sex === want);
+    if (wb) setTimeout(() => editor.enter(wb.id, Q.get('layer')), 50);
 }
 const cmpLabel = document.createElement('div');
 cmpLabel.style.cssText = 'position:fixed;top:14px;left:50%;right:0;text-align:center;letter-spacing:.18em;color:#e8dcb8;pointer-events:none;display:none;font:15px Georgia,serif';
