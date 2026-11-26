@@ -159,7 +159,7 @@ export function createOptions({ quality, onQuality, onApply, onFps, onOnline }) 
             ['WASD', 'move'], ['Shift', 'sprint'], ['Space', 'hop (through a swing to dodge it)'], ['F / right-click', 'fireball'], ['Click / R', 'strike'],
             ['1–4', 'hotbar'], ['Z X V', 'style skills'], ['G', 'talk, open, gather'], ['I / Tab', 'satchel'], ['C', 'character'], ['M', 'map'],
             ['J', 'journal'], ['K', 'codex'], ['T', 'Aetheric Tear'], ['L', 'Aether Sight'], ['O', 'options'], ['B', 'the Book: skills, spells, styles'], ['Esc', 'pause · save · quit'], ['Enter', 'chat (online)'], ['H', 'Blink-Step (once learned)'], ['F1', 'controls card'], ['Drag mouse / wheel', 'turn / zoom the camera'], ['Q / E', 'turn the camera'],
-            ['Gamepad', 'left stick move, right stick camera, A hop, RB/LT skills, Back Blink-Step'],
+            ['Gamepad', 'left stick move, right stick camera, A hop, RB/LT skills, Back Blink-Step, Y Aether Sight (hold Y: satchel)'],
         ];
         for (const [k, d] of rows) keys.append(el('b', null, k), el('span', null, d));
         p.append(keys);

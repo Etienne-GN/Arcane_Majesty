@@ -867,7 +867,8 @@ function tick(dt) {
     }
     let lift = 0;
     clockRules.advanceClock(stats, dt * 1000);
-    sight.update(dt); scent.update(dt);   // amo: one real minute = one game hour
+    sight.update(dt); scent.update(dt);
+    document.body.classList.toggle('sight-on', sight.level > 0); document.body.classList.toggle('sight-cd', sight.cooldown > 0 || sight.active);   // the SIGHT button (touch)   // amo: one real minute = one game hour
     const ctx = { ...clock(), message: hud.message, attunedGates: stats.attunedGates, player: player.state, camera,
         flags: (stats.flags ??= {}), shake: a => cam.kick(a), customHero: CUSTOM, players: net.targets(), hurtRemote: (id, dmg, from) => net.hurtRemote(id, dmg, from),
         drainVigor: n => { stats.vigor = Math.max(0, stats.vigor - n); },

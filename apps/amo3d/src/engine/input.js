@@ -11,7 +11,7 @@ export function createInput({ canvas, cam }) {
     const pressed = new Set();          // edge-triggered actions waiting for the next poll
     const touch = { x: 0, y: 0, sprint: false };
     const fan = { open: false, x: 0, y: 0 };   // a hand's fan is open: the right stick points into it instead of turning the camera
-    let padPrev = [], r3Down = null;   // R3: a click cycles the camera; held, its old action (a werewolf's change / skill 3)
+    let padPrev = [], r3Down = null, yDown = null;   // (Y: tap = Aether Sight, hold = the satchel)   // R3: a click cycles the camera; held, its old action (a werewolf's change / skill 3)
     let lastDevice = 'keyboard';
 
     addEventListener('keydown', e => {
@@ -106,7 +106,10 @@ export function createInput({ canvas, cam }) {
                 if (edge(2) || edge(7)) pressed.add('cast');
                 if (edge(1)) pressed.add('strike');
             }
-            if (edge(3)) pressed.add('inventory');
+            // Y: a tap opens Aether Sight, held half a second the satchel (2026-11-25: the sight needed a button)
+            if (edge(3)) yDown = { t: performance.now(), fired: false };
+            if (yDown && b(3) && !yDown.fired && performance.now() - yDown.t > 450) { yDown.fired = true; pressed.add('inventory'); }
+            if (yDown && !b(3)) { if (!yDown.fired) pressed.add('sight'); yDown = null; }
             if (edge(8)) pressed.add('blink');   // Back / Select: Blink-Step
             if (edge(9)) pressed.add('sheet');
             if (!two) [5, 6].forEach((bi, i) => { if (edge(bi)) pressed.add(`skill:${i}`); });

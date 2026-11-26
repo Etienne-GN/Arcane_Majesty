@@ -51,5 +51,5 @@ export function createSight({ stats, hud, getMap, getPlayer }) {
         for (const r of rings) { const y = map?.heightAt?.(r.h.pos.x, r.h.pos.z) ?? r.h.pos.y; r.mesh.position.set(r.h.pos.x, y + 0.08, r.h.pos.z); r.mesh.visible = r.h.alive !== false; }
         if (active <= 0) { veil.style.opacity = 0; clear(); SIGHT.on = false; }
     }
-    return { use, update, get active() { return active > 0; }, get level() { return level(); } };
+    return { use, update, get active() { return active > 0; }, get level() { return level(); }, get cooldown() { return cd; } };
 }

@@ -1,7 +1,7 @@
 // On-screen controls for phones and tablets (Phase 7 rework). Shown on touch devices (or ?touch=1).
 //   left half   — a floating joystick; push it past its ring to sprint
 //   right half  — drag to turn the camera, pinch to zoom
-//   bottom right — the action cluster under the right thumb: FIRE (big), HIT, HOP, BLINK once learned; style skills beside it
+//   bottom right — the action cluster under the right thumb: FIRE (big), HIT, HOP, BLINK and SIGHT once learned; style skills beside it
 //   top left    — compact bars, then the hotbar (consumables)
 //   top right   — the minimap (tap: world map), the clock, and one MENU button that opens a sheet of
 //                 big tiles: Satchel, Hero, Map, Journal, Codex, Aetheric Tear
@@ -31,6 +31,10 @@ export function createTouchControls({ input, cam }) {
         body.blink-on #touch .blink { display: grid; }
         #touch .wolf { display: none; right: calc(108px + env(safe-area-inset-right, 0px)); bottom: 200px; width: 58px; height: 58px; font-size: ${u(12)}; border-color: #e8a830cc; color: #ffe0a0; }
         body.wolf-on #touch .wolf { display: grid; }
+        #touch .sight { display: none; right: calc(30px + env(safe-area-inset-right, 0px)); bottom: 206px; width: 58px; height: 58px; font-size: ${u(11)}; border-color: #b08affcc; color: #e8dcff; }   /* Aether Sight, once learned (body.sight-on) */
+        body.sight-on #touch .sight { display: grid; }
+        body.sight-cd #touch .sight { opacity: .45; }
+        body.touch-mode.hands-on #touch .sight { right: calc(302px + env(safe-area-inset-right, 0px)); bottom: 24px; }   /* beside HOP, under the thumb */
         body.touch-mode.hands-on #touch .wolf { right: calc(232px + env(safe-area-inset-right, 0px)); bottom: 162px; }
         body.touch-mode.hands-on #touch .blink { right: calc(232px + env(safe-area-inset-right, 0px)); bottom: 96px; }
         #touch .menu { right: calc(132px + env(safe-area-inset-right, 0px)); top: 12px; width: 54px; height: 54px; border-radius: 14px; font-size: ${u(13)}; }
@@ -66,7 +70,7 @@ export function createTouchControls({ input, cam }) {
     const root = document.createElement('div');
     root.id = 'touch';
     root.innerHTML = '<div class="stick"><div class="knob"></div></div>'
-        + '<div class="btn menu">MENU</div><div class="btn fire">FIRE</div><div class="btn hit">HIT</div><div class="btn hop">HOP</div><div class="btn blink">BLINK</div><div class="btn wolf">WOLF</div>';
+        + '<div class="btn menu">MENU</div><div class="btn fire">FIRE</div><div class="btn hit">HIT</div><div class="btn hop">HOP</div><div class="btn blink">BLINK</div><div class="btn sight">SIGHT</div><div class="btn wolf">WOLF</div>';
     document.body.append(root);
     document.body.classList.add('touch-mode');
     const stick = root.querySelector('.stick'), knob = root.querySelector('.knob');
@@ -156,7 +160,8 @@ export function createTouchControls({ input, cam }) {
     button('.fire', () => input.press('cast'));
     button('.hop', () => input.press('hop'));
     button('.wolf', () => input.press('shift'));   // a werewolf hero's change (body.wolf-on)
-    button('.blink', () => input.press('blink'));   // Blink-Step: its own button, shown once it is learned (body.blink-on)
+    button('.blink', () => input.press('blink'));
+    button('.sight', () => input.press('sight'));   // Aether Sight (game/sight.js)   // Blink-Step: its own button, shown once it is learned (body.blink-on)
     button('.hit', () => input.press('strike'));
     button('.menu', () => { openedAt = performance.now(); sheet.classList.add('open'); });
 
