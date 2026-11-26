@@ -6,6 +6,7 @@ game-only lore gets `origin: "game"`.
 
 **Order (user, 2026-11-26):** canon check → controller mapping → the v2 models everywhere → multiplayer → clothing & the race body (only once every NPC and the Forge are on v2) → creatures → magic → fighting styles → the rest; races last. Music waits for the user's tracks.
 ## 0. ⚠️ CANON CHECK PENDING ★★ (decided 2026-11-19 — must be done before any lore DB sync)
+- [ ] ▶ 2026-11-26: the check is done and written up in `docs/3d/CANON_CHECK.md` — 8 decisions for the user (§A), proposed verdicts for every section (§B); apply after the user answers (§C).
 - [ ] Run a canon check on every item of `docs/3d/LORE_REVIEW.md` (226 items: what the game has that the lore DB doesn't) against the DB, the album XMLs / ACC, the book canon and `world_lore.md`. **First the 4 possible conflicts** (Vorgos called "the warlord" on the Cleaver of Vorgos; the Arcane Covenant vs the DB's Crimson Covenant; Voraun as a duelist in the Ruins; the Shadow Balrog's look), then the new names (Valdric, the Asran Academy, the Arcane Covenant, the Twilight Order, the Rift-Gates, the Border Watch, 0 GD, the Star-Guard, Silvara…), then the rest. Our decisions must stay coherent with the established lore; the user approves each verdict before the DB sync (`origin: "game"`) and the game fixes.
 
 ## 1. Controller mapping screen (asked 2026-11-26)
