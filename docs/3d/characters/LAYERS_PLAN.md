@@ -72,10 +72,10 @@ a point a lower layer removed is reported in the Sculptor, not lost silently.
 1. ✅ (2026-11-26) **Design-space keys** for every point of the body and face and **migrate** the present male and female
    edits into the Common/Male/Female layers — checked by rendering: the male and female faces and bodies must come out
    identical to today. The `share` bridge goes (the layers replace it).
-2. **The layer stack** in `buildBase` (common → sex → age → garments → hair → override), scaled onto each body.
-3. **Ages:** boy, girl, old man, old woman as real bodies (proportions and starting shapes to sculpt from — a child's
+2. ✅ (2026-11-26) **The layer stack** in `buildBase` (common → sex → age → garments → hair → override), scaled onto each body.
+3. ✅ (2026-11-26, proportions; the age layers are empty, to sculpt) **Ages:** boy, girl, old man, old woman as real bodies (proportions and starting shapes to sculpt from — a child's
    rounder face and larger eyes, an elder's heavier lines and stoop), each with its empty age layer.
-4. **The Sculptor**: the Lab renamed; the layer picker (pick, edit, save, compare), **adding and removing points**,
+4. ✅ (2026-11-26) **The Sculptor**: the Lab renamed; the layer picker (pick, edit, save, compare), **adding and removing points**,
    **alternates** (save as, switch, compare, make active), overrides in the looks, **dress the model** (the Forge's wardrobe), and the Forge's "Sculpt this
    character".
 5. Then **§2**: NPCs and the Forge onto v2 — each character picks its layers from its sex and age; its clothes and hair
@@ -96,3 +96,20 @@ the user on the Lab before the next.
   to before (0.000 / 0.001 mm on every point), Eldrin identical on all four meshes. The Lab's point editor and Blender
   import now save into the sex layer (merged; hidden and derived points kept as they are); `/api/v2layer` reads and
   writes the layers. `edits_male.json` / `edits_female.json` are kept as the pre-layer record, no longer read.
+- **Step 2 done (2026-11-26).** The stack lands scaled on every body: 33/36 male edits (3 are hidden helpers) move adult,
+  elder and broad/tall bodies, scaled to their proportions.
+- **Step 3 done (2026-11-26).** Body presets `child_male`, `child_female`, `elder_male`, `elder_female` (look.js; they pick
+  the age layer); the Sculptor's base subjects Boy, Girl, Old man, Old woman; `sculptor.html?lineup=1` shows all six. The
+  age layers start empty: the children look like small adults until sculpted.
+- **Step 4 done (2026-11-26).** `sculptor.html` (charlab.html forwards). In the point editor:
+  - **Save into**: the body's stack (Common, its sex, its age; a cast character's own override, "This character", last) —
+    only the difference from the other layers is written.
+  - **Version**: Active or an alternate (`layers/alt/<layer>/<name>.json`, `/api/v2alts`); Save as new, Make active (the
+    old active kept as `was_active_<time>`), Delete; `?alt0=` / `?alt1=` show either side with an alternate.
+  - **Points**: Add (selected point, then a neighbour: a new point halfway on their edge, key `add.<hash>`), Remove (merge
+    into the nearest neighbour), Undo last — with the mirror, stored as the layer's `"@topo"` and applied by `skin.js`.
+  - **Overrides**: `look.sculpt.points` in the cast file (Eldrin), on top of the shared layers.
+  - **Dress**: Undressed, Shirt & trousers, Traveller, Robe, Dress (`v2/dress.js`, painted on — edits still land).
+  - The Forge's "Sculpt this character" (dev server) and the Sculptor's link back.
+  Limits: an override or layer edit does not move a point an outfit reshapes (Eldrin's tube sleeves keep their shape);
+  the lineup is view only.
