@@ -7,13 +7,14 @@
 // The panel's Show row turns the reference sheet and the compare (the Lab's other model, drawn by the Lab) on or off.
 import REF_HAIR from './base_mesh_reference.jpg';
 import REF_BALD from './base_mesh_reference_bald.jpg';   // (the hairless sheet: same layout)   // the reference sheet (docs/3d/characters/base_mesh_reference.jpg), 896 × 1200
+import { layerFromPositions } from '../content/models/v2/skin.js';
 // Where each view sits on the sheet: [x0, y0, x1, y1] — the whole figure, and its head
 const REF = {
     male: { front: [[70, 75, 360, 615], [130, 70, 250, 215]], side: [[380, 75, 560, 615], [395, 70, 520, 215]], back: [[560, 75, 860, 615], [650, 70, 770, 215]] },
     female: { front: [[70, 655, 360, 1195], [130, 650, 250, 800]], side: [[380, 655, 560, 1195], [385, 650, 530, 800]], back: [[560, 655, 860, 1195], [640, 650, 780, 800]] },
 };
 export function createPointEditor({ hairless = false, THREE, scene, camera, renderer, getBody, sexes = ['male', 'female'], viewRect = null, onEnter, onExit }) {
-    let on = false, sex = 'male', T = null, geo = null, mesh = null, wire = null, dots = null, sel = -1, mirrorOf = [], drag = null;
+    let loaded = null, bodyMesh = null, on = false, sex = 'male', T = null, geo = null, mesh = null, wire = null, dots = null, sel = -1, mirrorOf = [], drag = null;
     let region = 'head', yaw = 0, pitch = 0.05, dist = 0.55, target = new THREE.Vector3(0, 1.66, 0);
     const undo = [], group = new THREE.Group(); scene.add(group); group.visible = false;
     const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), tmpM = new THREE.Matrix4(), col = new THREE.Color();
@@ -90,10 +91,10 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const inRegion = i => { const y = T.P[i * 3 + 1], top = T.P.reduce((m, v, j) => (j % 3 === 1 && v > m ? v : m), 0); return region === 'all' || (region === 'head' ? y > top - 0.42 : y > top - 0.9); };
 
     function load(s) {
-        sex = s; const B = getBody(s); T = B.table; sel = -1; undo.length = 0;
+        sex = s; const B = getBody(s); T = B.table; bodyMesh = B.mesh; sel = -1; undo.length = 0;
         group.clear();
         geo = new THREE.BufferGeometry();
-        bind = Float32Array.from(T.P);   // the rest shape (what is saved); the view shows it posed (T.L, T.t: the A-pose)
+        bind = Float32Array.from(T.P); loaded = Float32Array.from(T.P);   // (loaded: as it came — what was moved here, at saving)   // the rest shape (what is saved); the view shows it posed (T.L, T.t: the A-pose)
         Linv = T.keys.map((_, i) => { const m = new THREE.Matrix3().fromArray(T.L.slice(i * 9, i * 9 + 9)); return m.determinant() ? m.clone().invert() : new THREE.Matrix3(); });
         geo.setAttribute('position', new THREE.Float32BufferAttribute(T.P.slice(), 3));
         for (let i = 0; i < T.keys.length; i++) refresh(i);
@@ -151,8 +152,20 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     async function save() {
         const edits = {};
         for (let i = 0; i < T.keys.length; i++) if (moved(i)) edits[T.keys[i]] = [+bind[i * 3].toFixed(5), +bind[i * 3 + 1].toFixed(5), +bind[i * 3 + 2].toFixed(5)];
-        const r = await fetch('/api/v2edits', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sex, edits }) });
-        info.textContent = r.ok ? `Saved ${Object.keys(edits).length} moved points — reloading…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`;
+        // (2026-11-26: saved into the shape layers — the body's sex layer, as offsets in each point's bone frame, so they land
+        // on every body of that sex whatever its proportions; the layer picker comes with the Sculptor)
+        // Merged into the layer as it is: entries the table cannot show (the chin's hidden corners) stay, and a point derived
+        // from others (the chin's rounded tip) is saved only if it was moved by hand here — otherwise it keeps following.
+        const points = await (await fetch(`/api/v2layer?layer=${sex}`)).json(), pm = bodyMesh.userData.points;
+        for (let i = 0; i < T.keys.length; i++) {
+            const k = T.keys[i], r0 = pm?.get(k); if (!r0) continue;
+            const here = Math.hypot(bind[i * 3] - loaded[i * 3], bind[i * 3 + 1] - loaded[i * 3 + 1], bind[i * 3 + 2] - loaded[i * 3 + 2]) > 1e-6;
+            if (r0.derived && !here) continue;
+            const one = layerFromPositions(bodyMesh, { [k]: [bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2]] });
+            if (one[r0.t]) points[r0.t] = one[r0.t]; else delete points[r0.t];
+        }
+        const r = await fetch('/api/v2layer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer: sex, points }) });
+        info.textContent = r.ok ? `Saved ${Object.keys(points).length} moved points into the ${sex} layer — reloading…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`;
         if (r.ok) setTimeout(() => { const u = new URL(location.href); u.searchParams.set('edit', sex); location.href = u; }, 700);
     }
 

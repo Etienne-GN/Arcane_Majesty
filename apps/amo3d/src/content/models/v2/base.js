@@ -7,65 +7,58 @@
 // buildBase(ctx, { sex }) → { mesh, update }.
 import * as THREE from 'three';
 import { createSkin, blend, profile, ringPts, pointKey } from './skin.js';
-import EDITS_MALE from './edits_male.json';     // points moved by hand in Blender (the Character Lab's Export / Import)
-import EDITS_FEMALE from './edits_female.json';
-import { BODY_PRESETS } from '../look.js';
+// The shape layers (docs/3d/characters/LAYERS_PLAN.md): models/v2/layers/<layer>.json — { structural key: [dx, dy, dz] },
+// offsets in the frame of the bone each point follows, so they land right on every body's proportions. Stacked
+// common → sex (male | female) → age (boy | girl | old_man | old_woman) → the character's own override (look.v2.override).
+const LAYER_FILES = import.meta.glob('./layers/*.json', { eager: true, import: 'default' });
+export const LAYERS = Object.fromEntries(Object.entries(LAYER_FILES).map(([f, d]) => [f.replace(/^.*\/|\.json$/g, ''), d]));
 
 const sym = (th, amp, wd) => [{ th, amp, wd }, { th: -th, amp, wd }];
 
 // outfit (optional): { torso(y, θ, base), arm(part, y), leg(part, y, base), armLoose(part, y), legLoose(part, y), armTube(part, y), legTube(part, y), foot, extra(helpers) } — colours painted onto the body's
 // own surface, and extra pieces (coat tails, a collar…) added before the mesh is built. Used by the dressed cast (eldrin.js).
-export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair = null, outfit = null, headK = 1, footK = 1 } = {}) {   // headK: the head's size; footK: the feet (boots are bigger)
+// The layers a body takes: its sex, its age (from the look's body preset), and the character's override
+export function layerStack(ctx, sex) {
+    const preset = ctx.look?.body?.preset ?? '', F = sex === 'female';
+    const age = /child/.test(preset) ? (F ? 'girl' : 'boy') : /elder/.test(preset) ? (F ? 'old_woman' : 'old_man') : null;
+    return [LAYERS.common, LAYERS[F ? 'female' : 'male'], age && LAYERS[age], ctx.look?.v2?.override?.points].filter(Boolean);
+}
+// buildBase: three quick passes — the plain body mapped (dry), the dressed body mapped (dry, when there is an outfit), then
+// the real build with the layers turned into positions for this body. A layer moves a point only where the body's surface
+// is the plain body's: where an outfit reshapes it (Eldrin's sleeves as tubes), the cloth keeps its own shape.
+export function buildBase(ctx, opts = {}) {
+    const { root, head } = ctx;
+    if (!ctx._v2Head) { ctx._v2Head = true; head.position.z += 0.024; head.position.y += 0.005; }   // (2026-11-23: lowered 2.5 cm — it sat too high on the neck; carried a little forward of the shoulders, the neck leaning to it, as the reference)
+    const plain = genBase(ctx, { ...opts, outfit: null }, { dry: true });
+    const dressed = opts.outfit ? genBase(ctx, opts, { dry: true }) : plain;
+    const stack = layerStack(ctx, opts.sex), edits = {};
+    if (stack.length) {
+        root.updateMatrixWorld(true);
+        const inv = root.matrixWorld.clone().invert(), M = plain.bones.map(b => new THREE.Matrix3().setFromMatrix4(inv.clone().multiply(b.matrixWorld)));
+        const p0 = new Map(); for (const r of plain.points.values()) p0.set(r.t, r.p);
+        const d = new THREE.Vector3();
+        for (const [k, r] of dressed.points) {
+            let x = 0, y = 0, z = 0, any = false;
+            for (const L of stack) { const v = L[r.t]; if (v) { x += v[0]; y += v[1]; z += v[2]; any = true; } }
+            if (!any) continue;
+            const base = p0.get(r.t); if (!base || base.distanceToSquared(r.p) > 1e-10) continue;   // (reshaped by the outfit)
+            d.set(x, y, z).applyMatrix3(M[r.bone]); edits[k] = [r.p.x + d.x, r.p.y + d.y, r.p.z + d.z];
+        }
+    }
+    return genBase(ctx, opts, { edits });
+}
+
+function genBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair = null, outfit = null, headK = 1, footK = 1 } = {}, { edits = null, dry = false } = {}) {   // headK: the head's size; footK: the feet (boots are bigger)
     const F = sex === 'female';
     const { root, body, hips, spine, head, arms, legs } = ctx;
     const HAIR = hair ?? (F ? '#151922' : '#2a1d16');
     const BALD = ctx.look?.hair?.style === 'bald';   // no hair (2026-11-23: hair will be interchangeable; the hairless reference sheet)
     const bones = [hips, spine, head, arms.L.upper, arms.L.fore, arms.R.upper, arms.R.fore, legs.L.thigh, legs.L.shin, legs.R.thigh, legs.R.shin];
-    head.position.z += 0.024; head.position.y += 0.005;   // (2026-11-23: lowered 2.5 cm — it sat too high on the neck) root.updateMatrixWorld(true);   // (the head carried a little forward of the shoulders, the neck leaning to it, as the reference)
     const HV = 0.82;   // the head's height (2026-11-23: it was ~25% too long for its width against the reference; the female's the same since — "almost the same head as the male")
-    // The female head takes the male head's shape (2026-11-23: "almost the same as the male's, except the jaw and chin, more
-    // delicate"): each of her head's points with no edit of its own is matched to the male point made from the same head
-    // coordinates, and that point's edit (the user's work on the male face) is carried over, scaled to her head. Her jaw and
-    // chin (below the mouth) keep their own, finer shape and her own edits. The male head's place is the rig's own chain
-    // (body ← hips ← spine ← head) at the male preset's scale, so it follows the rig.
-    const share = F ? (() => {
-        const HK_M = 1.03, HV_M = 0.82, PM = BODY_PRESETS.adult_male;
-        root.updateMatrixWorld(true);
-        const rel = new THREE.Matrix4().copy(root.matrixWorld).invert().multiply(head.matrixWorld), Of = new THREE.Vector3(), Sf = new THREE.Vector3();
-        rel.decompose(Of, new THREE.Quaternion(), Sf);
-        const Om = new THREE.Vector3(head.position.x * PM.width, (hips.position.y + spine.position.y + head.position.y) * PM.height, head.position.z * PM.width), Sm = new THREE.Vector3().setScalar(PM.head);
-        // Where a head-table point lands (root-local), on a head of size hk / height HV placed at O with scale S — the skull's
-        // rings (their centre placed, the ring's own offsets added as they are: skin.loft) and the face's planes (4 mm forward)
-        const skullAt = (O, S, k, hv, row, [x, y, z], s) => { const my = row.reduce((a, p) => a + p[1], 0) / row.length; return O.clone().add(new THREE.Vector3(0, my * k * hv, 0.004).multiply(S)).add(new THREE.Vector3(s * x * k, (y - my) * k, z * k)); };
-        const faceAt = (O, S, k, hv, [x, y, z], s) => O.clone().add(new THREE.Vector3(s * x * k, y * k * hv, z * k + 0.004).multiply(S));
-        let map = null;   // her point → the male edit's displacement, scaled to her head (built by prepare(), once the head's table and hk exist)
-        const build = () => {
-            map = [];
-            const male = Object.entries(EDITS_MALE).map(([key, q]) => [new THREE.Vector3(...key.split(',').map(Number)), new THREE.Vector3(...q)]);
-            const skullScale = new THREE.Vector3().setScalar(hk / HK_M);
-            const faceScale = Sf.clone().divide(Sm).multiplyScalar(hk / HK_M);
-            for (const [a, q] of male) for (const s of [1, -1]) for (let r = 6; r < HEAD.length; r++) for (const pt of HEAD[r]) {
-                if (pt[1] < 0.11) continue;   // (the jaw and chin are hers)
-                const mSkull = skullAt(Om, Sm, HK_M, HV_M, HEAD[r], pt, s), fSkull = skullAt(Of, Sf, hk, HV, HEAD[r], pt, s);
-                const mFace = r === 6 ? faceAt(Om, Sm, HK_M, HV_M, pt, s) : null, fFace = r === 6 ? faceAt(Of, Sf, hk, HV, pt, s) : null;
-                if (mSkull.distanceTo(a) < 1.5e-4) {
-                    const d = q.clone().sub(a);
-                    map.push([fSkull, d.clone().multiply(skullScale)]);
-                    if (fFace) map.push([fFace, d.clone().multiply(faceScale)]);   // (the face's top edge follows the skull's eye row: no deep band)
-                }
-                if (mFace && mFace.distanceTo(a) < 1.5e-4) map.push([fFace, q.clone().sub(a).multiply(faceScale)]);
-            }
-        };
-        const shareAt = p => {
-            if (!map) return null;   // (not ready yet: the torso is built before the head's table and hk exist)
-            for (const [f, d] of map) if (f.distanceTo(p) < 1.5e-4) return [p.x + d.x, p.y + d.y, p.z + d.z];
-            return null;
-        };
-        shareAt.prepare = build;
-        return shareAt;
-    })() : null;
+    // (2026-11-26: the female head's "share" of the male face's edits is gone — the layers carry it now: Common for both
+    // sexes, Female for hers; docs/3d/characters/LAYERS_PLAN.md)
     let hk = 1;   // (set with the head, below; the share reads it when the head's points are made)
-    const sk = createSkin(root, bones, { edits: F ? EDITS_FEMALE : EDITS_MALE, share }), V = (g, x, y, z) => sk.at(g, x, g === head ? y * HV : y, z);
+    const sk = createSkin(root, bones, { edits, dry }), V = (g, x, y, z) => sk.at(g, x, g === head ? y * HV : y, z);
 
     // ---- the torso, from the neck down to the crotch (body coordinates: the rig's own scale applies) ----
     const torsoW = y => (y > 1.655 ? [[head, 1]] : y > 1.6 ? [[spine, 0.4], [head, 0.6]] : y > 1.57 ? [[spine, 0.75], [head, 0.25]] : y > 1.1 ? [[spine, 1]] : y > 1.0 ? blend(hips, spine, (y - 1.0) / 0.1) : [[hips, 1]]);
@@ -113,9 +106,11 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         const tq = Math.max(0, Math.min(1, (Math.abs(x) - 0.16) / 0.1)), f = tq * tq * (3 - 2 * tq) * 0.4;   // (eased, all the way to the arm: shoulder and arm one surface, no step)
         return f <= 0 ? base : [...base.map(([b, v]) => [b, v * (1 - f)]), [x > 0 ? arms.L.upper : arms.R.upper, f]];
     };
+    sk.section('torso');
     sk.loft((F ? TF : TM).map(([y, half, col]) => ({ c: V(body, 0, y, 0), pts: ringPts(half), w: shoulderW(y), col: outfit?.torso ? (th => outfit.torso(y, th, col)) : col })), { cap: true });
 
     // ---- arms: the deltoid cap, biceps, the elbow, the forearm, the wrist, a hand with a thumb ----
+    sk.section('arms');
     const k = F ? 1.26 : 1.5;   // (the reference's arms are thick: the upper arm near the neck's width)
     for (const side of ['L', 'R']) {
         const { upper, fore } = arms[side], s = side === 'L' ? 1 : -1;
@@ -155,6 +150,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     }
 
     // ---- legs: the thigh, the kneecap, the calf, the ankle; bare feet ----
+    sk.section('legs');
     const kl = F ? 1.4 : 1.38;   // (the reference's legs are heavy: thick thighs, full calves)
     for (const side of ['L', 'R']) {
         const { thigh, shin } = legs[side], s = side === 'L' ? 1 : -1;
@@ -192,6 +188,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
     }
 
     // ---- the head: chin, jaw angle, cheekbones, eye sockets, the brow ridge, forehead, crown ----
+    sk.section('head');
     hk = (F ? 0.97 : 1.03) * headK;   // (smaller: 2026-11-23, "the head is too big")   // (the reference's head is ~40% of the shoulders' width)
     // the head, hand-placed: the face's centre line, the cheek's front, the cheekbone, the side (the ear), the back's side,
     // the back — big planes: the brow overhanging the eyes, the cheekbones, the jaw's angle, the chin
@@ -216,7 +213,6 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         [[0, 0.3, 0.05], [0.028, 0.301, 0.046], [0.05, 0.298, 0.032], [0.063, 0.295, 0.008], [0.066, 0.295, -0.03], [0.054, 0.295, -0.064], [0, 0.297, -0.074]],
         [[0, 0.318, 0.012], [0.018, 0.318, 0.009], [0.03, 0.316, -0.003], [0.036, 0.314, -0.018], [0.036, 0.314, -0.032], [0.026, 0.314, -0.046], [0, 0.314, -0.05]],   // the crown
     ];
-    share?.prepare();   // (the head's table and hk now exist: build her share map before any of her head's points are made)
     // the female face: a narrower jaw and a softer chin
     const fem = (k, i, [x, y, z]) => (F && k >= 1 && k <= 3 && i >= 1 && i <= 4 ? [x * (i === 3 || i === 4 ? 0.88 : 0.9), y, z] : [x, y, z]);
     // the skull, from the eyes up: rings
@@ -241,10 +237,10 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         // (f), the underside a little behind it (u), and two narrow facets bend between them through a point set out toward
         // the old tip (m): a rounded tip. Each new point follows the user's edits of the points it comes from (the jaw keeps
         // its shape) and has its own key, so it can be moved in the point editor too.
-        const EDITS = F ? EDITS_FEMALE : EDITS_MALE, ed = o => { const q = EDITS[pointKey(o.p)]; return q ? new THREE.Vector3(...q) : o.p.clone(); };
+        const EDITS = edits ?? {}, ed = o => { const q = EDITS[pointKey(o.p)]; return q ? new THREE.Vector3(...q) : o.p.clone(); };
         const lerpV = (a, b, t) => a.clone().lerp(b, t);
         const tipPts = (corner, front, under, s) => {   // corner: 'CC' or 'CR'; front: the eye-row point above it; under: the neck point behind it
-            const X = at(Q[corner], corner === 'CC' ? 1 : s), Fn = at(E[front], s), Un = at(Q[under], under === 'NF' ? 1 : s);
+            const X = sk.note(at(Q[corner], corner === 'CC' ? 1 : s), `head.tip.${corner}.${s}.x`), Fn = sk.note(at(E[front], s), `head.tip.${corner}.${s}.f`), Un = sk.note(at(Q[under], under === 'NF' ? 1 : s), `head.tip.${corner}.${s}.u`);   // (mapped: their edits move the tip)
             const pts = (x, f, u) => { const pf = lerpV(x, f, 0.14), pu = lerpV(x, u, 0.22); return { f: pf, u: pu, m: lerpV(lerpV(pf, pu, 0.5), x, 0.45) }; };
             const g = pts(X.p, Fn.p, Un.p), e = pts(ed(X), ed(Fn), ed(Un));
             return Object.fromEntries(['f', 'm', 'u'].map(k => [k, { p: e[k], w: X.w, key: pointKey(g[k]) }]));
@@ -299,6 +295,7 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
         }
     }
     // ---- hair: a cap over the skull, its hairline higher in front; short and tufted (male) or drawn back (female) ----
+    sk.section('hair');
     // hair: big swept chunks, as the reference — the hairline high in front, lower at the nape
     const hl = th => (Math.cos(th) > 0 ? Math.pow(Math.cos(th), 0.7) * (F ? 0.11 : 0.11) : Math.cos(th) * (F ? 0.0 : 0.05));   // up to the hairline in front; down to the nape behind
     const HR = F ? [[0.322, 0.02, 0.02, 0.03], [0.305, 0.064, 0.06, 0.085], [0.27, 0.09, 0.092, 0.108], [0.225, 0.096, 0.1, 0.112], [0.13, 0.094, 0.098, 0.108]]
@@ -322,7 +319,8 @@ export function buildBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a353
             { c: V(head, s * 0.078 * hk, 0.04 * hk, 0.02 * hk), rx: 0.004, rz: 0.006, w: [[head, 1]], col: HAIR },
         ], { seg: 5, cap: true });
     }
-    const extraOut = outfit?.extra?.({ sk, V, root, createSkin, body, hips, spine, head, arms, legs, hk, F });   // the outfit's own pieces (may return { update } for pieces of their own that move, e.g. a coat's tails)
+    const extraOut = dry ? null : outfit?.extra?.({ sk, V, root, createSkin, body, hips, spine, head, arms, legs, hk, F });   // the outfit's own pieces (may return { update } for pieces of their own that move, e.g. a coat's tails)
+    if (dry) return { points: sk.build().points, bones };   // (the first passes: the map only)
     const mesh = sk.build(); mesh.userData.editSex = F ? 'female' : 'male'; mesh.name = F ? 'base_female' : 'base_male';
     mesh.userData.hairColor = BALD ? null : new THREE.Color(HAIR);   // (the point editor tells the hair's points by it: Show › Hair)
     // ---- the eyes and brows (2026-11-23: "real small eyes with a pupil, not just dots"): flat faceted pieces laid on the face —

@@ -74,6 +74,38 @@ function v2EditsApi() {
                     } catch { send(400, { error: 'bad JSON' }); }
                 });
             });
+            // The shape layers (docs/3d/characters/LAYERS_PLAN.md): models/v2/layers/<layer>.json — { structural key: [dx, dy, dz] }
+            const LAYER_NAMES = ['common', 'male', 'female', 'boy', 'girl', 'old_man', 'old_woman'];
+            server.middlewares.use('/api/v2layer', (req, res) => {
+                const send = (code, body) => { res.statusCode = code; res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(body)); };
+                const ok = own();
+                if (!ok.has(hostOf(req.headers.host))) return send(403, { error: 'only when reached as this machine' });
+                if (req.method === 'GET') {
+                    const layer = new URL(req.url, 'http://x').searchParams.get('layer');
+                    if (!LAYER_NAMES.includes(layer)) return send(400, { error: 'layer' });
+                    return send(200, JSON.parse(readFileSync(join(v2Dir, 'layers', `${layer}.json`), 'utf8')));
+                }
+                if (req.method !== 'POST') return send(405, { error: 'GET or POST' });
+                const origin = req.headers.origin;
+                if (origin && (!ok.has(hostOf(new URL(origin).host)) || new URL(origin).host !== req.headers.host)) return send(403, { error: 'cross-origin write refused' });
+                if (!/^application\/json\b/.test(req.headers['content-type'] ?? '')) return send(415, { error: 'JSON only' });
+                let raw = '';
+                req.on('data', c => { raw += c; if (raw.length > 2_000_000) req.destroy(); });
+                req.on('end', () => {
+                    try {
+                        const { layer, points } = JSON.parse(raw);
+                        if (!LAYER_NAMES.includes(layer) || !points || typeof points !== 'object' || Array.isArray(points)) return send(400, { error: 'bad body' });
+                        const keyRe = /^[a-z]+\.[A-Za-z0-9.?-]{1,40}$/, out = {}, entries = Object.entries(points);
+                        if (entries.length > 20000) return send(400, { error: 'too many points' });
+                        for (const [k, v] of entries) {
+                            if (!keyRe.test(k) || !Array.isArray(v) || v.length !== 3 || !v.every(n => typeof n === 'number' && Number.isFinite(n) && Math.abs(n) < 5)) return send(400, { error: `bad point ${k}` });
+                            out[k] = v;
+                        }
+                        writeFileSync(join(v2Dir, 'layers', `${layer}.json`), JSON.stringify(out) + '\n');
+                        send(200, { ok: true, points: entries.length });
+                    } catch { send(400, { error: 'bad JSON' }); }
+                });
+            });
         },
     };
 }

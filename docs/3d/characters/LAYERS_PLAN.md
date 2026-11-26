@@ -69,7 +69,7 @@ the change; in an override, only that character. The layers above keep working o
 a point a lower layer removed is reported in the Sculptor, not lost silently.
 
 ## Steps
-1. **Design-space keys** for every point of the body and face and **migrate** the present male and female
+1. ✅ (2026-11-26) **Design-space keys** for every point of the body and face and **migrate** the present male and female
    edits into the Common/Male/Female layers — checked by rendering: the male and female faces and bodies must come out
    identical to today. The `share` bridge goes (the layers replace it).
 2. **The layer stack** in `buildBase` (common → sex → age → garments → hair → override), scaled onto each body.
@@ -85,3 +85,14 @@ a point a lower layer removed is reported in the Sculptor, not lost silently.
 
 Each step is tested headless (point counts, keys stable across proportions, the composed result) and checked by eye with
 the user on the Lab before the next.
+
+## Progress
+- **Step 1 done (2026-11-26).** `skin.js`: every point has a structural key (`section.shape.ring.point`, e.g. `head.15.2`;
+  hidden helper points such as the chin's old corners via `sk.note`), and a dry mode that maps the points without building.
+  `base.js`: `buildBase` = dry passes (the plain body; the dressed one) → the layer stack (common → sex → age → override)
+  turned into positions for this body → the real build; a layer moves a point only where the surface is the plain body's
+  (an outfit's reshaped cloth keeps its shape — Eldrin unchanged). The female head's `share` is gone (its result is in the
+  Female layer). Migrated: `layers/male.json` (36), `layers/female.json` (91). Checked: male and female bodies identical
+  to before (0.000 / 0.001 mm on every point), Eldrin identical on all four meshes. The Lab's point editor and Blender
+  import now save into the sex layer (merged; hidden and derived points kept as they are); `/api/v2layer` reads and
+  writes the layers. `edits_male.json` / `edits_female.json` are kept as the pre-layer record, no longer read.

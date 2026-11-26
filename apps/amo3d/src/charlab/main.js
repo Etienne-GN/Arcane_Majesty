@@ -13,6 +13,7 @@ import { V2_MODELS } from '../content/models/v2/index.js';
 import seraphina from '../content/cast/seraphina.json';
 import eldrin from '../content/cast/eldrin.json';
 import anya from '../content/cast/anya.json';
+import { layerFromPositions } from '../content/models/v2/skin.js';
 
 const CAST = { seraphina, eldrin, anya }, Q = new URLSearchParams(location.search);
 const renderer = new THREE.WebGLRenderer({ antialias: true }); renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.shadowMap.enabled = true;
@@ -143,7 +144,7 @@ async function importBody(i, file) {
         }
     });
     if (!sum.size) return say('No points found: was the UV map kept (it carries each point\'s id)? See BLENDER.md.');
-    const cur = await (await fetch(`/api/v2edits?sex=${sex}`)).json(), edits = { ...cur };
+    const edits = {};   // (only what moved in Blender: merged into the layer as it is)
     let moved = 0;
     for (const [id, [x, y, z, n]] of sum) {
         const nx = x / n, ny = y / n, nz = z / n, k = T.keys[id];
@@ -151,8 +152,9 @@ async function importBody(i, file) {
         edits[k] = [+nx.toFixed(5), +ny.toFixed(5), +nz.toFixed(5)]; moved++;
     }
     if (!moved) return say(`No point moved (${sum.size} points read).`);
-    const r = await fetch('/api/v2edits', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sex, edits }) });
-    say(r.ok ? `Saved ${moved} moved points for the ${sex} body — reloading…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`);
+    const points = { ...(await (await fetch(`/api/v2layer?layer=${sex}`)).json()), ...layerFromPositions(sm, edits) };   // (into the sex layer, as offsets: docs/3d/characters/LAYERS_PLAN.md)
+    const r = await fetch('/api/v2layer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer: sex, points }) });
+    say(r.ok ? `Saved ${moved} moved points into the ${sex} layer — reloading…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`);
     if (r.ok) setTimeout(() => location.reload(), 900);
 }
 if (BASE && Q.get('blender') === '1') {   // the Blender round trip: not in use for now — kept, shown only with ?blender=1
@@ -174,7 +176,7 @@ const SEXES = ['male', 'female'].filter(x => slotOf(x) >= 0);
 let cmpIdx = 1;
 const split = () => !!(editor?.on && editor.showCompare);
 const editor = BASE ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, sexes: SEXES,
-    getBody: s => { const i = slotOf(s); cmpIdx = 1 - i; return { table: posedTable(i) }; },
+    getBody: s => { const i = slotOf(s); cmpIdx = 1 - i; return { table: posedTable(i), mesh: bodyMesh(i) }; },
     viewRect: () => ({ left: 0, top: 0, width: split() ? Math.floor(innerWidth / 2) : innerWidth, height: innerHeight }),
     onEnter: () => { models.forEach(m => { m.root.visible = false; }); floor.visible = false; for (const id of ['bar', 'labels', 'blender', 'top']) { const e = document.getElementById(id); if (e) e.style.display = 'none'; } },
     onExit: () => { models.forEach(m => { m.root.visible = true; }); floor.visible = true; for (const id of ['bar', 'labels', 'blender', 'top']) { const e = document.getElementById(id); if (e) e.style.display = ''; } resize(); } }) : null;

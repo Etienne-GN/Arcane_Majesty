@@ -11,19 +11,29 @@ import { LITE } from '../../../engine/lib.js';
 export const pointKey = p => `${p.x.toFixed(4)},${p.y.toFixed(4)},${p.z.toFixed(4)}`;
 // share (optional): (p) → an edited position or null — for points with no edit of their own (the female head takes
 // the male's head edits this way: base.js)
-export function createSkin(root, bones, { edits = null, share = null } = {}) {
+// Structural keys (2026-11-26, the character layers — docs/3d/characters/LAYERS_PLAN.md): besides its position key, every
+// point gets a key from where it sits in the build — its section (sk.section('head')), the shape it belongs to within the
+// section, its ring and its place on the ring ('head.3.2.4') — the same on every body whatever its proportions. Points that
+// touch share the key of the first one made (as the position keys always did). dry: map the points (position key →
+// { t: structural key, p, bone, derived }) and build no mesh — buildBase's first pass.
+export function createSkin(root, bones, { edits = null, share = null, dry = false } = {}) {
     root.updateMatrixWorld(true);
+    let sect = 'body', calls = 0;
+    const pts = new Map();   // position key → { t, p, bone, derived } (the first point made at that position)
+    const section = name => { sect = name; calls = 0; };
+    const tag = (o, t) => { if (o && !o.t) o.t = t; return o; };
     const index = new Map(bones.map((b, i) => [b, i]));
     const at = (group, x = 0, y = 0, z = 0) => root.worldToLocal(group.localToWorld(new THREE.Vector3(x, y, z)));
     const lists = { front: { pos: [], col: [], si: [], sw: [], key: [] }, double: { pos: [], col: [], si: [], sw: [], key: [] } };
     const tmp = new THREE.Color();
-    function vert(L, p, w, c, key = null) {   // key: a derived point's own stable key (its position may follow other points' edits)
+    function vert(L, p, w, c, key = null, t = null) {   // key: a derived point's own stable key (its position may follow other points' edits)
         const k = key ?? pointKey(p), q = edits?.[k] ?? share?.(p);
+        if (!pts.has(k)) { const wl = (typeof w === 'function' ? w() : w); let bi = 0, bw = -1; for (const [b, v] of wl) if (v > bw) { bw = v; bi = index.get(b) ?? 0; } pts.set(k, { t: t ?? `${sect}.${calls}.?${pts.size}`, p: p.clone(), bone: bi, derived: !!key }); }
         L.key.push(k); if (q) L.pos.push(q[0], q[1], q[2]); else L.pos.push(p.x, p.y, p.z); L.col.push(c.r, c.g, c.b);
         const ws = (typeof w === 'function' ? w() : w).slice(0, 4), s = ws.reduce((a, [, v]) => a + v, 0) || 1;
         for (let i = 0; i < 4; i++) { const e = ws[i]; L.si.push(e ? index.get(e[0]) ?? 0 : 0); L.sw.push(e ? e[1] / s : 0); }
     }
-    function tri(mat, a, b, c, color) { const L = lists[mat]; vert(L, a.p, a.w, color, a.key); vert(L, b.p, b.w, color, b.key); vert(L, c.p, c.w, color, c.key); }
+    function tri(mat, a, b, c, color) { const L = lists[mat]; vert(L, a.p, a.w, color, a.key, a.t); vert(L, b.p, b.w, color, b.key, b.t); vert(L, c.p, c.w, color, c.key, c.t); }
     // A loft: rings [{ c: Vector3, rx, rz, w: [[bone, weight]…] or (θ) => […], col, dy?(θ) }], θ = 0 at the front (+z).
     // opts: seg (sides), from/to (an open sheet between two angles), mat ('front' | 'double'), inward (faces inward),
     // axis 'y' (rings horizontal, the default) or 'z' (rings upright, for feet), shade(k 0…1 down the loft) → colour factor.
@@ -37,7 +47,8 @@ export function createSkin(root, bones, { edits = null, share = null } = {}) {
                 : new THREE.Vector3(r.c.x + s * r.rx, r.c.y + co * r.rz, r.c.z + (r.dy ? r.dy(th) : 0));
             return { p, w: typeof r.w === 'function' ? r.w(th) : r.w };
         });
-        const R = rings.map(ring);
+        const R = rings.map(ring), id = `${sect}.${++calls}`;
+        R.forEach((row, k) => row.forEach((o, i) => tag(o, `${id}.${k}.${i}`)));
         for (let k = 0; k < rings.length - 1; k++) {
             const A = R[k], B = R[k + 1], colOf = rings[k].col, flatCol = typeof colOf === 'function' ? null : tmp.set(colOf).clone();
             for (let i = 0; i < seg; i++) {
@@ -49,32 +60,33 @@ export function createSkin(root, bones, { edits = null, share = null } = {}) {
             }
         }
         if (capStart) {   // close the first ring too (a dome's top, a heel's back)
-            const first = R[0], cr = rings[0], c = { p: cr.c.clone(), w: typeof cr.w === 'function' ? cr.w(0) : cr.w }, col = tmp.set(cr.col).clone();
+            const first = R[0], cr = rings[0], c = { p: cr.c.clone(), w: typeof cr.w === 'function' ? cr.w(0) : cr.w, t: `${id}.c0` }, col = tmp.set(cr.col).clone();
             for (let i = 0; i < seg; i++) { const j = (i + 1) % n; if (!inward) tri(mat, first[j], c, first[i], col); else tri(mat, first[i], c, first[j], col); }
         }
         if (cap) {   // close the last ring with a fan
-            const last = R.at(-1), cr = rings.at(-1), c = { p: cr.c.clone(), w: typeof cr.w === 'function' ? cr.w(0) : cr.w }, col = tmp.set(cr.col).clone();
+            const last = R.at(-1), cr = rings.at(-1), c = { p: cr.c.clone(), w: typeof cr.w === 'function' ? cr.w(0) : cr.w, t: `${id}.c1` }, col = tmp.set(cr.col).clone();
             for (let i = 0; i < seg; i++) { const j = (i + 1) % n; if (!inward) tri(mat, last[i], c, last[j], col); else tri(mat, last[i], last[j], c, col); }
         }
     }
     // A tube along any path (a ponytail, a strap): points [{ c: Vector3, r, rz?, w, col }], rings square to the path.
     function tube(P, { seg = 7, mat = 'front', cap = true } = {}) {
-        const up = new THREE.Vector3(1, 0, 0), R = [];
+        const up = new THREE.Vector3(1, 0, 0), R = [], id = `${sect}.${++calls}`;
         for (let k = 0; k < P.length; k++) {
             const a = P[Math.max(0, k - 1)].c, b = P[Math.min(P.length - 1, k + 1)].c, t = b.clone().sub(a).normalize();
             const u = up.clone().sub(t.clone().multiplyScalar(up.dot(t))).normalize(), v = t.clone().cross(u).normalize();
-            R.push(Array.from({ length: seg }, (_, i) => { const th = (i / seg) * Math.PI * 2; return { p: P[k].c.clone().addScaledVector(u, Math.cos(th) * P[k].r).addScaledVector(v, Math.sin(th) * (P[k].rz ?? P[k].r)), w: P[k].w }; }));
+            R.push(Array.from({ length: seg }, (_, i) => { const th = (i / seg) * Math.PI * 2; return { p: P[k].c.clone().addScaledVector(u, Math.cos(th) * P[k].r).addScaledVector(v, Math.sin(th) * (P[k].rz ?? P[k].r)), w: P[k].w, t: `${id}.${k}.${i}` }; }));
         }
         for (let k = 0; k < P.length - 1; k++) {
             const A = R[k], B = R[k + 1], col = tmp.set(P[k].col).clone();
             for (let i = 0; i < seg; i++) { const j = (i + 1) % seg; tri(mat, A[i], B[i], B[j], col); tri(mat, A[i], B[j], A[j], col); }
         }
-        if (cap) { const last = R.at(-1), c = { p: P.at(-1).c.clone(), w: P.at(-1).w }, col = tmp.set(P.at(-1).col).clone(); for (let i = 0; i < seg; i++) tri(mat, last[i], c, last[(i + 1) % seg], col); }
+        if (cap) { const last = R.at(-1), c = { p: P.at(-1).c.clone(), w: P.at(-1).w, t: `${id}.c1` }, col = tmp.set(P.at(-1).col).clone(); for (let i = 0; i < seg; i++) tri(mat, last[i], c, last[(i + 1) % seg], col); }
     }
     // Hand-authored faces: polygons of {p, w} points (fan-triangulated), turned to face away from `centre` (a convex-ish part
     // such as a head: no winding to get wrong). Coplanar points make one clean flat plane.
     function poly(points, col, centre) {
-        const c = new THREE.Color(col);
+        const c = new THREE.Color(col), id = `${sect}.${++calls}`;
+        points.forEach((o, i) => tag(o, `${id}.${i}`));
         for (let i = 1; i < points.length - 1; i++) {
             let a = points[0], b = points[i], d = points[i + 1];
             const n = b.p.clone().sub(a.p).cross(d.p.clone().sub(a.p)), m = a.p.clone().add(b.p).add(d.p).multiplyScalar(1 / 3).sub(centre);
@@ -83,6 +95,7 @@ export function createSkin(root, bones, { edits = null, share = null } = {}) {
         }
     }
     function build() {
+        if (dry) return { points: pts };   // (the first pass: the map only)
         const geo = new THREE.BufferGeometry(), all = { pos: [], col: [], si: [], sw: [], key: [] };
         const groups = [];
         for (const [m, key] of [['front', 0], ['double', 1]]) {
@@ -103,9 +116,13 @@ export function createSkin(root, bones, { edits = null, share = null } = {}) {
         root.add(mesh); root.updateMatrixWorld(true);
         mesh.bind(new THREE.Skeleton(bones));
         mesh.userData.editKeys = all.key;   // (per vertex: the point's generated key — the Blender round trip)
+        mesh.userData.points = pts;   // (position key → structural key, rest position, bone: the layers)
         return mesh;
     }
-    return { at, loft, tube, poly, build };
+    // A point that is not drawn but that drawn points are derived from (the chin's old corner, under its rounded tip): mapped
+    // with its own structural key, so the layers can move it — and what follows it follows.
+    function note(o, t) { const k = pointKey(o.p); if (!pts.has(k)) { const wl = typeof o.w === 'function' ? o.w() : o.w; let bi = 0, bw = -1; for (const [b, v] of wl ?? []) if (v > bw) { bw = v; bi = index.get(b) ?? 0; } pts.set(k, { t, p: o.p.clone(), bone: bi, derived: false }); } return o; }
+    return { at, loft, tube, poly, build, section, note, get points() { return pts; } };
 }
 
 // A hand-placed ring: half its outline on the +x side, from the front centre (x = 0, z > 0) round to the back centre
@@ -128,3 +145,18 @@ export function profile(w, df, db, bumps = []) {
 // Weight helpers: a blend from bone a to bone b as t goes 0 → 1.
 export const blend = (a, b, t) => (t <= 0 ? [[a, 1]] : t >= 1 ? [[b, 1]] : [[a, 1 - t], [b, t]]);
 export const lerpV = (a, b, t) => a.clone().lerp(b, t);
+
+// Moved points (absolute rest positions, by position key — what the point editor and the Blender import produce) → a layer
+// ({ structural key: offset in its bone's frame }), for a built body mesh: the offsets from the body as generated (no layer).
+export function layerFromPositions(mesh, positions) {
+    const pts = mesh.userData.points, out = {}, bindInv = mesh.bindMatrix.clone().invert(), M = new THREE.Matrix3(), d = new THREE.Vector3();
+    const frames = mesh.skeleton.boneInverses.map(bi => new THREE.Matrix3().setFromMatrix4(bindInv.clone().multiply(bi.clone().invert())).invert());
+    for (const [k, q] of Object.entries(positions)) {
+        const r = pts?.get(k); if (!r) continue;
+        d.set(q[0] - r.p.x, q[1] - r.p.y, q[2] - r.p.z);
+        if (d.lengthSq() < 1e-12) continue;
+        M.copy(frames[r.bone]); d.applyMatrix3(M);
+        out[r.t] = [+d.x.toFixed(6), +d.y.toFixed(6), +d.z.toFixed(6)];
+    }
+    return out;
+}
