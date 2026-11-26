@@ -31,11 +31,19 @@ export function layerStack(ctx, sex) {   // (a look's sculpt part — from a cas
 // buildBase: three quick passes — the plain body mapped (dry), the dressed body mapped (dry, when there is an outfit), then
 // the real build with the layers turned into positions for this body. A layer moves a point only where the body's surface
 // is the plain body's: where an outfit reshapes it (Eldrin's sleeves as tubes), the cloth keeps its own shape.
+// the added and removed points of a body's layers, in stack order (each layer's "@topo": [['add' | 'remove', tA, tB]…])
+const TOPO_OK = op => Array.isArray(op) && (op.length === 3 || op.length === 4) && (op[0] === 'add' || op[0] === 'remove') && typeof op[1] === 'string' && typeof op[2] === 'string';
+export function stackTopo(ctx, sex) {
+    const sc = ctx.look?.sculpt, swap = sc?.swap ?? {};
+    const Ls = [...layerNames(ctx, sex).map(n => (Object.hasOwn(swap, n) && swap[n] && typeof swap[n] === 'object' ? swap[n] : LAYERS[n])), sc?.points];
+    return Ls.flatMap(L => (Array.isArray(L?.['@topo']) ? L['@topo'].filter(TOPO_OK) : [])).slice(0, 2000);
+}
 export function buildBase(ctx, opts = {}) {
     const { root, head } = ctx;
     if (!ctx._v2Head) { ctx._v2Head = true; head.position.z += 0.024; head.position.y += 0.005; }   // (2026-11-23: lowered 2.5 cm — it sat too high on the neck; carried a little forward of the shoulders, the neck leaning to it, as the reference)
-    const plain = genBase(ctx, { ...opts, outfit: null }, { dry: true });
-    const dressed = opts.outfit ? genBase(ctx, opts, { dry: true }) : plain;
+    const topo = stackTopo(ctx, opts.sex);
+    const plain = genBase(ctx, { ...opts, outfit: null }, { dry: true, topo });
+    const dressed = opts.outfit ? genBase(ctx, opts, { dry: true, topo }) : plain;
     const stack = layerStack(ctx, opts.sex), edits = {};
     if (stack.length) {
         root.updateMatrixWorld(true);
@@ -50,12 +58,12 @@ export function buildBase(ctx, opts = {}) {
             d.set(x, y, z).applyMatrix3(M[r.bone]); edits[k] = [r.p.x + d.x, r.p.y + d.y, r.p.z + d.z];
         }
     }
-    const out = genBase(ctx, opts, { edits });
+    const out = genBase(ctx, opts, { edits, topo });
     if (out?.mesh) out.mesh.userData.layers = layerNames(ctx, opts.sex);   // (the Sculptor's layer picker: which layers this body stacks)
     return out;
 }
 
-function genBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair = null, outfit = null, headK = 1, footK = 1 } = {}, { edits = null, dry = false } = {}) {   // headK: the head's size; footK: the feet (boots are bigger)
+function genBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair = null, outfit = null, headK = 1, footK = 1 } = {}, { edits = null, dry = false, topo = null } = {}) {   // headK: the head's size; footK: the feet (boots are bigger)
     const F = sex === 'female';
     const { root, body, hips, spine, head, arms, legs } = ctx;
     const HAIR = hair ?? (F ? '#151922' : '#2a1d16');
@@ -65,7 +73,7 @@ function genBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair 
     // (2026-11-26: the female head's "share" of the male face's edits is gone — the layers carry it now: Common for both
     // sexes, Female for hers; docs/3d/characters/LAYERS_PLAN.md)
     let hk = 1;   // (set with the head, below; the share reads it when the head's points are made)
-    const sk = createSkin(root, bones, { edits, dry }), V = (g, x, y, z) => sk.at(g, x, g === head ? y * HV : y, z);
+    const sk = createSkin(root, bones, { edits, dry, topo }), V = (g, x, y, z) => sk.at(g, x, g === head ? y * HV : y, z);
 
     // ---- the torso, from the neck down to the crotch (body coordinates: the rig's own scale applies) ----
     const torsoW = y => (y > 1.655 ? [[head, 1]] : y > 1.6 ? [[spine, 0.4], [head, 0.6]] : y > 1.57 ? [[spine, 0.75], [head, 0.25]] : y > 1.1 ? [[spine, 1]] : y > 1.0 ? blend(hips, spine, (y - 1.0) / 0.1) : [[hips, 1]]);

@@ -16,7 +16,11 @@ export const pointKey = p => `${p.x.toFixed(4)},${p.y.toFixed(4)},${p.z.toFixed(
 // section, its ring and its place on the ring ('head.3.2.4') — the same on every body whatever its proportions. Points that
 // touch share the key of the first one made (as the position keys always did). dry: map the points (position key →
 // { t: structural key, p, bone, derived }) and build no mesh — buildBase's first pass.
-export function createSkin(root, bones, { edits = null, share = null, dry = false } = {}) {
+// topo: the Sculptor's added and removed points, in order — [['add', tA, tB] (a new point halfway along the edge between
+// the points tA and tB, keyed addKey(tA, tB); unmoved, it stays halfway between them as they are shaped) | ['remove', tA, tB]
+// (tA merged into its neighbour tB: the faces between them go)], by structural key; applied to the faces once made.
+export const addKey = (a, b) => { const s = [a, b].sort().join('|'); let h = 0x811c9dc5; for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 0x01000193) >>> 0; return `add.${h.toString(16).padStart(8, '0')}`; };
+export function createSkin(root, bones, { edits = null, share = null, dry = false, topo = null } = {}) {
     root.updateMatrixWorld(true);
     let sect = 'body', calls = 0;
     const pts = new Map();   // position key → { t, p, bone, derived } (the first point made at that position)
@@ -94,7 +98,48 @@ export function createSkin(root, bones, { edits = null, share = null, dry = fals
             tri('front', a, b, d, c);
         }
     }
+    // ---- the added and removed points (topo) ----
+    const rec = (L, i) => ({ pos: L.pos.slice(i * 3, i * 3 + 3), col: L.col.slice(i * 3, i * 3 + 3), si: L.si.slice(i * 4, i * 4 + 4), sw: L.sw.slice(i * 4, i * 4 + 4), key: L.key[i] });
+    function rewrite(L, fn) {   // each face (three vertices) → the faces it becomes
+        const out = { pos: [], col: [], si: [], sw: [], key: [] };
+        for (let i = 0; i < L.key.length; i += 3) for (const tr of fn([rec(L, i), rec(L, i + 1), rec(L, i + 2)])) for (const v of tr) { out.pos.push(...v.pos); out.col.push(...v.col); out.si.push(...v.si); out.sw.push(...v.sw); out.key.push(v.key); }
+        Object.assign(L, out);
+    }
+    function applyTopo() {
+        const byT = new Map(); for (const [k, r] of pts) byT.set(r.t, k);
+        for (const op of topo ?? []) {
+            if (!Array.isArray(op)) continue;
+            const [kind, tA, tB] = op, ka = byT.get(tA), kb = byT.get(tB); if (!ka || !kb || ka === kb) continue;
+            if (kind === 'add') {
+                const t = addKey(tA, tB); if (byT.has(t)) continue;
+                const ra = pts.get(ka), rb = pts.get(kb), pm = ra.p.clone().add(rb.p).multiplyScalar(0.5), km = pointKey(pm); if (pts.has(km)) continue;
+                pts.set(km, { t, p: pm, bone: ra.bone, derived: false }); byT.set(t, km);
+                const q = edits?.[km];   // (moved by a layer: where the layer puts it, like any point; else halfway, as the ends are shaped)
+                for (const L of Object.values(lists)) rewrite(L, tr => {
+                    for (let i = 0; i < 3; i++) {
+                        const j = (i + 1) % 3, o = (i + 2) % 3, a = tr[i], b = tr[j];
+                        if (!((a.key === ka && b.key === kb) || (a.key === kb && b.key === ka))) continue;
+                        const w = new Map(); for (const v of [a, b]) for (let n = 0; n < 4; n++) if (v.sw[n]) w.set(v.si[n], (w.get(v.si[n]) ?? 0) + v.sw[n] / 2);
+                        const ws = [...w].sort((x, y) => y[1] - x[1]).slice(0, 4), sum = ws.reduce((x, [, v]) => x + v, 0) || 1;
+                        const m = { pos: q ? [q[0], q[1], q[2]] : a.pos.map((v, n) => (v + b.pos[n]) / 2), col: a.col, si: [0, 1, 2, 3].map(n => ws[n]?.[0] ?? 0), sw: [0, 1, 2, 3].map(n => (ws[n]?.[1] ?? 0) / sum), key: km };
+                        return [[a, m, tr[o]], [m, b, tr[o]]];
+                    }
+                    return [tr];
+                });
+            } else if (kind === 'remove') {
+                let to = null; for (const L of Object.values(lists)) { const i = L.key.indexOf(kb); if (i >= 0) { to = rec(L, i); break; } }
+                if (!to) continue;
+                for (const L of Object.values(lists)) rewrite(L, tr => {
+                    const hasA = tr.some(v => v.key === ka); if (!hasA) return [tr];
+                    if (tr.some(v => v.key === kb)) return [];   // (the faces between the two go)
+                    return [tr.map(v => v.key === ka ? { ...to, col: v.col } : v)];
+                });
+                pts.delete(ka); byT.delete(tA);
+            }
+        }
+    }
     function build() {
+        if (topo?.length) applyTopo();
         if (dry) return { points: pts };   // (the first pass: the map only)
         const geo = new THREE.BufferGeometry(), all = { pos: [], col: [], si: [], sw: [], key: [] };
         const groups = [];

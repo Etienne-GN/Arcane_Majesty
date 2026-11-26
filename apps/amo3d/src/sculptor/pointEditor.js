@@ -69,6 +69,24 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
             });
         }
     };
+    // adding and removing points (saved into the chosen layer as its "@topo": skin.js): Add — the selected point, then a
+    // neighbour: a new point halfway between them (it changes nothing until moved); Remove — the selected point merges into
+    // its nearest neighbour. Each is done on the mirror too, saved at once (with any unsaved moves) and the page reloads.
+    let addFrom = -1;
+    const rPts = row(), ptsLab = document.createElement('span'); ptsLab.textContent = 'Points:'; ptsLab.style.cssText = 'align-self:center;margin-right:2px'; rPts.append(ptsLab);
+    btn(rPts, 'Add…', () => { if (sel < 0) { info.textContent = 'Select a point first, then Add, then click a neighbour.'; return; } addFrom = sel; info.textContent = 'Now click a neighbouring point: the new point goes halfway between them (Esc: cancel).'; });
+    btn(rPts, 'Remove', () => {
+        if (sel < 0) { info.textContent = 'Select the point to remove first.'; return; }
+        const nb = neighbours(sel); if (!nb.length) return;
+        const d = j => Math.hypot(bind[j * 3] - bind[sel * 3], bind[j * 3 + 1] - bind[sel * 3 + 1], bind[j * 3 + 2] - bind[sel * 3 + 2]);
+        topoOp('remove', sel, nb.reduce((a, j) => (d(j) < d(a) ? j : a)));
+    });
+    btn(rPts, 'Undo last', async () => {
+        const points = await (await fetch(`/api/v2layer?${src(layer)}`)).json(), ops = points['@topo'] ?? [];
+        if (!ops.length) { info.textContent = `No added or removed points in the ${LAYER_LABEL[layer]} layer.`; return; }
+        const g = ops.at(-1)[3]; let n = 0; while (ops.length && (g == null ? n < 1 : ops.at(-1)[3] === g)) { ops.pop(); n++; }
+        await saveTo(B?.alt?.layer === layer ? B.alt.name : null, null, { '@topo': ops });
+    });
     // what to see beside the body: the reference sheet, the compare (the Sculptor's other model, same angle), both or neither
     let refOn = true, cmpOn = true;
     const rShow = row(), showLab = document.createElement('span'); showLab.textContent = 'Show:'; showLab.style.cssText = 'align-self:center;margin-right:2px'; rShow.append(showLab);
@@ -193,7 +211,16 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const sessionMoves = () => { let c = 0; for (let i = 0; i < (T?.keys.length ?? 0); i++) if (Math.hypot(bind[i * 3] - loaded[i * 3], bind[i * 3 + 1] - loaded[i * 3 + 1], bind[i * 3 + 2] - loaded[i * 3 + 2]) > 1e-6) c++; return c; };
     const src = n => `layer=${n}` + (B?.alt?.layer === n ? `&alt=${B.alt.name}` : '');
     const save = () => saveTo(B?.alt?.layer === layer ? B.alt.name : null);
-    async function saveTo(alt) {   // alt: the alternate to write (null: the active layer)
+    const neighbours = i => { const s = new Set(), I = T.idx; for (let f = 0; f < I.length; f += 3) { const a = I[f], b = I[f + 1], c = I[f + 2]; if (a === i || b === i || c === i) for (const v of [a, b, c]) if (v !== i) s.add(v); } return [...s]; };
+    function topoOp(kind, i, j) {   // (with the mirror: the centre line maps to itself; a point with no mirror, none)
+        const pm = bodyMesh.userData.points, t = k => pm.get(T.keys[k])?.t, m = k => (mirrorOf[k] === -2 ? k : mirrorOf[k]), g = Date.now();
+        if (!t(i) || !t(j)) return;
+        const ops = [[kind, t(i), t(j), g]], mi = m(i), mj = m(j);
+        if (mi >= 0 && mj >= 0 && !(new Set([mi, mj]).size === 2 && [mi, mj].every(x => x === i || x === j)) && t(mi) && t(mj)) ops.push([kind, t(mi), t(mj), g]);
+        info.textContent = `${kind === 'add' ? 'Adding' : 'Removing'} ${ops.length === 2 ? 'a point and its mirror' : 'a point'} — saving…`;
+        saveTo(B?.alt?.layer === layer ? B.alt.name : null, ops);
+    }
+    async function saveTo(alt, topoAdd = null, replace = null) {   // alt: the alternate to write (null: the active layer); topoAdd: points added/removed; replace: entries to set as they are
         // (2026-11-26: saved into the chosen shape layer, as offsets in each point's bone frame, so they land on every body
         // that stacks it whatever its proportions.) The body's total offset from its plain build, less what the other layers
         // of its stack already give, is the chosen layer's entry. Merged into the layer as this body has it (a new alternate
@@ -212,6 +239,9 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
             if (Math.hypot(...v) < 1e-6) delete points[r0.t]; else points[r0.t] = v.map(x => +x.toFixed(6));
             changed++;
         }
+        if (topoAdd) points['@topo'] = [...(points['@topo'] ?? []), ...topoAdd];
+        if (replace) Object.assign(points, replace);
+        if (Array.isArray(points['@topo']) && !points['@topo'].length) delete points['@topo'];
         const r = await fetch('/api/v2layer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer, points, ...(alt ? { alt } : {}) }) });
         const where = `the ${LAYER_LABEL[layer] ?? layer} layer` + (alt ? ` (alternate "${alt}")` : '');
         info.textContent = r.ok ? `Saved ${changed} moved points into ${where} — reloading…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`;
@@ -230,6 +260,11 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     canvas.addEventListener('pointerdown', e => {
         if (!on) return; e.stopImmediatePropagation();
         const i = pick(e);
+        if (addFrom >= 0 && i >= 0) {   // (Add…: the second point)
+            const from = addFrom; addFrom = -1;
+            if (i !== from && neighbours(from).includes(i)) topoOp('add', from, i); else info.textContent = 'Not a neighbour of the selected point (they must share an edge) — Add cancelled.';
+            return;
+        }
         if (i >= 0) {
             sel = i; snapshot();
             const p = geo.attributes.position, at = new THREE.Vector3(p.getX(i), p.getY(i), p.getZ(i));
@@ -250,6 +285,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     addEventListener('keydown', e => {
         if (!on) return;
         if ((e.ctrlKey || e.metaKey) && e.code === 'KeyZ') { e.preventDefault(); doUndo(); return; }
+        if (e.code === 'Escape' && addFrom >= 0) { addFrom = -1; info.textContent = 'Add cancelled.'; return; }
         if (sel < 0 || !/^Arrow/.test(e.code)) return;
         e.preventDefault();
         const step = e.altKey ? 0.0005 : 0.002, right = new THREE.Vector3(), up = new THREE.Vector3(), fwd = camera.getWorldDirection(new THREE.Vector3());
@@ -265,6 +301,6 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     return {
         enter: (s, l) => { if (l) layer = l; load(s ?? who); }, exit, get on() { return on; }, get showCompare() { return cmpOn; }, group,
         frame() { if (!on) return; drawRef(); camera.position.set(target.x + Math.sin(yaw) * Math.cos(pitch) * dist, target.y + Math.sin(pitch) * dist, target.z + Math.cos(yaw) * Math.cos(pitch) * dist); camera.lookAt(target); },
-        state: () => ({ who, sex, layer, sel, region, points: T?.keys.length ?? 0 }), _move: (i, dx, dy, dz) => { sel = i; snapshot(); movePoint(i, dx, dy, dz); }, _save: save, _saveAs: saveTo,
+        state: () => ({ who, sex, layer, sel, region, points: T?.keys.length ?? 0 }), _move: (i, dx, dy, dz) => { sel = i; snapshot(); movePoint(i, dx, dy, dz); }, _save: save, _saveAs: saveTo, _topo: topoOp, _neighbours: i => neighbours(i),
     };
 }
