@@ -56,8 +56,17 @@ active one). Saved beside the layer (`layers/<layer>@<name>.json`).
 **Every entity, total control.** The Sculptor shapes not only the six bodies but **the mobs and the animals** (and the
 werewolves, in both forms, when they come): each creature kind is a base with its own layer (and alternates), and a single
 creature can have an override (a named elite, a boss). Today the creatures are built from simple shapes (boxes, cones,
-spheres — a box has 8 points), so each kind first gets a finer body to sculpt — kind by kind, the ones the user wants
-first — then joins the same point keys and layers.
+spheres — a box has 8 points), so **every mob and animal gets a v2 model like the characters** (decided 2026-11-26): one
+continuous skinned body built in code on its own rig (a wolf's, a bird's, a spider's…), with the same point keys and
+layers — then fine-tuned in the Sculptor. Kind by kind, the ones the user wants first.
+
+**Adding and removing points** (decided 2026-11-26). The Sculptor can also change the mesh itself, not only move points:
+- **add** a point on an edge (splits it) or inside a face (splits the face) — it takes a stable key from what it split, and
+  its skin weights (how it follows the bones) blended from its neighbours, so it bends with the body;
+- **remove** a point — it is merged into a neighbour and the faces round it closed again.
+These are edits like the moves, saved in a layer: in a base layer (Man, Boy, a creature kind) every body of that kind gets
+the change; in an override, only that character. The layers above keep working on the points that still exist; an edit on
+a point a lower layer removed is reported in the Sculptor, not lost silently.
 
 ## Steps
 1. **Design-space keys** for every point of the body and face and **migrate** the present male and female
@@ -66,12 +75,12 @@ first — then joins the same point keys and layers.
 2. **The layer stack** in `buildBase` (common → sex → age → garments → hair → override), scaled onto each body.
 3. **Ages:** boy, girl, old man, old woman as real bodies (proportions and starting shapes to sculpt from — a child's
    rounder face and larger eyes, an elder's heavier lines and stoop), each with its empty age layer.
-4. **The Sculptor**: the Lab renamed; the layer picker (pick, edit, save, compare), **alternates** (save as, switch,
-   compare, make active), overrides in the looks, **dress the model** (the Forge's wardrobe), and the Forge's "Sculpt this
+4. **The Sculptor**: the Lab renamed; the layer picker (pick, edit, save, compare), **adding and removing points**,
+   **alternates** (save as, switch, compare, make active), overrides in the looks, **dress the model** (the Forge's wardrobe), and the Forge's "Sculpt this
    character".
 5. Then **§2**: NPCs and the Forge onto v2 — each character picks its layers from its sex and age; its clothes and hair
    dress the shaped body.
-6. **Creatures** in the Sculptor, kind by kind: a finer body for the kind, its point keys, its layer and alternates,
+6. **Creatures**, kind by kind: a **v2 model** for the kind (a skinned body on its own rig, like the characters), its point keys, its layer and alternates,
    overrides for single creatures; the werewolves (both forms) when they come.
 
 Each step is tested headless (point counts, keys stable across proportions, the composed result) and checked by eye with
