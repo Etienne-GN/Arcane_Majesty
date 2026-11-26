@@ -5,6 +5,7 @@
 import * as THREE from 'three';
 import { gathering as G, items as itemRules } from '@rules';
 import { flat } from '../engine/lib.js';
+import { LITE } from '../engine/lib.js';
 
 const { NODE_TYPES, resolveNode, rollHarvest } = G;
 const { ITEMS } = itemRules;
@@ -52,6 +53,7 @@ function buildNode(type, rng) {
     return g;
 }
 
+const SHOW_M = LITE ? 60 : 90;   // nodes are drawn only this close (small things: no one sees a herb at 200 m)
 export function createGathering({ stats, hud, onGather, onWork = null }) {
     let nodes = [], scene = null, nearest = null;
     const rng = Math.random;
@@ -95,10 +97,12 @@ export function createGathering({ stats, hud, onGather, onWork = null }) {
         nearest = null;
         let best = REACH;
         for (const n of nodes) {
+            const d = Math.hypot(n.pos.x - player.pos.x, n.pos.z - player.pos.z);
+            n.mesh.visible = d < SHOW_M;   // (2026-11-25: every node of the open world was drawn, ~1,000 draw calls of reeds and herbs km away)
+            if (!n.mesh.visible) continue;
             const ready = now >= n.readyAt;
             const k = ready ? 1 : 0.35;   // harvested nodes thin out until they regrow
             n.mesh.scale.y += (k - n.mesh.scale.y) * 0.1;
-            const d = Math.hypot(n.pos.x - player.pos.x, n.pos.z - player.pos.z);
             if (ready && d < best) { best = d; nearest = n; }
         }
         if (!nearest) return null;

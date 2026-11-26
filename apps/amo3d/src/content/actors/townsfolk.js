@@ -8,7 +8,7 @@ import { townsfolk as TF, schedules as SCH } from '@rules';
 import { createCharacter } from '../models/character.js';
 import { flat } from '../../engine/lib.js';
 
-const NEAR = 24;
+const NEAR = 24, FAR = 160;
 const hash = s => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
 const pick = (arr, h, salt = 0) => arr[(h >>> salt) % arr.length];
 const SKIN = ['#f1c9a5', '#e2b48f', '#c98f6a', '#a8704a', '#7a4e32'];
@@ -126,8 +126,8 @@ export function createTownsfolk({ scene, W, H, resolve = null, mapId = 'thaloria
                 if (heightAt) p.pos.y = heightAt(p.pos.x, p.pos.z);
                 p.shown = true;
                 p.activity = w.activity;
-                const near = Math.hypot(p.pos.x - P.x, p.pos.z - P.z) < NEAR;
-                p.far.visible = !near;
+                const dP = Math.hypot(p.pos.x - P.x, p.pos.z - P.z), near = dP < NEAR;
+                p.far.visible = !near && dP < FAR;   // (beyond FAR: not drawn at all — a figure at 300 m is a pixel, and a draw call)
                 if (!near) { p.far.position.copy(p.pos); p.far.rotation.y = p.facing; if (p.model) p.model.root.visible = false; }
                 else {
                     const m = ensureModel(p);

@@ -58,7 +58,8 @@ export function edgeDist(st, x, z) {
 }
 const inShape = (st, x, z, m = 0) => inRect(st, x, z, m) && edgeDist(st, x, z) <= m;
 const hOf = st => st.heightAt ?? st.map.heightAt;
-const BUILD_R = 450;   // a lazy place is built when you come this near its footprint
+const BUILD_R = 450;
+const SMALL_M = LITE ? 120 : 170;   // small static props (bounding radius < 1.6 m) are drawn only this close   // a lazy place is built when you come this near its footprint
 const inRect = (st, x, z, m = 0) => x >= st.X0 - m && x <= st.X1 + m && z >= st.Z0 - m && z <= st.Z1 + m;
 const sm = (a, b, v) => { const t = Math.max(0, Math.min(1, (v - a) / (b - a))); return t * t * (3 - 2 * t); };
 // A stamp's paths [[ax, az, bx, bz, halfWidth]] (local): a trail cut through an old map's border, from a (inside) out
@@ -269,6 +270,14 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         // whatever lives and moves is never batched: creatures, townsfolk (their roots tagged)
         if (st.batch !== false) staticBatch(g, st);
         g.updateMatrixWorld(true);
+        // small static things (posts, lamps, crates, barrels…) are drawn only near you (detail culling, 2026-11-25:
+        // from the glade, Thaloria's small props were ~300 draw calls)
+        st.small = [];
+        { const sp = new THREE.Sphere(), wp = new THREE.Vector3();
+          g.traverse(o => { if (!o.isMesh || o.isInstancedMesh) return; for (let p = o; p && p !== g; p = p.parent) if (p.userData?.dynamic) return;
+              if (!o.geometry.boundingSphere) o.geometry.computeBoundingSphere();
+              sp.copy(o.geometry.boundingSphere).applyMatrix4(o.matrixWorld);
+              if (sp.radius < 1.6) { o.getWorldPosition(wp); st.small.push({ o, x: sp.center.x, z: sp.center.z }); } }); }
         const im4 = new THREE.Matrix4(), ip = new THREE.Vector3(), zero = new THREE.Matrix4().makeScale(0, 0, 0);
         g.traverse(o => {   // a place's own forest at middle detail (its full crowns are three times the triangles)
             if (!o.isInstancedMesh) return;
@@ -646,10 +655,17 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             for (const st of stamps) {   // a stamped place's creatures, while the player is within reach of it
                 if (!st.built) { if (!building && inRect(st, P.x, P.z, BUILD_R)) { building = true; integrate(st); } continue; }   // a lazy place: built as you come near (one a frame)
                 st.group.visible = inRect(st, P.x, P.z, 450);   // far places are hidden (they are in the fog by then; a phone draws only what is near)
+                if (st.group.visible && st.small?.length && (frame + st.small.length) % 12 === 0) { const R2 = SMALL_M * SMALL_M; for (const e of st.small) e.o.visible = (e.x - P.x) ** 2 + (e.z - P.z) ** 2 < R2; }   // small things: only near
                 const inside = inRect(st, P.x, P.z, 4);
                 if (inside && !st.inside) map.onPlace?.(st.id, st.map.name ?? st.id, st);   // walked into a place (main.js: its story, its banner)
                 st.inside = inside;
                 st.awake = inRect(st, P.x, P.z, st.wake ?? 220);   // (a place can ask to wake only when you are on it: the mountain's fall recovery)
+                if (st.awake !== st.wasAwake) {   // asleep: what lives and moves there (people, creatures) is not drawn either — nothing updates it (2026-11-25: Thaloria's people were ~300 draw calls from the glade)
+                    st.wasAwake = st.awake;
+                    const roots = []; st.group.traverse(o => { if (o.userData?.dynamic && o !== st.group) roots.push(o); });
+                    if (!st.awake) for (const o of roots) { o.userData.sleptVisible = o.visible; o.visible = false; }
+                    else for (const o of roots) if (o.userData.sleptVisible !== undefined) { o.visible = o.userData.sleptVisible; delete o.userData.sleptVisible; }
+                }
                 if (!st.awake) continue;
                 st.lctx = localCtx(st, ctx);
                 st.tick?.(st.lctx);   // the place's own world-level life (a gate of flame opening with the story)

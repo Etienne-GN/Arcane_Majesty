@@ -848,7 +848,8 @@ function tick(dt) {
     // Whichever is closer wins: a person standing by a chest or sign is still someone to talk to.
     if (station && person) { if (Math.hypot(person.pos.x - pp.x, person.pos.z - pp.z) < Math.hypot(station.pos.x - pp.x, station.pos.z - pp.z)) station = null; else person = null; }
     const personName = person?.r.npc ? person.r.npc.name.replace(/^./, c => c.toUpperCase()) : null;
-    const gatherText = player.state.mounted ? (player.state.mounted.kind === 'boat' ? 'G — Step ashore' : 'G — Get down') : station ? STATION_PROMPT[station.mode] : person ? `G — Talk${personName ? ` to the ${personName}` : ''}` : gathering.update(simT * 1000, player.state);
+    const gatherPrompt = gathering.update(simT * 1000, player.state);   // (every frame: it also hides far nodes)
+    const gatherText = player.state.mounted ? (player.state.mounted.kind === 'boat' ? 'G — Step ashore' : 'G — Get down') : station ? STATION_PROMPT[station.mode] : person ? `G — Talk${personName ? ` to the ${personName}` : ''}` : gatherPrompt;
     if (gatherText && (act.gather || (act.hop && input.device === 'gamepad'))) {
         if (station?.mode === 'chest') { seedChest(station); chests.toggle(station.key, station.title); }
         else if (station?.mode === 'sign') { dialogue.start([{ speaker: '', text: station.text }]); quests.manager.onReadSign(station.id ?? null); station.onUse?.({ quests, stats }); }
