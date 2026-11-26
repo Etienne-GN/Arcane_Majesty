@@ -197,9 +197,13 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     // below by their materials. Not for the wolf form (its own shape).
     const OWN = settings.charModels === 'new' && typeof lookIn?.v2 === 'string' && Object.hasOwn(V2_MODELS, lookIn.v2) ? V2_MODELS[lookIn.v2] : null;   // (own keys only: a look from the network can't reach the prototype)
     const F2 = /female/.test(bodyDef.preset);
-    const V2 = OWN ?? (settings.charModels === 'new' && !bodyDef.wolf ? (c => buildBase(c, { sex: F2 ? 'female' : 'male', skin: bodyDef.skin, hair: L.hair.color, bald: L.hair.style === 'bald' || COVERING_HEADGEAR.has(L.parts.headgear?.id), outfit: wardrobeOutfit(L, F2) })) : null);
+    // the hair: the v2 hair for short and tousled; the classic styles (long, ponytail, braids, and the cap under a covering
+    // hat) on a bald v2 head, as their meshes were built above on the same head joint; the classic beards likewise
+    const ownHair = ['short', 'tousled'].includes(L.hair.style) && !covered;
+    const V2 = OWN ?? (settings.charModels === 'new' && !bodyDef.wolf ? (c => buildBase(c, { sex: F2 ? 'female' : 'male', skin: bodyDef.skin, hair: L.hair.color, bald: !ownHair, outfit: wardrobeOutfit(L, F2) })) : null);
     let v2 = null;
     const keepMats = new Set([M.gold, M.steel, M.wood, M.crystal]);   // (the rigid classic parts worn on a v2 body: their materials stay visible)
+    if (V2 && !OWN) { keepMats.add(M.stubble); if (!ownHair && L.hair.style !== 'bald') keepMats.add(M.hair); }
     if (V2) { root.traverse(o => { if (o.isMesh) o.visible = false; }); v2 = V2(ctx); if (typeof v2?.update === 'function') hooks.push(v2.update); }
     if (V2 && !OWN) for (const slot of RIGID_SLOTS) {
         const entry = L.parts[slot];
