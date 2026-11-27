@@ -13,6 +13,12 @@ import * as THREE from 'three';
 import { createSkin, blend } from '../v2/skin.js';
 import { buildLayered } from '../v2/creatures.js';
 
+// a thin piece with thickness (an ear): its outline made a closed slab
+function slabPoly(sk, pts, col, thick, centre) {
+    const P = pts.map(o => o.p), n = new THREE.Vector3().subVectors(P[1], P[0]).cross(new THREE.Vector3().subVectors(P[2], P[0])).normalize().multiplyScalar(thick / 2);
+    const f = pts.map(o => ({ p: o.p.clone().add(n), w: o.w })), b = pts.map(o => ({ p: o.p.clone().sub(n), w: o.w }));
+    sk.poly(f, col, centre); sk.poly(b, col, centre); for (let i = 0; i < pts.length; i++) { const j = (i + 1) % pts.length; sk.poly([f[i], f[j], b[j], b[i]], col, centre); }
+}
 const SKIN = '#e2b590', SHORTS = '#3c3530', HAIR = '#2a1f17', DARK = '#1a1410', BROW = '#2a1f17';
 const ARM_OUT = 0.5;   // the sheet's A-pose: the arms ~29° out from the body
 
@@ -26,9 +32,24 @@ const TORSO_M = [   // (2026-11-27, second pass: re-fitted to the sheet's measur
     [1.41, 0.205, 0.088, 0.118, [-0.008, 0.004, 0.014, 0.01, 0, 0, 0]],   // (the collarbone rising outward)   // the collarbone's step
     [1.465, 0.15, 0.065, 0.09, [0.018, 0.008, -0.012, -0.03, -0.012, 0.004, 0.01]], [1.495, 0.085, 0.058, 0.07, [0.008, 0.004, 0, -0.01, 0, 0.004, 0.006]],   // (the trapezius slanting down from the neck to the shoulder) [1.525, 0.07, 0.056, 0.06],   // the trapezius sloping in to a slim neck
 ];
-// Head loops: [y, half-width, front z, back z] — an oval: the jaw tapering to a narrow chin, full at the cheekbones and temples
-const HEAD_M = [[1.548, 0.045, 0.1, 0.045], [1.585, 0.07, 0.108, 0.085], [1.635, 0.085, 0.11, 0.1], [1.69, 0.09, 0.108, 0.113], [1.745, 0.085, 0.095, 0.11], [1.785, 0.065, 0.07, 0.085]];
-const TOP_M = 1.805;
+// The head (2026-11-27, hand-placed after the sheet): levels from the chin to the crown, each half a loop of 7 corners —
+// the face's centre, beside it (the eye's socket at the eye level), the cheekbone's front, the side front, behind the ear,
+// the back corner, the back — [x, z, dy] (dy: that corner's own height: the jaw rising from the chin to the ear).
+const HEAD_LV = [
+    [1.55, [[0, 0.096, -0.006], [0.024, 0.093, -0.004], [0.044, 0.07, 0.006], [0.054, 0.025, 0.018], [0.05, -0.02, 0.032], [0.034, -0.038, 0.034], [0, -0.042, 0.034]]],   // the chin; the jaw's line rising to the ear
+    [1.585, [[0, 0.108, 0], [0.03, 0.105, 0], [0.058, 0.086, 0.004], [0.075, 0.034, 0.01], [0.076, -0.03, 0.012], [0.052, -0.076, 0.008], [0, -0.088, 0.008]]],   // the mouth; the jaw's angle
+    [1.625, [[0, 0.112, 0], [0.03, 0.11, 0], [0.066, 0.094, 0], [0.086, 0.038, 0], [0.086, -0.042, 0], [0.061, -0.096, 0], [0, -0.106, 0]]],   // under the nose; the cheeks
+    [1.666, [[0, 0.116, 0], [0.028, 0.097, 0], [0.062, 0.1, 0.002], [0.089, 0.044, 0], [0.089, -0.05, 0], [0.063, -0.106, 0], [0, -0.116, 0]]],   // the eyes: their sockets set in; the cheekbones
+    [1.7, [[0, 0.113, 0], [0.03, 0.11, 0.002], [0.062, 0.099, 0.004], [0.089, 0.05, 0], [0.089, -0.056, 0], [0.065, -0.111, 0], [0, -0.119, 0]]],   // the brow ridge, standing forward
+    [1.745, [[0, 0.1, 0], [0.035, 0.097, 0], [0.066, 0.085, 0], [0.086, 0.041, 0], [0.085, -0.06, 0], [0.061, -0.109, 0], [0, -0.116, 0]]],   // the forehead
+    [1.785, [[0, 0.07, 0], [0.035, 0.068, 0], [0.06, 0.05, 0], [0.071, 0.002, 0], [0.069, -0.06, 0], [0.046, -0.09, 0], [0, -0.096, 0]]],   // the crown
+];
+const TOP_M = 1.806;
+// the head's surface at a level and a corner (between the levels: interpolated) — the hair is laid over it
+function headAt(y, i) {
+    for (let k = 0; k < HEAD_LV.length - 1; k++) { const [y0, a] = HEAD_LV[k], [y1, b] = HEAD_LV[k + 1]; if (y <= y1 || k === HEAD_LV.length - 2) { const t = Math.max(0, Math.min(1, (y - y0) / (y1 - y0))); return [a[i][0] + (b[i][0] - a[i][0]) * t, a[i][1] + (b[i][1] - a[i][1]) * t]; } }
+    return HEAD_LV.at(-1)[1][i];
+}
 
 export function buildBodyV3(ctx, { sex = 'male' } = {}) {
     const { root, body, hips, spine, head, arms, legs } = ctx;
@@ -57,20 +78,26 @@ export function buildBodyV3(ctx, { sex = 'male' } = {}) {
         const T = (w, f, b) => [[0, f], [0.52 * w, 0.97 * f], [0.9 * w, 0.55 * f], [w, 0], [0.9 * w, -0.62 * b], [0.5 * w, -0.98 * b], [0, -0.93 * b]];
         sk.section('torso');
         sk.loft(TORSO_M.map(([y, w, f, b, dy]) => loop(y, w, f, b, T, y < 0.99 ? SHORTS : SKIN, torsoW(y), dy)), { mat: 'double', capStart: true });
-        // the head: the face's centre, the cheek, the side front (the cheekbone), the side back (behind the ear), the back corner, the back
-        const Hc = (w, f, b) => [[0, f], [0.58 * w, 0.9 * f], [w, 0.25 * f], [0.96 * w, -0.4 * b], [0.55 * w, -0.92 * b], [0, -b]];
+        // the head: its levels as loops (each corner at its own height), from a band joining the neck to the crown's cap
         sk.section('head');
-        const N = TORSO_M.at(-1);   // (the neck's top loop has 12 points; the head's 10 — joined by its own band below)
-        const headRings = HEAD_M.map(([y, w, f, b]) => loop(y, w, f, b, Hc, SKIN, [[head, 1]]));
-        sk.loft([loop(N[0] + 0.004, N[1], N[2], N[3], Hc, SKIN, [[spine, 0.4], [head, 0.6]]), ...headRings, { c: B(0, TOP_M, -0.01), pts: headRings.at(-1).pts.map(([x, z, d]) => [x * 0.35, z * 0.35, 0]), w: [[head, 1]], col: SKIN }], { mat: 'double', cap: true });
+        const hloop = (y, half, wts, col = SKIN) => {
+            const all = [...half]; for (let k = half.length - 2; k >= 1; k--) all.push([-half[k][0], half[k][1], half[k][2]]);
+            const c = B(0, y, 0); return { c, pts: all.map(([x, z, d]) => { const p = B(x, y + d, z); return [p.x - c.x, p.z - c.z, p.y - c.y]; }), w: wts, col };
+        };
+        const N = TORSO_M.at(-1), neckHalf = [[0, N[2], 0], [N[1] * 0.5, N[2] * 0.95, 0], [N[1] * 0.9, N[2] * 0.5, 0], [N[1], 0.0, 0], [N[1] * 0.9, -N[3] * 0.5, 0], [N[1] * 0.5, -N[3] * 0.95, 0], [0, -N[3], 0]];
+        const levels = HEAD_LV.map(([y, half]) => hloop(y, half, [[head, 1]]));
+        sk.loft([hloop(N[0] + 0.004, neckHalf, [[spine, 0.4], [head, 0.6]]), ...levels, { c: B(0, TOP_M, -0.012), pts: levels.at(-1).pts.map(([x, z]) => [x * 0.3, z * 0.3, 0]), w: [[head, 1]], col: SKIN }], { mat: 'double', cap: true });
+        // the nose: a ridge from the brow to the tip, its wings, the underside
         sk.section('nose');
-        { const P = (x, y, z) => ({ p: B(x, y, z), w: [[head, 1]] }), c = B(0, 1.67, 0.05);
-          const br = P(0, 1.7, 0.112), tip = P(0, 1.652, 0.138), l = P(0.021, 1.643, 0.112), r = P(-0.021, 1.643, 0.112), u = P(0, 1.64, 0.118);
-          sk.poly([br, l, tip], SKIN, c); sk.poly([br, tip, r], SKIN, c); sk.poly([tip, l, u], SKIN, c); sk.poly([tip, u, r], SKIN, c); }
+        { const P = (x, y, z) => ({ p: B(x, y, z), w: [[head, 1]] }), c = B(0, 1.665, 0.07);
+          const br = P(0, 1.698, 0.113), mid = P(0, 1.672, 0.122), tip = P(0, 1.642, 0.136), l = P(0.02, 1.634, 0.112), r = P(-0.02, 1.634, 0.112), lu = P(0.012, 1.66, 0.112), ru = P(-0.012, 1.66, 0.112), u = P(0, 1.63, 0.116);
+          sk.poly([br, lu, mid], SKIN, c); sk.poly([br, mid, ru], SKIN, c); sk.poly([mid, lu, l, tip], SKIN, c); sk.poly([mid, tip, r, ru], SKIN, c); sk.poly([tip, l, u], SKIN, c); sk.poly([tip, u, r], SKIN, c); }
+        // the ears: a rim with thickness, set on the side of the head between the brow and the nose's base, leaning back
         sk.section('ears');
-        for (const s of [1, -1]) { const P = (y, z, x = 0.09) => ({ p: B(s * x, y, z), w: [[head, 1]] }); const c = B(s * 0.05, 1.66, -0.01);
-            const a = P(1.685, -0.005), b = P(1.69, -0.04, 0.096), d = P(1.635, -0.036, 0.095), e = P(1.625, -0.005);
-            sk.poly([a, b, d, e], SKIN, c); sk.poly([a, e, P(1.655, 0.0, 0.082)], SKIN, c); }
+        for (const s of [1, -1]) {
+            const P = (y, z, x) => ({ p: B(s * x, y, z), w: [[head, 1]] }), outline = [P(1.692, -0.008, 0.088), P(1.698, -0.03, 0.096), P(1.68, -0.046, 0.099), P(1.645, -0.042, 0.097), P(1.626, -0.022, 0.093), P(1.632, -0.004, 0.088)];
+            slabPoly(sk, outline, SKIN, 0.012, B(s * 0.04, 1.66, -0.02));
+        }
         // the arms, in the A-pose: rings square to the bone (its −y), measured along the sheet's arm — deltoid, biceps, elbow, forearm, wrist
         sk.section('arms');
         const ring = (g, y, rx, rz, n, w, col, oz = 0, ox = 0) => ({ c: V(g, ox, y, oz), pts: Array.from({ length: n }, (_, i) => { const a = (i / n) * Math.PI * 2, c = V(g, ox, y, oz), p = V(g, ox + Math.sin(a) * rx, y, oz + Math.cos(a) * rz); return [p.x - c.x, p.z - c.z, p.y - c.y]; }), w, col });
@@ -112,21 +139,24 @@ export function buildBodyV3(ctx, { sex = 'male' } = {}) {
             const foot = [F(-0.09, 0.03, 0.07), F(-0.04, 0.036, 0.11), F(0.03, 0.04, 0.08), F(0.1, 0.04, 0.042), F(0.15, 0.034, 0.025)];   // (the instep high enough to meet the ankle)   // (smaller and flatter: 2026-11-27)
             sk.loft(foot, { mat: 'double', cap: true, capStart: true });
         }
-        // the hair, cut short (the sheet): a cap over the crown and the back, the hairline high at the front
+        // the hair (the sheet: short, full on top and swept, the ears showing): a shell laid over the head — its hairline high on
+        // the forehead, coming down at the temples, cut above the ears, low at the nape — and fuller at the top and front
         sk.section('hair');
-        const HR = [[1.665, 1.07, 0.0], [1.712, 1.075, 0.022], [1.765, 1.085, 0.012], [1.812, 0.62, 0.0]];
-        sk.loft(HR.map(([y, k, lift], i) => {
-            const base = HEAD_M[Math.min(HEAD_M.length - 1, 2 + i)] ?? HEAD_M.at(-1), [, w, f, b] = base;
-            const half = Hc(w * k, f * k, b * k), all = [...half]; for (let j = half.length - 2; j >= 1; j--) all.push([-half[j][0], half[j][1]]);
-            const c = B(0, y, -0.005); return { c, pts: all.map(([x, z]) => { const p = B(x, y + (z > 0.04 ? lift + (i < 2 ? 0.05 * (z / f) : 0) : 0), z - 0.005); return [p.x - c.x, p.z - c.z, p.y - c.y]; }), w: [[head, 1]], col: HAIR };
-        }), { mat: 'double', cap: true });
-        // the eyes and brows: small dark planes on the face
+        const HB = [0.05, 0.045, 0.03, 0.0, -0.03, -0.075, -0.082];   // each corner's hairline, from 1.70: the forehead … the nape
+        const hairRing = (y0, lift, k, rise) => {
+            const half = HB.map((d, i) => { const y = y0 + d * rise, [x, z] = headAt(y, i); return [x * k + (x > 0 ? 0.006 : 0), z * k + (z > 0 ? 0.004 : -0.006), y - y0 + (i <= 2 ? lift : lift * 0.5)]; });
+            return hloop(y0, half, [[head, 1]], HAIR);
+        };
+        sk.loft([hairRing(1.7, 0, 1.04, 1), hairRing(1.735, 0.012, 1.1, 0.7), hairRing(1.775, 0.02, 1.1, 0.35), hairRing(1.805, 0.016, 0.92, 0.1),
+            { c: B(0, 1.832, -0.01), pts: Array.from({ length: 12 }, (_, i) => { const a = (i / 12) * Math.PI * 2; return [Math.sin(a) * 0.03, Math.cos(a) * 0.035, 0]; }), w: [[head, 1]], col: HAIR }], { mat: 'double', cap: true });
+        // the face: eyes in their sockets, the brows on the ridge, the mouth's line
         sk.section('face');
         for (const s of [1, -1]) {
-            const P = (x, y, z) => ({ p: B(s * x, y, z), w: [[head, 1]] }), c = B(0, 1.67, 0);
-            sk.poly([P(0.024, 1.674, 0.111), P(0.05, 1.676, 0.103), P(0.05, 1.666, 0.103), P(0.024, 1.666, 0.111)], DARK, c);
-            sk.poly([P(0.017, 1.694, 0.114), P(0.058, 1.698, 0.103), P(0.058, 1.69, 0.103), P(0.017, 1.687, 0.114)], BROW, c);
+            const P = (x, y, z) => ({ p: B(s * x, y, z), w: [[head, 1]] }), c = B(0, 1.66, 0);
+            sk.poly([P(0.02, 1.668, 0.101), P(0.036, 1.674, 0.1), P(0.054, 1.669, 0.097), P(0.036, 1.661, 0.1)], DARK, c);   // the eye
+            sk.poly([P(0.014, 1.692, 0.113), P(0.06, 1.697, 0.101), P(0.062, 1.688, 0.1), P(0.014, 1.684, 0.112)], BROW, c);   // the brow
         }
+        { const P = (x, y, z) => ({ p: B(x, y, z), w: [[head, 1]] }); sk.poly([P(-0.022, 1.6, 0.108), P(0.022, 1.6, 0.108), P(0.02, 1.595, 0.108), P(-0.02, 1.595, 0.108)], '#8a5a48', B(0, 1.6, 0)); }   // the mouth
         if (dry) return { points: sk.build().points, bones };
         return { mesh: sk.build() };
     };
