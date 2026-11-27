@@ -53,6 +53,15 @@ function ripple(panel, k, time, amp) {
     panel.geo.computeVertexNormals();
 }
 
+// the top of a v2 body's left shoulder (its deltoid: the highest point on the upper arm's bone), in the spine's frame
+function v2Shoulder(mesh) {
+    const p = mesh.geometry.attributes.position, si = mesh.geometry.attributes.skinIndex, sw = mesh.geometry.attributes.skinWeight, spine = mesh.skeleton.bones[1], up = mesh.skeleton.bones[3];
+    let best = null; const v = new THREE.Vector3();
+    for (let i = 0; i < p.count; i++) { if (si.getX(i) !== 3 || sw.getX(i) < 0.5 || p.getX(i) <= 0) continue; if (!best || p.getY(i) > best.y) best = v.set(p.getX(i), p.getY(i), p.getZ(i)).clone(); }
+    if (!best) return { x: 0.25, y: 0.52 };
+    mesh.parent.updateMatrixWorld(true); const q = spine.worldToLocal(mesh.parent.localToWorld(best.clone()));
+    return { x: q.x, y: q.y, up };
+}
 export function createCharacter(lookIn = DEFAULT_LOOK) {
     const L = normalizeLook(lookIn);
     const bodyDef = L.body;
@@ -216,8 +225,16 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         if (!entry?.id || entry.id === 'none') continue;
         const def = partDef(slot, entry.id); if (!def) continue;
         const colors = { ...(def.colors ?? {}), ...(entry.colors ?? {}) };
+        const before = new Set(spine.children);
         const res = def.build({ ...ctx, colors, slot, entry, mat: (c, o) => { const m = ctx.mat(c, o); keepMats.add(m); return m; } });
         if (res?.update) hooks.push(res.update);
+        if (slot === 'shoulders' && v2?.mesh) {   // (2026-11-26: seated on this body's own shoulders — the classic spot is a fixed 0.25 m out, 0.52 up)
+            const sh = v2Shoulder(v2.mesh);
+            for (const o of spine.children) if (!before.has(o)) {
+                if (Math.abs(o.position.x) > 0.1) { o.position.x += Math.sign(o.position.x) * (sh.x - 0.25); o.position.y += sh.y - 0.03 - 0.52; o.scale.multiplyScalar(F2 ? 0.88 : 1); }   // (pauldrons: on the deltoid; smaller on a woman's shoulders)
+                else { o.position.y += sh.y + 0.04 - 0.55; if (o.geometry?.type === 'TorusGeometry') o.scale.x = 0.92 * (sh.x / 0.25); }   // (a mantle: round the neck, on the trapezius, no wider than the shoulders)
+            }
+        }
     }
     for (const slot of V2 ? [] : Object.keys(PART_CATALOG)) {
         const entry = L.parts[slot];
