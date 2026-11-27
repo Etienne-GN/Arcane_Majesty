@@ -66,7 +66,8 @@ export function buildBodyV3(ctx, { sex = 'male' } = {}) {
         legs[side].thigh.position.set(s * 0.108, -0.09, 0); legs[side].shin.position.y = -0.347;
     }
     head.position.set(0, 0.54, 0.008);
-    body.scale.multiplyScalar(0.95);   // (2026-11-27: "he's too tall" — the sheet's 1.80 m read lanky beside the others: 95%)
+    // (2026-11-27: no longer scaled to 95% — "he's too tall" was the feet floating 6 cm up, fixed; at 95% he stood 1.72 m
+    // beside the v2 male's 1.885 m: "the whole male model is too short". The sheet's own 1.80 m.)
     const bones = [hips, spine, head, arms.L.upper, arms.L.fore, arms.R.upper, arms.R.fore, legs.L.thigh, legs.L.shin, legs.R.thigh, legs.R.shin];
     // made in the A-pose: the arms out while the mesh is built and bound, then down again
     const setPose = k => { arms.L.upper.rotation.set(0, 0, ARM_OUT * k); arms.R.upper.rotation.set(0, 0, -ARM_OUT * k); for (const s of ['L', 'R']) arms[s].fore.rotation.set(0, 0, 0); };
@@ -84,7 +85,7 @@ export function buildBodyV3(ctx, { sex = 'male' } = {}) {
         // torso corners: the front's centre, the pec / abs edge, the side front, the side, the side back, the shoulder blade, the spine (a groove)
         const T = (w, f, b) => [[0, f], [0.52 * w, 0.97 * f], [0.9 * w, 0.55 * f], [w, 0], [0.9 * w, -0.62 * b], [0.5 * w, -0.98 * b], [0, -0.93 * b]];
         sk.section('torso');
-        sk.loft(TORSO_M.map(([y, w, f, b, dy]) => loop(y, w, f, b, T, y < 0.99 ? SHORTS : SKIN, torsoW(y), dy)), { mat: 'double', capStart: true, inward: true });   // (inward: the loops go up, from the crotch — the loft's faces turn outward only for loops going down)
+        sk.loft(TORSO_M.map(([y, w, f, b, dy]) => loop(y, w, f, b, T, y < 0.9 ? SHORTS : SKIN,   /* (a band takes its lower loop's colour: the shorts' waist at the 0.97 loop, as on the sheet — they reached the waist and shortened the legs) */ torsoW(y), dy)), { mat: 'double', capStart: true, inward: true });   // (inward: the loops go up, from the crotch — the loft's faces turn outward only for loops going down)
         // the head: its levels as loops (each corner at its own height), from a band joining the neck to the crown's cap
         sk.section('head');
         const hloop = (y, half, wts, col = SKIN) => {

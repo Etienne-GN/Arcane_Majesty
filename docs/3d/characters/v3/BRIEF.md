@@ -19,8 +19,8 @@ You may start from it or from scratch.
   outline is done in the engine — you only build the mesh).
 - **A-pose**: arms ~29° out from the body, legs slightly apart, standing straight.
 
-## Measurements taken from the sheet (male; 507 px = 1.80 m, scaled to 0.95 in the game → 1.71 m)
-Heights from the sole (m, before the 0.95 scale): head top 1.80 · chin 1.55 · neck (slim, half-width ~0.078) 1.52 ·
+## Measurements taken from the sheet (male; 507 px = 1.80 m — the game uses the sheet's own height)
+Heights from the sole (m): head top 1.80 · chin 1.55 · neck (slim, half-width ~0.078) 1.52 ·
 trapezius slopes from the neck to the deltoid · deltoid's outer edge ~0.31 out at 1.32 · armpit 1.23 · chest half-width
 ~0.21 · waist (narrowest, half-width ~0.15) 1.10 · hips half-width ~0.21 · crotch 0.72 · knee 0.51 · calf widest (~0.16
 across) 0.35 · ankle 0.10 · foot ~0.28 long. Arm: shoulder joint ~(0.25, 1.33), elbow ~0.31 below it along the arm, wrist
@@ -30,7 +30,7 @@ across) 0.35 · ankle 0.10 · foot ~0.28 long. Arm: shoulder joint ~(0.25, 1.33)
 - **Units metres, Y up, the figure facing +Z, the character's left on +X, the soles at Y = 0.**
 - **One skinned mesh** bound to **exactly these 11 bones, with these names and this hierarchy** (as in `v3_male.glb`):
   `hips` → (`thigh_L` → `shin_L`), (`thigh_R` → `shin_R`), `spine` → (`head`, `upperarm_L` → `forearm_L`, `upperarm_R` →
-  `forearm_R`). Keep the bones' rest positions as in the file (hips at y 0.95 under a group scaled 0.95; thigh at
+  `forearm_R`). Keep the bones' rest positions as in the file (hips at y 0.95, no scale; thigh at
   (±0.108, −0.09); shin −0.347 below; spine +0.06; head +0.54 (z +0.008); upper arm at (±0.25, +0.32); forearm −0.31).
   The bind pose is the **A-pose** (upper arms rotated ±0.5 rad about Z). Up to 4 bone weights per vertex; blend at the
   elbows, knees, shoulders, hips and neck so they bend cleanly.
