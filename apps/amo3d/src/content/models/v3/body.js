@@ -19,12 +19,12 @@ const ARM_OUT = 0.5;   // the sheet's A-pose: the arms ~29° out from the body
 // The male, from the sheet. Torso loops: [y, half-width, front z, back z] (m, sole at 0).
 const TORSO_M = [   // (2026-11-27, second pass: re-fitted to the sheet's measured widths — the V from chest to waist, the armpit at 1.23 m,
     // the trapezius sloping from a slim neck out to the shoulders; it was a box with a pillar of a neck)
-    [0.72, 0.165, 0.07, 0.095], [0.84, 0.205, 0.095, 0.135], [0.97, 0.17, 0.1, 0.115],   // the crotch, the glutes, the hip bones
+    [0.72, 0.165, 0.07, 0.095], [0.84, 0.205, 0.095, 0.135, [0.01, 0.01, 0, 0, -0.015, -0.03, -0.025]], [0.97, 0.17, 0.1, 0.115, [0.02, 0.012, 0, 0, 0, 0, 0]],   // (the glute fold lower behind; the shorts' waist dipping at the front)   // the crotch, the glutes, the hip bones
     [1.09, 0.15, 0.098, 0.1], [1.18, 0.172, 0.112, 0.106],   // the waist, the lower ribs (the abs)
-    [1.232, 0.19, 0.11, 0.113], [1.25, 0.196, 0.137, 0.116],   // the pec's lower edge: a step — the pec stands out over the ribs (its own plane)
+    [1.232, 0.19, 0.11, 0.113, [-0.03, -0.016, 0.022, 0.04, 0.02, 0, 0]], [1.25, 0.196, 0.137, 0.116, [-0.03, -0.016, 0.022, 0.04, 0.02, 0, 0]],   // (the pec's edge rising from the breastbone to the armpit)   // the pec's lower edge: a step — the pec stands out over the ribs (its own plane)
     [1.33, 0.212, 0.132, 0.125], [1.39, 0.215, 0.108, 0.12],   // the chest at its fullest; under the collarbone
-    [1.41, 0.205, 0.088, 0.118],   // the collarbone's step
-    [1.465, 0.15, 0.065, 0.09], [1.495, 0.085, 0.058, 0.07], [1.525, 0.07, 0.056, 0.06],   // the trapezius sloping in to a slim neck
+    [1.41, 0.205, 0.088, 0.118, [-0.008, 0.004, 0.014, 0.01, 0, 0, 0]],   // (the collarbone rising outward)   // the collarbone's step
+    [1.465, 0.15, 0.065, 0.09, [0.018, 0.008, -0.012, -0.03, -0.012, 0.004, 0.01]], [1.495, 0.085, 0.058, 0.07, [0.008, 0.004, 0, -0.01, 0, 0.004, 0.006]],   // (the trapezius slanting down from the neck to the shoulder) [1.525, 0.07, 0.056, 0.06],   // the trapezius sloping in to a slim neck
 ];
 // Head loops: [y, half-width, front z, back z] — an oval: the jaw tapering to a narrow chin, full at the cheekbones and temples
 const HEAD_M = [[1.548, 0.045, 0.1, 0.045], [1.585, 0.07, 0.108, 0.085], [1.635, 0.085, 0.11, 0.1], [1.69, 0.09, 0.108, 0.113], [1.745, 0.085, 0.095, 0.11], [1.785, 0.065, 0.07, 0.085]];
@@ -47,14 +47,15 @@ export function buildBodyV3(ctx, { sex = 'male' } = {}) {
         const sk = createSkin(root, bones, { edits, dry, topo }), V = (g, x, y, z) => sk.at(g, x, y, z);
         const torsoW = y => (y > 1.56 ? [[head, 1]] : y > 1.5 ? [[spine, 0.5], [head, 0.5]] : y > 1.08 ? [[spine, 1]] : y > 0.96 ? blend(hips, spine, (y - 0.96) / 0.12) : [[hips, 1]]);
         // a torso or head loop: half its outline from the front's centre to the back's, at anatomical corners (ringPts mirrors it)
-        const loop = (y, w, f, b, pts, col, wts) => {
-            const half = pts(w, f, b), all = [...half]; for (let i = half.length - 2; i >= 1; i--) all.push([-half[i][0], half[i][1]]);
-            return { c: new THREE.Vector3(0, y, 0), pts: all.map(([x, z]) => [x, z, 0]), w: wts, col };
+        // (dy: each corner's own height — so a plane's edge can run diagonally along the anatomy, not round in a band)
+        const loop = (y, w, f, b, pts, col, wts, dy = null) => {
+            const half = pts(w, f, b).map(([x, z], i) => [x, z, dy?.[i] ?? 0]), all = [...half]; for (let i = half.length - 2; i >= 1; i--) all.push([-half[i][0], half[i][1], half[i][2]]);
+            return { c: new THREE.Vector3(0, y, 0), pts: all, w: wts, col };
         };
         // torso corners: the front's centre, the pec / abs edge, the side front, the side, the side back, the shoulder blade, the spine (a groove)
         const T = (w, f, b) => [[0, f], [0.52 * w, 0.97 * f], [0.9 * w, 0.55 * f], [w, 0], [0.9 * w, -0.62 * b], [0.5 * w, -0.98 * b], [0, -0.93 * b]];
         sk.section('torso');
-        sk.loft(TORSO_M.map(([y, w, f, b]) => loop(y, w, f, b, T, y < 0.99 ? SHORTS : SKIN, torsoW(y))), { mat: 'double', capStart: true });
+        sk.loft(TORSO_M.map(([y, w, f, b, dy]) => loop(y, w, f, b, T, y < 0.99 ? SHORTS : SKIN, torsoW(y), dy)), { mat: 'double', capStart: true });
         // the head: the face's centre, the cheek, the side front (the cheekbone), the side back (behind the ear), the back corner, the back
         const Hc = (w, f, b) => [[0, f], [0.58 * w, 0.9 * f], [w, 0.25 * f], [0.96 * w, -0.4 * b], [0.55 * w, -0.92 * b], [0, -b]];
         sk.section('head');
