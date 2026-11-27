@@ -46,6 +46,7 @@ const ICON = {
 const ic = body => `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${body}</svg>`;
 const UI = {
     undo: ic('<path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>'),
+    redo: ic('<path d="M15 14l5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/>'),
     save: ic('<path d="M5 3h11l4 4v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3M7 21v-7h10v7"/>'),
     unsave: ic('<path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/><path d="M12 7.5V12l3 2"/>'),
     image: ic('<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/>'),
@@ -59,12 +60,13 @@ const PREFS_KEY = 'amo3d.sculptor.ui';
 const loadPrefs = () => { try { return JSON.parse(localStorage.getItem(PREFS_KEY) ?? '{}') ?? {}; } catch { return {}; } };
 const savePrefs = p => { try { localStorage.setItem(PREFS_KEY, JSON.stringify(p)); } catch { /* storage blocked */ } };
 
-export function createPointEditor({ hairless = false, THREE, scene, camera, renderer, getBody, bodies = [], alts = {}, viewRect = null, onEnter, onExit }) {
+export function createPointEditor({ hairless = false, THREE, scene, camera, renderer, getBody, bodies = [], alts = {}, viewRect = null, onEnter, onExit, dresses = [], dressOf = () => null, subjects = [], slotOf = () => '' }) {
     let loaded = null, bodyMesh = null, on = false, sex = 'male', who = bodies[0]?.id, layer = null, T = null, geo = null, mesh = null, wire = null, dots = null, sel = -1, hover = -1, mirrorOf = [], drag = null;
     let region = 'head', yaw = 0, pitch = 0.05, dist = 0.55, target = new THREE.Vector3(0, 1.66, 0);
     // (2026-11-27, the user: "I can't dezoom more on the model, nor expand the ref further, so I can superpose them")
     const MAX_DIST = 12, MAX_REF = 4000;
     let lens = null;   // (Fit's lens shift, screen px: the picture moved, not the camera)
+    const redo = [];   // (2026-11-27, the user: "we have undo, we'd need redo")
     const undo = [], group = new THREE.Group(); scene.add(group); group.visible = false;
     const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), tmpM = new THREE.Matrix4(), col = new THREE.Color();
     const keyPos = k => k.split(',').map(Number);
@@ -131,6 +133,10 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     .pe-panel h4 { margin: 10px 0 4px; font: normal 11px Georgia, serif; letter-spacing: .16em; color: var(--hi); text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
     .pe-panel h4::after { content: ''; flex: 1; height: 1px; background: var(--line); }
     .pe-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .pe-dc { grid-template-columns: 1fr; }
+    .pe-pick { display: grid; grid-template-columns: 76px 1fr; align-items: center; gap: 6px; font: 12px var(--ui); color: var(--text); }
+    .pe-pick select { font: 13px var(--ui); height: 34px; padding: 0 6px; border-radius: 8px; background: var(--btn); color: var(--text); border: 1px solid var(--line2); min-width: 0; }
+    @media (pointer: coarse) { .pe-pick select { height: 40px; } }
     .pe-panel .pe-b { height: 34px; font-size: 12.5px; justify-content: flex-start; padding: 0 8px; }
     .pe-panel .pe-b.wide { grid-column: 1 / -1; justify-content: center; }
     @media (pointer: coarse) { .pe-panel .pe-b { height: 40px; } }
@@ -197,6 +203,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const verMenu = button(bar, UI.more, () => versionMenu(), 'Versions: save as new, make active, delete');
     sep(bar); make('div', 'pe-break', bar);   // (a phone: the file's actions on a second row)
     button(bar, UI.undo, () => doUndo(), 'Undo move (Ctrl+Z)');
+    button(bar, UI.redo, () => doRedo(), 'Redo move (Ctrl+Shift+Z or Ctrl+Y)');
     const saveBtn = button(bar, `${UI.save}<span>Save</span>`, () => save(), 'Save into the layer'); saveBtn.classList.add('primary');
     const undoSave = button(bar, `${UI.unsave}<span class="lbl">Undo save</span><span class="n">0</span>`, () => undoLastSave(), 'Undo last save (each save keeps the version it replaced)');
     make('div', 'pe-grow', bar);
@@ -235,12 +242,28 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const toggle = (id, label, get, set, title = '') => { const b = button(showRow, label, () => { set(!get()); b.classList.toggle('on', get()); }, title); b.classList.add('pe-sw'); toggles[id] = () => b.classList.toggle('on', get()); return b; };
     let cmpOn = false,   /* (off by default — the user, 2026-11-27) */ hairOn = true, eyesOn = true, mouthOn = true, faceMesh = null, mouthMesh = null;
     toggle('ref', 'Reference', () => prefs.refOn, v => { prefs.refOn = v; keep(); layoutRef(); }, 'The reference window');
-    toggle('cmp', 'Compare', () => cmpOn, v => { cmpOn = v; }, 'The other body beside it, from the same angle');
+    toggle('cmp', 'Compare', () => cmpOn, v => { cmpOn = v; showDress?.(); }, 'The other body beside it, from the same angle (pick it under Dress & compare)');
     toggle('hair', 'Hair', () => hairOn, v => { hairOn = v; applyHair(); hairBtn.classList.toggle('on', hairOn); });
     toggle('eyes', 'Eyes', () => eyesOn, v => { eyesOn = v; if (faceMesh) faceMesh.visible = v; });
     toggle('mouth', 'Mouth', () => mouthOn, v => { mouthOn = v; if (mouthMesh) mouthMesh.visible = v; });
     toggle('wire', 'Wireframe', () => prefs.wireOn, v => { prefs.wireOn = v; keep(); if (wire) wire.visible = v && !polish; });
     toggle('polish', 'Polish', () => polish, v => setPolish(v), 'The model as in the game: no points, no wireframe');
+    // Dress & compare (2026-11-27, the user: "test dress my model in the sculptor, and display it in the compare too"): the
+    // edited body's dress (painted on: every edit still lands), and what the Compare shows — any subject, its own dress
+    make('h4', '', panel, 'Dress & compare');
+    const dcRow = make('div', 'pe-row pe-dc', panel);
+    const picker = (label, opts, value, onChange, title) => { const l = make('label', 'pe-pick', dcRow); make('span', '', l, label); const sl = make('select', '', l); sl.title = title; for (const [v, t] of opts) { const o = make('option', '', sl, t); o.value = v; } sl.value = value; sl.onchange = () => onChange(sl.value); return l; };
+    const keepGo = ch => { if (sessionMoves() > 0 && !confirm('Unsaved moves will be lost. Continue?')) return false; B.go({ alt: B.alt ? `${B.alt.layer}:${B.alt.name}` : null, edit: who, layer, dress: null, ...ch }); return true; };
+    const DRESS_OPTS = [['', 'Undressed'], ...dresses];
+    let dressPick = null, cmpPick = null, cmpDressPick = null;
+    function showDress() {
+        dcRow.replaceChildren(); if (!B) return;
+        const other = 1 - who;
+        dressPick = picker('Dress', DRESS_OPTS, dressOf(who) ?? '', v => keepGo({ [`dress${who}`]: v || null, [`dress${other}`]: dressOf(other) }), 'Dress the model being shaped (a basic outfit painted on it)');
+        cmpPick = picker('Compare', subjects, slotOf(other), v => keepGo({ [other ? 'b' : 'a']: v, [other ? 'a' : 'b']: slotOf(who), [`alt${other}`]: null, [`dress${who}`]: dressOf(who), [`dress${other}`]: dressOf(other) }), 'What stands in the Compare view');
+        cmpDressPick = picker('Its dress', DRESS_OPTS, dressOf(other) ?? '', v => keepGo({ [`dress${other}`]: v || null, [`dress${who}`]: dressOf(who) }), 'Dress the compared model');
+        for (const l of [cmpPick, cmpDressPick]) l.style.display = cmpOn ? '' : 'none';
+    }
     make('h4', '', panel, 'Reference');
     const refRow = make('div', 'pe-row', panel);
     const lineBtn = button(refRow, 'Outline', () => { prefs.refLine = !prefs.refLine; keep(); drawLine(); }, 'A red line round the reference figure, over the model: move the points until the model meets it (lower the opacity to keep only the line)');
@@ -259,7 +282,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     make('h4', '', make('summary', '', helpBox), 'Help');
     make('div', 'pe-help', helpBox, COARSE
         ? 'Pen: the tool on the left (Move, Add, Remove…); hovering shows the point it would take; the side button turns the view. Fingers: one turns (or moves, with ✋), two zoom and move. The pad bottom right moves the view, or nudges the point.'
-        : 'Left button: the tool. Right or middle drag: move the view. Wheel: zoom. Arrows: nudge the point (Shift: in/out, Alt: fine). Ctrl+Z: undo a move. Esc: cancel Add.');
+        : 'Left button: the tool. Right or middle drag: move the view. Wheel: zoom. Arrows: nudge the point (Shift: in/out, Alt: fine). Ctrl+Z: undo a move, Ctrl+Shift+Z / Ctrl+Y: redo. Esc: cancel Add.');
 
     // ---- the status line ----
     const status = make('div', 'pe pe-status', document.body);
@@ -521,8 +544,8 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     };
 
     function load(s) {
-        who = s; B = getBody(s); T = B.table; bodyMesh = B.mesh; sex = bodyMesh.userData.editSex ?? 'male'; sel = -1; hover = -1; undo.length = 0;
-        bodySel.value = String(s);
+        who = s; B = getBody(s); T = B.table; bodyMesh = B.mesh; sex = bodyMesh.userData.editSex ?? 'male'; sel = -1; hover = -1; undo.length = 0; redo.length = 0;
+        bodySel.value = String(s); showDress();
         const Ls = stackOf(); if (!Ls.includes(layer)) layer = Ls.at(-1); showLayers();   // (by default the body's own: its age layer, else its sex)
         group.clear();
         geo = new THREE.BufferGeometry();
@@ -573,10 +596,12 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         const m = mirrorOf[i]; if (m >= 0) setPoint(m, bind[m * 3] - d.x, bind[m * 3 + 1] + d.y, bind[m * 3 + 2] + d.z);
         p.needsUpdate = true; geo.computeBoundingSphere(); placeDots(); describe();
     }
-    function snapshot() { const ids = [sel, mirrorOf[sel]].filter(i => i >= 0); undo.push(ids.map(i => [i, bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2]])); if (undo.length > 200) undo.shift(); }
-    function doUndo() { const s = undo.pop(); if (!s) { info.textContent = 'No unsaved move to undo (⤺ Save takes back a save).'; return; } for (const [i, x, y, z] of s) setPoint(i, x, y, z); geo.attributes.position.needsUpdate = true; placeDots(); describe(); }
+    function snapshot() { const ids = [sel, mirrorOf[sel]].filter(i => i >= 0); undo.push(ids.map(i => [i, bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2]])); if (undo.length > 200) undo.shift(); redo.length = 0; }   // (a new move: nothing left to redo)
+    const stateOf = s => s.map(([i]) => [i, bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2]]);
+    function doRedo() { const s = redo.pop(); if (!s) { info.textContent = 'Nothing to redo.'; return; } undo.push(stateOf(s)); for (const [i, x, y, z] of s) setPoint(i, x, y, z); geo.attributes.position.needsUpdate = true; placeDots(); describe(); }
+    function doUndo() { const s = undo.pop(); if (!s) { info.textContent = 'No unsaved move to undo (⤺ Save takes back a save).'; return; } redo.push(stateOf(s)); for (const [i, x, y, z] of s) setPoint(i, x, y, z); geo.attributes.position.needsUpdate = true; placeDots(); describe(); }
     function resetSel() { if (sel < 0) return; snapshot(); for (const i of [sel, mirrorOf[sel]].filter(i => i >= 0)) { const [x, y, z] = keyPos(T.keys[i]); setPoint(i, x, y, z); } geo.attributes.position.needsUpdate = true; placeDots(); describe(); }
-    function resetAll() { for (let i = 0; i < T.keys.length; i++) { const [x, y, z] = keyPos(T.keys[i]); setPoint(i, x, y, z); } geo.attributes.position.needsUpdate = true; undo.length = 0; placeDots(); describe(); }
+    function resetAll() { for (let i = 0; i < T.keys.length; i++) { const [x, y, z] = keyPos(T.keys[i]); setPoint(i, x, y, z); } geo.attributes.position.needsUpdate = true; undo.length = 0; redo.length = 0; placeDots(); describe(); }
     function describe() {
         if (!T) return;
         const n = sessionMoves(), toolName = { move: 'Move', add: addFrom >= 0 ? 'Add — now pick a neighbour' : 'Add — pick a point', remove: 'Remove — pick a point', orbit: 'Orbit', pan: 'Pan' }[prefs.tool];
@@ -727,6 +752,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     canvas.addEventListener('wheel', e => { if (!on) return; e.preventDefault(); dist = Math.max(0.15, Math.min(MAX_DIST, dist * (e.deltaY > 0 ? 1.1 : 0.9))); }, { passive: false });
     addEventListener('keydown', e => {
         if (!on || e.target.closest?.('input, select, textarea')) return;
+        if ((e.ctrlKey || e.metaKey) && (e.code === 'KeyY' || (e.code === 'KeyZ' && e.shiftKey))) { e.preventDefault(); doRedo(); return; }
         if ((e.ctrlKey || e.metaKey) && e.code === 'KeyZ') { e.preventDefault(); doUndo(); return; }
         if (e.code === 'Escape' && addFrom >= 0) { addFrom = -1; placeDots(); info.textContent = 'Add cancelled.'; return; }
         const key = { KeyV: 'move', KeyA: 'add', KeyX: 'remove', KeyO: 'orbit', KeyP: 'pan' }[e.code]; if (key && !e.ctrlKey && !e.metaKey) { setTool(key); return; }

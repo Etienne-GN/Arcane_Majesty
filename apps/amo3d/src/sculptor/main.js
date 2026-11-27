@@ -28,7 +28,9 @@ const sun = new THREE.DirectionalLight(0xffffff, 2.2); sun.position.set(2, 4, 3)
 const floor = new THREE.Mesh(new THREE.CircleGeometry(6, 48).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0x46464c, roughness: 1 })); floor.receiveShadow = true; scene.add(floor);
 
 const HAIRLESS = Q.get('hair') === '0';   // ?hair=0: the base bodies without hair
-const DRESS = Object.hasOwn(DRESSES, Q.get('dress') ?? '') ? Q.get('dress') : null;   // ?dress=commoner|traveller|robe|dress: the base bodies in a basic outfit (dress.js)
+const DRESS = Object.hasOwn(DRESSES, Q.get('dress') ?? '') ? Q.get('dress') : null;
+// (2026-11-27) each side its own dress: ?dress0= / ?dress1= (else ?dress= for both) — the edited body undressed, the compare dressed…
+const dressOf = i => { const v = Q.get(`dress${i}`) ?? Q.get('dress') ?? ''; return Object.hasOwn(DRESSES, v) ? v : null; };   // ?dress=commoner|traveller|robe|dress: the base bodies in a basic outfit (dress.js)
 const baseLook = (preset, v2) => ({ v2, body: { preset, race: 'human', skin: '#e2b590' }, hair: { style: HAIRLESS ? 'bald' : 'short' }, parts: { right: { id: 'none' }, left: { id: 'none' } }, ...(DRESS ? { sculpt: { dress: DRESS } } : {}) });
 // what can stand on either side: the base bodies (v2 only: no clothes, empty hands) and the cast (classic, and v2 when it has one)
 const SUBJECTS = { base_male: { name: 'Male base', look: () => baseLook('adult_male', 'base_male'), sex: 'male', vers: ['new'] },
@@ -69,7 +71,7 @@ const makeCreature = async S => { settings.charModels = 'new'; const d = await S
 const ALTS = await fetch('/api/v2alts').then(r => r.json()).catch(() => ({}));
 const altOf = slots.map((sl, i) => { const [layer, name] = (Q.get(`alt${i}`) ?? '').split(':'); return SUBJECTS[sl.id].sex && ALTS[layer]?.includes(name) ? { layer, name } : null; });
 const altData = await Promise.all(altOf.map(a => a ? fetch(`/api/v2layer?layer=${a.layer}&alt=${a.name}`).then(r => r.json()) : null));
-const models = await Promise.all(slots.map(async (sl, i) => { if (SUBJECTS[sl.id].creature) return makeCreature(SUBJECTS[sl.id]); const lk = SUBJECTS[sl.id].look(); if (altOf[i]) lk.sculpt = { ...(lk.sculpt ?? {}), swap: { [altOf[i].layer]: altData[i] } }; return make(sl.ver, lk); }));
+const models = await Promise.all(slots.map(async (sl, i) => { if (SUBJECTS[sl.id].creature) return makeCreature(SUBJECTS[sl.id]); const lk = SUBJECTS[sl.id].look(); if (SUBJECTS[sl.id].sex) { const dr = dressOf(i); if (dr) lk.sculpt = { ...(lk.sculpt ?? {}), dress: dr }; else if (lk.sculpt) { delete lk.sculpt.dress; if (!Object.keys(lk.sculpt).length) delete lk.sculpt; } } if (altOf[i]) lk.sculpt = { ...(lk.sculpt ?? {}), swap: { [altOf[i].layer]: altData[i] } }; return make(sl.ver, lk); }));
 const slotName = sl => `${SUBJECTS[sl.id].name}${verTag(sl.ver)}` + ((a => a ? ` · ${a.layer}: ${a.name}` : '')(altOf[slots.indexOf(sl)]));
 const BASE = slots.some(sl => SUBJECTS[sl.id].sex);   // a base body on stage: the point editor and the hair toggle are offered
 document.getElementById('labels').innerHTML = slots.map(sl => `<span>${slotName(sl).toUpperCase()}</span>`).join('');
@@ -98,7 +100,7 @@ if (slots.some(sl => SUBJECTS[sl.id].sex) || LINEUP) {   // dress the base bodie
     const lab = document.createElement('label'); lab.textContent = 'Dress ';
     const sel = document.createElement('select'); sel.style.cssText = 'font:14px Georgia,serif;padding:5px 8px;border-radius:8px;border:1px solid #c8963a88;background:#2e1e12;color:#f1e4c4';
     for (const [v, t] of [['', 'Undressed'], ...Object.entries(DRESSES).map(([id, d]) => [id, d.label])]) { const o = document.createElement('option'); o.value = v; o.textContent = t; sel.append(o); }
-    sel.value = DRESS ?? ''; sel.onchange = () => go({ dress: sel.value || null });
+    sel.value = DRESS ?? dressOf(0) ?? ''; sel.onchange = () => go({ dress: sel.value || null, dress0: null, dress1: null });
     lab.append(sel); top.append(lab);
 }
 document.body.append(top);
@@ -241,6 +243,8 @@ const castIO = id => ({
 let cmpIdx = 1;
 const split = () => !!(editor?.on && editor.showCompare);
 const editor = EDITABLE.length && !LINEUP ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, bodies: EDITABLE, alts: ALTS,
+    dresses: Object.entries(DRESSES).map(([id, d]) => [id, d.label]), dressOf, slotOf: i => `${slots[i].id}:${slots[i].ver}`,
+    subjects: Object.entries(SUBJECTS).flatMap(([id, S]) => S.vers.map(ver => [`${id}:${ver}`, `${S.name}${verTag(ver)}`])),
     getBody: i => { cmpIdx = 1 - i; const cast = EDITABLE.find(b => b.id === i)?.cast; return { table: posedTable(i), mesh: bodyMesh(i), alt: altOf[i], io: cast ? castIO(cast) : null, go: ({ alt, ...ch }) => go({ ...ch, [`alt${i}`]: alt ?? null }) }; },
     viewRect: () => ({ left: 0, top: 0, width: split() ? Math.floor(innerWidth / 2) : innerWidth, height: innerHeight }),
     onEnter: () => { models.forEach(m => { m.root.visible = false; }); floor.visible = false; for (const id of ['bar', 'labels', 'blender', 'top', 'lnkGame', 'lnkForge']) { const e = document.getElementById(id); if (e) e.style.display = 'none'; } },
