@@ -92,6 +92,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const saveBtn = button(bar, '💾 Save', () => save(), 'Save into the layer'); saveBtn.classList.add('hot');
     const undoSave = button(bar, '⤺ Save', () => undoLastSave(), 'Undo last save (each save keeps the version it replaced)');
     sep(bar);
+    const refBtn = button(bar, '🖼', () => { prefs.refOn = !prefs.refOn; keep(); layoutRef(); }, 'Show or hide the reference');
     const panelBtn = button(bar, '☰', () => { prefs.panel = !prefs.panel; keep(); layout(); }, 'Properties panel');
     button(bar, '✕', () => exit(), 'Close the editor');
 
@@ -203,7 +204,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         refBox.classList.toggle('trace', prefs.trace);
         refPic.style.opacity = prefs.trace ? String(prefs.refOpacity) : '1';
         traceBtn.classList.toggle('on', prefs.trace); traceMini.classList.toggle('on', prefs.trace);
-        toggles.ref?.(); placeRef(); if (prefs.refOn) drawRef(true);
+        toggles.ref?.(); refBtn.classList.toggle('on', prefs.refOn); placeRef(); if (prefs.refOn) drawRef(true);
     }
     let lastRef = '';
     function drawRef(force = false) {
