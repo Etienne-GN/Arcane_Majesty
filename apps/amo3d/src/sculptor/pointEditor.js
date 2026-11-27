@@ -42,6 +42,19 @@ const ICON = {
     hair: svg('<path d="M6 13a6 6 0 0 1 12 0" stroke-width="3"/><path d="M5 12c0-5 3-8 7-8s7 3 7 8" fill="currentColor" fill-opacity=".5"/><circle cx="12" cy="15" r="6"/><path d="M12 21v6"/>'),
     pan: svg('<path d="M8 17V8a1.8 1.8 0 0 1 3.6 0v7M11.6 15V5.5a1.8 1.8 0 0 1 3.6 0V15M15.2 15V7.5a1.8 1.8 0 0 1 3.6 0V19a8 8 0 0 1-8 8h-1a7 7 0 0 1-5.5-2.8L3 19a1.8 1.8 0 0 1 2.9-2.2L8 19"/>'),
 };
+// The bars' icons (2026-11-27: one line style instead of emoji that each phone draws its own way)
+const ic = body => `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${body}</svg>`;
+const UI = {
+    undo: ic('<path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>'),
+    save: ic('<path d="M5 3h11l4 4v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3M7 21v-7h10v7"/>'),
+    unsave: ic('<path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/><path d="M12 7.5V12l3 2"/>'),
+    image: ic('<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/>'),
+    panel: ic('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/><path d="M17.5 8h1M17.5 11h1M17.5 14h1"/>'),
+    close: ic('<path d="M6 6l12 12M18 6L6 18"/>'),
+    more: ic('<circle cx="5" cy="12" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="19" cy="12" r="1.3" fill="currentColor"/>'),
+    see: ic('<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/>'),
+    pad: ic('<path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/>'),
+};
 const PREFS_KEY = 'amo3d.sculptor.ui';
 const loadPrefs = () => { try { return JSON.parse(localStorage.getItem(PREFS_KEY) ?? '{}') ?? {}; } catch { return {}; } };
 const savePrefs = p => { try { localStorage.setItem(PREFS_KEY, JSON.stringify(p)); } catch { /* storage blocked */ } };
@@ -55,7 +68,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), tmpM = new THREE.Matrix4(), col = new THREE.Color();
     const keyPos = k => k.split(',').map(Number);
     const COARSE = matchMedia('(pointer: coarse)').matches, NARROW = innerWidth < 760;
-    const prefs = { tool: 'move', panel: !NARROW, refOn: true, refOpacity: 1, refLine: false, refSize: NARROW ? 220 : 300, refX: null, refY: null, padMode: 'view', wireOn: true, ...loadPrefs() };
+    const prefs = { tool: 'move', panel: !NARROW && innerHeight >= 560, padMin: false, refOn: true, refOpacity: 1, refLine: false, refSize: NARROW ? 220 : 300, refX: null, refY: null, padMode: 'view', wireOn: true, ...loadPrefs() };
     // (2026-11-27, the user: "add a transparency slider to replace the Trace button" — one value now: the reference's
     // opacity; below 1 it lies over the model, see-through, touches passing through it. An old 'trace: off' is opacity 1.)
     if ('trace' in prefs) { if (!prefs.trace) prefs.refOpacity = 1; delete prefs.trace; }
@@ -69,46 +82,101 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     // ---- the look of the tool ----
     const css = document.createElement('style');
     css.textContent = `
-    .pe { font: 14px Georgia, serif; color: #f1e4c4; }
-    .pe-bar { position: fixed; top: 0; left: 0; right: 0; height: 48px; display: none; align-items: center; gap: 4px; padding: 0 8px; background: #1c130b; border-bottom: 1px solid #c8963a66; z-index: 8; overflow-x: auto; overflow-y: hidden; white-space: nowrap; scrollbar-width: none; }
-    .pe-bar select { font: 14px Georgia, serif; padding: 6px 6px; border-radius: 7px; background: #3a2818; color: #f1e4c4; border: 1px solid #c8963a88; max-width: 150px; }
-    .pe-b { font: 14px Georgia, serif; min-width: 40px; height: 38px; padding: 0 10px; border-radius: 8px; border: 1px solid #c8963a66; background: #3a2818; color: #f1e4c4; cursor: pointer; flex: none; touch-action: manipulation; }
-    .pe-b.on { background: #8a6a2a; border-color: #f3d88b; color: #fff4d8; }
-    .pe-b.hot { background: #8a6a2a; }
-    .pe-b:disabled { opacity: .45; }
-    .pe-sep { width: 1px; height: 28px; background: #c8963a55; margin: 0 4px; flex: none; }
-    .pe-tools { position: fixed; top: 56px; left: 8px; width: 52px; display: none; flex-direction: column; gap: 4px; padding: 6px; background: #1c130bee; border: 1px solid #c8963a66; border-radius: 12px; z-index: 7; max-height: calc(100vh - 120px); overflow-y: auto; scrollbar-width: none; }
-    .pe-tools .pe-b { width: 52px; min-width: 0; padding: 0; font-size: 18px; display: grid; place-items: center; height: 44px; }
-    .pe-tools .pe-b svg { pointer-events: none; }
-    .pe-tools .pe-b small { font-size: 12px; }
-    .pe-tools .pe-sep { width: 40px; height: 1px; margin: 4px auto; }
-    .pe-tools { overscroll-behavior: contain; touch-action: pan-y; }
-    /* a phone (2026-11-26: "the toolbar is not all accessible on my phone"): two columns, so the whole palette fits */
-    .pe-tools.two { display: grid !important; grid-template-columns: 44px 44px; width: auto; gap: 4px; }
-    .pe-tools.two .pe-b { width: 44px; height: 40px; }
-    .pe-tools.two .pe-sep { grid-column: 1 / 3; width: 84px; }
-    .pe-panel { position: fixed; top: 56px; right: 8px; bottom: 36px; width: 260px; display: none; flex-direction: column; gap: 8px; padding: 10px; background: #1c130bf2; border: 1px solid #c8963a66; border-radius: 12px; z-index: 7; overflow-y: auto; }
-    .pe-panel h4 { margin: 6px 0 2px; font-weight: normal; letter-spacing: .14em; font-size: 12px; color: #f3d88b; text-transform: uppercase; }
-    .pe-row { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
-    .pe-panel .pe-b { height: 34px; font-size: 13px; }
-    .pe-panel input[type=range] { width: 100%; accent-color: #c8963a; }
-    .pe-help { font-style: italic; font-size: 12px; opacity: .8; line-height: 1.4; }
-    .pe-status { position: fixed; left: 0; right: 0; bottom: 0; height: 28px; display: none; align-items: center; padding: 0 12px; font: 13px Georgia, serif; color: #f1e4c4; background: #1c130bee; border-top: 1px solid #c8963a55; z-index: 8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .pe-pad { position: fixed; right: 12px; bottom: 40px; display: none; grid-template-columns: repeat(3, 50px); gap: 5px; padding: 8px; background: #1c130bdd; border: 1px solid #c8963a66; border-radius: 14px; z-index: 7; touch-action: none; user-select: none; -webkit-user-select: none; }
-    .pe-pad .pe-b { width: 50px; height: 46px; min-width: 0; padding: 0; font-size: 18px; }
-    .pe-pad .pe-b.pe-mode { grid-column: 1 / 4; width: auto; height: 30px; font-size: 13px; }
-    .pe-bar.wrap { height: auto; flex-wrap: wrap; padding: 5px 6px; row-gap: 5px; overflow: visible; }
-    .pe-bar.wrap select { max-width: 31vw; }
-    .pe-panel { overflow-x: hidden; }
-    .pe-ref { position: fixed; display: none; flex-direction: column; background: #1c130bf2; border: 1px solid #c8963a88; border-radius: 10px; z-index: 6; overflow: hidden; }
-    .pe-ref .pe-reft { display: flex; align-items: center; gap: 4px; padding: 4px 6px; cursor: move; touch-action: none; background: #2a1c10; }
-    .pe-ref .pe-reft span { flex: 1; color: #f3d88b; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .pe-ref .pe-b { height: 30px; min-width: 30px; padding: 0 7px; font-size: 13px; }
+    /* (2026-11-27, the user: "make our tool bars and interface more ergonomic and neat"): one set of colours, radii and
+       sizes for every part; a toggle's state (.on), the main action (.primary) and a risky one (.danger) look different */
+    .pe { --bg: #1c130b; --bg2: #2a1c10; --btn: #2f2115; --btn-h: #3e2c1b; --line: #c8963a44; --line2: #c8963a77; --gold: #c8963a; --hi: #f3d88b; --text: #f1e4c4; --dim: #c9b48d;
+        --ui: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font: 13px var(--ui); color: var(--text); box-sizing: border-box; }
+    .pe *, .pe *::before, .pe *::after { box-sizing: border-box; }
+    .pe-b { font: 500 13px/1 var(--ui); min-width: 36px; height: 36px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--btn); color: var(--text); cursor: pointer; flex: none;
+        display: inline-flex; align-items: center; justify-content: center; gap: 6px; touch-action: manipulation; white-space: nowrap; -webkit-tap-highlight-color: transparent; transition: background .12s, border-color .12s; }
+    @media (hover: hover) { .pe-b:hover:not(:disabled) { background: var(--btn-h); border-color: var(--line2); } }
+    .pe-b:active:not(:disabled) { background: #4a341f; }
+    .pe-b:focus-visible { outline: 2px solid var(--hi); outline-offset: 1px; }
+    .pe-b.on { background: #5c421c; border-color: var(--hi); color: #fff4d8; box-shadow: inset 0 0 0 1px #f3d88b40; }
+    .pe-b.primary { background: linear-gradient(#dcaa4c, #b8852f); border-color: var(--hi); color: #1c130b; font-weight: 650; }
+    @media (hover: hover) { .pe-b.primary:hover:not(:disabled) { background: linear-gradient(#e8b958, #c8963a); } }
+    .pe-b.danger { color: #f2b49c; border-color: #b0583e66; }
+    .pe-b:disabled { opacity: .4; cursor: default; }
+    .pe-b svg { flex: none; pointer-events: none; }
+    .pe-b .n { min-width: 18px; padding: 2px 5px; border-radius: 9px; background: #00000055; font-size: 11px; }
+    .pe-sep { width: 1px; height: 24px; background: var(--line); margin: 0 4px; flex: none; }
+    .pe-grow { flex: 1 1 0; min-width: 4px; }
+    .pe-break { display: none; }
+    @media (pointer: coarse) { .pe-b { height: 40px; min-width: 40px; } }
+
+    /* the top bar */
+    .pe-bar { position: fixed; top: 0; left: 0; right: 0; height: 48px; display: none; align-items: center; gap: 4px; padding: 0 8px; background: var(--bg); border-bottom: 1px solid var(--line2); z-index: 8; overflow-x: auto; overflow-y: hidden; white-space: nowrap; scrollbar-width: none; }
+    .pe-bar select { font: 13px var(--ui); height: 36px; padding: 0 6px; border-radius: 8px; background: var(--btn); color: var(--text); border: 1px solid var(--line2); max-width: 150px; flex: 0 1 auto; min-width: 0; }
+    .pe-bar .pe-b.primary { padding: 0 14px; }
+    .pe-bar.wrap { height: auto; flex-wrap: wrap; padding: 6px; row-gap: 6px; overflow: visible; }
+    .pe-bar.wrap .pe-break { display: block; flex-basis: 100%; height: 0; }
+    .pe-bar.wrap .pe-sep { display: none; }
+    .pe-bar.wrap select { flex: 1 1 0; max-width: none; }
+    .pe-bar.wrap .lbl { display: none; }
+    @media (pointer: coarse) { .pe-bar select { height: 40px; } }
+
+    /* the tool palette: captioned groups; its columns fitted to the height (1, 2 or 3) */
+    .pe-tools { position: fixed; top: 56px; left: 8px; display: none; grid-template-columns: repeat(var(--cols, 1), 44px); gap: 4px; padding: 6px; background: #1c130bf0; border: 1px solid var(--line2); border-radius: 12px; z-index: 7;
+        overflow-y: auto; scrollbar-width: none; overscroll-behavior: contain; touch-action: pan-y; }
+    .pe-tools .pe-b { width: 44px; height: 42px; min-width: 0; padding: 0; }
+    .pe-tools .pe-b.on { box-shadow: inset 3px 0 0 var(--hi); }
+    .pe-cap { grid-column: 1 / -1; font: 600 9px/1 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: #c8963acc; text-align: center; padding: 6px 0 2px; border-top: 1px solid var(--line); margin-top: 2px; }
+    .pe-cap:first-child { border-top: 0; margin-top: 0; padding-top: 1px; }
+    @media (pointer: coarse) { .pe-tools .pe-b { height: 44px; } }
+
+    /* the properties panel */
+    .pe-panel { position: fixed; top: 56px; right: 8px; width: 256px; display: none; flex-direction: column; gap: 4px; padding: 4px 12px 12px; background: #1c130bf4; border: 1px solid var(--line2); border-radius: 12px; z-index: 7;
+        overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #c8963a66 transparent; box-shadow: 0 8px 24px #0006; }
+    .pe-panel h4 { margin: 10px 0 4px; font: normal 11px Georgia, serif; letter-spacing: .16em; color: var(--hi); text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+    .pe-panel h4::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+    .pe-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .pe-panel .pe-b { height: 34px; font-size: 12.5px; justify-content: flex-start; padding: 0 8px; }
+    .pe-panel .pe-b.wide { grid-column: 1 / -1; justify-content: center; }
+    @media (pointer: coarse) { .pe-panel .pe-b { height: 40px; } }
+    /* a toggle: its state as a small switch at its end */
+    .pe-sw { justify-content: space-between !important; }
+    .pe-sw::after { content: ''; flex: none; width: 22px; height: 12px; border-radius: 6px; background: #00000066 radial-gradient(circle at 6px 50%, #a08a66 3.5px, transparent 4px); border: 1px solid #c8963a55; }
+    .pe-b.pe-sw.on { background: #3b2a15; box-shadow: none; }
+    .pe-sw.on::after { background: #c8963a radial-gradient(circle at 15px 50%, #fff4d8 3.5px, transparent 4px); border-color: var(--hi); }
+    .pe-slider { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--dim); margin-top: 4px; }
+    .pe-slider b { font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+    .pe-panel input[type=range] { width: 100%; height: 28px; margin: 0; accent-color: var(--gold); touch-action: none; }
+    .pe-help { font-size: 12px; color: var(--dim); line-height: 1.45; }
+    .pe-panel details summary { cursor: pointer; list-style: none; }
+    .pe-panel details summary::-webkit-details-marker { display: none; }
+    .pe-panel details summary h4::before { content: '▸'; font-size: 10px; transition: transform .15s; }
+    .pe-panel details[open] summary h4::before { transform: rotate(90deg); }
+
+    /* the status line */
+    .pe-status { position: fixed; left: 0; right: 0; bottom: 0; height: 28px; display: none; align-items: center; padding: 0 12px; font: 12px var(--ui); color: var(--dim); background: #1c130bf0; border-top: 1px solid var(--line); z-index: 8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* the navigation pad: a View / Point switch, the nine keys, and a fold to a single button */
+    .pe-pad { position: fixed; right: 12px; bottom: 40px; display: none; grid-template-columns: repeat(3, 40px); gap: 4px; padding: 6px; background: #1c130be6; border: 1px solid var(--line2); border-radius: 12px; z-index: 7; touch-action: none; user-select: none; -webkit-user-select: none; box-shadow: 0 6px 18px #0005; }
+    .pe-pad .pe-b { width: 40px; height: 38px; min-width: 0; padding: 0; font-size: 17px; }
+    .pe-pad .pe-b.t { font-size: 11px; }
+    .pe-padh { grid-column: 1 / -1; display: flex; gap: 4px; }
+    .pe-seg { flex: 1; display: flex; padding: 2px; gap: 2px; border-radius: 8px; background: #00000055; border: 1px solid var(--line); }
+    .pe-pad .pe-seg .pe-b { flex: 1; width: auto; height: 26px; font-size: 11.5px; border-color: transparent; background: transparent; border-radius: 6px; }
+    .pe-pad .pe-seg .pe-b.on { background: #5c421c; border-color: var(--hi); }
+    .pe-pad .pe-b.pe-fold { width: 30px; height: 30px; font-size: 13px; }
+    .pe-pad.min { grid-template-columns: auto; padding: 4px; border-radius: 22px; }
+    .pe-pad.min > :not(.pe-padh), .pe-pad.min .pe-seg { display: none; }
+    .pe-pad.min .pe-b.pe-fold { width: 40px; height: 40px; border-radius: 20px; }
+    @media (pointer: coarse) { .pe-pad { grid-template-columns: repeat(3, 44px); } .pe-pad .pe-b { width: 44px; height: 42px; } .pe-pad .pe-seg .pe-b { height: 30px; } .pe-pad .pe-b.pe-fold { width: 34px; height: 34px; } .pe-pad.min .pe-b.pe-fold { width: 44px; height: 44px; border-radius: 22px; } }
+
+    /* the reference: a floating window — title, then its tools (the see-through slider on its own row when narrow) */
+    .pe-ref { position: fixed; display: none; flex-direction: column; background: #1c130bf2; border: 1px solid var(--line2); border-radius: 10px; z-index: 6; overflow: hidden; box-shadow: 0 8px 24px #0006; }
+    .pe-ref .pe-reft { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; padding: 4px; cursor: move; touch-action: none; background: var(--bg2); border-bottom: 1px solid var(--line); }
+    .pe-ref .pe-reft span { flex: 1 1 40px; min-width: 0; padding-left: 4px; color: var(--hi); font: 12.5px Georgia, serif; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pe-ref .pe-b { height: 30px; min-width: 30px; padding: 0 7px; font-size: 12.5px; }
+    @media (pointer: coarse) { .pe-ref .pe-b { height: 36px; min-width: 36px; } }
+    .pe-opw { flex: 1 1 90px; display: flex; align-items: center; gap: 4px; min-width: 80px; color: var(--dim); }
+    .pe-ref.narrow .pe-opw { order: 9; flex-basis: 100%; padding: 0 4px; }
+    .pe-ref .pe-op { flex: 1; min-width: 0; height: 24px; margin: 0; accent-color: var(--gold); touch-action: none; }
     .pe-ref .pe-pic { background-repeat: no-repeat; background-color: #3b3b3b; }
-    .pe-ref .pe-grip { position: absolute; right: 0; bottom: 0; width: 26px; height: 26px; cursor: nwse-resize; touch-action: none; background: linear-gradient(135deg, transparent 50%, #c8963a 50%); }
+    .pe-ref .pe-grip { position: absolute; right: 0; bottom: 0; width: 28px; height: 28px; cursor: nwse-resize; touch-action: none; background: linear-gradient(135deg, transparent 55%, #c8963acc 55%, #c8963acc 62%, transparent 62%, transparent 72%, #c8963acc 72%, #c8963acc 79%, transparent 79%); }
     .pe-ref .pe-line { position: absolute; pointer-events: none; }
-    .pe-ref .pe-op { width: 84px; accent-color: #c8963a; touch-action: none; }
-    .pe-ref.trace { background: transparent; border-style: dashed; }
+    .pe-ref.trace { background: transparent; border-style: dashed; box-shadow: none; }
     .pe-ref.trace .pe-pic { pointer-events: none; background-color: transparent; }
     `;
     document.head.append(css);
@@ -125,27 +193,30 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     layerSel.onchange = () => { layer = layerSel.value; showLayers(); describe(); };
     const verSel = make('select', '', bar); verSel.title = 'The version of the layer: the active one, or an alternate';
     verSel.onchange = () => B.go({ alt: verSel.value ? `${layer}:${verSel.value}` : null, edit: who, layer });
-    const verMenu = button(bar, '⋯', () => versionMenu(), 'Versions: save as new, make active, delete');
+    const verMenu = button(bar, UI.more, () => versionMenu(), 'Versions: save as new, make active, delete');
+    sep(bar); make('div', 'pe-break', bar);   // (a phone: the file's actions on a second row)
+    button(bar, UI.undo, () => doUndo(), 'Undo move (Ctrl+Z)');
+    const saveBtn = button(bar, `${UI.save}<span>Save</span>`, () => save(), 'Save into the layer'); saveBtn.classList.add('primary');
+    const undoSave = button(bar, `${UI.unsave}<span class="lbl">Undo save</span><span class="n">0</span>`, () => undoLastSave(), 'Undo last save (each save keeps the version it replaced)');
+    make('div', 'pe-grow', bar);
+    const refBtn = button(bar, UI.image, () => { prefs.refOn = !prefs.refOn; keep(); layoutRef(); }, 'Show or hide the reference');
+    const panelBtn = button(bar, UI.panel, () => { prefs.panel = !prefs.panel; keep(); layout(); }, 'Properties panel');
     sep(bar);
-    button(bar, '↶', () => doUndo(), 'Undo move (Ctrl+Z)');
-    const saveBtn = button(bar, '💾 Save', () => save(), 'Save into the layer'); saveBtn.classList.add('hot');
-    const undoSave = button(bar, '⤺ Save', () => undoLastSave(), 'Undo last save (each save keeps the version it replaced)');
-    sep(bar);
-    const refBtn = button(bar, '🖼', () => { prefs.refOn = !prefs.refOn; keep(); layoutRef(); }, 'Show or hide the reference');
-    const panelBtn = button(bar, '☰', () => { prefs.panel = !prefs.panel; keep(); layout(); }, 'Properties panel');
-    button(bar, '✕', () => exit(), 'Close the editor');
+    button(bar, UI.close, () => exit(), 'Close the editor');
 
     // ---- the tool palette ----
     const tools = make('div', 'pe pe-tools', document.body);
-    const TOOLS = [['move', ICON.move, 'Move points: pick a dot and drag it (its mirror follows)'], ['add', ICON.add, 'Add a point: pick a dot, then a neighbour — a new point halfway between them'], ['remove', ICON.remove, 'Remove a point: it merges into its nearest neighbour'], ['orbit', ICON.orbit, 'Turn the view'], ['pan', ICON.pan, 'Move the view (strafe, up and down)']];
+    const cap = (parent, text) => make('div', 'pe-cap', parent, text);   // (a group's name: Tool, View, Frame, Show)
+    const TOOLS = [['move', ICON.move, 'Move points (V): pick a dot and drag it (its mirror follows)'], ['add', ICON.add, 'Add a point (A): pick a dot, then a neighbour — a new point halfway between them'], ['remove', ICON.remove, 'Remove a point (X): it merges into its nearest neighbour'], ['orbit', ICON.orbit, 'Turn the view (O)'], ['pan', ICON.pan, 'Move the view (P): strafe, up and down']];
     const toolBtns = {};
+    cap(tools, 'Tool');
     for (const [id, icon, title] of TOOLS) toolBtns[id] = button(tools, icon, () => setTool(id), title);
-    sep(tools);
-    for (const [k, y, p, title] of [['front', 0, 0.05, 'Front'], ['quarter', 0.7, 0.1, 'Three-quarter'], ['side', Math.PI / 2, 0.05, 'Side'], ['back', Math.PI, 0.05, 'Back'], ['below', 0.3, -0.6, 'From below']]) button(tools, ICON[k], () => { yaw = y; pitch = p; }, title);
-    sep(tools);
+    cap(tools, 'View');
+    for (const [k, y, p, title] of [['front', 0, 0.05, 'Front'], ['quarter', 0.7, 0.1, 'Three-quarter'], ['side', Math.PI / 2, 0.05, 'Side'], ['back', Math.PI, 0.05, 'Back'], ['below', 0.3, -0.6, 'From below']]) button(tools, ICON[k], () => { yaw = y; pitch = p; }, `View: ${title.toLowerCase()}`);
+    cap(tools, 'Frame');
     const regBtns = {};
-    for (const [id, title] of [['head', 'The head'], ['upper', 'The upper body'], ['all', 'The whole body']]) regBtns[id] = button(tools, ICON[`r_${id}`], () => setRegion(id), title);
-    sep(tools);
+    for (const [id, title] of [['head', 'The head'], ['upper', 'The upper body'], ['all', 'The whole body']]) regBtns[id] = button(tools, ICON[`r_${id}`], () => setRegion(id), `Frame and edit: ${title.toLowerCase()}`);
+    cap(tools, 'Show');
     // Polish (2026-11-27, the user: "a polish option to preview the in-game model, hiding dots and lines"): the points and
     // the wireframe hidden, no point picked by a touch — the model as the game draws it. The reference (its picture and its
     // outline) stays as it is (the user: "polish should NOT remove the reference")
@@ -160,28 +231,32 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     make('h4', '', panel, 'Show');
     const showRow = make('div', 'pe-row', panel);
     const toggles = {};
-    const toggle = (id, label, get, set) => { const b = button(showRow, label, () => { set(!get()); b.classList.toggle('on', get()); }); toggles[id] = () => b.classList.toggle('on', get()); return b; };
+    const toggle = (id, label, get, set, title = '') => { const b = button(showRow, label, () => { set(!get()); b.classList.toggle('on', get()); }, title); b.classList.add('pe-sw'); toggles[id] = () => b.classList.toggle('on', get()); return b; };
     let cmpOn = false,   /* (off by default — the user, 2026-11-27) */ hairOn = true, eyesOn = true, mouthOn = true, faceMesh = null, mouthMesh = null;
-    toggle('ref', 'Reference', () => prefs.refOn, v => { prefs.refOn = v; keep(); layoutRef(); });
-    toggle('cmp', 'Compare', () => cmpOn, v => { cmpOn = v; });
+    toggle('ref', 'Reference', () => prefs.refOn, v => { prefs.refOn = v; keep(); layoutRef(); }, 'The reference window');
+    toggle('cmp', 'Compare', () => cmpOn, v => { cmpOn = v; }, 'The other body beside it, from the same angle');
     toggle('hair', 'Hair', () => hairOn, v => { hairOn = v; applyHair(); hairBtn.classList.toggle('on', hairOn); });
     toggle('eyes', 'Eyes', () => eyesOn, v => { eyesOn = v; if (faceMesh) faceMesh.visible = v; });
     toggle('mouth', 'Mouth', () => mouthOn, v => { mouthOn = v; if (mouthMesh) mouthMesh.visible = v; });
     toggle('wire', 'Wireframe', () => prefs.wireOn, v => { prefs.wireOn = v; keep(); if (wire) wire.visible = v && !polish; });
-    toggle('polish', 'Polish', () => polish, v => setPolish(v));
+    toggle('polish', 'Polish', () => polish, v => setPolish(v), 'The model as in the game: no points, no wireframe');
     make('h4', '', panel, 'Reference');
     const refRow = make('div', 'pe-row', panel);
     const lineBtn = button(refRow, 'Outline', () => { prefs.refLine = !prefs.refLine; keep(); drawLine(); }, 'A red line round the reference figure, over the model: move the points until the model meets it (lower the opacity to keep only the line)');
-    const sheetBtn = button(refRow, 'Whole sheet', () => { refMode = refMode === 'sheet' ? 'auto' : 'sheet'; sheetBtn.classList.toggle('on', refMode === 'sheet'); drawRef(true); });
-    const opLab = make('div', 'pe-help', panel, 'Opacity');
+    const sheetBtn = button(refRow, 'Whole sheet', () => { refMode = refMode === 'sheet' ? 'auto' : 'sheet'; sheetBtn.classList.toggle('on', refMode === 'sheet'); drawRef(true); }, 'The whole reference sheet instead of the view\'s figure');
+    lineBtn.classList.add('pe-sw'); sheetBtn.classList.add('pe-sw');
+    const opLab = make('div', 'pe-slider', panel); make('span', '', opLab, 'Opacity'); const opVal = make('b', '', opLab);
     const opacity = make('input', '', panel); Object.assign(opacity, { type: 'range', min: 0, max: 1, step: 0.05, value: prefs.refOpacity, title: 'The reference: solid (right) to see-through over the model (left); at 0 only its outline, if on' });
     opacity.oninput = () => { prefs.refOpacity = +opacity.value; if (seeThrough()) prefs.refOn = true; keep(); layoutRef(); };
-    void opLab;
+    const fitRow = make('div', 'pe-row', panel);
+    button(fitRow, 'Fit the view to the reference', () => fitToRef(), 'Move the view so the model stands exactly on the reference figure (its height, its feet, its middle)').classList.add('wide');
     make('h4', '', panel, 'Point');
     const ptRow = make('div', 'pe-row', panel);
-    button(ptRow, 'Reset point', () => resetSel()); button(ptRow, 'Reset all moves', () => resetAll());
-    make('h4', '', panel, 'Help');
-    make('div', 'pe-help', panel, COARSE
+    button(ptRow, 'Reset point', () => resetSel(), 'Put the selected point (and its mirror) back where it was built');
+    button(ptRow, 'Reset all moves', () => { if (sessionMoves() === 0 || confirm('Reset every unsaved move?')) resetAll(); }, 'Put every point back (unsaved moves are lost)').classList.add('danger');
+    const helpBox = make('details', '', panel); helpBox.open = !NARROW;
+    make('h4', '', make('summary', '', helpBox), 'Help');
+    make('div', 'pe-help', helpBox, COARSE
         ? 'Pen: the tool on the left (Move, Add, Remove…); hovering shows the point it would take; the side button turns the view. Fingers: one turns (or moves, with ✋), two zoom and move. The pad bottom right moves the view, or nudges the point.'
         : 'Left button: the tool. Right or middle drag: move the view. Wheel: zoom. Arrows: nudge the point (Shift: in/out, Alt: fine). Ctrl+Z: undo a move. Esc: cancel Add.');
 
@@ -191,8 +266,13 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
 
     // ---- the navigation pad: move the view, or nudge the selected point ----
     const pad = make('div', 'pe pe-pad', document.body);
-    const modeBtn = button(pad, '', () => { prefs.padMode = prefs.padMode === 'view' ? 'point' : 'view'; keep(); labelPad(); });
-    modeBtn.classList.add('pe-mode');
+    // its head: what the keys work on — the view or the selected point — and a fold (folded: one round button)
+    const padHead = make('div', 'pe-padh', pad), seg = make('div', 'pe-seg', padHead);
+    const setPadMode = m => { prefs.padMode = m; keep(); labelPad(); };
+    const segView = button(seg, 'View', () => setPadMode('view'), 'The pad moves the view: turn, pan, zoom, re-frame');
+    const segPoint = button(seg, 'Point', () => setPadMode('point'), 'The pad nudges the selected point (Out/In: towards you or away; fine: small steps)');
+    const foldBtn = button(padHead, '▾', () => { prefs.padMin = !prefs.padMin; keep(); labelPad(); }, 'Fold or unfold the pad');
+    foldBtn.classList.add('pe-fold');
     const PAD = [['tl', '⟲'], ['up', '↑'], ['tr', '⟳'], ['left', '←'], ['mid', '⌂'], ['right', '→'], ['bl', '−'], ['down', '↓'], ['br', '+']];
     const padBtns = {};
     for (const [id, t] of PAD) {
@@ -204,9 +284,13 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     }
     function labelPad() {
         const P = prefs.padMode === 'point';
-        modeBtn.textContent = P ? 'Pad: nudge the point' : 'Pad: move the view';
+        segView.classList.toggle('on', !P); segPoint.classList.toggle('on', P);
+        pad.classList.toggle('min', !!prefs.padMin); foldBtn.innerHTML = prefs.padMin ? UI.pad : '▾'; foldBtn.title = prefs.padMin ? 'Unfold the navigation pad' : 'Fold the navigation pad';
         const L = P ? { tl: 'Out', tr: 'In', mid: '·', bl: 'fine', br: '' } : { tl: '⟲', tr: '⟳', mid: '⌂', bl: '−', br: '+' };
-        for (const [k, v] of Object.entries(L)) padBtns[k].textContent = v;
+        const TT = P ? { tl: 'Nudge towards you', tr: 'Nudge away', up: 'Nudge up', down: 'Nudge down', left: 'Nudge left', right: 'Nudge right', bl: 'Fine steps', mid: '', br: '' }
+            : { tl: 'Turn left', tr: 'Turn right', up: 'Pan up', down: 'Pan down', left: 'Pan left', right: 'Pan right', mid: 'Re-frame the region', bl: 'Zoom out', br: 'Zoom in' };
+        for (const [k, v] of Object.entries(L)) { padBtns[k].textContent = v; padBtns[k].classList.toggle('t', v.length > 1); }
+        for (const [k, v] of Object.entries(TT)) padBtns[k].title = v;
         padBtns.bl.classList.toggle('on', P && fine); padBtns.br.disabled = P; padBtns.mid.disabled = P;
     }
     let fine = false;
@@ -226,12 +310,13 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     // ---- the reference: a floating window — its title moves it, its corner sizes it; Trace lays it over the model ----
     const refBox = make('div', 'pe pe-ref', document.body);
     const refHead = make('div', 'pe-reft', refBox), refLabel = make('span', '', refHead);
-    button(refHead, '−', () => { prefs.refSize = Math.max(140, prefs.refSize - 50); keep(); drawRef(true); });
-    button(refHead, '+', () => { prefs.refSize = Math.min(MAX_REF, prefs.refSize + 50); keep(); drawRef(true); });
-    const refOp = make('input', 'pe-op', refHead); Object.assign(refOp, { type: 'range', min: 0, max: 1, step: 0.05, value: prefs.refOpacity, title: 'See-through: drag left to lay the reference over the model' });
+    const opWrap = make('div', 'pe-opw', refHead); opWrap.innerHTML = UI.see; opWrap.title = 'See-through';
+    const refOp = make('input', 'pe-op', opWrap); Object.assign(refOp, { type: 'range', min: 0, max: 1, step: 0.05, value: prefs.refOpacity, title: 'See-through: drag left to lay the reference over the model' });
     refOp.oninput = () => { prefs.refOpacity = +refOp.value; keep(); layoutRef(); };
+    button(refHead, '−', () => { prefs.refSize = Math.max(140, prefs.refSize - 50); keep(); drawRef(true); }, 'Smaller');
+    button(refHead, '+', () => { prefs.refSize = Math.min(MAX_REF, prefs.refSize + 50); keep(); drawRef(true); }, 'Larger');
     button(refHead, 'Fit', () => fitToRef(), 'Move the view so the model stands exactly on the reference figure (its height, its feet, its middle)');
-    button(refHead, '✕', () => { prefs.refOn = false; keep(); layoutRef(); });
+    button(refHead, UI.close, () => { prefs.refOn = false; keep(); layoutRef(); }, 'Hide the reference');
     const REF_URL = hairless ? REF_BALD : REF_HAIR;
     const refPic = make('div', 'pe-pic', refBox); refPic.style.backgroundImage = `url(${REF_URL})`;
     const refLine = make('canvas', 'pe-line', refBox);
@@ -249,7 +334,10 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     };
     dragWin(refHead, (dx, dy) => { prefs.refX = Math.max(-(refBox.offsetWidth - 120), Math.min(innerWidth - 60, (prefs.refX ?? refBox.offsetLeft) + dx)); prefs.refY = Math.max(48, Math.min(innerHeight - 40, (prefs.refY ?? refBox.offsetTop) + dy)); placeRef(); });
     dragWin(grip, dx => { prefs.refSize = Math.max(140, Math.min(MAX_REF, prefs.refSize + dx)); drawRef(true); });
-    const placeRef = () => { const minY = (on ? bar.offsetHeight : 48) + 6; refBox.style.left = `${prefs.refX ?? 70}px`; refBox.style.top = `${Math.max(minY, prefs.refY ?? minY + 4)}px`; };   // (never under the top bar: its title must stay in reach)
+    const placeRef = () => {   // (never under the top bar: its title must stay in reach; by default just right of the palette)
+        const minY = (on ? bar.offsetHeight : 48) + 6, x0 = on && tools.offsetWidth ? tools.offsetLeft + tools.offsetWidth + 8 : 70;
+        refBox.style.left = `${prefs.refX ?? x0}px`; refBox.style.top = `${Math.max(minY, prefs.refY ?? minY + 2)}px`;
+    };
     // Fit (2026-11-27): each sheet figure's head top, sole and centre line (sheet px; with and without hair) — the view is
     // turned square to the reference's view and moved so the model's top, feet and middle land on the figure's
     const FIG = {
@@ -278,13 +366,14 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         refBox.style.display = on && prefs.refOn ? 'flex' : 'none';
         refBox.classList.toggle('trace', seeThrough());
         refPic.style.opacity = String(prefs.refOpacity);
-        refOp.value = opacity.value = prefs.refOpacity;
+        refOp.value = opacity.value = prefs.refOpacity; opVal.textContent = `${Math.round(prefs.refOpacity * 100)}%`;
         toggles.ref?.(); refBtn.classList.toggle('on', prefs.refOn); placeRef(); if (prefs.refOn) drawRef(true);
     }
     let lastRef = '';
     function drawRef(force = false) {
         const a = ((yaw % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI), view = a < 0.9 || a > 5.4 ? 'front' : a > 2.3 && a < 4.0 ? 'back' : 'side';
         const key = `${sex}|${view}|${region}|${refMode}|${prefs.refSize}`; if (key === lastRef && !force) return; lastRef = key;
+        refBox.style.width = `${prefs.refSize + 2}px`; refBox.classList.toggle('narrow', prefs.refSize < 330);   // (the window as wide as its picture: a narrow one puts its slider on a row of its own)
         if (!REF[sex] && refMode !== 'sheet') { refPic.style.width = `${prefs.refSize}px`; refPic.style.height = '60px'; refPic.style.backgroundImage = 'none'; refLabel.textContent = `No reference sheet for the ${sex} yet`; return; }   // (a creature: none yet)
         refPic.style.backgroundImage = `url(${REF_IMG[sex] ?? REF_URL})`;
         const box = refMode === 'sheet' ? [0, 0, 896, 1200] : REF[sex][view][region === 'head' ? 1 : 0], [x0, y0, x1, y1] = box, k = prefs.refSize / (x1 - x0);
@@ -338,15 +427,21 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     }
 
     function layout() {
-        const show = on ? '' : 'none';
-        bar.style.display = on ? 'flex' : 'none'; tools.style.display = on ? 'flex' : 'none'; status.style.display = on ? 'flex' : 'none'; pad.style.display = on ? 'grid' : 'none';
+        const narrow = innerWidth < 760;   // (measured each time: a phone turned changes it)
+        bar.style.display = on ? 'flex' : 'none'; tools.style.display = on ? 'grid' : 'none'; status.style.display = on ? 'flex' : 'none'; pad.style.display = on ? 'grid' : 'none';
         panel.style.display = on && prefs.panel ? 'flex' : 'none'; panelBtn.classList.toggle('on', prefs.panel);
-        bar.classList.toggle('wrap', NARROW);   // (a phone: the bar on two rows, everything in reach)
-        const topPx = (on ? bar.offsetHeight : 48) + 8, top = `${topPx}px`; tools.style.top = top; panel.style.top = top;
-        tools.classList.toggle('two', NARROW); tools.style.maxHeight = `${Math.max(120, innerHeight - topPx - 38)}px`;   // (never under the status line; it scrolls if still too long)
-        if (NARROW) { panel.style.left = '68px'; panel.style.width = 'auto'; pad.style.bottom = prefs.panel ? '-999px' : '40px'; }   // (a phone: the panel over the view; the pad hidden under it)
-        else pad.style.right = prefs.panel ? '280px' : '12px';   // (beside the panel, not over it)
-        void show; layoutRef();
+        bar.classList.toggle('wrap', narrow);   // (a phone: the bar on two rows — what is edited, then the file's actions)
+        const topPx = (on ? bar.offsetHeight : 48) + 8, room = Math.max(120, innerHeight - topPx - 36);   // (down to the status line)
+        tools.style.top = panel.style.top = `${topPx}px`; tools.style.maxHeight = panel.style.maxHeight = `${room}px`;
+        // the palette: as few columns as let it all show (a phone held either way: 2 or 3); it still scrolls if not
+        if (on) for (const c of [1, 2, 3]) { tools.style.setProperty('--cols', c); if (tools.scrollHeight <= room + 1) break; }
+        const toolsRight = on ? tools.offsetLeft + tools.offsetWidth : 60;
+        if (narrow) { panel.style.left = `${toolsRight + 6}px`; panel.style.width = 'auto'; } else { panel.style.left = ''; panel.style.width = ''; }
+        // the pad: beside the panel when both fit, else hidden under the open panel (a phone)
+        const pw = on && prefs.panel ? panel.offsetWidth + 8 : 0, padW = pad.offsetWidth || 160;
+        const beside = !prefs.panel || (!narrow && innerWidth - pw - padW - 20 > toolsRight + 160);
+        pad.style.right = `${pw && beside ? pw + 12 : 12}px`; pad.style.bottom = beside ? '40px' : '-999px';
+        layoutRef();
     }
 
     addEventListener('resize', () => { if (on) layout(); });   // (the phone turned: the palette refitted)
@@ -384,10 +479,10 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         if (r.ok) setTimeout(() => B.go({ edit: who, layer, alt: alt ? `${layer}:${alt}` : null }), 700);
     }
     async function countSaves() {
-        if (!B || layer === 'override') { undoSave.disabled = true; undoSave.textContent = '⤺ Save'; return; }
+        if (!B || layer === 'override') { undoSave.disabled = true; undoSave.querySelector('.n').textContent = '–'; return; }
         const alt = B.alt?.layer === layer ? B.alt.name : '';
         const j = await fetch(`/api/v2undo?layer=${layer}${alt ? `&alt=${alt}` : ''}`).then(r => r.json()).catch(() => ({ count: 0 }));
-        undoSave.textContent = `⤺ Save (${j.count ?? 0})`; undoSave.disabled = !j.count;
+        undoSave.querySelector('.n').textContent = String(j.count ?? 0); undoSave.disabled = !j.count; undoSave.title = `Undo last save (${j.count ?? 0} kept: each save keeps the version it replaced)`;
     }
 
     // ---- what is shown ----
