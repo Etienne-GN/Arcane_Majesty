@@ -46,6 +46,13 @@ outfit })`, registered in `models/v2/index.js`, its own cast file `content/cast/
 `CAST` in sculptor/main.js and to the Forge's list (forge/main.js, `Sculpt this character`). Face tattoos/paint:
 `outfit.facePaint({ P, poly, EX, EY, MY, MW })` — marks laid on the face (lift under 0.0012 = behind the eyes).
 
+## Model v3 (2026-11-27, in progress): the hand-placed low-poly bodies after the sheet
+`models/v3/body.js` (`base_male_v3` in the registry and the Sculptor; layer `v3_male`). Numbers measured from the sheet
+(507 px = 1.80 m). Lessons so far: matching the outline is not enough — the sheet's look comes from sharp planes whose
+edges run DIAGONALLY along the anatomy (the pec's lower edge rising to the armpit, the trapezius slanting, the lats) and
+from the thin dark outline (addOutline: an inverted hull on averaged normals). Horizontal-only ring steps read as bands
+("a shelf"): give each corner of a loop its own height (the loft's pts take [x, z, dy]).
+
 ## Traps already hit
 - `sk.tube` winding can face inward → creature tubes use `mat: 'double'`. Lofts on tilted joints (neck, head): build the
   rings in the joint's frame (`ringIn`), not root axes. Loft caps take a plain colour (no colour function on end rings).
@@ -60,5 +67,7 @@ outfit })`, registered in `models/v2/index.js`, its own cast file `content/cast/
 2. `node apps/amo3d/tools/models/shots.mjs <subject> [apose|idle|walk]` — front, three-quarter, side, back, below and the
    head, framed to its size, in `apps/amo3d/tools/.out/models/`. **Look at every shot** against the sheet: silhouette,
    head, hands/paws/hooves, hind vs front legs, anything thin, anything inside-out, the ponytail from behind.
+   For a human body, then `python3 apps/amo3d/tools/models/compare.py <subject> [male|female]` — the sheet's front, side
+   and back beside the model's (tools/.out/models/compare_<subject>.png): compare like for like.
 3. Sculptor changes: headless at phone size `HL_W=412 HL_H=900 HL_TOUCH=1` (tools/headless.mjs), every control reachable.
 4. A creature in the game: `?play=1&q=low` with `charModels: 'new'` — no errors; perf (calls, triangles) noted.
