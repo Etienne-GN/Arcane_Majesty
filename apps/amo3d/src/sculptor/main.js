@@ -47,7 +47,7 @@ for (const [id, c] of Object.entries(CREATURES)) SUBJECTS[id] = { name: c.name, 
 // ?lineup=1: the six bodies side by side (man, woman, boy, girl, old man, old woman), A-pose, to judge them together
 const LINEUP = Q.get('lineup') === '1' ? ['base_male', 'base_female', 'base_boy', 'base_girl', 'base_old_man', 'base_old_woman'] : null;
 for (const [id, c] of Object.entries(CAST)) SUBJECTS[id] = { name: c.name, vers: Object.hasOwn(V2_MODELS, c.look.v2 ?? '') ? ['classic', 'new'] : ['classic'],
-    look: () => { const lk = JSON.parse(JSON.stringify(c.look)); if (id === 'seraphina') lk.parts.right = { id: 'spear' }; return lk; } };
+    look: () => JSON.parse(JSON.stringify(c.look)) };
 const VER = { new: 'v2', classic: 'classic' };
 const parseSlot = v => { const [id, ver] = (v ?? '').split(':'); const S = SUBJECTS[id]; return S ? { id, ver: S.vers.includes(ver) ? ver : S.vers.at(-1) } : null; };
 const legacy = Q.get('who'), slots = [parseSlot(Q.get('a')), parseSlot(Q.get('b'))];
