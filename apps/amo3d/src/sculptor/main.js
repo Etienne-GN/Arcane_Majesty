@@ -51,7 +51,8 @@ for (const [id, c] of Object.entries(CREATURES)) SUBJECTS[id] = { name: c.name, 
 const LINEUP = Q.get('lineup') === '1' ? ['base_male', 'base_female', 'base_boy', 'base_girl', 'base_old_man', 'base_old_woman'] : null;
 for (const [id, c] of Object.entries(CAST)) SUBJECTS[id] = { name: c.name, vers: Object.hasOwn(V2_MODELS, c.look.v2 ?? '') ? ['classic', 'new'] : ['classic'],
     look: () => { const lk = JSON.parse(JSON.stringify(c.look)); if (id === 'seraphina') lk.parts.right = { id: 'spear' }; return lk; } };   // (the Queen of Carnage's glaive; the Rebel holds her daggers)
-const VER = { new: 'v2', classic: 'classic' };
+const VER = { new: '', classic: 'classic' };   // (2026-11-27, the user: no 'v2' in the models' names — only the classic ones say so)
+const verTag = v => (VER[v] ? ` — ${VER[v]}` : '');
 const parseSlot = v => { const [id, ver] = (v ?? '').split(':'); const S = SUBJECTS[id]; return S ? { id, ver: S.vers.includes(ver) ? ver : S.vers.at(-1) } : null; };
 const legacy = Q.get('who'), slots = [parseSlot(Q.get('a')), parseSlot(Q.get('b'))];
 if (!slots[0] || !slots[1]) {
@@ -67,7 +68,7 @@ const ALTS = await fetch('/api/v2alts').then(r => r.json()).catch(() => ({}));
 const altOf = slots.map((sl, i) => { const [layer, name] = (Q.get(`alt${i}`) ?? '').split(':'); return SUBJECTS[sl.id].sex && ALTS[layer]?.includes(name) ? { layer, name } : null; });
 const altData = await Promise.all(altOf.map(a => a ? fetch(`/api/v2layer?layer=${a.layer}&alt=${a.name}`).then(r => r.json()) : null));
 const models = await Promise.all(slots.map(async (sl, i) => { if (SUBJECTS[sl.id].creature) return makeCreature(SUBJECTS[sl.id]); const lk = SUBJECTS[sl.id].look(); if (altOf[i]) lk.sculpt = { ...(lk.sculpt ?? {}), swap: { [altOf[i].layer]: altData[i] } }; return make(sl.ver, lk); }));
-const slotName = sl => `${SUBJECTS[sl.id].name} — ${VER[sl.ver]}` + ((a => a ? ` · ${a.layer}: ${a.name}` : '')(altOf[slots.indexOf(sl)]));
+const slotName = sl => `${SUBJECTS[sl.id].name}${verTag(sl.ver)}` + ((a => a ? ` · ${a.layer}: ${a.name}` : '')(altOf[slots.indexOf(sl)]));
 const BASE = slots.some(sl => SUBJECTS[sl.id].sex);   // a base body on stage: the point editor and the hair toggle are offered
 document.getElementById('labels').innerHTML = slots.map(sl => `<span>${slotName(sl).toUpperCase()}</span>`).join('');
 document.getElementById('labels').style.top = '56px';
@@ -86,7 +87,7 @@ if (LINEUP) { const a = document.createElement('a'); a.textContent = '← Two si
 else slots.forEach((sl, i) => {
     const lab = document.createElement('label'); lab.textContent = i ? 'Right ' : 'Left ';
     const sel = document.createElement('select'); sel.style.cssText = 'font:14px Georgia,serif;padding:5px 8px;border-radius:8px;border:1px solid #c8963a88;background:#2e1e12;color:#f1e4c4';
-    for (const [id, S] of Object.entries(SUBJECTS)) for (const ver of S.vers) { const o = document.createElement('option'); o.value = `${id}:${ver}`; o.textContent = `${S.name} — ${VER[ver]}`; sel.append(o); }
+    for (const [id, S] of Object.entries(SUBJECTS)) for (const ver of S.vers) { const o = document.createElement('option'); o.value = `${id}:${ver}`; o.textContent = `${S.name}${verTag(ver)}`; sel.append(o); }
     sel.value = `${sl.id}:${sl.ver}`;
     sel.onchange = () => go({ a: i ? `${slots[0].id}:${slots[0].ver}` : sel.value, b: i ? sel.value : `${slots[1].id}:${slots[1].ver}`, edit: null, [`alt${i}`]: null });
     lab.append(sel); top.append(lab);

@@ -719,7 +719,7 @@ window.__forge = {
 // Back to the game (the title's Workshop opens this page).
 // the model the preview is built on: Classic, or New (v2: the shaped bodies, the clothes translated — v2/wardrobe.js);
 // the same setting as Options › Display › Character models
-{ const b = document.createElement('button'); const label = () => { b.textContent = `Model: ${settings.charModels === 'new' ? 'New (v2)' : 'Classic'}`; };
+{ const b = document.createElement('button'); const label = () => { b.textContent = `Model: ${settings.charModels === 'new' ? 'New' : 'Classic'}`; };
     b.style.cssText = 'position:absolute;left:96px;top:10px;z-index:5;padding:5px 10px;font:14px Georgia,serif;color:#f3e2b0;background:#120a06d8;border:1px solid #f3d88b66;border-radius:4px;cursor:pointer';
     b.onclick = () => { setSetting('charModels', settings.charModels === 'new' ? 'classic' : 'new'); label(); rebuild(); }; label();
     (document.getElementById('stage') ?? document.body).append(b); }
