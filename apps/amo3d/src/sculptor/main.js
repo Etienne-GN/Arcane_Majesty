@@ -17,6 +17,7 @@ import seraphinaRebel from '../content/cast/seraphina_rebel.json';
 import eldrin from '../content/cast/eldrin.json';
 import anya from '../content/cast/anya.json';
 import { layerFromPositions } from '../content/models/v2/skin.js';
+import { applyLayer } from '../content/models/v2/base.js';
 import { NAMES as BEAST_NAMES } from '../content/actors/beast.js';
 
 const CAST = { seraphina, seraphina_rebel: seraphinaRebel, eldrin, anya }, Q = new URLSearchParams(location.search);
@@ -92,7 +93,24 @@ const makeCreature = async S => { settings.charModels = 'new'; const d = await S
 const ALTS = await fetch('/api/v2alts').then(r => r.json()).catch(() => ({}));
 const altOf = slots.map((sl, i) => { const [layer, name] = (Q.get(`alt${i}`) ?? '').split(':'); return SUBJECTS[sl.id].sex && ALTS[layer]?.includes(name) ? { layer, name } : null; });
 const altData = await Promise.all(altOf.map(a => a ? fetch(`/api/v2layer?layer=${a.layer}&alt=${a.name}`).then(r => r.json()) : null));
-const models = await Promise.all(slots.map(async (sl, i) => { if (SUBJECTS[sl.id].creature) return makeCreature(SUBJECTS[sl.id]); const lk = SUBJECTS[sl.id].look(); if (SUBJECTS[sl.id].sex) { const dr = dressOf(i); if (dr) lk.sculpt = { ...(lk.sculpt ?? {}), dress: dr }; else if (lk.sculpt) { delete lk.sculpt.dress; if (!Object.keys(lk.sculpt).length) delete lk.sculpt; } } if (altOf[i]) lk.sculpt = { ...(lk.sculpt ?? {}), swap: { [altOf[i].layer]: altData[i] } }; return make(sl.ver, lk); }));
+const buildSlot = async (sl, i) => { if (SUBJECTS[sl.id].creature) return makeCreature(SUBJECTS[sl.id]); const lk = SUBJECTS[sl.id].look(); if (SUBJECTS[sl.id].sex) { const dr = dressOf(i); if (dr) lk.sculpt = { ...(lk.sculpt ?? {}), dress: dr }; else if (lk.sculpt) { delete lk.sculpt.dress; if (!Object.keys(lk.sculpt).length) delete lk.sculpt; } } if (altOf[i]) lk.sculpt = { ...(lk.sculpt ?? {}), swap: { [altOf[i].layer]: altData[i] } }; return make(sl.ver, lk); };
+const models = await Promise.all(slots.map(buildSlot));
+// Live (2026-11-27, the user: "make the Sculptor reload less often — live"): a saved layer is read back, put into the running
+// page (applyLayer) and every body on stage that stacks it is rebuilt where it stood — no page reload
+const frames = n => new Promise(res => { const f = () => (n-- > 0 ? requestAnimationFrame(f) : res()); f(); });
+async function liveLayer(layer) {
+    const data = await fetch(`/api/v2layer?layer=${layer}`).then(r => (r.ok ? r.json() : null)).catch(() => null);
+    if (!data) return false;
+    applyLayer(layer, data);
+    for (let j = 0; j < models.length && j < slots.length; j++) {
+        if (altOf[j]?.layer === layer || !bodyMesh(j)?.userData.layers?.includes(layer)) continue;
+        const old = models[j], keep = [old.root.position.clone(), old.root.rotation.y, old.root.visible];
+        scene.remove(old.root); old.root.traverse(o => { if (o.isMesh) o.geometry.dispose(); });
+        const m = await buildSlot(slots[j], j); m.root.position.copy(keep[0]); m.root.rotation.y = keep[1]; m.root.visible = keep[2]; models[j] = m;
+    }
+    await frames(2);   // (posed by the stage loop — the editor reads the A-pose)
+    return true;
+}
 const slotName = sl => `${SUBJECTS[sl.id].name}${verTag(sl.ver)}` + ((a => a ? ` · ${a.layer}: ${a.name}` : '')(altOf[slots.indexOf(sl)]));
 const BASE = slots.some(sl => SUBJECTS[sl.id].sex);   // a base body on stage: the point editor and the hair toggle are offered
 document.getElementById('labels').innerHTML = slots.map(sl => `<span>${slotName(sl).toUpperCase()}</span>`).join('');
@@ -266,7 +284,7 @@ const split = () => !!(editor?.on && editor.showCompare);
 const editor = EDITABLE.length && !LINEUP ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, bodies: EDITABLE, alts: ALTS,
     dresses: Object.entries(DRESSES).map(([id, d]) => [id, d.label]), dressOf, slotOf: i => `${slots[i].id}:${slots[i].ver}`,
     subjects: Object.entries(SUBJECTS).flatMap(([id, S]) => S.vers.map(ver => [`${id}:${ver}`, `${S.name}${verTag(ver)}`])),
-    getBody: i => { cmpIdx = 1 - i; const cast = EDITABLE.find(b => b.id === i)?.cast; return { table: posedTable(i), mesh: bodyMesh(i), alt: altOf[i], io: cast ? castIO(cast) : null, go: ({ alt, ...ch }) => go({ ...ch, [`alt${i}`]: alt ?? null }) }; },
+    getBody: i => { cmpIdx = 1 - i; const cast = EDITABLE.find(b => b.id === i)?.cast; return { table: posedTable(i), mesh: bodyMesh(i), alt: altOf[i], io: cast ? castIO(cast) : null, live: async layer => (altOf[i]?.layer === layer ? false : (await liveLayer(layer)) && (editor.enter(i, layer, true), true)), go: ({ alt, ...ch }) => go({ ...ch, [`alt${i}`]: alt ?? null }) }; },
     viewRect: () => ({ left: 0, top: 0, width: split() ? Math.floor(innerWidth / 2) : innerWidth, height: innerHeight }),
     onEnter: () => { models.forEach(m => { m.root.visible = false; }); floor.visible = false; for (const id of ['bar', 'labels', 'blender', 'top', 'lnkGame', 'lnkForge']) { const e = document.getElementById(id); if (e) e.style.display = 'none'; } },
     onExit: () => { models.forEach(m => { m.root.visible = true; }); floor.visible = true; for (const id of ['bar', 'labels', 'blender', 'top', 'lnkGame', 'lnkForge']) { const e = document.getElementById(id); if (e) e.style.display = ''; } resize(); } }) : null;

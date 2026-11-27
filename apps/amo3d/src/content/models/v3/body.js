@@ -14,8 +14,8 @@ import { createSkin, blend, profile, ringPts, pointKey } from '../v2/skin.js';
 // The shape layers (docs/3d/characters/LAYERS_PLAN.md): models/v2/layers/<layer>.json — { structural key: [dx, dy, dz] },
 // offsets in the frame of the bone each point follows, so they land right on every body's proportions. Stacked
 // common → sex (male | female) → age (boy | girl | old_man | old_woman) → the character's own override (look.sculpt.points); look.sculpt.swap replaces a layer (the Sculptor's alternates).
-const LAYER_FILES = import.meta.glob('../v2/layers/*.json', { eager: true, import: 'default' });
-export const LAYERS = Object.fromEntries(Object.entries(LAYER_FILES).map(([f, d]) => [f.replace(/^.*\/|\.json$/g, ''), d]));
+import { LAYERS, layerListeners } from '../v2/base.js';   // (v2's registry: one copy of the layers, changed live by the Sculptor)
+export { LAYERS };
 
 const sym = (th, amp, wd) => [{ th, amp, wd }, { th: -th, amp, wd }];
 
@@ -41,6 +41,7 @@ export function stackTopo(ctx, sex) {
     return Ls.flatMap(L => (Array.isArray(L?.['@topo']) ? L['@topo'].filter(TOPO_OK) : [])).slice(0, 2000);
 }
 const EDIT_CACHE = new Map();
+layerListeners.add(() => EDIT_CACHE.clear());
 // (2026-11-27, the user with the reference's outline: "the shoulders are too high" — measured row by row, the model
 // reached each shoulder width 2–4 cm above the sheet's: the shoulder line, the arms' joints with it, lowered)
 const SHOULDER_DROP = 0.035;

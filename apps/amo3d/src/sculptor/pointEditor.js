@@ -246,8 +246,9 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     toggle('ref', 'Reference', () => prefs.refOn, v => { prefs.refOn = v; keep(); layoutRef(); }, 'The reference window');
     toggle('cmp', 'Compare', () => cmpOn, v => { cmpOn = v; showDress?.(); }, 'The other body beside it, from the same angle (pick it under Dress & compare)');
     toggle('hair', 'Hair', () => hairOn, v => { hairOn = v; applyHair(); hairBtn.classList.toggle('on', hairOn); });
-    toggle('eyes', 'Eyes', () => eyesOn, v => { eyesOn = v; if (faceMesh) faceMesh.visible = v; });
-    toggle('mouth', 'Mouth', () => mouthOn, v => { mouthOn = v; if (mouthMesh) mouthMesh.visible = v; });
+    toggle('eyes', 'Eyes', () => eyesOn, v => { eyesOn = v; if (faceMesh) faceMesh.visible = v && showPart.head; });
+    toggle('mouth', 'Mouth', () => mouthOn, v => { mouthOn = v; if (mouthMesh) mouthMesh.visible = v && showPart.head; });
+    for (const [id, label] of [['arms', 'Arms'], ['head', 'Head'], ['legs', 'Legs']]) toggle(id, label, () => showPart[id], v => { showPart[id] = v; applyHair(); }, `Show or hide the ${label.toLowerCase()} — to judge the body without them (their points can't be picked while hidden)`);
     toggle('wire', 'Wireframe', () => prefs.wireOn, v => { prefs.wireOn = v; keep(); if (wire) wire.visible = v && !polish; });
     toggle('polish', 'Polish', () => polish, v => setPolish(v), 'The model as in the game: no points, no wireframe');
     // Dress & compare (2026-11-27, the user: "test dress my model in the sculptor, and display it in the compare too"): the
@@ -511,8 +512,8 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         if (sessionMoves() > 0 && !confirm('Unsaved moves will be lost. Undo the last save anyway?')) return;
         const r = await fetch('/api/v2undo', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer, alt }) });
         const j = await r.json().catch(() => ({}));
-        info.textContent = r.ok ? `The ${LAYER_LABEL[layer] ?? layer} layer is back as it was before its last save (${j.count} more to undo) — reloading…` : `Nothing to undo: ${j.error ?? r.status}`;
-        if (r.ok) setTimeout(() => B.go({ edit: who, layer, alt: alt ? `${layer}:${alt}` : null }), 700);
+        info.textContent = r.ok ? `The ${LAYER_LABEL[layer] ?? layer} layer is back as it was before its last save (${j.count} more to undo).` : `Nothing to undo: ${j.error ?? r.status}`;
+        if (r.ok) { if (!alt && await B.live?.(layer)) countSaves(); else setTimeout(() => B.go({ edit: who, layer, alt: alt ? `${layer}:${alt}` : null }), 700); }
     }
     async function countSaves() {
         if (!B || layer === 'override') { undoSave.disabled = true; undoSave.querySelector('.n').textContent = '–'; return; }
@@ -522,10 +523,20 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     }
 
     // ---- what is shown ----
+    // (2026-11-27, the user: "remove arms, remove head, remove legs — so I can make sure the body looks like I want"): each
+    // point's part, from the section it was built in (its structural key: 'arms.…', 'legs.…', 'head.…'); a face goes when
+    // all its corners are in a hidden part (the faces joining a part to the torso stay: no holes in the body)
+    const PART = { arms: 'arms', legs: 'legs', feet: 'legs', head: 'head', hair: 'head', nose: 'head', ears: 'head', face: 'head', mouth: 'head', eyes: 'head', brows: 'head' };
+    const showPart = { arms: true, head: true, legs: true };
+    let partOf = [];
+    const hiddenPt = i => (!hairOn && T.hair?.[i]) || (partOf[i] && !showPart[partOf[i]]);
     function applyHair() {
         if (!T) return;
-        const H = T.hair, idx = hairOn || !H ? T.idx : T.idx.filter((_, n, a) => { const b = n - (n % 3); return !(H[a[b]] && H[a[b + 1]] && H[a[b + 2]]); });
-        geo.setIndex(idx); if (sel >= 0 && !hairOn && H?.[sel]) sel = -1;
+        const pm = bodyMesh.userData.points; partOf = T.keys.map(k => PART[(pm?.get(k)?.t ?? '').split('.')[0]] ?? null);
+        const any = !hairOn || Object.values(showPart).some(v => !v);
+        const idx = !any ? T.idx : T.idx.filter((_, n, a) => { const b = n - (n % 3); return !(hiddenPt(a[b]) && hiddenPt(a[b + 1]) && hiddenPt(a[b + 2])); });
+        geo.setIndex(idx); if (sel >= 0 && hiddenPt(sel)) sel = -1;
+        if (faceMesh) faceMesh.visible = eyesOn && showPart.head; if (mouthMesh) mouthMesh.visible = mouthOn && showPart.head;
         if (wire) { const wg = new THREE.BufferGeometry(); wg.setAttribute('position', geo.attributes.position); wg.setIndex(idx); wire.geometry = wg; }   // (the wireframe keeps its own copy of the faces: a new one, without the hair's)
         buildDots(); describe();
     }
@@ -545,7 +556,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         const y = T.P[i * 3 + 1], top = T.P.reduce((m, v, j) => (j % 3 === 1 && v > m ? v : m), 0); return region === 'all' || (region === 'head' ? y > top - 0.42 : y > top - 0.9);
     };
 
-    function load(s) {
+    function load(s, keepView = false) {   // (keepView: a live rebuild — the view, the region and the layer stay as they were)
         who = s; B = getBody(s); T = B.table; bodyMesh = B.mesh; sex = bodyMesh.userData.editSex ?? 'male'; sel = -1; hover = -1; undo.length = 0; redo.length = 0;
         bodySel.value = String(s); showDress();
         const Ls = stackOf(); if (!Ls.includes(layer)) layer = Ls.at(-1); showLayers();   // (by default the body's own: its age layer, else its sex)
@@ -566,12 +577,12 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         // mirrors: the point at (−x, y, z)
         const by = new Map(); T.keys.forEach((k, i) => by.set(k, i));
         mirrorOf = T.keys.map(k => { const [x, y, z] = keyPos(k); if (Math.abs(x) < 1e-4) return -2; const m = by.get(`${(-x).toFixed(4)},${y.toFixed(4)},${z.toFixed(4)}`); return m ?? -1; });
-        setRegion(region); if (!hairOn) applyHair(); show();
+        if (keepView) { buildDots(); drawRef(true); } else setRegion(region); applyHair(); show();   // (the hair and the hidden parts as they were set)
     }
     let dotIds = [];
     function buildDots() {
         if (dots) { group.remove(dots); dots.geometry.dispose(); }
-        dotIds = T.keys.map((_, i) => i).filter(i => inRegion(i) && (hairOn || !T.hair?.[i]));
+        dotIds = T.keys.map((_, i) => i).filter(i => inRegion(i) && !hiddenPt(i));
         const r = (region === 'head' ? 0.0028 : region === 'upper' ? 0.005 : 0.008) * (HUMAN(sex) ? 1 : 1.4);
         dots = new THREE.InstancedMesh(new THREE.SphereGeometry(r, 8, 6), new THREE.MeshBasicMaterial({ depthTest: true }), dotIds.length);
         dots.renderOrder = 5; dots.visible = !polish; group.add(dots); placeDots();
@@ -660,8 +671,8 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         if (Array.isArray(points['@topo']) && !points['@topo'].length) delete points['@topo'];
         const r = await writeL(layer, points, alt);
         const where = `the ${LAYER_LABEL[layer] ?? layer} layer` + (alt ? ` (alternate "${alt}")` : '');
-        info.textContent = r.ok ? `Saved ${changed} moved points into ${where} — reloading…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`;
-        if (r.ok) setTimeout(() => B.go({ edit: who, layer, alt: alt ? `${layer}:${alt}` : null }), 700);
+        info.textContent = r.ok ? `Saved ${changed} moved points into ${where}…` : `Save refused: ${(await r.json().catch(() => ({}))).error ?? r.status}`;
+        if (r.ok) { if (!alt && await B.live?.(layer)) { info.textContent = `Saved ${changed} moved points into ${where} — applied live.`; countSaves(); } else setTimeout(() => B.go({ edit: who, layer, alt: alt ? `${layer}:${alt}` : null }), 700); }
     }
 
     // ---- input ----
@@ -815,7 +826,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     function show() { on = true; group.visible = true; setTool(prefs.tool); labelPad(); for (const f of Object.values(toggles)) f(); hairBtn.classList.toggle('on', hairOn); sheetBtn.classList.toggle('on', refMode === 'sheet'); layout(); onEnter?.(); describe(); }
     function exit() { on = false; lens = null; if (camera.view?.enabled) camera.clearViewOffset(); group.visible = false; layout(); onExit?.(); }
     return {
-        enter: (s, l) => { if (l) layer = l; load(s ?? who); }, exit, get on() { return on; }, get showCompare() { return cmpOn; }, group,
+        enter: (s, l, keepView = false) => { if (l) layer = l; load(s ?? who, keepView); }, exit, get on() { return on; }, get showCompare() { return cmpOn; }, group,
         frame() {
             if (!on) return; drawRef(); const dk = dist * Math.max(1, 0.8 / camera.aspect);   // (a tall narrow screen: further back, so the region fits across)
             camera.position.set(target.x + Math.sin(yaw) * Math.cos(pitch) * dk, target.y + Math.sin(pitch) * dk, target.z + Math.cos(yaw) * Math.cos(pitch) * dk); camera.lookAt(target);

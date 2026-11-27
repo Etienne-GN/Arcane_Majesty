@@ -42,6 +42,9 @@ function v2EditsApi() {
     const hostOf = h => (h ?? '').replace(/:\d+$/, '');
     return {
         name: 'v2-edits-api',
+        // (2026-11-27, the user: "make the Sculptor reload less often — live"): a layer written by the Sculptor reloads no
+        // page — the Sculptor puts it into the running page itself (models/v2/base.js applyLayer)
+        handleHotUpdate(ctx) { if (/[\\/]models[\\/]v2[\\/]layers[\\/].*\.json$/.test(ctx.file)) return []; },
         configureServer(server) {
             server.middlewares.use('/api/v2edits', (req, res) => {
                 const send = (code, body) => { res.statusCode = code; res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(body)); };

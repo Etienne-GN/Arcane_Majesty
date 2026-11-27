@@ -12,6 +12,10 @@ import { createSkin, blend, profile, ringPts, pointKey } from './skin.js';
 // common → sex (male | female) → age (boy | girl | old_man | old_woman) → the character's own override (look.sculpt.points); look.sculpt.swap replaces a layer (the Sculptor's alternates).
 const LAYER_FILES = import.meta.glob('./layers/*.json', { eager: true, import: 'default' });
 export const LAYERS = Object.fromEntries(Object.entries(LAYER_FILES).map(([f, d]) => [f.replace(/^.*\/|\.json$/g, ''), d]));
+// (2026-11-27, the user: "make the Sculptor reload less often — live"): a layer saved in the Sculptor is put here at once,
+// and the bodies built after take it — no page reload (the dev server leaves the layer files out of its reloads)
+export const layerListeners = new Set();
+export function applyLayer(name, data) { LAYERS[name] = data; EDIT_CACHE.clear(); for (const f of layerListeners) f(name); }
 
 const sym = (th, amp, wd) => [{ th, amp, wd }, { th: -th, amp, wd }];
 
