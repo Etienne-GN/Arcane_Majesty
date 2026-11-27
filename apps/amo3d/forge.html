@@ -67,6 +67,7 @@
         @media (max-width: 720px) and (orientation: portrait) {
             #stage { inset: 112px 0 48% 0; }
             #side { top: 52%; width: 100%; border-left: 0; border-top: 1px solid var(--line); }
+            #hint { bottom: auto; top: calc(52% - 42px); width: 92%; }   /* (at the foot of the model's view, not over the panel) */
         }
     </style>
 </head>
@@ -77,7 +78,7 @@
         <div id="slots"></div>
     </aside>
     <div id="stage"></div>
-    <div id="hint">drag to turn · wheel to zoom · choose a slot, then an item</div>
+    <div id="hint">drag to turn · wheel or two fingers to zoom · choose a slot, then an item</div>
     <aside id="side">
         <div id="controls"></div>
     </aside>

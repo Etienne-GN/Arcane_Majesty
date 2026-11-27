@@ -61,9 +61,19 @@ resize();
 // Turntable: drag to turn, wheel to zoom.
 const view = { yaw: 0.5, pitch: 0.12, dist: 6.2, spin: true };
 let drag = null;
-renderer.domElement.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY }; view.spin = false; renderer.domElement.setPointerCapture(e.pointerId); });
-renderer.domElement.addEventListener('pointerup', () => { drag = null; });
+// (a phone, 2026-11-26: two fingers pinch to zoom; the canvas keeps the touches — no page scroll or browser zoom)
+const fingers = new Map(); let pinch = null;
+renderer.domElement.style.touchAction = 'none';
+renderer.domElement.addEventListener('pointerdown', e => {
+    fingers.set(e.pointerId, [e.clientX, e.clientY]);
+    if (fingers.size === 2) { const [a, b] = [...fingers.values()]; pinch = { d: Math.hypot(a[0] - b[0], a[1] - b[1]), dist: view.dist }; drag = null; return; }
+    drag = { x: e.clientX, y: e.clientY }; view.spin = false; renderer.domElement.setPointerCapture(e.pointerId);
+});
+const lift = e => { fingers.delete(e.pointerId); if (fingers.size < 2) pinch = null; drag = null; };
+renderer.domElement.addEventListener('pointerup', lift); renderer.domElement.addEventListener('pointercancel', lift);
 renderer.domElement.addEventListener('pointermove', e => {
+    if (fingers.has(e.pointerId)) fingers.set(e.pointerId, [e.clientX, e.clientY]);
+    if (pinch && fingers.size === 2) { const [a, b] = [...fingers.values()]; view.dist = Math.max(1.6, Math.min(8, pinch.dist * pinch.d / Math.max(1, Math.hypot(a[0] - b[0], a[1] - b[1])))); return; }
     if (!drag) return;
     view.yaw -= (e.clientX - drag.x) * 0.008;
     view.pitch = Math.max(-0.2, Math.min(0.8, view.pitch + (e.clientY - drag.y) * 0.004));
