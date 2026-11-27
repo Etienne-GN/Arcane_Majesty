@@ -178,7 +178,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         // The Sculptor and the Land Editor are makers' tools for the dev server only (npm run dev): never in a build
         // (phone, desktop) — vite.config.js leaves their pages out of the build too.
         const pages = [['THE FORGE', 'Make a hero — or open any NPC of the game and leave notes on it', 'forge.html'],
-            ['THE BESTIARY', 'Every creature on its turntable, with notes', 'bestiary.html']];
+            ['THE LIBRARY', 'Every creature, person, object and item — by class, with notes and the Sculptor', 'library.html']];
         if (import.meta.env.DEV) pages.push(['THE SCULPTOR', 'The models: the six bodies, their layers, sculpted by hand', 'sculptor.html'], ['THE LAND EDITOR', 'The regions: paint, place, test', 'editor.html']);
         for (const [label, sub, href] of pages) {
             const b = document.createElement('button');

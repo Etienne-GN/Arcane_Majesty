@@ -8,7 +8,8 @@ const rules = fileURLToPath(new URL('../../packages/rules/index.js', import.meta
 const castDir = fileURLToPath(new URL('./src/content/cast', import.meta.url));
 const regionDir = fileURLToPath(new URL('./src/content/regions', import.meta.url));
 const mobNotesDir = fileURLToPath(new URL('./src/content/mob_notes', import.meta.url));   // the Bestiary page's notes
-const npcNotesDir = fileURLToPath(new URL('./src/content/npc_notes', import.meta.url));   // the Forge's notes on each NPC
+const npcNotesDir = fileURLToPath(new URL('./src/content/npc_notes', import.meta.url));
+const itemNotesDir = fileURLToPath(new URL('./src/content/item_notes', import.meta.url));   // the Library's notes on world objects and equipment   // the Forge's notes on each NPC
 const biomesDir = fileURLToPath(new URL('./src/content/world/biomes', import.meta.url));
 const biomeMapsDir = fileURLToPath(new URL('./src/content/world/biome_maps', import.meta.url));
 
@@ -239,10 +240,10 @@ export default defineConfig({
         // amo's engine-free rules, shared through packages/rules — no copies.
         alias: { '@rules': rules },
     },
-    plugins: [v2EditsApi(), mapBakeApi(), jsonDirApi('/api/cast', castDir, 'cast'), jsonDirApi('/api/region', regionDir, 'regions'), jsonDirApi('/api/mobnotes', mobNotesDir, 'mob_notes'), jsonDirApi('/api/npcnotes', npcNotesDir, 'npc_notes'), jsonDirApi('/api/biomes', biomesDir, 'biomes'), jsonDirApi('/api/biomemaps', biomeMapsDir, 'biome_maps')],
+    plugins: [v2EditsApi(), mapBakeApi(), jsonDirApi('/api/cast', castDir, 'cast'), jsonDirApi('/api/region', regionDir, 'regions'), jsonDirApi('/api/mobnotes', mobNotesDir, 'mob_notes'), jsonDirApi('/api/npcnotes', npcNotesDir, 'npc_notes'), jsonDirApi('/api/itemnotes', itemNotesDir, 'item_notes'), jsonDirApi('/api/biomes', biomesDir, 'biomes'), jsonDirApi('/api/biomemaps', biomeMapsDir, 'biome_maps')],
     build: {
         // (the Sculptor, the Land Editor and its biomes page: dev server only — not in the phone or desktop builds)
-        rollupOptions: { input: { main: 'index.html', forge: 'forge.html', bestiary: 'bestiary.html', manual: 'manual.html' } },
+        rollupOptions: { input: { main: 'index.html', forge: 'forge.html', bestiary: 'bestiary.html', library: 'library.html', manual: 'manual.html' } },
     },
     server: {
         port: 5190,
