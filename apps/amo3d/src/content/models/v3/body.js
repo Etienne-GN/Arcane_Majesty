@@ -357,12 +357,25 @@ function genBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair 
     // hair: big swept chunks, as the reference — the hairline high in front, lower at the nape
     const hl = th => (Math.cos(th) > 0 ? Math.pow(Math.cos(th), 0.7) * (F ? 0.11 : 0.11) : Math.cos(th) * (F ? 0.0 : 0.05));   // up to the hairline in front; down to the nape behind
     const HR = F ? [[0.322, 0.02, 0.02, 0.03], [0.305, 0.064, 0.06, 0.085], [0.27, 0.09, 0.092, 0.108], [0.225, 0.096, 0.1, 0.112], [0.13, 0.094, 0.098, 0.108]]
-        : [[0.338, 0.014, 0.03, 0.03, []], [0.322, 0.05, 0.075, 0.07, []], [0.298, 0.084, 0.1, 0.1, [...sym(0.9, 0.008, 0.3)]],
-            [0.262, 0.1, 0.108, 0.115, [...sym(1.3, 0.01, 0.28), ...sym(2.1, 0.008, 0.3)]], [0.21, 0.106, 0.104, 0.118, []], [0.135, 0.1, 0.1, 0.09, []]];   // (v3, 2026-11-27, after the sheet's outline: a peaked crown, the widest at the temples, tufts breaking the silhouette)   // (low on top; full at the sides and back, round the skull)   // (swept back: volume over the brow, hugging the sides and the back)   // (to the nape, round the back and sides)   // (male: volume on top, swept up at the front)
+        : [[0.338, 0.014, 0.03, 0.03, []], [0.324, 0.05, 0.092, 0.07, []], [0.298, 0.084, 0.114, 0.104, [...sym(0.75, 0.014, 0.25), ...sym(1.9, 0.01, 0.3)]],
+            [0.262, 0.1, 0.112, 0.126, [...sym(1.25, 0.016, 0.25), ...sym(2.3, 0.012, 0.3)]], [0.21, 0.106, 0.104, 0.126, []], [0.135, 0.1, 0.1, 0.096, []]];   // (v3, 2026-11-27, "the same kind of hair as the reference": a quiff over the brow, fuller behind)   // (v3, 2026-11-27, after the sheet's outline: a peaked crown, the widest at the temples, tufts breaking the silhouette)   // (low on top; full at the sides and back, round the skull)   // (swept back: volume over the brow, hugging the sides and the back)   // (to the nape, round the back and sides)   // (male: volume on top, swept up at the front)
     const HL = F ? 0.25 : 0.248;   // (v3: lower — the sheet's hairline; FACE_Y lowers it again)   // the hairline's height in front: every hair ring's front rises to it (the forehead and brows show)
-    const front = (y, last) => th => { const c = Math.cos(th); return c > 0 ? Math.pow(c, 0.8) * Math.max(0, HL - y) : last ? c * (F ? 0 : 0.05) : 0; };
-    const earLift = (y, last) => th => (!F && last ? Math.pow(Math.abs(Math.sin(th)), 6) * 0.055 : 0);   // the male's cut clears the ears
-    if (!BALD) sk.loft(HR.map(([y, w, df, db, tufts = []], i) => ({ c: V(head, 0, y * hk, 0.0), shape: profile((w + 0.01) * hk, (df + 0.006) * hk, (db + 0.012) * hk, tufts.map(t => ({ ...t, amp: t.amp * hk }))), w: [[head, 1]], col: HAIR, dy: (th => (front(y, i === HR.length - 1)(th) + earLift(y, i === HR.length - 1)(th)) * hk) })), { seg: 12, mat: 'double', capStart: true });   // (a touch bigger than the skull all round: it never pokes through)   // (capped at the crown: 2026-11-26, "an empty spot on top")
+    const front = (y, last) => th => { const c = Math.cos(th); return c > 0 ? Math.pow(c, 0.8) * Math.max(0, HL - y) * (F ? 1 : 1 - 0.3 * Math.exp(-((th / 0.22) ** 2))) : last ? c * (F ? 0 : 0.05) : 0; };   // (v3 male: a point at the middle of the hairline, as the reference)
+    const earLift = (y, last) => th => (!F && last ? Math.pow(Math.abs(Math.sin(th)), 2) * 0.06 : 0);   // (v3: a wider lift — the ear clear from before it to behind it, the hair still down at the nape)   // the male's cut clears the ears
+    if (!BALD) sk.loft(HR.map(([y, w, df, db, tufts = []], i) => ({ c: V(head, 0, y * hk, 0.0), shape: profile((w + 0.01) * hk, (df + 0.006) * hk, (db + 0.012) * hk, tufts.map(t => ({ ...t, amp: t.amp * hk }))), w: [[head, 1]], col: HAIR, dy: (th => (front(y, i === HR.length - 1)(th) + earLift(y, i === HR.length - 1)(th) + (!F && i <= 2 ? Math.max(0, Math.cos(th)) ** 2 * 0.022 : 0)) * hk) })),   /* (v3 male: the quiff — the front of the top rings raised) */ { seg: F ? 12 : 9, mat: 'double', capStart: true });   /* (v3 male: 9 sides — bigger facets, as the reference's) */   // (a touch bigger than the skull all round: it never pokes through)   // (capped at the crown: 2026-11-26, "an empty spot on top")
+    if (!F && !BALD) {   // (v3, after the reference) sideburns before the ears; the nape cut in points
+        const P = (x, y, z) => ({ p: V(head, x * hk, y * hk, z * hk), w: [[head, 1]] });
+        for (const s of [1, -1]) {
+            const c = V(head, 0, 0.18 * hk, 0.0);
+            sk.poly([P(s * 0.1, 0.226, 0.03), P(s * 0.102, 0.226, 0.004), P(s * 0.098, 0.176, 0.006), P(s * 0.097, 0.172, 0.022)], HAIR, c);   // (a thin strip before the ear)
+        }
+        const rx = 0.112, rz = 0.11, c = V(head, 0, 0.12 * hk, 0);
+        for (let k = -2; k <= 2; k++) {   // five points round the back, the middle ones longest
+            const a0 = Math.PI + (k - 0.5) * 0.3, a1 = a0 + 0.3, am = (a0 + a1) / 2, ring = a => [Math.sin(a) * rx, 0.135 + Math.cos(a) * 0.05 + (Math.abs(Math.sin(a)) > 0.5 ? 0.03 : 0), Math.cos(a) * rz];
+            const [x0, y0, z0] = ring(a0), [x1, y1, z1] = ring(a1), [xm, ym, zm] = ring(am), len = 0.04 - Math.abs(k) * 0.007;
+            sk.poly([P(x0, y0, z0), P(x1, y1, z1), P(xm * 1.04, ym - len, zm * 1.04)], HAIR, c);
+        }
+    }
     if (false) for (const [x, len] of [[-0.055, 0.1], [0, 0.11], [0.055, 0.1]]) {   // (the tufts read as horns: gone)   // three big locks swept back over the crown
         sk.loft([
             { c: V(head, x * hk, 0.328 * hk, 0.075 * hk), rx: 0.035 * hk, rz: 0.012, w: [[head, 1]], col: HAIR },
