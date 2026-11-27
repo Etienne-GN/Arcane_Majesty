@@ -75,6 +75,11 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     .pe-tools .pe-b svg { pointer-events: none; }
     .pe-tools .pe-b small { font-size: 12px; }
     .pe-tools .pe-sep { width: 40px; height: 1px; margin: 4px auto; }
+    .pe-tools { overscroll-behavior: contain; touch-action: pan-y; }
+    /* a phone (2026-11-26: "the toolbar is not all accessible on my phone"): two columns, so the whole palette fits */
+    .pe-tools.two { display: grid !important; grid-template-columns: 44px 44px; width: auto; gap: 4px; }
+    .pe-tools.two .pe-b { width: 44px; height: 40px; }
+    .pe-tools.two .pe-sep { grid-column: 1 / 3; width: 84px; }
     .pe-panel { position: fixed; top: 56px; right: 8px; bottom: 36px; width: 260px; display: none; flex-direction: column; gap: 8px; padding: 10px; background: #1c130bf2; border: 1px solid #c8963a66; border-radius: 12px; z-index: 7; overflow-y: auto; }
     .pe-panel h4 { margin: 6px 0 2px; font-weight: normal; letter-spacing: .14em; font-size: 12px; color: #f3d88b; text-transform: uppercase; }
     .pe-row { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
@@ -249,12 +254,14 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         bar.style.display = on ? 'flex' : 'none'; tools.style.display = on ? 'flex' : 'none'; status.style.display = on ? 'flex' : 'none'; pad.style.display = on ? 'grid' : 'none';
         panel.style.display = on && prefs.panel ? 'flex' : 'none'; panelBtn.classList.toggle('on', prefs.panel);
         bar.classList.toggle('wrap', NARROW);   // (a phone: the bar on two rows, everything in reach)
-        const top = `${(on ? bar.offsetHeight : 48) + 8}px`; tools.style.top = top; panel.style.top = top;
+        const topPx = (on ? bar.offsetHeight : 48) + 8, top = `${topPx}px`; tools.style.top = top; panel.style.top = top;
+        tools.classList.toggle('two', NARROW); tools.style.maxHeight = `${Math.max(120, innerHeight - topPx - 38)}px`;   // (never under the status line; it scrolls if still too long)
         if (NARROW) { panel.style.left = '68px'; panel.style.width = 'auto'; pad.style.bottom = prefs.panel ? '-999px' : '40px'; }   // (a phone: the panel over the view; the pad hidden under it)
         else pad.style.right = prefs.panel ? '280px' : '12px';   // (beside the panel, not over it)
         void show; layoutRef();
     }
 
+    addEventListener('resize', () => { if (on) layout(); });   // (the phone turned: the palette refitted)
     // ---- the layers and versions (the top bar's selects) ----
     function showLayers() {
         layerSel.replaceChildren(); for (const n of stackOf()) { const o = make('option', '', layerSel, `→ ${LAYER_LABEL[n] ?? n}`); o.value = n; }

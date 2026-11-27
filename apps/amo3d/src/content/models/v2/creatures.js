@@ -204,7 +204,7 @@ export function buildAnimalV2(d, kind) {
     const { root, body, parts, K } = d, head = parts.head, tail = parts.tail;
     const fur = hex(K.fur), belly = hex(K.belly ?? K.fur), headC = hex(K.head ?? K.fur), dark = '#1a1410', horn = '#d8ccb0';
     const bones = [body, head, ...(tail ? [tail] : []), ...parts.legs.map(l => l.g), ...(parts.wingL ? [parts.wingL, parts.wingR] : [])];
-    const N = 10;
+    const N = K.patches ? 16 : 10;   // (a cow: a finer body, so its patches are blobs, not bands)
     const ring = (sk, g, cx, cy, cz, rx, ry, w, col) => {
         const c = sk.at(g, cx, cy, cz);
         return { c, pts: Array.from({ length: N }, (_, i) => { const th = (i / N) * Math.PI * 2, p = sk.at(g, cx + Math.sin(th) * rx, cy + Math.cos(th) * ry, cz); return [p.x - c.x, p.z - c.z, p.y - c.y]; }), w, col };
@@ -238,8 +238,7 @@ export function buildAnimalV2(d, kind) {
             { const P = (x, y, z) => ({ p: V(body, x, y, z), w: [[body, 1]] }); sk.poly([P(0, 0.02, -L * 0.45), P(L * 0.18, 0.08, -L * 0.85), P(-L * 0.18, 0.08, -L * 0.85)], fur, V(body, 0, -0.1, -L * 0.6)); }
         } else {
             const hl = K.len * 0.5, w0 = K.wool ? 1.25 : 1, r = K.h * 0.38, hs = K.h * 0.34, B = [[body, 1]];
-            // the cow's patches: on one side of a ring, then the other
-            const side = k => (K.patches ? th => ((k % 2 ? th > 0 : th < 0) ? hex(K.patches) : fur) : fur);
+            const side = () => fur;   // (the cow's patches are painted after the build: irregular spots, not ring by ring — "it looks like a chess board")
             sk.section('torso');
             const rings = [
                 ring(sk, body, 0, 0.02 * r, -hl - 0.25 * r, 0.5 * r * w0, 0.55 * r * w0, B, fur),   // (the end rings: one colour — the caps take it)
@@ -257,7 +256,13 @@ export function buildAnimalV2(d, kind) {
                     ring(sk, head, 0, -0.22 * hs, tip - 0.05, 0.42 * hs, 0.38 * hs, [[head, 1]], headC),
                     ring(sk, head, 0, -0.22 * hs, tip + 0.01, 0.3 * hs, 0.26 * hs, [[head, 1]], dark));   // the nose
             } else rings.push(ring(sk, head, 0, -0.1 * hs, 0.8 * hs, 0.55 * hs, 0.55 * hs, [[head, 1]], headC), ring(sk, head, 0, -0.14 * hs, 0.98 * hs, 0.25 * hs, 0.22 * hs, [[head, 1]], dark));
-            sk.loft(rings, { seg: N, mat: 'double', cap: true, capStart: true });
+            // (a cow: rings added between the body's own, so its patches can have rounder edges)
+            const fine = K.patches ? rings.flatMap((rg, i) => {
+                if (i >= 5 || i === 0) return [rg];
+                const pv = rings[i - 1], at = t => ({ c: pv.c.clone().lerp(rg.c, t), pts: rg.pts.map((p2, j) => p2.map((v, q) => pv.pts[j][q] + (v - pv.pts[j][q]) * t)), w: B, col: fur });
+                return [at(0.25), at(0.5), at(0.75), rg];
+            }) : rings;
+            sk.loft(fine, { seg: N, mat: 'double', cap: true, capStart: true });
             sk.section('face');
             for (const s of [1, -1]) {
                 const P = (x, y, z) => ({ p: V(head, s * x, y, z), w: [[head, 1]] }), c = V(head, 0, 0, 0);
@@ -304,5 +309,34 @@ export function buildAnimalV2(d, kind) {
         if (dry) return { points: sk.build().points, bones };
         return { mesh: sk.build() };
     };
-    return buildLayered(root, kind, gen);
+    const out = buildLayered(root, kind, gen);
+    if (K.patches && out?.mesh) paintPatches(out.mesh, root, body, K, hex(K.patches), fur, head, parts.legs.map(l => l.g));
+    return out;
+}
+
+// A cow's patches (2026-11-26): a few irregular spots on the body and the face — a face whose middle falls inside a spot
+// (an ellipsoid with a wobbling edge) takes the patch colour; only the coat's own faces (not the hooves, the nose, the horns)
+function paintPatches(mesh, root, body, K, patchC, furC, head = null, legs = []) {
+    const hl = K.len * 0.5, r = K.h * 0.38, hs = K.h * 0.34;
+    root.updateMatrixWorld(true);
+    const inv = new THREE.Matrix4().copy(root.matrixWorld).invert(), frame = g => inv.clone().multiply(g.matrixWorld);
+    const toRoot = frame(body);
+    const spots = [[0.85, 0.25, 0.35, 0.5], [-0.85, 0.35, -0.35, 0.55], [0.1, 0.95, -0.05, 0.42], [0.75, -0.05, -0.7, 0.38], [-0.75, 0.05, 0.6, 0.4], [-0.3, 0.8, 0.85, 0.3], [0.5, 0.9, -0.85, 0.33]]
+        .map(([x, y, z, k]) => ({ c: new THREE.Vector3(x * r, y * r, z * hl).applyMatrix4(toRoot), k: k * r * 0.8 }));
+    // on the head too (2026-11-26: "add spots on the head too"): round one eye, one on the crown — in the head's own frame
+    if (head) { const H = frame(head); for (const [x, y, z, k] of [[0.55, 0.3, 0.35, 0.42], [-0.2, 0.7, -0.1, 0.38], [-0.6, -0.1, 0.0, 0.3]]) spots.push({ c: new THREE.Vector3(x * hs, y * hs, z * hs).applyMatrix4(H), k: k * hs }); }
+    // and on the legs ("on the legs too"): not all alike — high on one, low on another, none on the last
+    const legSpots = [[-0.12, 0.6], [-0.55, 0.5], [-0.2, 0.55], null];
+    legs.forEach((g, i) => { const sp = legSpots[i % legSpots.length]; if (sp) spots.push({ c: new THREE.Vector3(K.legs * 0.25 * (i % 2 ? -1 : 1), sp[0] * K.h, 0).applyMatrix4(frame(g)), k: sp[1] * K.h * 0.38 }); });
+    const pos = mesh.geometry.attributes.position, col = mesh.geometry.attributes.color, fur = new THREE.Color(furC), patch = new THREE.Color(patchC);
+    const m = new THREE.Vector3(), a = new THREE.Color();
+    // by quads (a loft's faces come in pairs): both triangles of a face take the same colour — no zigzag
+    for (let i = 0; i + 6 <= pos.count; i += 6) {
+        a.fromBufferAttribute(col, i); if (Math.abs(a.r - fur.r) + Math.abs(a.g - fur.g) + Math.abs(a.b - fur.b) > 0.03) continue;   // (not the coat)
+        m.set(0, 0, 0); for (let k = 0; k < 6; k++) m.x += pos.getX(i + k) / 6, m.y += pos.getY(i + k) / 6, m.z += pos.getZ(i + k) / 6;
+        const inSpot = spots.some(sp => { const d = m.distanceTo(sp.c), wob = 1 + 0.25 * Math.sin(m.x * 37 + m.z * 19) + 0.18 * Math.sin(m.y * 27 - m.z * 31); return d < sp.k * wob; });
+        if (inSpot) for (let k = 0; k < 6; k++) col.setXYZ(i + k, patch.r, patch.g, patch.b);
+    }
+    col.needsUpdate = true;
+    void hs;
 }
