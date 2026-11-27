@@ -27,6 +27,17 @@ game-only lore gets `origin: "game"`.
 - [x] (2026-11-26) 6.4: a server list in Options › Online (live players and response time, use / add / remove); you appear as the hero of the save you play (Saves on the title screen picks it).
 - [x] (2026-11-26) TLS: AMO3D_TLS_KEY / AMO3D_TLS_CERT serve https/wss (tested with a self-signed certificate); the game connects securely to an https:// address or from an https page. Still to do for release: a real certificate on a public host.
 
+## 2b. ★ The unified library with its editor (asked 2026-11-27 — for later)
+The user: "like the Bestiary, but unified for everything, by classes — with an editor". One library ("the codex") of every
+entity, browsed by class, each opening in the Sculptor:
+- [ ] **Classes:** mobs, animals, bosses; world objects (trees, chests, fences, houses…); weapons and armour, everything
+  wearable; NPCs (townsfolk, cast, story people).
+- [ ] **Forge → library:** a character made in the Forge appears in the library and opens in the Sculptor, with all its
+  accessories editable.
+- [ ] **Clone:** copy any item or mob, change it, save it as a new entry of its own.
+- [ ] Builds on: the Bestiary (src/bestiary), the Sculptor (subjects, layers, alternates), the Forge's cast files, the
+  Sculptor's Mob subjects; props and wearables need a Sculptor path (today: bodies and creatures only).
+
 ## 4. Characters & clothing ★ — ONLY after §2 (every NPC and the Forge on the v2 models): no clothing work before the model
 - [ ] **More garments in every Forge slot** (today ~1–4 each). Torso: gambeson, chain shirt, plate cuirass, leather jerkin, tabard, gown/dress, vest, apron, priest's vestment. Legs: skirts, kilts, greaves, breeches, hose. Feet: sandals, riding boots, sabatons. Arms: gloves, gauntlets, vambraces. Shoulders: mantle, fur collar, plate pauldrons. Waist: pouches, tassets, rope belt. Neck: amulets, scarves, gorget. Head: circlet, crown, coif, great helm, kettle hat, feathered cap, veils. Back: quiver, cloak variants, banner pole, backpack.
 - [ ] Patterns and finishes: trim, embroidery, studs, wear and dirt, metal tints (iron, steel, bronze, gold, blackened).
