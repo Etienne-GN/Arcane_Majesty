@@ -3,3 +3,5 @@ neo4j_db/
 # SDD scratch workspaces (git-ignored)
 .superpowers/
 __pycache__/
+# the Sculptor's save history (each layer's previous versions, for Undo last save)
+apps/amo3d/src/content/models/v2/layers/history/

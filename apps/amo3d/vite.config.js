@@ -77,6 +77,42 @@ function v2EditsApi() {
             // The shape layers (docs/3d/characters/LAYERS_PLAN.md): models/v2/layers/<layer>.json — { structural key: [dx, dy, dz] }
             const LAYER_NAMES = ['common', 'male', 'female', 'boy', 'girl', 'old_man', 'old_woman'], ALT_RE = /^[a-z0-9_-]{1,40}$/;
             const layerFile = (layer, alt) => alt ? join(v2Dir, 'layers', 'alt', layer, `${alt}.json`) : join(v2Dir, 'layers', `${layer}.json`);
+            // Each save keeps the version it replaces (layers/history/<layer>[~alt]/<time>.json, the last 50; not in git), so the
+            // Sculptor can take saves back one by one — /api/v2undo: GET ?layer=&alt= → { count }, POST { layer, alt } restores the last
+            const histDir = (layer, alt) => join(v2Dir, 'layers', 'history', alt ? `${layer}~${alt}` : layer);
+            const keepHistory = (layer, alt) => {
+                const f = layerFile(layer, alt); if (!existsSync(f)) return;
+                const d = histDir(layer, alt); mkdirSync(d, { recursive: true });
+                writeFileSync(join(d, `${Date.now()}.json`), readFileSync(f, 'utf8'));
+                const all = readdirSync(d).filter(n => n.endsWith('.json')).sort(); for (const n of all.slice(0, Math.max(0, all.length - 50))) unlinkSync(join(d, n));
+            };
+            const history = (layer, alt) => { const d = histDir(layer, alt); return existsSync(d) ? readdirSync(d).filter(n => n.endsWith('.json')).sort() : []; };
+            server.middlewares.use('/api/v2undo', (req, res) => {
+                const send = (code, body) => { res.statusCode = code; res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(body)); };
+                const ok = own();
+                if (!ok.has(hostOf(req.headers.host))) return send(403, { error: 'only when reached as this machine' });
+                if (req.method === 'GET') {
+                    const q = new URL(req.url, 'http://x').searchParams, layer = q.get('layer'), alt = q.get('alt') || null;
+                    if (!LAYER_NAMES.includes(layer) || (alt && !ALT_RE.test(alt))) return send(400, { error: 'layer' });
+                    return send(200, { count: history(layer, alt).length });
+                }
+                if (req.method !== 'POST') return send(405, { error: 'GET or POST' });
+                const origin = req.headers.origin;
+                if (origin && (!ok.has(hostOf(new URL(origin).host)) || new URL(origin).host !== req.headers.host)) return send(403, { error: 'cross-origin write refused' });
+                if (!/^application\/json\b/.test(req.headers['content-type'] ?? '')) return send(415, { error: 'JSON only' });
+                let raw = '';
+                req.on('data', c => { raw += c; if (raw.length > 10_000) req.destroy(); });
+                req.on('end', () => {
+                    try {
+                        const { layer, alt = null } = JSON.parse(raw);
+                        if (!LAYER_NAMES.includes(layer) || (alt && !ALT_RE.test(alt))) return send(400, { error: 'bad body' });
+                        const h = history(layer, alt); if (!h.length) return send(404, { error: 'nothing to undo' });
+                        const last = join(histDir(layer, alt), h.at(-1));
+                        writeFileSync(layerFile(layer, alt), readFileSync(last, 'utf8')); unlinkSync(last);
+                        send(200, { ok: true, count: h.length - 1 });
+                    } catch { send(400, { error: 'bad JSON' }); }
+                });
+            });
             server.middlewares.use('/api/v2layer', (req, res) => {
                 const send = (code, body) => { res.statusCode = code; res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(body)); };
                 const ok = own();
@@ -109,6 +145,7 @@ function v2EditsApi() {
                             out[k] = v;
                         }
                         if (alt) mkdirSync(join(v2Dir, 'layers', 'alt', layer), { recursive: true });
+                        keepHistory(layer, alt);
                         writeFileSync(layerFile(layer, alt), JSON.stringify(out) + '\n');
                         send(200, { ok: true, points: entries.length });
                     } catch { send(400, { error: 'bad JSON' }); }

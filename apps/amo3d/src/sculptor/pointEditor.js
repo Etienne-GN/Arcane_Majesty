@@ -53,7 +53,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         rLayer.replaceChildren(); layerBtns.length = 0;
         const lab = document.createElement('span'); lab.textContent = 'Save into:'; lab.style.cssText = 'align-self:center;margin-right:2px'; rLayer.append(lab);
         for (const n of stackOf()) { const b = btn(rLayer, LAYER_LABEL[n] ?? n, () => { layer = n; showLayers(); }); b.style.background = n === layer ? '#8a6a2a' : '#4a3220'; layerBtns.push(b); }
-        showVersions();
+        showVersions(); countSaves?.();
     };
     // the version of that layer being worked on: the active one (what the game builds) or an alternate (layers/alt/) —
     // switch, save the work as a new alternate, make the alternate active (the old active is kept as an alternate), delete it
@@ -94,12 +94,6 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         const d = j => Math.hypot(bind[j * 3] - bind[sel * 3], bind[j * 3 + 1] - bind[sel * 3 + 1], bind[j * 3 + 2] - bind[sel * 3 + 2]);
         topoOp('remove', sel, nb.reduce((a, j) => (d(j) < d(a) ? j : a)));
     });
-    btn(rPts, 'Undo last', async () => {
-        const points = await readL(layer), ops = points['@topo'] ?? [];
-        if (!ops.length) { info.textContent = `No added or removed points in the ${LAYER_LABEL[layer]} layer.`; return; }
-        const g = ops.at(-1)[3]; let n = 0; while (ops.length && (g == null ? n < 1 : ops.at(-1)[3] === g)) { ops.pop(); n++; }
-        await saveTo(B?.alt?.layer === layer ? B.alt.name : null, null, { '@topo': ops });
-    });
     // what to see beside the body: the reference sheet, the compare (the Sculptor's other model, same angle), both or neither
     let refOn = !MOBILE, cmpOn = !MOBILE;   // (a phone: neither, by default — the screen is small)
     const rShow = row(), showLab = document.createElement('span'); showLab.textContent = 'Show:'; showLab.style.cssText = 'align-self:center;margin-right:2px'; rShow.append(showLab);
@@ -122,13 +116,26 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const rReg = row(); btn(rReg, 'Head', () => setRegion('head')); btn(rReg, 'Upper body', () => setRegion('upper')); btn(rReg, 'Whole body', () => setRegion('all'));
     const rView = row(); for (const [t, y, p] of [['Front', 0, 0.05], ['¾', 0.7, 0.1], ['Side', Math.PI / 2, 0.05], ['Back', Math.PI, 0.05], ['Below', 0.3, -0.6]]) btn(rView, t, () => { yaw = y; pitch = p; });
     const info = document.createElement('div'); info.style.cssText = 'font-size:12px;min-height:30px'; panel.append(info);
-    const rAct = row(); btn(rAct, 'Undo', () => doUndo()); btn(rAct, 'Reset point', () => resetSel()); btn(rAct, 'Reset all', () => resetAll());
+    const rAct = row(); btn(rAct, 'Undo move', () => doUndo()); btn(rAct, 'Reset point', () => resetSel()); btn(rAct, 'Reset all', () => resetAll());
     if (MOBILE) {   // the nudge pad: the arrow keys' moves, in the view's frame (In/Out: toward or away from you); Fine: a quarter step
         let fine = false; const rPad = row(), lab = document.createElement('span'); lab.textContent = 'Nudge:'; lab.style.cssText = 'align-self:center'; rPad.append(lab);
         for (const [t, k] of [['←', 'ArrowLeft'], ['↑', 'ArrowUp'], ['↓', 'ArrowDown'], ['→', 'ArrowRight'], ['In', 'in'], ['Out', 'out']]) btn(rPad, t, () => nudge(k, fine)).style.minWidth = '40px';
         const fb = btn(rPad, 'Fine', () => { fine = !fine; fb.style.background = fine ? '#8a6a2a' : '#4a3220'; });
     }
-    const rSave = row(); btn(rSave, 'Save', () => save()).style.background = '#8a6a2a'; btn(rSave, 'Close', () => exit());
+    // Undo last save: every save (moves, added or removed points) keeps the version it replaced on the dev server; this puts
+    // it back, one save at a time, as often as there are saves to take back (2026-11-26: "I moved a point and can't undo")
+    const rSave = row(); btn(rSave, 'Save', () => save()).style.background = '#8a6a2a';
+    const undoSave = btn(rSave, 'Undo last save', async () => {
+        if (layer === 'override') { info.textContent = 'A character\'s own override has no save history yet.'; return; }
+        const alt = B?.alt?.layer === layer ? B.alt.name : null;
+        if (sessionMoves() > 0 && !confirm('Unsaved moves will be lost. Undo the last save anyway?')) return;
+        const r = await fetch('/api/v2undo', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer, alt }) });
+        const j = await r.json().catch(() => ({}));
+        info.textContent = r.ok ? `The ${LAYER_LABEL[layer] ?? layer} layer is back as it was before its last save (${j.count} more to undo) — reloading…` : `Nothing to undo: ${j.error ?? r.status}`;
+        if (r.ok) setTimeout(() => B.go({ edit: who, layer, alt: alt ? `${layer}:${alt}` : null }), 700);
+    });
+    btn(rSave, 'Close', () => exit());
+    const countSaves = async () => { if (!B || layer === 'override') { undoSave.textContent = 'Undo last save'; return; } const alt = B.alt?.layer === layer ? B.alt.name : ''; const j = await fetch(`/api/v2undo?layer=${layer}${alt ? `&alt=${alt}` : ''}`).then(r => r.json()).catch(() => ({ count: 0 })); undoSave.textContent = `Undo last save (${j.count ?? 0})`; undoSave.disabled = !j.count; undoSave.style.opacity = j.count ? '1' : '.5'; };
     document.body.append(panel);
 
     // the reference, beside the model: the same body, the same side, framed like the editor (head or whole figure)
