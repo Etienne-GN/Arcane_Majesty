@@ -78,6 +78,11 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     // (2026-11-27, the user: "add a transparency slider to replace the Trace button" — one value now: the reference's
     // opacity; below 1 it lies over the model, see-through, touches passing through it. An old 'trace: off' is opacity 1.)
     if ('trace' in prefs) { if (!prefs.trace) prefs.refOpacity = 1; delete prefs.trace; }
+    // (2026-11-27, the user: "mobile GUI is too charged, unusable"): on a phone, once, a clear screen to start from — the
+    // reference, the pad and the panel closed, a smaller reference; what is opened after is remembered as always
+    const PHONE = COARSE || NARROW || innerHeight < 500;
+    prefs.padOn ??= !PHONE;
+    if (PHONE && !prefs.phone2) { Object.assign(prefs, { refOn: false, padOn: false, panel: false, refSize: Math.min(prefs.refSize ?? 220, 180), phone2: true }); try { localStorage.setItem(PREFS_KEY, JSON.stringify(prefs)); } catch { /* storage blocked */ } }
     const seeThrough = () => prefs.refOpacity < 0.99;
     const keep = () => savePrefs(prefs);
     renderer.domElement.style.touchAction = 'none';
@@ -122,6 +127,13 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     @media (pointer: coarse) { .pe-bar select { height: 40px; } }
 
     /* the tool palette: captioned groups; its columns fitted to the height (1, 2 or 3) */
+    .pe-tools.compact:not(.more) .pe-x { display: none; }
+    .pe-bar.compact { gap: 4px; padding: 4px 6px; } .pe-bar.compact .lbl, .pe-bar.compact .pe-sep, .pe-bar.compact .pe-grow { display: none; } .pe-bar.compact .pe-b { min-width: 40px; padding: 0 8px; }
+    .pe-tools:not(.compact) .pe-more { display: none; }
+    .pe-file { display: none; flex-direction: column; gap: 6px; margin-bottom: 4px; }
+    .pe-file select { font: 13px var(--ui); height: 40px; padding: 0 6px; border-radius: 8px; background: var(--btn); color: var(--text); border: 1px solid var(--line2); width: 100%; }
+    .pe-file .pe-b { align-self: flex-start; }
+    .pe-panel.compact .pe-file { display: flex; }
     .pe-tools { position: fixed; top: 56px; left: 8px; display: none; grid-template-columns: repeat(var(--cols, 1), 44px); gap: 4px; padding: 6px; background: #1c130bf0; border: 1px solid var(--line2); border-radius: 12px; z-index: 7;
         overflow-y: auto; scrollbar-width: none; overscroll-behavior: contain; touch-action: pan-y; }
     .pe-tools .pe-b { width: 44px; height: 42px; min-width: 0; padding: 0; }
@@ -204,7 +216,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const verSel = make('select', '', bar); verSel.title = 'The version of the layer: the active one, or an alternate';
     verSel.onchange = () => B.go({ alt: verSel.value ? `${layer}:${verSel.value}` : null, edit: who, layer });
     const verMenu = button(bar, UI.more, () => versionMenu(), 'Versions: save as new, make active, delete');
-    sep(bar); make('div', 'pe-break', bar);   // (a phone: the file's actions on a second row)
+    const barAnchor = sep(bar); make('div', 'pe-break', bar);   // (a phone: the file's actions on a second row)
     button(bar, UI.undo, () => doUndo(), 'Undo move (Ctrl+Z)');
     button(bar, UI.redo, () => doRedo(), 'Redo move (Ctrl+Shift+Z or Ctrl+Y)');
     const saveBtn = button(bar, `${UI.save}<span>Save</span>`, () => save(), 'Save into the layer'); saveBtn.classList.add('primary');
@@ -239,6 +251,15 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
 
     // ---- the properties panel ----
     const panel = make('div', 'pe pe-panel', document.body);
+    // the palette on a phone: only the editing tools — the views, the frames, Show and the orbit/pan tools (fingers do that)
+    // behind ⋯ at its foot
+    { const firstExtra = [...tools.children].findIndex(c => c.classList.contains('pe-cap') && c.textContent === 'View');
+      [...tools.children].forEach((c, n) => { if (n >= firstExtra) c.classList.add('pe-x'); });
+      toolBtns.orbit?.classList.add('pe-x'); toolBtns.pan?.classList.add('pe-x');
+      const more = button(tools, UI.more, () => { prefs.toolsMore = !prefs.toolsMore; keep(); more.classList.toggle('on', !!prefs.toolsMore); layout(); }, 'More: the views, the frames, Show');
+      more.classList.add('pe-more'); more.classList.toggle('on', !!prefs.toolsMore); }
+    // the top bar's choices of what is edited go into the panel on a phone (the bar keeps one row of actions)
+    const fileRow = make('div', 'pe-file', panel);
     make('h4', '', panel, 'Show');
     const showRow = make('div', 'pe-row', panel);
     const toggles = {};
@@ -251,6 +272,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     toggle('mouth', 'Mouth', () => mouthOn, v => { mouthOn = v; if (mouthMesh) mouthMesh.visible = v && showPart.head; });
     for (const [id, label] of [['arms', 'Arms'], ['head', 'Head'], ['legs', 'Legs']]) toggle(id, label, () => showPart[id], v => { showPart[id] = v; applyHair(); }, `Show or hide the ${label.toLowerCase()} — to judge the body without them (their points can't be picked while hidden)`);
     toggle('wire', 'Wireframe', () => prefs.wireOn, v => { prefs.wireOn = v; keep(); if (wire) wire.visible = v && !polish; });
+    toggle('pad', 'Pad', () => prefs.padOn, v => { prefs.padOn = v; keep(); layout(); }, 'The navigation pad (turn, move, zoom with buttons)');
     toggle('polish', 'Polish', () => polish, v => setPolish(v), 'The model as in the game: no points, no wireframe');
     // Dress & compare (2026-11-27, the user: "test dress my model in the sculptor, and display it in the compare too"): the
     // edited body's dress (painted on: every edit still lands), and what the Compare shows — any subject, its own dress
@@ -467,9 +489,12 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
 
     function layout() {
         const narrow = innerWidth < 760;   // (measured each time: a phone turned changes it)
-        bar.style.display = on ? 'flex' : 'none'; tools.style.display = on ? 'grid' : 'none'; status.style.display = on ? 'flex' : 'none'; pad.style.display = on ? 'grid' : 'none';
+        const compact = narrow || innerHeight < 500;   // (a phone, held either way)
+        bar.style.display = on ? 'flex' : 'none'; tools.style.display = on ? 'grid' : 'none'; status.style.display = on ? 'flex' : 'none'; pad.style.display = on && prefs.padOn ? 'grid' : 'none';
+        tools.classList.toggle('compact', compact); bar.classList.toggle('compact', compact); tools.classList.toggle('more', !!prefs.toolsMore); panel.classList.toggle('compact', compact);
+        for (const el of [bodySel, layerSel, verSel, verMenu]) { const home = compact ? fileRow : bar; if (el.parentNode !== home) { if (compact) home.append(el); else bar.insertBefore(el, barAnchor); } }
         panel.style.display = on && prefs.panel ? 'flex' : 'none'; panelBtn.classList.toggle('on', prefs.panel);
-        bar.classList.toggle('wrap', narrow);   // (a phone: the bar on two rows — what is edited, then the file's actions)
+        bar.classList.toggle('wrap', narrow && !compact);   // (a phone: the bar on two rows — what is edited, then the file's actions)
         const topPx = (on ? bar.offsetHeight : 48) + 8, room = Math.max(120, innerHeight - topPx - 36);   // (down to the status line)
         tools.style.top = panel.style.top = `${topPx}px`; tools.style.maxHeight = panel.style.maxHeight = `${room}px`;
         // the palette: as few columns as let it all show (a phone held either way: 2 or 3); it still scrolls if not
