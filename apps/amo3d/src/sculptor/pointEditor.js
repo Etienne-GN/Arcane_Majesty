@@ -38,6 +38,7 @@ const ICON = {
     add: svg('<circle cx="8" cy="20" r="3" fill="currentColor"/><circle cx="20" cy="20" r="3" fill="currentColor"/><path d="M11 20h6"/><path d="M14 6v8M10 10h8" stroke-width="2.4"/>'),
     remove: svg('<circle cx="12" cy="20" r="3.5" fill="currentColor"/><path d="M8 9h8" stroke-width="2.4"/>'),
     orbit: svg('<path d="M20 12a8.5 8.5 0 1 0 1 7"/><path d="M21 6v6h-6"/><circle cx="12" cy="16" r="2" fill="currentColor"/>'),
+    polish: svg('<path d="M2 16c3-6 7-9 10-9s7 3 10 9c-3 6-7 9-10 9s-7-3-10-9z"/><circle cx="12" cy="16" r="3.5" fill="currentColor"/>'),
     hair: svg('<path d="M6 13a6 6 0 0 1 12 0" stroke-width="3"/><path d="M5 12c0-5 3-8 7-8s7 3 7 8" fill="currentColor" fill-opacity=".5"/><circle cx="12" cy="15" r="6"/><path d="M12 21v6"/>'),
     pan: svg('<path d="M8 17V8a1.8 1.8 0 0 1 3.6 0v7M11.6 15V5.5a1.8 1.8 0 0 1 3.6 0V15M15.2 15V7.5a1.8 1.8 0 0 1 3.6 0V19a8 8 0 0 1-8 8h-1a7 7 0 0 1-5.5-2.8L3 19a1.8 1.8 0 0 1 2.9-2.2L8 19"/>'),
 };
@@ -145,6 +146,11 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const regBtns = {};
     for (const [id, title] of [['head', 'The head'], ['upper', 'The upper body'], ['all', 'The whole body']]) regBtns[id] = button(tools, ICON[`r_${id}`], () => setRegion(id), title);
     sep(tools);
+    // Polish (2026-11-27, the user: "a polish option to preview the in-game model, hiding dots and lines"): the points, the
+    // wireframe and the reference's outline hidden, and no point picked by a touch — the model as the game draws it
+    let polish = false;
+    const setPolish = v => { polish = v; if (dots) dots.visible = !v; if (wire) wire.visible = prefs.wireOn && !v; if (v) { sel = -1; hover = -1; } polishBtn.classList.toggle('on', v); toggles.polish?.(); drawLine(); describe?.(); };
+    const polishBtn = button(tools, ICON.polish, () => setPolish(!polish), 'Polish: preview the model as in the game — no points, no wireframe, no outline (press again to edit)');
     const hairBtn = button(tools, ICON.hair, () => { hairOn = !hairOn; applyHair(); toggles.hair?.(); hairBtn.classList.toggle('on', hairOn); }, 'Show or hide the hair (hidden: its points can\'t be picked; the scalp shows)');
     function setTool(id) { prefs.tool = id; keep(); addFrom = -1; for (const [k, b] of Object.entries(toolBtns)) b.classList.toggle('on', k === id); describe(); }
 
@@ -160,7 +166,8 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     toggle('hair', 'Hair', () => hairOn, v => { hairOn = v; applyHair(); hairBtn.classList.toggle('on', hairOn); });
     toggle('eyes', 'Eyes', () => eyesOn, v => { eyesOn = v; if (faceMesh) faceMesh.visible = v; });
     toggle('mouth', 'Mouth', () => mouthOn, v => { mouthOn = v; if (mouthMesh) mouthMesh.visible = v; });
-    toggle('wire', 'Wireframe', () => prefs.wireOn, v => { prefs.wireOn = v; keep(); if (wire) wire.visible = v; });
+    toggle('wire', 'Wireframe', () => prefs.wireOn, v => { prefs.wireOn = v; keep(); if (wire) wire.visible = v && !polish; });
+    toggle('polish', 'Polish', () => polish, v => setPolish(v));
     make('h4', '', panel, 'Reference');
     const refRow = make('div', 'pe-row', panel);
     const lineBtn = button(refRow, 'Outline', () => { prefs.refLine = !prefs.refLine; keep(); drawLine(); }, 'A red line round the reference figure, over the model: move the points until the model meets it (lower the opacity to keep only the line)');
@@ -318,7 +325,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     let lineBox = null;
     function drawLine(box = lineBox) {
         lineBox = box; lineBtn.classList.toggle('on', prefs.refLine);
-        const show = prefs.refLine && prefs.refOn && refMode !== 'sheet' && box && REF[sex];
+        const show = prefs.refLine && !polish && prefs.refOn && refMode !== 'sheet' && box && REF[sex];
         refLine.style.display = show ? '' : 'none'; if (!show) return;
         const E = figureEdge(REF_IMG[sex] ?? REF_URL, box); if (!E) return;
         const W = refPic.offsetWidth, H = refPic.offsetHeight, dpr = Math.min(2, devicePixelRatio || 1);
@@ -417,7 +424,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         for (let i = 0; i < T.keys.length; i++) refresh(i);
         geo.setAttribute('color', new THREE.Float32BufferAttribute(T.C, 3)); geo.setIndex(T.idx);
         mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.85 }));
-        wire = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true, transparent: true, opacity: 0.18 })); wire.visible = prefs.wireOn;
+        wire = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true, transparent: true, opacity: 0.18 })); wire.visible = prefs.wireOn && !polish;
         group.add(mesh, wire);
         const feature = g => (g ? new THREE.Mesh(g, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.85, side: THREE.DoubleSide })) : null);
         faceMesh = feature(T.faceGeo); mouthMesh = feature(T.mouthGeo);
@@ -434,7 +441,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         dotIds = T.keys.map((_, i) => i).filter(i => inRegion(i) && (hairOn || !T.hair?.[i]));
         const r = (region === 'head' ? 0.0028 : region === 'upper' ? 0.005 : 0.008) * (HUMAN(sex) ? 1 : 1.4);
         dots = new THREE.InstancedMesh(new THREE.SphereGeometry(r, 8, 6), new THREE.MeshBasicMaterial({ depthTest: true }), dotIds.length);
-        dots.renderOrder = 5; group.add(dots); placeDots();
+        dots.renderOrder = 5; dots.visible = !polish; group.add(dots); placeDots();
     }
     function placeDots() {
         const p = geo.attributes.position;
@@ -527,7 +534,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const area = () => viewRect?.() ?? canvas.getBoundingClientRect();
     let penSeen = false, penDown = false;
     function pick(e, reach) {
-        const r = area(); if (e.clientX > r.left + r.width) return -1;   // (the compare's half: no point)
+        const r = area(); if (polish || e.clientX > r.left + r.width) return -1;   // (the compare's half: no point; Polish: none)
         ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
         ray.setFromCamera(ndc, camera); const hit = ray.intersectObject(dots, false)[0];
         if (hit) return dotIds[hit.instanceId];
