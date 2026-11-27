@@ -13,6 +13,8 @@ import { elites as EL } from '@rules';
 import { body2, NAMES2, FLYERS2, PLATE2 } from './bodies2.js';
 import { buildHound } from '../models/hound.js';
 import { buildRobed } from '../models/robed.js';
+import { settings } from '../../engine/settings.js';
+import { humanV2, walkLegs } from './humanRig.js';
 export const NAMES = { ...NAMES2, grave_wraith: 'Grave-Wraith', cursed_knight: 'Cursed Knight', lava_elemental: 'Magma-Eater', ember_imp: 'Cinder-Soul', stone_golem: 'Obsidian Golem', cave_bat: 'Cave Bat', blind_stalker: 'Blind Stalker', deep_horror: 'Deep Horror', gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
 const TUNE = { sight: 2.6, reach: 2, speed: 1.4 };
 
@@ -25,6 +27,23 @@ function body(type) {
         parts.mat = M;
         const f = buildRobed({ robe: M, trim: 0xa8b4d0, skin: 0xd8e0f0, eyeColor: 0xbfe0ff, tattered: true, height: 1.9 });
         root.add(f.root); f.armL.rotation.x = -0.5; f.armR.rotation.x = -0.4; parts.eyes = f.eyes;
+    } else if (type === 'cursed_knight' && settings.charModels === 'new') {   // (2026-11-27, TODO §5: on v2) the v2 man in plate
+        // — the body coloured as steel, rust at the hips (the shorts), a helm with a cold slit, pauldrons, a belt, the
+        // notched sword in the right hand; the legs walk (humanRig.js)
+        const steel = flat(0x5a5650), rust = flat(0x6a4a34), dark = flat(0x1a1818);
+        const R = humanV2({ scale: 1.08, skin: '#5a5650', cloth: '#6a4a34' }); root.add(R.root);
+        const helm = add(new THREE.CylinderGeometry(0.15, 0.16, 0.3, 8), steel, 0, 0.17, 0.02, R.head);
+        helm.add(new THREE.Mesh(new THREE.CylinderGeometry(0.155, 0.155, 0.04, 8), rust)).position.y = -0.09;   // its rusted rim
+        add(new THREE.BoxGeometry(0.2, 0.03, 0.03), dark, 0, 0.18, 0.165, R.head);   // the visor slit
+        parts.eyes = add(new THREE.BoxGeometry(0.15, 0.02, 0.02), new THREE.MeshBasicMaterial({ color: 0x8ac8ff, toneMapped: false }), 0, 0.18, 0.172, R.head);
+        for (const sd of ['L', 'R']) {
+            const sx = sd === 'L' ? 1 : -1, p = add(new THREE.SphereGeometry(0.13, 7, 4, 0, Math.PI * 2, 0, Math.PI / 2), steel, sx * 0.29, 0.52, 0, R.spine);
+            p.scale.set(1.1, 0.8, 1.15); p.rotation.z = -sx * 0.3;   // the pauldrons
+        }
+        add(new THREE.CylinderGeometry(0.19, 0.2, 0.08, 9), rust, 0, 0.04, 0, R.spine);   // the belt
+        const blade = add(new THREE.BoxGeometry(0.06, 1.0, 0.12), flat(0x8a8a86), 0, -0.6, 0.3, R.arms.L.fore); blade.rotation.x = 1.2;   // the notched sword
+        add(new THREE.BoxGeometry(0.22, 0.04, 0.05), dark, 0, -0.32, 0.03, R.arms.L.fore);   // its guard
+        parts.armL = R.arms.L.upper; parts.armR = R.arms.R.upper; parts.walk = R;
     } else if (type === 'cursed_knight') {   // a knight of the vigil who never lay down: rusted plate, a broken helm, a notched sword
         const steel = flat(0x5a5650), rust = flat(0x6a4a34), dark = flat(0x1a1818);
         add(new THREE.BoxGeometry(0.62, 0.75, 0.38), steel, 0, 1.35, 0);
@@ -327,7 +346,8 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
         } else {   // the brute's arms rise on the wind-up and slam (crag-fiend, blight-ent, sentinel)
             const lift = tell ? -2.2 * Math.min(1, 1 - ai.timer / 0.7) : ai.state === 'strike' ? 0.3 : Math.sin(ai.t * 2.4) * 0.15 * Math.min(1, ai.speed);
             parts.armL.rotation.x = lift; parts.armR.rotation.x = lift;
-            root.position.y = pos.y + Math.abs(Math.sin(ai.t * 4)) * 0.06 * Math.min(1, ai.speed);
+            if (parts.walk) walkLegs(parts.walk, ai.t, Math.min(1, ai.speed / 2));   // (a v2 body: its legs walk)
+            root.position.y = pos.y + Math.abs(Math.sin(ai.t * 4)) * 0.06 * (parts.walk ? 0.4 : 1) * Math.min(1, ai.speed);
         }
         parts.eyes.material.color?.setRGB?.(tell ? 2 : 1, tell ? 1.4 : 1, tell ? 0.6 : 1);
         core.tell(ai.state === 'windup', ai.heading, REACH);   // the tell: a red fan where the blow will fall
