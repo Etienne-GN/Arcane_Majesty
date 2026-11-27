@@ -12,6 +12,7 @@ const { affinityMult, affinityOf } = enemyAffinities;
 const { STATUS_DEFS } = statuses;
 import { Particles } from '../../engine/lib.js';
 import { bakeRig } from '../../engine/batch.js';
+import { buildBase } from '../models/v2/base.js';
 
 const TYPE = 'mirror_shade';
 const DEF = ENEMY_TYPES[TYPE];
@@ -48,7 +49,7 @@ function limb(len, r0, r1, m) {
 }
 const part = (geo, m, x = 0, y = 0, z = 0) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); return o; };
 
-function buildSoldier() {
+export function buildSoldier() {
     const M = {
         body: shadowMaterial(),
         plate: shadowMaterial(),
@@ -180,10 +181,23 @@ function buildSoldier() {
     rune.rotation.y = Math.PI / 2;
     shield.add(rune);
 
+    // Character models: New (2026-11-27, TODO §5 — the mobs on v2): a shadow soldier is a shadow-made man — the v2 male
+    // body (models/v2/base.js, shaped in the Sculptor's Male layer) in the shadow material, over the same joints; the
+    // bare limbs, hips and neck go, the armour stays on top (helm a little larger over the v2 head), the sword, the shield,
+    // the tabard strips and the red eyes as they were
+    if (settings.charModels === 'new') {
+        const bare = [];
+        for (const j of [hips, head, legs.L.thigh, legs.L.shin, legs.R.thigh, legs.R.shin, arms.L.upper, arms.L.fore, arms.R.upper, arms.R.fore])
+            for (const c of j.children) if (c.isMesh && c.material === M.body && c.geometry.type === 'CylinderGeometry') bare.push(c);
+        for (const c of bare) { c.parent.remove(c); c.geometry.dispose(); }   // (the limbs' cylinders, the hips' drum, the neck)
+        const out = buildBase({ root, body, hips, spine, head, arms, legs, look: { hair: { style: 'bald' } } }, { sex: 'male', bald: true });
+        if (out?.mesh) { out.mesh.material = Array.isArray(out.mesh.material) ? out.mesh.material.map(() => M.body) : M.body; out.mesh.userData.keep = true; }
+        helm.scale.multiplyScalar(1.12); cheek.scale.multiplyScalar(1.12);
+    }
     root.traverse(o => { if (o.isMesh) o.castShadow = true; });
     bakeRig(root);
     const fumeParts = [];
-    root.traverse(o => { if (o.isMesh && (o.material === M.body || o.material === M.plate)) fumeParts.push(o); });
+    root.traverse(o => { if (o.isMesh && !o.isSkinnedMesh && (o.material === M.body || o.material === M.plate)) fumeParts.push(o); });   // (not the v2 body: its origin is the feet)
     return { root, body, hips, spine, head, legs, arms, sword, shield, strips, eyes, M, fumeParts, edge };
 }
 

@@ -37,7 +37,7 @@ game-only lore gets `origin: "game"`.
 - [ ] A race slot on the body: ears, skin and eye tones, build, glow (Aurorian light, Nythorian shadow), horns or marks for the Fallen.
 
 ## 5. Creatures
-- [ ] **v2 models for every kind, shaped in the Sculptor** (LAYERS_PLAN step 6) — done: the wolf, the horse (after the user's sheet). Next: the beasts, the animals, the shadow soldiers; the werewolves when they come.
+- [ ] **v2 models for every kind, shaped in the Sculptor** (LAYERS_PLAN step 6) — done: the wolf, the horse (after the user's sheet), the animals, the shadow soldiers (2026-11-27: the v2 male body in the shadow material under their armour, sharing the Male layer; a Sculptor subject). Next: the beasts — the human-shaped first (Cursed Knight, Grave-Wraith, Frost-Shade, the casters), then the four-legged, then the odd shapes; the werewolves when they come.
 - [x] (0.19.0) 14 more bodies (content/actors/bodies2.js): Giant Spider and the Spider Queen (a boss in Whisper-Wood), Frost Bear, Ice Revenant, Glacier Crab and Wendigo (the Summit), Ash Crawler and Cinder Hawk (the Fire Gate), Forge Daemon (the Inferno halls), Plague Rat (Graywatch), Rot Toad (Whisper-Wood, Lake Aethera), Dark Druid and Mushroom Shaman (Whisper-Wood, casters), Arcane Sentinel (the Keepers' Vaults); spiders in the Deep Shaft too.
 - [ ] ~70 creature types still without a body (birds, small animals, the swamp and arcane families' rest, skeleton archers…); their own codex sketches (today a body plan per family).
 - [ ] More bosses, one per campaign act.

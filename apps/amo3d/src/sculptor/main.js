@@ -47,6 +47,8 @@ const CREATURES = { wolf: { name: 'Wolf', build: () => import('../content/actors
 for (const [k, n] of Object.entries({ rabbit: 'Rabbit', forest_fox: 'Fox', feral_boar: 'Feral boar', black_bear: 'Black bear', grizzly_bear: 'Grizzly bear', sheep: 'Sheep', cow: 'Cow', pig: 'Pig', goat: 'Goat', chicken: 'Chicken', crow: 'Crow' }))
     CREATURES[k] = { name: n, build: () => import('../content/actors/animals.js').then(m => m.build(k)) };
 for (const [id, c] of Object.entries(CREATURES)) SUBJECTS[id] = { name: c.name, sex: id, creature: c, vers: ['new'] };
+// the mobs on the human body (2026-11-27): a shadow soldier wears the male base — shaping it edits the Male layer, shared
+SUBJECTS.shadow_soldier = { name: 'Shadow soldier', sex: 'male', creature: { name: 'Shadow soldier', build: () => import('../content/actors/shadowSoldier.js').then(m => m.buildSoldier()) }, vers: ['new'] };
 // ?lineup=1: the six bodies side by side (man, woman, boy, girl, old man, old woman), A-pose, to judge them together
 const LINEUP = Q.get('lineup') === '1' ? ['base_male', 'base_female', 'base_boy', 'base_girl', 'base_old_man', 'base_old_woman'] : null;
 for (const [id, c] of Object.entries(CAST)) SUBJECTS[id] = { name: c.name, vers: Object.hasOwn(V2_MODELS, c.look.v2 ?? '') ? ['classic', 'new'] : ['classic'],
