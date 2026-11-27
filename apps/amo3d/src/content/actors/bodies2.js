@@ -11,6 +11,7 @@ import * as THREE from 'three';
 import { buildRobed } from '../models/robed.js';
 import { settings } from '../../engine/settings.js';
 import { build as buildAnimal } from './animals.js';
+import { humanV2 } from './humanRig.js';
 
 const flat = (c, o = {}) => new THREE.MeshStandardMaterial({ color: c, flatShading: true, roughness: 0.8, ...o });
 const glow = c => new THREE.MeshBasicMaterial({ color: c, toneMapped: false });
@@ -102,6 +103,15 @@ export function body2(type) {
         }
         parts.eyes = add(new THREE.BoxGeometry(0.3, 0.05, 0.03), glow(0xd0f0ff), 0, 1.0, 0.6);
         parts.kind = 'legs';
+    } else if (type === 'wendigo' && settings.charModels === 'new') {   // (2026-11-27, TODO §5: on v2) the v2 man stretched too tall, grey skin,
+        // the forearms long, bone ribs over the chest, antlers, claws, cold eyes (humanRig.js; the Male layer)
+        const skin = flat(0x8a8a82), bone = flat(0xe8e0cc), dark = flat(0x2a2624);
+        const R = humanV2({ scale: 1.32, skin: '#8a8a82', cloth: '#4a4640', tune: r => { for (const s of ['L', 'R']) r.arms[s].fore.position.y = -0.36; } }); root.add(R.root);
+        for (let i = 0; i < 4; i++) { const rb = add(new THREE.TorusGeometry(0.14, 0.012, 3, 8, Math.PI), bone, 0, 0.28 + i * 0.07, 0.11, R.spine); rb.rotation.set(0, 0, Math.PI); }   // ribs
+        for (const s of [1, -1]) { const a = add(new THREE.CylinderGeometry(0.012, 0.02, 0.3, 4), dark, s * 0.1, 0.33, -0.01, R.head); a.rotation.z = -s * 0.75; const b2 = add(new THREE.CylinderGeometry(0.008, 0.012, 0.15, 4), dark, s * 0.17, 0.42, 0.0, R.head); b2.rotation.z = -s * 0.15; }   // antlers
+        for (const sd of ['L', 'R']) for (let i = -1; i <= 1; i++) add(new THREE.ConeGeometry(0.015, 0.16, 4), bone, i * 0.025, -0.47, 0.02, R.arms[sd].fore).rotation.x = Math.PI;   // claws
+        parts.eyes = add(new THREE.BoxGeometry(0.1, 0.02, 0.02), glow(0xaaf0ff), 0, 0.154, 0.108, R.head);   // (on the v2 head's eye line)
+        parts.armL = R.arms.L.upper; parts.armR = R.arms.R.upper; parts.walk = R; parts.kind = 'brute';
     } else if (type === 'wendigo') {   // gaunt and too tall, grey skin over bone, an antlered skull, long clawed arms
         const skin = flat(0x8a8a82), bone = flat(0xe8e0cc), dark = flat(0x2a2624);
         add(new THREE.CylinderGeometry(0.22, 0.16, 1.1, 6), skin, 0, 1.7, 0);
@@ -131,6 +141,16 @@ export function body2(type) {
         }
         parts.eyes = add(new THREE.BoxGeometry(0.1, 0.02, 0.02), glow(0xffe060), 0, 0.05, 0.22);
         parts.kind = 'flyer';
+    } else if (type === 'forge_daemon' && settings.charModels === 'new') {   // (2026-11-27, TODO §5: on v2) the v2 man, broad, in iron-black hide:
+        // a furnace glowing in his chest, horns, an iron hammer-fist, burning eyes (humanRig.js; the Male layer)
+        const iron = flat(0x4a4448, { metalness: 0.5 }), fire = new THREE.MeshStandardMaterial({ color: 0xff8a2a, emissive: 0xff5a10, emissiveIntensity: 1.8, flatShading: true });
+        const R = humanV2({ scale: 1.18, skin: '#2a1e1a', cloth: '#1a1210' }); root.add(R.root);
+        add(new THREE.BoxGeometry(0.26, 0.2, 0.04), fire, 0, 0.36, 0.14, R.spine);   // the furnace grate
+        for (let i = 0; i < 3; i++) add(new THREE.BoxGeometry(0.28, 0.02, 0.04), iron, 0, 0.29 + i * 0.07, 0.16, R.spine);
+        for (const s of [1, -1]) { const h = add(new THREE.ConeGeometry(0.05, 0.3, 5), flat(0xd8c8a8), s * 0.09, 0.3, 0.02, R.head); h.rotation.z = -s * 0.6; }
+        add(new THREE.BoxGeometry(0.22, 0.18, 0.18), iron, 0, -0.33, 0, R.arms.L.fore);   // the hammer-fist
+        parts.eyes = add(new THREE.BoxGeometry(0.1, 0.022, 0.02), glow(0xffc040), 0, 0.154, 0.108, R.head);
+        parts.armL = R.arms.L.upper; parts.armR = R.arms.R.upper; parts.walk = R; parts.kind = 'brute';
     } else if (type === 'forge_daemon') {   // a squat horned daemon of the forges: iron-black hide, a furnace in its chest, a hammer-fist
         const hide = flat(0x2a1e1a), iron = flat(0x4a4448, { metalness: 0.5 }), fire = new THREE.MeshStandardMaterial({ color: 0xff8a2a, emissive: 0xff5a10, emissiveIntensity: 1.8, flatShading: true });
         const t = add(new THREE.BoxGeometry(1.0, 0.95, 0.7), hide, 0, 1.4, 0); t.rotation.x = 0.1;
@@ -142,6 +162,11 @@ export function body2(type) {
         for (const s of [1, -1]) add(new THREE.CylinderGeometry(0.2, 0.24, 0.9, 6), hide, s * 0.3, 0.45, 0);
         parts.eyes = add(new THREE.BoxGeometry(0.28, 0.05, 0.02), glow(0xffc040), 0, 2.1, 0.36);
         parts.kind = 'brute';
+    } else if (type === 'plague_rat' && settings.charModels === 'new') {   // (2026-11-27, TODO §5: on v2) a v2 rat body (its own layer), mangy green, sick glowing eyes
+        const d = buildAnimal('plague_rat'); root.add(d.root);
+        const hs = 0.4 * 0.34, em = glow(0x9aff5a);
+        for (const s of [1, -1]) { const e = add(new THREE.BoxGeometry(0.025, 0.025, 0.04), em, s * hs * 0.62, hs * 0.22, hs * 0.44, d.parts.head); e.rotation.y = s * 0.5; if (s > 0) parts.eyes = e; }
+        parts.legs = d.parts.legs.map(l => l.g); parts.kind = 'legs';
     } else if (type === 'plague_rat') {   // a rat too large, mangy, green with sickness, a naked tail
         const fur = flat(0x5a5a3e), skin = flat(0xc89a8a);
         const b = add(new THREE.SphereGeometry(0.2, 7, 5), fur, 0, 0.22, 0); b.scale.set(0.9, 0.8, 1.6);

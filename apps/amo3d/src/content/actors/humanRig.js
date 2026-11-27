@@ -26,8 +26,8 @@ export function humanRig({ scale = 1 } = {}) {
     return { root, body, hips, spine, head, arms, legs };
 }
 
-export function humanV2({ scale = 1, sex = 'male', bald = true, ...opts } = {}) {
-    const rig = humanRig({ scale });
+export function humanV2({ scale = 1, sex = 'male', bald = true, tune = null, ...opts } = {}) {
+    const rig = humanRig({ scale }); tune?.(rig);   // (tune: change the joints before the body is built — longer arms…)
     const out = buildBase({ ...rig, look: { hair: { style: bald ? 'bald' : 'short' } } }, { sex, bald, ...opts });
     if (out?.mesh) out.mesh.userData.keep = true;
     return { ...rig, mesh: out?.mesh ?? null };

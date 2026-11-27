@@ -17,6 +17,7 @@ const KINDS = {
     forest_fox:   { len: 0.6, h: 0.38, fur: 0xc8642a, belly: 0xf0e6d8, ears: 'point', tail: 'brush', legs: 0.2, snout: 0.16 },
     feral_boar:   { len: 0.95, h: 0.62, fur: 0x4a3a2c, belly: 0x3a2e24, ears: 'small', tail: 'thin', legs: 0.26, snout: 0.18, tusks: true, bristle: true },
     black_bear:   { len: 1.35, h: 0.95, fur: 0x1e1a18, belly: 0x2a2420, ears: 'round', tail: 'stub', legs: 0.42, snout: 0.16 },
+    plague_rat:   { len: 0.72, h: 0.4, fur: 0x5a5a3e, belly: 0x4a4a32, ears: 'round', tail: 'thin', legs: 0.14, snout: 0.15 },   // (the Plague Rat's v2 body — beasts, bodies2.js)
     frost_bear:   { len: 1.95, h: 1.36, fur: 0xe8eef4, belly: 0xd4dee8, ears: 'round', tail: 'stub', legs: 0.58, snout: 0.2, hump: true },   // (the Frost Bear's v2 body — beasts, bodies2.js; not an animal of the world)
     grizzly_bear: { len: 1.55, h: 1.08, fur: 0x6a4a30, belly: 0x5a3e28, ears: 'round', tail: 'stub', legs: 0.48, snout: 0.18, hump: true },
     sheep:        { len: 0.85, h: 0.62, fur: 0xe8e4da, belly: 0xd8d2c4, head: 0x2a2420, ears: 'side', tail: 'stub', legs: 0.3, wool: true },
