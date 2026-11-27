@@ -15,8 +15,8 @@ import REF_HORSE from './ref_horse.jpg';   // (the user's horse sheet, docs/3d/c
 import { layerFromPositions } from '../content/models/v2/skin.js';
 // Where each view sits on the sheet: [x0, y0, x1, y1] — the whole figure, and its head
 const REF = {
-    male: { front: [[70, 75, 360, 615], [130, 70, 250, 215]], side: [[380, 75, 560, 615], [395, 70, 520, 215]], back: [[560, 75, 860, 615], [650, 70, 770, 215]] },
-    female: { front: [[70, 655, 360, 1195], [130, 650, 250, 800]], side: [[380, 655, 560, 1195], [385, 650, 530, 800]], back: [[560, 655, 860, 1195], [640, 650, 780, 800]] },
+    male: { front: [[17, 75, 359, 615], [130, 70, 250, 215]], side: [[380, 75, 545, 615], [395, 70, 520, 215]], back: [[548, 75, 891, 615], [650, 70, 770, 215]] },   // (2026-11-27: the body boxes hold the whole figure, hands included — measured on the sheet, +12 px)
+    female: { front: [[6, 655, 356, 1195], [130, 650, 250, 800]], side: [[385, 655, 544, 1195], [385, 650, 530, 800]], back: [[544, 655, 894, 1195], [640, 650, 780, 800]] },
     horse: { front: [[220, 130, 720, 600], [560, 140, 720, 310]], side: [[220, 130, 720, 600], [560, 140, 720, 310]], back: [[350, 660, 550, 1050], [400, 660, 500, 780]] },
 };
 const REF_IMG = { horse: REF_HORSE };
