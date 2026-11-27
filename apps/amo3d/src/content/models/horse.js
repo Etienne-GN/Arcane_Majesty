@@ -2,6 +2,8 @@
 // { root, update(dt, speed) } — the rider sits at root's y + SADDLE_Y.
 import * as THREE from 'three';
 import { flat } from '../../engine/lib.js';
+import { settings } from '../../engine/settings.js';
+import { buildHorseV2 } from './v2/creatures.js';
 
 export const SADDLE_Y = 1.15;
 
@@ -27,7 +29,8 @@ export function buildHorse({ coat = 0x6a4a32, mane = 0x2a1e16 } = {}) {
         const ear = add(new THREE.ConeGeometry(0.045, 0.17, 4), C, s * 0.08, 0.15, -0.06, head); ear.rotation.set(-0.35, 0, s * -0.15);
     }
     add(new THREE.BoxGeometry(0.1, 0.06, 0.12), M, 0, 0.12, 0.05, head);   // the forelock
-    const tail = add(new THREE.BoxGeometry(0.1, 0.62, 0.1), M, 0, 1.12, -0.88); tail.rotation.x = 0.4;
+    const tail = new THREE.Group(); tail.position.set(0, 1.3, -0.86); tail.rotation.x = 0.4; body.add(tail);   // (a joint: the v2 tail swings with it)
+    add(new THREE.BoxGeometry(0.1, 0.62, 0.1), M, 0, -0.18, -0.02, tail);
     add(new THREE.BoxGeometry(0.66, 0.08, 0.62), S, 0, 1.52, 0.05);   // saddle
     add(new THREE.BoxGeometry(0.64, 0.24, 0.06), S, 0, 1.42, -0.24);
     for (const s of [-1, 1]) add(new THREE.BoxGeometry(0.02, 0.42, 0.06), B, s * 0.33, 1.3, 0.05);   // stirrup straps
@@ -39,6 +42,14 @@ export function buildHorse({ coat = 0x6a4a32, mane = 0x2a1e16 } = {}) {
         add(new THREE.BoxGeometry(0.13, 0.08, 0.15), H, 0, -0.46, 0.01, low);
         return { g, low, ph };
     });
+    // Character models: New (2026-11-26) — the v2 horse over the same joints (models/v2/creatures.js, after the user's sheet;
+    // shaped in the Sculptor): the classic boxes go
+    if (settings.charModels === 'new') {
+        const old = []; root.traverse(o => { if (o.isMesh) old.push(o); });
+        for (const o of old) { o.parent.remove(o); o.geometry.dispose(); }
+        buildHorseV2({ root, body, neck, head, tail, legs });
+        root.traverse(o => { if (o.isMesh) o.castShadow = true; });
+    }
     let t = 0;
     function update(dt, speed = 0) {
         const gait = Math.min(1, speed / 3), k = speed > 7 ? 1.6 : 1;   // walk → gallop
@@ -49,7 +60,7 @@ export function buildHorse({ coat = 0x6a4a32, mane = 0x2a1e16 } = {}) {
         neck.rotation.x = -0.95 + Math.sin(t * k) * 0.08 * gait;
         tail.rotation.x = 0.4 + Math.sin(t * 0.7) * 0.1 + gait * 0.4;
     }
-    return { root, update };
+    return { root, update, body, neck, head, tail, legs };
 }
 
 // A rowboat (Phase 13, boats — first pass): a clinker hull, two thwarts, oars that row with speed.
