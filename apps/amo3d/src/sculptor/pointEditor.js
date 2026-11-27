@@ -34,6 +34,7 @@ const ICON = {
     add: svg('<circle cx="8" cy="20" r="3" fill="currentColor"/><circle cx="20" cy="20" r="3" fill="currentColor"/><path d="M11 20h6"/><path d="M14 6v8M10 10h8" stroke-width="2.4"/>'),
     remove: svg('<circle cx="12" cy="20" r="3.5" fill="currentColor"/><path d="M8 9h8" stroke-width="2.4"/>'),
     orbit: svg('<path d="M20 12a8.5 8.5 0 1 0 1 7"/><path d="M21 6v6h-6"/><circle cx="12" cy="16" r="2" fill="currentColor"/>'),
+    hair: svg('<path d="M6 13a6 6 0 0 1 12 0" stroke-width="3"/><path d="M5 12c0-5 3-8 7-8s7 3 7 8" fill="currentColor" fill-opacity=".5"/><circle cx="12" cy="15" r="6"/><path d="M12 21v6"/>'),
     pan: svg('<path d="M8 17V8a1.8 1.8 0 0 1 3.6 0v7M11.6 15V5.5a1.8 1.8 0 0 1 3.6 0V15M15.2 15V7.5a1.8 1.8 0 0 1 3.6 0V19a8 8 0 0 1-8 8h-1a7 7 0 0 1-5.5-2.8L3 19a1.8 1.8 0 0 1 2.9-2.2L8 19"/>'),
 };
 const PREFS_KEY = 'amo3d.sculptor.ui';
@@ -126,6 +127,8 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     sep(tools);
     const regBtns = {};
     for (const [id, title] of [['head', 'The head'], ['upper', 'The upper body'], ['all', 'The whole body']]) regBtns[id] = button(tools, ICON[`r_${id}`], () => setRegion(id), title);
+    sep(tools);
+    const hairBtn = button(tools, ICON.hair, () => { hairOn = !hairOn; applyHair(); toggles.hair?.(); hairBtn.classList.toggle('on', hairOn); }, 'Show or hide the hair (hidden: its points can\'t be picked; the scalp shows)');
     function setTool(id) { prefs.tool = id; keep(); addFrom = -1; for (const [k, b] of Object.entries(toolBtns)) b.classList.toggle('on', k === id); describe(); }
 
     // ---- the properties panel ----
@@ -137,7 +140,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     let cmpOn = !NARROW, hairOn = true, eyesOn = true, mouthOn = true, faceMesh = null, mouthMesh = null;
     toggle('ref', 'Reference', () => prefs.refOn, v => { prefs.refOn = v; keep(); layoutRef(); });
     toggle('cmp', 'Compare', () => cmpOn, v => { cmpOn = v; });
-    toggle('hair', 'Hair', () => hairOn, v => { hairOn = v; applyHair(); });
+    toggle('hair', 'Hair', () => hairOn, v => { hairOn = v; applyHair(); hairBtn.classList.toggle('on', hairOn); });
     toggle('eyes', 'Eyes', () => eyesOn, v => { eyesOn = v; if (faceMesh) faceMesh.visible = v; });
     toggle('mouth', 'Mouth', () => mouthOn, v => { mouthOn = v; if (mouthMesh) mouthMesh.visible = v; });
     toggle('wire', 'Wireframe', () => prefs.wireOn, v => { prefs.wireOn = v; keep(); if (wire) wire.visible = v; });
@@ -291,6 +294,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         if (!T) return;
         const H = T.hair, idx = hairOn || !H ? T.idx : T.idx.filter((_, n, a) => { const b = n - (n % 3); return !(H[a[b]] && H[a[b + 1]] && H[a[b + 2]]); });
         geo.setIndex(idx); if (sel >= 0 && !hairOn && H?.[sel]) sel = -1;
+        if (wire) { const wg = new THREE.BufferGeometry(); wg.setAttribute('position', geo.attributes.position); wg.setIndex(idx); wire.geometry = wg; }   // (the wireframe keeps its own copy of the faces: a new one, without the hair's)
         buildDots(); describe();
     }
     function setRegion(r) {
@@ -525,7 +529,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         snapshot(); movePoint(sel, d.x, d.y, d.z);
     }
 
-    function show() { on = true; group.visible = true; setTool(prefs.tool); labelPad(); for (const f of Object.values(toggles)) f(); sheetBtn.classList.toggle('on', refMode === 'sheet'); layout(); onEnter?.(); describe(); }
+    function show() { on = true; group.visible = true; setTool(prefs.tool); labelPad(); for (const f of Object.values(toggles)) f(); hairBtn.classList.toggle('on', hairOn); sheetBtn.classList.toggle('on', refMode === 'sheet'); layout(); onEnter?.(); describe(); }
     function exit() { on = false; group.visible = false; layout(); onExit?.(); }
     return {
         enter: (s, l) => { if (l) layer = l; load(s ?? who); }, exit, get on() { return on; }, get showCompare() { return cmpOn; }, group,
