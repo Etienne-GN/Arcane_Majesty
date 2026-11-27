@@ -41,12 +41,15 @@ export function stackTopo(ctx, sex) {
     return Ls.flatMap(L => (Array.isArray(L?.['@topo']) ? L['@topo'].filter(TOPO_OK) : [])).slice(0, 2000);
 }
 const EDIT_CACHE = new Map();
+// (2026-11-27, the user with the reference's outline: "the shoulders are too high" — measured row by row, the model
+// reached each shoulder width 2–4 cm above the sheet's: the shoulder line, the arms' joints with it, lowered)
+const SHOULDER_DROP = 0.035;
 export function buildBodyV3(ctx, opts = {}) {
     const { root, head } = ctx;
     if (!ctx._v2Head) { ctx._v2Head = true; head.position.z += 0.024; head.position.y += 0.005; }
     // v3 (2026-11-27, overlaid on the sheet: tools/models/overlay.py): the head a third taller with its top kept, so the
     // joint lower (the chin from 1.66 to ~1.59 m, the neck short); the shoulders narrower (the arms' joints in)
-    if (!ctx._v3Rig) { ctx._v3Rig = true; head.position.y -= 0.085; for (const [sd, sx] of [['L', 1], ['R', -1]]) ctx.arms[sd].upper.position.x = sx * 0.2; }   // (2026-11-23: lowered 2.5 cm — it sat too high on the neck; carried a little forward of the shoulders, the neck leaning to it, as the reference)
+    if (!ctx._v3Rig) { ctx._v3Rig = true; head.position.y -= 0.085; for (const [sd, sx] of [['L', 1], ['R', -1]]) { ctx.arms[sd].upper.position.x = sx * 0.2; ctx.arms[sd].upper.position.y -= SHOULDER_DROP; } }   // (and lower: see SHOULDER_DROP)   // (2026-11-23: lowered 2.5 cm — it sat too high on the neck; carried a little forward of the shoulders, the neck leaning to it, as the reference)
     const topo = stackTopo(ctx, opts.sex);
     // (2026-11-26, the NPCs on v2: the layers turned into positions depend on the body's shape only — its sex, proportions,
     // head and feet — not on painted clothes: cached, so a town of NPCs builds each body once. Not for a look with its own
@@ -135,7 +138,7 @@ function genBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair 
     // v3 (2026-11-27, overlaid on the sheet): the neck lower and thicker under the bigger head; the shoulders narrower; the
     // back deeper (the shoulder blades, the glutes); the hips wider
     const v3Ring = ([y, half, col]) => {
-        const ny = y === 1.675 ? 1.625 : y === 1.6 ? 1.59 : y;
+        const ny = y === 1.675 ? 1.625 : y === 1.6 ? 1.59 : y >= 1.44 && y <= 1.56 ? y - SHOULDER_DROP : y;   // (the collarbones and the shoulders lowered with the arms)
         const h = half.map(([x, z, d]) => {
             if (y === 1.675) x *= 1.35, z *= 1.2; else if (y === 1.6) x *= 1.15, z *= 1.1;
             if (y >= 1.44 && y <= 1.52 && x > 0.12) x = 0.12 + (x - 0.12) * 0.7;
