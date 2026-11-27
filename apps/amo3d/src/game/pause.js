@@ -1,10 +1,10 @@
-// The pause / quit menu (Esc with nothing else open, MENU → Quit, Android back): Resume, Save, Return to the
+// The pause / quit menu (Esc with nothing else open, MENU → Quit, Android back): Resume, Options, Save, Return to the
 // title, Quit the game. Quitting always saves first; on Android it closes the app, in a browser it goes back
 // to the title (a page cannot close itself).
 import { App } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
 
-export function createPause({ save, hud }) {
+export function createPause({ save, hud, onOptions = null }) {
     const css = document.createElement('style');
     css.textContent = `
 #pause { position: fixed; inset: 0; z-index: 26; display: none; place-items: center; background: #05060ad8; font-family: Georgia, serif; color: #eee6d2; }
@@ -28,6 +28,7 @@ export function createPause({ save, hud }) {
         p.append(el('h2', null, 'PAUSED'));
         const btn = (label, fn, cls) => { const b = el('button', cls, label); b.onclick = fn; p.append(b); };
         btn('Resume', () => toggle(false));
+        if (onOptions) btn('Options', () => { toggle(false); onOptions(); });   // (2026-11-27, the user: "on PC I can't reach the options in game: Esc doesn't offer it")
         btn('Save', () => { note.textContent = save() ? 'Saved.' : 'Could not save.'; });
         btn('Return to the title', () => { save(); location.href = location.pathname; });
         btn(native ? 'Quit the game' : 'Quit to the title', () => { save(); if (native) App.exitApp(); else location.href = location.pathname; }, 'quit');

@@ -559,7 +559,7 @@ function handAction(side, act) {
 let handsTick = 0, lavaTick = 0, shifting = false;
 const book = createBook({ stats, hud, save: () => save(), hands });
 const skillBook = createBook({ stats, hud, save: () => save(), hands, kind: 'skills' });
-const pause = createPause({ hud, save: () => save() });
+const pause = createPause({ hud, save: () => save(), onOptions: () => options.toggle(true) });   // (Options from the pause menu: on a PC, Esc is the way in)
 const codex = createCodex({ stats, hud, getPlace: () => world.current?.name ?? null });
 // Writing up the codex: at a campfire or a table — it takes a while (a quarter hour a page, an hour at most).
 function writeCodex() {
