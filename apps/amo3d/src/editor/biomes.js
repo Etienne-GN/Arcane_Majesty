@@ -8,6 +8,7 @@ import LAYOUT from '../content/world/eldoria_layout.json';
 import { STAMP_OF } from '../game/travel.js';
 
 const cv = document.getElementById('map'), g = cv.getContext('2d'), S = cv.width, box = document.getElementById('controls');
+const fk = () => (matchMedia('(pointer: coarse)').matches ? Math.max(1, 0.85 * S / cv.getBoundingClientRect().width) : 1);   // (a phone: the map's labels drawn larger, as the canvas is shown smaller)
 const HALF = 4200, toC = (x, z) => [(x + HALF) / (HALF * 2) * S, (z + HALF) / (HALF * 2) * S], toW = (cx, cy) => [cx / S * HALF * 2 - HALF, cy / S * HALF * 2 - HALF];
 const el = (t, p = {}, ...kids) => { const e = Object.assign(document.createElement(t), p); e.append(...kids); return e; };
 const hex = c => [parseInt(c.slice(1, 3), 16), parseInt(c.slice(3, 5), 16), parseInt(c.slice(5, 7), 16)];
@@ -38,7 +39,7 @@ function repaint() {
 }
 function draw() {
     g.imageSmoothingEnabled = true; g.drawImage(preview, 0, 0, S, S);
-    g.font = '12px Georgia'; g.textAlign = 'center';
+    g.font = `${Math.round(12 * fk())}px Georgia`; g.textAlign = 'center';
     for (const p of PLACES) {
         const [x, y] = toC(p.x, p.z), b = biomes[bmap.places[p.id]];
         g.fillStyle = p === selPlace ? '#ffe08a' : p.id ? '#1a1410' : '#1a141066'; g.beginPath(); g.arc(x, y, p.id ? 5 : 3, 0, 7); g.fill();
@@ -50,8 +51,9 @@ cv.addEventListener('pointerdown', e => {
     const r = cv.getBoundingClientRect(), cx = (e.clientX - r.left) / r.width * S, cy = (e.clientY - r.top) / r.height * S, [x, z] = toW(cx, cy);
     if (tool === 'zone') { const zn = { x: Math.round(x), z: Math.round(z), r: 500, biome: selBiome }; bmap.zones.push(zn); selZone = zn; selPlace = null; mapDirty = true; tool = 'select'; repaint(); panel(); return; }
     const near = (px, pz, rad) => Math.hypot(...toC(px, pz).map((v, i) => v - [cx, cy][i])) < rad;
-    const zn = bmap.zones.find(q => near(q.x, q.z, 14));
-    const pl = PLACES.find(p => p.id && near(p.x, p.z, 9));
+    const k = matchMedia('(pointer: coarse)').matches ? Math.max(1, 1.8 * S / r.width) : 1;   // (a finger: a wider reach)
+    const zn = bmap.zones.find(q => near(q.x, q.z, 14 * k));
+    const pl = PLACES.find(p => p.id && near(p.x, p.z, 9 * k));
     selZone = zn ?? null; selPlace = zn ? null : pl ?? null;
     if (selZone) { drag = selZone; cv.setPointerCapture(e.pointerId); }
     if (selPlace && biomes[bmap.places[selPlace.id]]) selBiome = bmap.places[selPlace.id];

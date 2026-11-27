@@ -18,6 +18,7 @@ const CODE_MAPS = {
 let preview = null;   // { id, name, img, map } while a code map is open
 
 const cv = document.getElementById('map'), g = cv.getContext('2d'), S = cv.width;
+const fk = () => (matchMedia('(pointer: coarse)').matches ? Math.max(1, 0.85 * S / cv.getBoundingClientRect().width) : 1);   // (a phone: the map's labels drawn larger, as the canvas is shown smaller)
 const box = document.getElementById('controls');
 const clone = o => JSON.parse(JSON.stringify(o));
 const BLANK = {
@@ -84,7 +85,7 @@ function drawPreview() {
     if (!preview.img) { g.fillStyle = '#eee6d2'; g.font = '18px Georgia'; g.fillText(`Building ${preview.name}…`, 30, 40); return; }
     g.drawImage(preview.img, 0, 0, S, S);
     const info = preview.map.mapInfo, half = info.half;
-    g.font = '13px Georgia';
+    g.font = `${Math.round(13 * fk())}px Georgia`;
     for (const l of info.landmarks ?? []) {
         const cx = ((l.x + half) / (half * 2)) * S, cy = ((l.z + half) / (half * 2)) * S;
         g.fillStyle = '#f3e2b0'; g.strokeStyle = '#000'; g.lineWidth = 1.5; g.beginPath(); g.arc(cx, cy, 6, 0, Math.PI * 2); g.fill(); g.stroke();
@@ -142,7 +143,7 @@ function draw() {
         f.pts.forEach(([x, z], i) => { const [cx, cy] = toC(x, z); i ? g.lineTo(cx, cy) : g.moveTo(cx, cy); });
         g.stroke();
     }
-    g.font = '12px Georgia';
+    g.font = `${Math.round(12 * fk())}px Georgia`;
     for (const it of items()) {
         const [x, z] = posOf(it), [cx, cy] = toC(x, z), on = sel && (sel.obj ? sel.obj === it.obj : sel.arr === it.arr);
         if (it.r) { g.strokeStyle = it.color; g.lineWidth = on ? 3 : 1.5; g.beginPath(); g.arc(cx, cy, it.r / mPerPx(), 0, Math.PI * 2); g.stroke(); }
@@ -154,8 +155,9 @@ function draw() {
 }
 
 // ---------- editing on the map ----------
+const reach = () => (matchMedia('(pointer: coarse)').matches ? Math.max(12, 22 * S / cv.getBoundingClientRect().width) : 12);   // (a finger: ~22 screen px)
 function pick(cx, cy) {
-    let best = null, bd = 12;
+    let best = null, bd = reach();
     for (const it of items()) { const [x, z] = posOf(it), [px, py] = toC(x, z), d = Math.hypot(px - cx, py - cy); if (d < bd) { bd = d; best = it; } }
     return best;
 }
