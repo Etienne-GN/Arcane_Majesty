@@ -9,6 +9,8 @@
 // parts.eyes glow brighter on the wind-up (beast.js).
 import * as THREE from 'three';
 import { buildRobed } from '../models/robed.js';
+import { settings } from '../../engine/settings.js';
+import { build as buildAnimal } from './animals.js';
 
 const flat = (c, o = {}) => new THREE.MeshStandardMaterial({ color: c, flatShading: true, roughness: 0.8, ...o });
 const glow = c => new THREE.MeshBasicMaterial({ color: c, toneMapped: false });
@@ -58,6 +60,14 @@ export function body2(type) {
         legRing(8, 0.5 * k, 0.55 * k, 0.6 * k, fur);
         parts.eyes = add(new THREE.BoxGeometry(0.2 * k, 0.06 * k, 0.03), glow(0xff2a2a), 0, 0.6 * k, 0.45 * k);
         parts.kind = 'legs';
+    } else if (type === 'frost_bear' && settings.charModels === 'new') {   // (2026-11-27, TODO §5: on v2) the v2 bear, great and white
+        // (animals.js kind 'frost_bear': its own Sculptor layer), icicles along its back, cold eyes; it walks and crouches to lunge
+        const d = buildAnimal('frost_bear'); root.add(d.root);
+        const ice = flat(0x9ad0f0, { transparent: true, opacity: 0.85, emissive: 0x3a6a8a, emissiveIntensity: 0.4 });
+        for (let i = 0; i < 6; i++) { const c = add(new THREE.ConeGeometry(0.075, 0.44, 4), ice, (i % 2 ? 0.1 : -0.1), 0.66, 0.5 - i * 0.22, d.body); c.rotation.x = -0.25; }   // (standing out of the back)
+        const hs = 1.36 * 0.34, em = glow(0x8ad8ff);   // (on the v2 head's eyes: animals' K.h × 0.34)
+        for (const s of [1, -1]) { const e = add(new THREE.BoxGeometry(0.04, 0.045, 0.085), em, s * hs * 0.62, hs * 0.22, hs * 0.44, d.parts.head); e.rotation.y = s * 0.5; if (s > 0) parts.eyes = e; }
+        parts.legs = d.parts.legs.map(l => l.g); parts.kind = 'legs';
     } else if (type === 'frost_bear') {   // a great white bear rimed with ice, icicles along its back
         const fur = flat(0xe8eef4), ice = flat(0x9ad0f0, { transparent: true, opacity: 0.85, emissive: 0x3a6a8a, emissiveIntensity: 0.4 });
         const b = add(new THREE.SphereGeometry(0.7, 9, 7), fur, 0, 1.05, 0); b.scale.set(0.9, 0.85, 1.35);
