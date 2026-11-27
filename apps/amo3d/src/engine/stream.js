@@ -242,6 +242,10 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         st.group = g; st.off = new THREE.Vector3(st.ox, st.oy, st.oz); st.lpos = new THREE.Vector3(); st.lcam = new THREE.PerspectiveCamera();
         for (const o of [...st.map.scene.children]) if (!o.userData.shell) g.add(o);
         scene.add(g); g.updateMatrixWorld(true);
+        // what the place adds to its own scene later (a townsperson's full body when you come near, a creature that comes
+        // back…) goes into the world with the rest: its old scene is no longer drawn (2026-11-27: Thaloria's people were
+        // invisible up close — you could still talk to an unseen merchant)
+        { const sc = st.map.scene; sc.add = (...objs) => { g.add(...objs); return sc; }; sc.remove = (...objs) => { g.remove(...objs); return sc; }; }
         const planes = [new THREE.Plane(new THREE.Vector3(1, 0, 0), -st.X0), new THREE.Plane(new THREE.Vector3(-1, 0, 0), st.X1), new THREE.Plane(new THREE.Vector3(0, 0, 1), -st.Z0), new THREE.Plane(new THREE.Vector3(0, 0, -1), st.Z1)];
         const box = new THREE.Box3(), drop = [];
         g.traverse(o => {
