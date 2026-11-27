@@ -16,7 +16,7 @@ export const pointKey = p => `${p.x.toFixed(4)},${p.y.toFixed(4)},${p.z.toFixed(
 // section, its ring and its place on the ring ('head.3.2.4') — the same on every body whatever its proportions. Points that
 // touch share the key of the first one made (as the position keys always did). dry: map the points (position key →
 // { t: structural key, p, bone, derived }) and build no mesh — buildBase's first pass.
-// topo: the Sculptor's added and removed points, in order — [['add', tA, tB] (a new point halfway along the edge between
+// topo: the Sculptor's added and removed points and turned lines, in order — ['flip', tA, tB] turns the line between two triangles; [['add', tA, tB] (a new point halfway along the edge between
 // the points tA and tB, keyed addKey(tA, tB); unmoved, it stays halfway between them as they are shaped) | ['remove', tA, tB]
 // (tA merged into its neighbour tB: the faces between them go)], by structural key; applied to the faces once made.
 export const addKey = (a, b) => { const s = [a, b].sort().join('|'); let h = 0x811c9dc5; for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 0x01000193) >>> 0; return `add.${h.toString(16).padStart(8, '0')}`; };
@@ -126,6 +126,17 @@ export function createSkin(root, bones, { edits = null, share = null, dry = fals
                     }
                     return [tr];
                 });
+            } else if (kind === 'flip') {   // (2026-11-27) turn the line tA–tB between its two triangles to join their other two corners
+                for (const L of Object.values(lists)) {
+                    const hits = []; for (let i = 0; i < L.key.length; i += 3) { const ks = [L.key[i], L.key[i + 1], L.key[i + 2]]; if (ks.includes(ka) && ks.includes(kb)) hits.push(i / 3); }
+                    if (hits.length !== 2) continue;   // (not a line between two faces of this list: nothing to turn)
+                    const T1 = [0, 1, 2].map(n => rec(L, hits[0] * 3 + n)), T2 = [0, 1, 2].map(n => rec(L, hits[1] * 3 + n));
+                    const rot = (Tr, x, y) => { for (let r = 0; r < 3; r++) { const t = [Tr[r], Tr[(r + 1) % 3], Tr[(r + 2) % 3]]; if (t[0].key === x && t[1].key === y) return t; } return null; };
+                    let t1 = rot(T1, ka, kb), t2 = t1 && rot(T2, kb, ka); if (!t1 || !t2) { t1 = rot(T1, kb, ka); t2 = t1 && rot(T2, ka, kb); }
+                    if (!t1 || !t2) continue;
+                    const [a, b, c] = t1, d = t2[2];   // (a→b→c and b→a→d: the quad a, d, b, c — its other diagonal c–d, the faces kept turned outward)
+                    let n = 0; rewrite(L, tr => { const m = n++; if (m === hits[0]) return [[a, d, c]]; if (m === hits[1]) return [[d, b, c]]; return [tr]; });
+                }
             } else if (kind === 'remove') {
                 let to = null; for (const L of Object.values(lists)) { const i = L.key.indexOf(kb); if (i >= 0) { to = rec(L, i); break; } }
                 if (!to) continue;

@@ -36,6 +36,8 @@ const ICON = {
     r_all: svg('<circle cx="12" cy="6" r="4" stroke-width="2.4"/><path stroke-width="2.4" d="M12 10v10M6 13l6-1 6 1M5 19l1-6M19 19l-1-6M12 20l-4 9M12 20l4 9"/>'),
     move: svg('<path d="M12 4v24M2 16h20M12 4l-3 3M12 4l3 3M12 28l-3-3M12 28l3-3M2 16l3-3M2 16l3 3M22 16l-3-3M22 16l-3 3"/>'),
     add: svg('<circle cx="8" cy="20" r="3" fill="currentColor"/><circle cx="20" cy="20" r="3" fill="currentColor"/><path d="M11 20h6"/><path d="M14 6v8M10 10h8" stroke-width="2.4"/>'),
+    edge: svg('<path d="M4 26L20 6M4 6l16 20" stroke-dasharray="2 3"/><path d="M4 26L20 6" stroke-width="2.6"/><circle cx="4" cy="26" r="2.6" fill="currentColor"/><circle cx="20" cy="6" r="2.6" fill="currentColor"/>'),
+    group: svg('<rect x="3" y="8" width="18" height="16" rx="2" stroke-dasharray="3 2"/><circle cx="9" cy="14" r="2.2" fill="currentColor"/><circle cx="15" cy="18" r="2.2" fill="currentColor"/><circle cx="15" cy="12" r="2.2" fill="currentColor"/>'),
     remove: svg('<circle cx="12" cy="20" r="3.5" fill="currentColor"/><path d="M8 9h8" stroke-width="2.4"/>'),
     orbit: svg('<path d="M20 12a8.5 8.5 0 1 0 1 7"/><path d="M21 6v6h-6"/><circle cx="12" cy="16" r="2" fill="currentColor"/>'),
     polish: svg('<path d="M2 16c3-6 7-9 10-9s7 3 10 9c-3 6-7 9-10 9s-7-3-10-9z"/><circle cx="12" cy="16" r="3.5" fill="currentColor"/>'),
@@ -215,7 +217,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     // ---- the tool palette ----
     const tools = make('div', 'pe pe-tools', document.body);
     const cap = (parent, text) => make('div', 'pe-cap', parent, text);   // (a group's name: Tool, View, Frame, Show)
-    const TOOLS = [['move', ICON.move, 'Move points (V): pick a dot and drag it (its mirror follows)'], ['add', ICON.add, 'Add a point (A): pick a dot, then a neighbour — a new point halfway between them'], ['remove', ICON.remove, 'Remove a point (X): it merges into its nearest neighbour'], ['orbit', ICON.orbit, 'Turn the view (O)'], ['pan', ICON.pan, 'Move the view (P): strafe, up and down']];
+    const TOOLS = [['move', ICON.move, 'Move points (V): pick a dot and drag it (its mirror follows)'], ['add', ICON.add, 'Add a point (A): pick a dot, then a neighbour — a new point halfway between them'], ['remove', ICON.remove, 'Remove a point (X): it merges into its nearest neighbour'], ['edge', ICON.edge, 'Turn a line (E): pick the two ends of a line between two triangles — it turns to join their other two corners (its mirror too, where it is the same line)'], ['group', ICON.group, 'Group (G): tap points to add or remove them, or drag a box round them; drag any of them to move them all (their mirrors follow). Esc clears the group'], ['orbit', ICON.orbit, 'Turn the view (O)'], ['pan', ICON.pan, 'Move the view (P): strafe, up and down']];
     const toolBtns = {};
     cap(tools, 'Tool');
     for (const [id, icon, title] of TOOLS) toolBtns[id] = button(tools, icon, () => setTool(id), title);
@@ -232,7 +234,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const setPolish = v => { polish = v; if (dots) dots.visible = !v; if (wire) wire.visible = prefs.wireOn && !v; if (v) { sel = -1; hover = -1; } polishBtn.classList.toggle('on', v); toggles.polish?.(); describe?.(); };
     const polishBtn = button(tools, ICON.polish, () => setPolish(!polish), 'Polish: preview the model as in the game — no points, no wireframe; the reference stays (press again to edit)');
     const hairBtn = button(tools, ICON.hair, () => { hairOn = !hairOn; applyHair(); toggles.hair?.(); hairBtn.classList.toggle('on', hairOn); }, 'Show or hide the hair (hidden: its points can\'t be picked; the scalp shows)');
-    function setTool(id) { prefs.tool = id; keep(); addFrom = -1; for (const [k, b] of Object.entries(toolBtns)) b.classList.toggle('on', k === id); describe(); }
+    function setTool(id) { prefs.tool = id; keep(); addFrom = -1; edgeFrom = -1; for (const [k, b] of Object.entries(toolBtns)) b.classList.toggle('on', k === id); describe(); }
 
     // ---- the properties panel ----
     const panel = make('div', 'pe pe-panel', document.body);
@@ -577,10 +579,10 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     function placeDots() {
         const p = geo.attributes.position;
         dotIds.forEach((i, n) => {
-            const big = i === hover || i === sel || (sel >= 0 && i === mirrorOf[sel]) || i === addFrom;
+            const big = i === hover || i === sel || (sel >= 0 && i === mirrorOf[sel]) || i === addFrom || i === edgeFrom || groupSel.has(i);
             tmpM.makeTranslation(p.getX(i), p.getY(i), p.getZ(i)); if (big) tmpM.scale(new THREE.Vector3(1.8, 1.8, 1.8)); dots.setMatrixAt(n, tmpM);
             const isSel = i === sel || (sel >= 0 && i === mirrorOf[sel]);
-            dots.setColorAt(n, col.set(i === addFrom ? 0x60ff80 : isSel ? 0xff3030 : i === hover ? 0xffa040 : mirrorOf[i] === -2 ? 0xffe070 : moved(i) ? 0x60d0ff : 0xffffff));
+            dots.setColorAt(n, col.set(i === addFrom || i === edgeFrom ? 0x60ff80 : isSel ? 0xff3030 : groupSel.has(i) ? 0xff70ff : i === hover ? 0xffa040 : mirrorOf[i] === -2 ? 0xffe070 : moved(i) ? 0x60d0ff : 0xffffff));
         });
         dots.instanceMatrix.needsUpdate = true; if (dots.instanceColor) dots.instanceColor.needsUpdate = true;
     }
@@ -589,13 +591,14 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     function refresh(i) { geo.attributes.position.setXYZ(i, ...view(i, bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2])); }
     const moved = i => { const [x, y, z] = keyPos(T.keys[i]); return Math.hypot(bind[i * 3] - x, bind[i * 3 + 1] - y, bind[i * 3 + 2] - z) > 1e-4; };   // (keys hold 4 decimals: under 0.1 mm is 'not moved')
     function setPoint(i, x, y, z) { bind[i * 3] = x; bind[i * 3 + 1] = y; bind[i * 3 + 2] = z; refresh(i); }   // (rest-shape coordinates)
-    function movePoint(i, dx, dy, dz) {
+    function movePoint(i, dx, dy, dz, quiet = false) {
         const p = geo.attributes.position, d = new THREE.Vector3(dx, dy, dz).applyMatrix3(Linv[i]);   // the drag (posed) → the rest shape
         if (mirrorOf[i] === -2) d.x = 0;   // a point on the centre line stays on it
         setPoint(i, bind[i * 3] + d.x, bind[i * 3 + 1] + d.y, bind[i * 3 + 2] + d.z);
         const m = mirrorOf[i]; if (m >= 0) setPoint(m, bind[m * 3] - d.x, bind[m * 3 + 1] + d.y, bind[m * 3 + 2] + d.z);
-        p.needsUpdate = true; geo.computeBoundingSphere(); placeDots(); describe();
+        if (!quiet) { p.needsUpdate = true; geo.computeBoundingSphere(); placeDots(); describe(); }   // (quiet: a group's points, refreshed once after all)
     }
+    function snapshotIds(ids) { const all = new Set(); for (const i of ids) { all.add(i); if (mirrorOf[i] >= 0) all.add(mirrorOf[i]); } undo.push([...all].map(i => [i, bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2]])); if (undo.length > 200) undo.shift(); redo.length = 0; }
     function snapshot() { const ids = [sel, mirrorOf[sel]].filter(i => i >= 0); undo.push(ids.map(i => [i, bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2]])); if (undo.length > 200) undo.shift(); redo.length = 0; }   // (a new move: nothing left to redo)
     const stateOf = s => s.map(([i]) => [i, bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2]]);
     function doRedo() { const s = redo.pop(); if (!s) { info.textContent = 'Nothing to redo.'; return; } undo.push(stateOf(s)); for (const [i, x, y, z] of s) setPoint(i, x, y, z); geo.attributes.position.needsUpdate = true; placeDots(); describe(); }
@@ -617,13 +620,14 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const save = () => saveTo(B?.alt?.layer === layer ? B.alt.name : null);
     const neighbours = i => { const s = new Set(), I = T.idx; for (let f = 0; f < I.length; f += 3) { const a = I[f], b = I[f + 1], c = I[f + 2]; if (a === i || b === i || c === i) for (const v of [a, b, c]) if (v !== i) s.add(v); } return [...s]; };
     // adding and removing points (saved into the chosen layer as its "@topo": skin.js) — each on the mirror too, saved at once
-    let addFrom = -1;
+    let addFrom = -1, edgeFrom = -1;
+    const groupSel = new Set();   // (2026-11-27, the user: "select and move a group of points — the feet of an animal, to make its legs longer")
     function topoOp(kind, i, j) {   // (with the mirror: the centre line maps to itself; a point with no mirror, none)
         const pm = bodyMesh.userData.points, t = k => pm.get(T.keys[k])?.t, m = k => (mirrorOf[k] === -2 ? k : mirrorOf[k]), g = Date.now();
         if (!t(i) || !t(j)) return;
         const ops = [[kind, t(i), t(j), g]], mi = m(i), mj = m(j);
         if (mi >= 0 && mj >= 0 && !(new Set([mi, mj]).size === 2 && [mi, mj].every(x => x === i || x === j)) && t(mi) && t(mj)) ops.push([kind, t(mi), t(mj), g]);
-        info.textContent = `${kind === 'add' ? 'Adding' : 'Removing'} ${ops.length === 2 ? 'a point and its mirror' : 'a point'} — saving…`;
+        info.textContent = kind === 'flip' ? `Turning the line${ops.length === 2 ? ' (and its mirror, where it is the same line)' : ''} — saving…` : `${kind === 'add' ? 'Adding' : 'Removing'} ${ops.length === 2 ? 'a point and its mirror' : 'a point'} — saving…`;
         saveTo(B?.alt?.layer === layer ? B.alt.name : null, ops);
     }
     function removeAt(i) {
@@ -690,6 +694,21 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         if (t === 'orbit' || t === 'pan') return { kind: t, x: e.clientX, y: e.clientY };
         const i = pick(e, reachOf(e));
         if (t === 'remove') { if (i >= 0) removeAt(i); return null; }
+        if (t === 'edge') {   // turn a line: its two ends, one after the other
+            if (i < 0) return null;
+            if (edgeFrom < 0) { edgeFrom = i; sel = i; placeDots(); info.textContent = 'Turn a line: now the point at its other end.'; return null; }
+            const from = edgeFrom; edgeFrom = -1; let shared = 0;
+            for (let f = 0; f < T.idx.length; f += 3) { const tri = [T.idx[f], T.idx[f + 1], T.idx[f + 2]]; if (tri.includes(from) && tri.includes(i)) shared++; }
+            if (i !== from && shared === 2) topoOp('flip', from, i); else { info.textContent = shared ? 'That line borders only one face — it cannot turn. Pick its first end again.' : 'No line joins these two points — pick the first end again.'; placeDots(); }
+            return null;
+        }
+        if (t === 'group') {
+            if (i < 0) return { kind: 'box', x0: e.clientX, y0: e.clientY };   // a box round the points to take
+            const had = groupSel.has(i); groupSel.add(i); sel = i; snapshotIds([...groupSel]);
+            const p = geo.attributes.position, at = new THREE.Vector3(p.getX(i), p.getY(i), p.getZ(i));
+            placeDots(); describe();
+            return { kind: 'gpoint', i, had, plane: new THREE.Plane().setFromNormalAndCoplanarPoint(camera.getWorldDirection(new THREE.Vector3()), at), last: at.clone(), x0: e.clientX, y0: e.clientY, live: false };
+        }
         if (t === 'add') {
             if (i < 0) return null;
             if (addFrom < 0) { addFrom = i; sel = i; placeDots(); describe(); return null; }
@@ -727,22 +746,44 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
             const cx = (a[0] + b2[0]) / 2, cy = (a[1] + b2[1]) / 2; panBy(cx - pinch.cx, cy - pinch.cy); pinch.cx = cx; pinch.cy = cy; return;
         }
         if (!drag) {   // a pen hovering (or a mouse): the point it would take
-            if ((e.pointerType === 'pen' || e.pointerType === 'mouse') && !e.buttons && ['move', 'add', 'remove'].includes(prefs.tool) && dots) { const h = pick(e, reachOf(e)); if (h !== hover) { hover = h; placeDots(); } }
+            if ((e.pointerType === 'pen' || e.pointerType === 'mouse') && !e.buttons && ['move', 'add', 'remove', 'edge', 'group'].includes(prefs.tool) && dots) { const h = pick(e, reachOf(e)); if (h !== hover) { hover = h; placeDots(); } }
             return;
         }
         e.stopImmediatePropagation();
+        if (drag.kind === 'box') { showBox(drag.x0, drag.y0, e.clientX, e.clientY); return; }
+        if (drag.kind === 'gpoint' && !drag.live) { if (Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < (e.pointerType === 'pen' ? 3 : 8)) return; drag.live = true; }
         if (drag.kind === 'point' && !drag.live) { if (Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < (e.pointerType === 'pen' ? 3 : 8)) return; drag.live = true; }   // (a tap selects; the point moves once the pen or finger does)
         if (drag.kind === 'orbit') { yaw -= (e.clientX - drag.x) * 0.01; pitch = Math.max(-1.3, Math.min(1.3, pitch + (e.clientY - drag.y) * 0.01)); drag.x = e.clientX; drag.y = e.clientY; return; }
         if (drag.kind === 'pan') { panBy(e.clientX - drag.x, e.clientY - drag.y); drag.x = e.clientX; drag.y = e.clientY; return; }
         const r = area(); ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
         ray.setFromCamera(ndc, camera); const hit = new THREE.Vector3();
-        if (ray.ray.intersectPlane(drag.plane, hit)) { const d = hit.clone().sub(drag.last); drag.last.copy(hit); movePoint(sel, d.x, d.y, d.z); }
+        if (ray.ray.intersectPlane(drag.plane, hit)) { const d = hit.clone().sub(drag.last); drag.last.copy(hit); if (drag.kind === 'gpoint') moveGroup(d.x, d.y, d.z); else movePoint(sel, d.x, d.y, d.z); }
     }, true);
     function panBy(dx, dy) {   // screen pixels → the view's target moves with the drag (the model follows the pen or finger)
         const r = area(), [ri, u] = camAxes(), k = (2 * dist * Math.tan(camera.fov * Math.PI / 360)) / r.height;
         target.addScaledVector(ri, -dx * k).addScaledVector(u, dy * k);
     }
+    // the group: moved together (each point once — its mirror follows it), taken by a box, shown in magenta
+    const boxEl = make('div', '', document.body); boxEl.style.cssText = 'position:fixed;border:1.5px dashed #ff70ff;background:#ff70ff18;pointer-events:none;display:none;z-index:7';
+    function showBox(x0, y0, x1, y1) { Object.assign(boxEl.style, { display: 'block', left: `${Math.min(x0, x1)}px`, top: `${Math.min(y0, y1)}px`, width: `${Math.abs(x1 - x0)}px`, height: `${Math.abs(y1 - y0)}px` }); }
+    function moveGroup(dx, dy, dz) {
+        const done = new Set();
+        for (const i of groupSel) { if (done.has(i)) continue; movePoint(i, dx, dy, dz, true); done.add(i); if (mirrorOf[i] >= 0) done.add(mirrorOf[i]); }
+        geo.attributes.position.needsUpdate = true; geo.computeBoundingSphere(); placeDots(); describe();
+    }
+    function endGroupDrag(e) {
+        if (drag?.kind === 'gpoint' && !drag.live && drag.had) { groupSel.delete(drag.i); placeDots(); describe(); }   // (a tap on a grouped point: out of the group)
+        if (drag?.kind === 'box') {
+            boxEl.style.display = 'none';
+            const x0 = Math.min(drag.x0, e.clientX), x1 = Math.max(drag.x0, e.clientX), y0 = Math.min(drag.y0, e.clientY), y1 = Math.max(drag.y0, e.clientY);
+            if (x1 - x0 < 6 && y1 - y0 < 6) groupSel.clear();   // (a tap on nothing: the group let go)
+            else { const r = area(), p = geo.attributes.position, v = new THREE.Vector3(); for (const i of dotIds) { v.set(p.getX(i), p.getY(i), p.getZ(i)).project(camera); const sx = r.left + (v.x + 1) / 2 * r.width, sy = r.top + (1 - v.y) / 2 * r.height; if (v.z < 1 && sx >= x0 && sx <= x1 && sy >= y0 && sy <= y1) groupSel.add(i); } }
+            info.textContent = groupSel.size ? `Group: ${groupSel.size} points — drag any of them to move them all (Esc lets go).` : 'Group cleared.';
+            placeDots();
+        }
+    }
     const lift = e => {
+        if (on) endGroupDrag(e);
         if (e.pointerType === 'pen') penDown = false;
         touches.delete(e.pointerId); if (touches.size < 2) pinch = null;
         if (on) { e.stopImmediatePropagation(); drag = null; }
@@ -755,7 +796,9 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         if ((e.ctrlKey || e.metaKey) && (e.code === 'KeyY' || (e.code === 'KeyZ' && e.shiftKey))) { e.preventDefault(); doRedo(); return; }
         if ((e.ctrlKey || e.metaKey) && e.code === 'KeyZ') { e.preventDefault(); doUndo(); return; }
         if (e.code === 'Escape' && addFrom >= 0) { addFrom = -1; placeDots(); info.textContent = 'Add cancelled.'; return; }
-        const key = { KeyV: 'move', KeyA: 'add', KeyX: 'remove', KeyO: 'orbit', KeyP: 'pan' }[e.code]; if (key && !e.ctrlKey && !e.metaKey) { setTool(key); return; }
+        if (e.code === 'Escape' && edgeFrom >= 0) { edgeFrom = -1; placeDots(); info.textContent = 'Turn cancelled.'; return; }
+        if (e.code === 'Escape' && groupSel.size) { groupSel.clear(); placeDots(); info.textContent = 'Group cleared.'; return; }
+        const key = { KeyV: 'move', KeyA: 'add', KeyX: 'remove', KeyE: 'edge', KeyG: 'group', KeyO: 'orbit', KeyP: 'pan' }[e.code]; if (key && !e.ctrlKey && !e.metaKey) { setTool(key); return; }
         if (sel < 0 || !/^Arrow/.test(e.code)) return;
         e.preventDefault();
         nudge(e.shiftKey ? (e.code === 'ArrowUp' ? 'in' : e.code === 'ArrowDown' ? 'out' : null) : e.code, e.altKey);

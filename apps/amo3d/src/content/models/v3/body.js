@@ -34,7 +34,7 @@ export function layerStack(ctx, sex) {   // (a look's sculpt part — from a cas
 // the real build with the layers turned into positions for this body. A layer moves a point only where the body's surface
 // is the plain body's: where an outfit reshapes it (Eldrin's sleeves as tubes), the cloth keeps its own shape.
 // the added and removed points of a body's layers, in stack order (each layer's "@topo": [['add' | 'remove', tA, tB]…])
-const TOPO_OK = op => Array.isArray(op) && (op.length === 3 || op.length === 4) && (op[0] === 'add' || op[0] === 'remove') && typeof op[1] === 'string' && typeof op[2] === 'string';
+const TOPO_OK = op => Array.isArray(op) && (op.length === 3 || op.length === 4) && (op[0] === 'add' || op[0] === 'remove' || op[0] === 'flip') && typeof op[1] === 'string' && typeof op[2] === 'string';
 export function stackTopo(ctx, sex) {
     const sc = ctx.look?.sculpt, swap = sc?.swap ?? {};
     const Ls = [...layerNames(ctx, sex).map(n => (Object.hasOwn(swap, n) && swap[n] && typeof swap[n] === 'object' ? swap[n] : LAYERS[n])), sc?.points];
