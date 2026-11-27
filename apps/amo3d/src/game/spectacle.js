@@ -9,7 +9,10 @@ import * as THREE from 'three';
 const R = Math.random;
 // The big ones: an incantation before they land (player.js lengthens the cast and raises the staff to the sky).
 export const INCANT = new Set(['fire_rain', 'flame_wall', 'fire_nova', 'ember_bloom', 'earth_pillar', 'mud_wall', 'thornwall', 'spike_field', 'tremor',
-    'blizzard_shard', 'cyclone', 'drying_wind', 'maelstrom', 'geyser', 'thunder_clap', 'static_field', 'void_pulse', 'arcane_burst']);
+    'blizzard_shard', 'cyclone', 'drying_wind', 'maelstrom', 'geyser', 'thunder_clap', 'static_field', 'void_pulse', 'arcane_burst',
+    // (2026-11-26, §6: the big ones of the 11-25 set-pieces chant too — the quick ones (acid splash, mud trap, hush) and the
+    // dispels (unravel, which must land fast) do not)
+    'riptide', 'water_conjure', 'vine_grasp', 'petal_storm', 'spore_cloud', 'purifying_sweep', 'quagmire']);
 const mat = (c, o = {}) => new THREE.MeshStandardMaterial({ color: c, flatShading: true, roughness: 0.8, ...o });
 const glow = (c, op = 0.9) => new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: op, toneMapped: false, depthWrite: false });
 

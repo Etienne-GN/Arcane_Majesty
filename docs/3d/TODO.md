@@ -37,6 +37,7 @@ game-only lore gets `origin: "game"`.
 - [ ] A race slot on the body: ears, skin and eye tones, build, glow (Aurorian light, Nythorian shadow), horns or marks for the Fallen.
 
 ## 5. Creatures
+- [ ] **v2 models for every kind, shaped in the Sculptor** (LAYERS_PLAN step 6) — done: the wolf, the horse (after the user's sheet). Next: the beasts, the animals, the shadow soldiers; the werewolves when they come.
 - [x] (0.19.0) 14 more bodies (content/actors/bodies2.js): Giant Spider and the Spider Queen (a boss in Whisper-Wood), Frost Bear, Ice Revenant, Glacier Crab and Wendigo (the Summit), Ash Crawler and Cinder Hawk (the Fire Gate), Forge Daemon (the Inferno halls), Plague Rat (Graywatch), Rot Toad (Whisper-Wood, Lake Aethera), Dark Druid and Mushroom Shaman (Whisper-Wood, casters), Arcane Sentinel (the Keepers' Vaults); spiders in the Deep Shaft too.
 - [ ] ~70 creature types still without a body (birds, small animals, the swamp and arcane families' rest, skeleton archers…); their own codex sketches (today a body plan per family).
 - [ ] More bosses, one per campaign act.
@@ -46,7 +47,7 @@ game-only lore gets `origin: "game"`.
 - [x] Enemy magic (0.18.0, content/actors/enemyMagic3d.js on amo's ENEMY_KITS): casters shape spells (a ring fills at their feet, they stand still; a stun, silence or hush breaks it), bolts fly at you (dodge, block, parry, deflect), hexes (curse, silence — no spells — and Unweave, which strips your buffs), wards, empowerment, quickening and mending on their allies (bubbles, embers, sparks); dungeon bosses raise the Void Aegis (blows do a third) at half and a quarter health.
 - [x] Dispels (0.18.0): Unravel and Purifying Sweep tear away wards and the Void Aegis (Unravel hurts again for each); Counterspell and Unravel break a spell being shaped.
 - [x] Aetheric Sight's active use (2026-11-25: L · SIGHT button · gamepad Y).
-- [x] Set-pieces for the remaining area spells (2026-11-25). (The incantation for more of them: still open.)
+- [x] Set-pieces for the remaining area spells (2026-11-25); the incantation for the big ones among them (2026-11-26: Riptide, Water Conjure, Vine Grasp, Petal Storm, Spore Cloud, Purifying Sweep, Quagmire — the quick ones and the dispels stay quick).
 - [x] Targeting polish: an aim line for bolts, the ring snapping to enemies (2026-11-25).
 
 ## 7. Fighting styles & moves ★
