@@ -206,6 +206,15 @@ export function buildHorseV2(d, { coat = '#4a3328', mane = '#1e1e24', hoof = '#1
 // patches…), over the same joints (body, head, legs, tail; a bird's wings), each kind shaped by its own layer.
 // d: animals.js build()'s { root, body, parts: { head, legs: [{ g }], tail, wingL, wingR }, K }; kind: its type.
 const hex = c => '#' + new THREE.Color(c).getHexString();
+// A thin part with thickness (2026-11-26: "make sure nothing is too thin — the bird tails, some ears, are hard to see from
+// some angles"): the outline (points { p, w }) made a closed slab — a front, a back offset along its normal, and its edges
+function slab(sk, pts, col, thick) {
+    const P = pts.map(o => o.p), n = new THREE.Vector3().subVectors(P[1], P[0]).cross(new THREE.Vector3().subVectors(P[2], P[0])).normalize().multiplyScalar(thick / 2);
+    const front = pts.map(o => ({ p: o.p.clone().add(n), w: o.w })), back = pts.map(o => ({ p: o.p.clone().sub(n), w: o.w }));
+    const c = P.reduce((a, q) => a.add(q), new THREE.Vector3()).multiplyScalar(1 / P.length);
+    sk.poly(front, col, c); sk.poly(back, col, c);
+    for (let i = 0; i < pts.length; i++) { const j = (i + 1) % pts.length; sk.poly([front[i], front[j], back[j], back[i]], col, c); }
+}
 export function buildAnimalV2(d, kind) {
     const { root, body, parts, K } = d, head = parts.head, tail = parts.tail;
     const fur = hex(K.fur), belly = hex(K.belly ?? K.fur), headC = hex(K.head ?? K.fur), dark = '#1a1410', horn = '#d8ccb0';
@@ -234,14 +243,14 @@ export function buildAnimalV2(d, kind) {
             ], { seg: N, mat: 'double', cap: true, capStart: true });
             sk.section('wings');
             for (const [w, s] of [[parts.wingL, 1], [parts.wingR, -1]]) {
-                const P = (y, z) => ({ p: V(w, 0, y, z), w: [[w, 1]] }), c = V(w, -s * 0.2, 0, 0);
-                sk.poly([P(L * 0.2, L * 0.3), P(L * 0.18, -L * 0.36), P(-L * 0.12, -L * 0.42), P(-L * 0.18, L * 0.2)], fur, c);
+                const P = (y, z) => ({ p: V(w, 0, y, z), w: [[w, 1]] });
+                slab(sk, [P(L * 0.2, L * 0.3), P(L * 0.18, -L * 0.36), P(-L * 0.12, -L * 0.42), P(-L * 0.18, L * 0.2)], fur, L * 0.09);
             }
             sk.section('legs');
-            for (const { g } of parts.legs) sk.tube([{ c: V(g, 0, 0.0, 0), r: 0.012, w: [[g, 1]], col: '#c8a040' }, { c: V(g, 0, -K.h * 0.4, 0.01), r: 0.008, w: [[g, 1]], col: '#c8a040' }], { seg: 4, cap: true, mat: 'double' });
-            if (K.comb) { const C = hex(K.comb), P = (y, z) => ({ p: V(head, 0, y, z), w: [[head, 1]] }); sk.poly([P(L * 0.24, -L * 0.1), P(L * 0.36, 0.0), P(L * 0.24, L * 0.12)], C, V(head, 0.05, L * 0.2, 0)); }
+            for (const { g } of parts.legs) sk.tube([{ c: V(g, 0, 0.0, 0), r: 0.02, w: [[g, 1]], col: '#c8a040' }, { c: V(g, 0, -K.h * 0.4, 0.01), r: 0.015, w: [[g, 1]], col: '#c8a040' }], { seg: 4, cap: true, mat: 'double' });
+            if (K.comb) { const C = hex(K.comb), P = (y, z) => ({ p: V(head, 0, y, z), w: [[head, 1]] }); slab(sk, [P(L * 0.2, -L * 0.12), P(L * 0.38, -L * 0.02), P(L * 0.36, L * 0.08), P(L * 0.2, L * 0.13)], C, L * 0.06); }
             sk.section('tail');
-            { const P = (x, y, z) => ({ p: V(body, x, y, z), w: [[body, 1]] }); sk.poly([P(0, 0.02, -L * 0.45), P(L * 0.18, 0.08, -L * 0.85), P(-L * 0.18, 0.08, -L * 0.85)], fur, V(body, 0, -0.1, -L * 0.6)); }
+            { const P = (x, y, z) => ({ p: V(body, x, y, z), w: [[body, 1]] }); slab(sk, [P(-L * 0.08, 0.02, -L * 0.42), P(L * 0.08, 0.02, -L * 0.42), P(L * 0.22, 0.09, -L * 0.88), P(-L * 0.22, 0.09, -L * 0.88)], fur, L * 0.08); }   // (a fan with thickness)
         } else {
             const hl = K.len * 0.5, w0 = K.wool ? 1.25 : 1, r = K.h * 0.38, hs = K.h * 0.34, B = [[body, 1]];
             const side = () => fur;   // (the cow's patches are painted after the build: irregular spots, not ring by ring — "it looks like a chess board")
@@ -273,9 +282,9 @@ export function buildAnimalV2(d, kind) {
             for (const s of [1, -1]) {
                 const P = (x, y, z) => ({ p: V(head, s * x, y, z), w: [[head, 1]] }), c = V(head, 0, 0, 0);
                 sk.poly([P(0.62 * hs, 0.32 * hs, 0.38 * hs), P(0.6 * hs, 0.2 * hs, 0.5 * hs), P(0.62 * hs, 0.14 * hs, 0.36 * hs)], dark, c);   // an eye
-                const ear = K.ears, E = (pts, col = fur) => sk.poly(pts.map(([x, y, z]) => P(x * hs, y * hs, z * hs)), col, V(head, s * 0.5 * hs, 0.5 * hs, -0.3 * hs));
-                if (ear === 'long') { E([[0.25, 0.75, 0.0], [0.45, 0.75, -0.1], [0.42, 2.0, -0.25]]); E([[0.45, 0.75, -0.1], [0.3, 0.75, -0.22], [0.42, 2.0, -0.25]]); }
-                else if (ear === 'point') { E([[0.3, 0.7, 0.05], [0.65, 0.65, -0.1], [0.55, 1.35, -0.15]]); E([[0.65, 0.65, -0.1], [0.4, 0.68, -0.3], [0.55, 1.35, -0.15]]); }
+                const ear = K.ears, E = (pts, col = fur) => slab(sk, pts.map(([x, y, z]) => P(x * hs, y * hs, z * hs)), col, hs * 0.12);   // (ears with thickness)
+                if (ear === 'long') E([[0.24, 0.75, -0.05], [0.48, 0.75, -0.12], [0.5, 1.6, -0.22], [0.42, 2.05, -0.26], [0.32, 1.6, -0.2]]);
+                else if (ear === 'point') E([[0.3, 0.7, -0.05], [0.68, 0.64, -0.14], [0.55, 1.38, -0.17]]);
                 else if (ear === 'round' || ear === 'small') { const k = ear === 'round' ? 1 : 0.75; E([[0.45, 0.65, 0.0], [0.8, 0.62 + 0.1 * k, -0.08], [0.72, 0.62 + 0.42 * k, -0.12], [0.5, 0.62 + 0.4 * k, -0.1]]); }
                 else if (ear === 'flop') E([[0.45, 0.6, 0.1], [0.9, 0.55, 0.0], [0.95, 0.15, 0.35], [0.55, 0.3, 0.4]]);
                 else E([[0.75, 0.35, 0.0], [1.35, 0.15, -0.05], [1.3, 0.05, -0.25], [0.75, 0.22, -0.2]], headC);   // (side ears: a sheep's, a cow's, a goat's)
@@ -317,8 +326,8 @@ export function buildAnimalV2(d, kind) {
             if (tail) {
                 const T = (pts, col = fur) => sk.tube(pts.map(([x, y, z, rr, c2]) => ({ c: V(tail, x, y, z), r: rr, w: [[tail, 1]], col: c2 ?? col })), { seg: 6, cap: true, mat: 'double' });
                 if (K.tail === 'brush') T([[0, 0, 0.02, 0.05], [0, -0.08, -0.16, 0.085], [0, -0.16, -0.34, 0.07], [0, -0.2, -0.44, 0.02, belly]]);
-                else if (K.tail === 'thin') T([[0, 0, 0, 0.022], [0, -K.len * 0.3, -K.len * 0.12, 0.015], [0, -K.len * 0.5, -K.len * 0.16, 0.025, dark]]);
-                else if (K.tail === 'curl') T([[0, 0, 0, 0.015], [0, 0.04, -0.04, 0.013], [0, 0.07, 0.0, 0.012], [0, 0.04, 0.03, 0.01]]);
+                else if (K.tail === 'thin') T([[0, 0, 0, 0.034], [0, -K.len * 0.3, -K.len * 0.12, 0.026], [0, -K.len * 0.45, -K.len * 0.15, 0.04, dark], [0, -K.len * 0.55, -K.len * 0.17, 0.02, dark]]);   // (thick enough to see; a tuft)
+                else if (K.tail === 'curl') T([[0, 0, 0, 0.026], [0, 0.045, -0.045, 0.024], [0, 0.08, 0.0, 0.022], [0, 0.045, 0.035, 0.018]]);
                 else if (K.tail === 'puff') T([[0, 0, 0.0, 0.03, belly], [0, 0.01, -0.04, 0.055, belly], [0, 0.01, -0.07, 0.02, belly]]);
                 else T([[0, 0, 0.02, 0.05], [0, -0.02, -0.05, 0.045], [0, -0.04, -0.08, 0.015]]);   // a stub
             }
