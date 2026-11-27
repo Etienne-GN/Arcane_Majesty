@@ -17,6 +17,25 @@ const REF = {
     male: { front: [[70, 75, 360, 615], [130, 70, 250, 215]], side: [[380, 75, 560, 615], [395, 70, 520, 215]], back: [[560, 75, 860, 615], [650, 70, 770, 215]] },
     female: { front: [[70, 655, 360, 1195], [130, 650, 250, 800]], side: [[380, 655, 560, 1195], [385, 650, 530, 800]], back: [[560, 655, 860, 1195], [640, 650, 780, 800]] },
 };
+// The palette's icons (2026-11-26: "a small stickman to preview the view"): a stick figure seen from each view, and one
+// lit where each region is (the rest dim) — inline SVG, in the button's own colour
+const svg = body => `<svg viewBox="0 0 24 32" width="22" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${body}</svg>`;
+const DIM = 'opacity=".3"';
+const ICON = {
+    front: svg('<circle cx="12" cy="6" r="4"/><circle cx="10.5" cy="5.5" r=".6" fill="currentColor" stroke="none"/><circle cx="13.5" cy="5.5" r=".6" fill="currentColor" stroke="none"/><path d="M12 10v10M6 13l6-1 6 1M5 19l1-6M19 19l-1-6M12 20l-4 9M12 20l4 9"/>'),
+    quarter: svg('<circle cx="13" cy="6" r="4"/><circle cx="14.5" cy="5.5" r=".6" fill="currentColor" stroke="none"/><circle cx="16.6" cy="6" r=".5" fill="currentColor" stroke="none"/><path d="M12 10v10M8 13l4-1 5 1M7 19l1-6M18 19l-1-6M12 20l-3 9M12 20l4 9"/>'),
+    side: svg('<circle cx="12" cy="6" r="4"/><path d="M16 6.5l1.8 1"/><circle cx="14.2" cy="5.3" r=".6" fill="currentColor" stroke="none"/><path d="M12 10v10M12 13l1 6M12 20l-1 9M12 20l2 9"/>'),
+    back: svg('<circle cx="12" cy="6" r="4" fill="currentColor" fill-opacity=".35"/><path d="M12 10v10M6 13l6-1 6 1M5 19l1-6M19 19l-1-6M12 20l-4 9M12 20l4 9"/>'),
+    below: svg('<circle cx="12" cy="4.5" r="3"/><path d="M12 7.5v7M7.5 10l4.5-1 4.5 1M12 14.5l-3 6M12 14.5l3 6"/><path d="M12 31v-6M9.5 27.5L12 25l2.5 2.5"/>'),
+    r_head: svg(`<circle cx="12" cy="6" r="4.6" stroke-width="2.6"/><path ${DIM} d="M12 10v10M6 13l6-1 6 1M5 19l1-6M19 19l-1-6M12 20l-4 9M12 20l4 9"/>`),
+    r_upper: svg(`<circle cx="12" cy="6" r="4" stroke-width="2.4"/><path stroke-width="2.4" d="M12 10v10M6 13l6-1 6 1M5 19l1-6M19 19l-1-6"/><path ${DIM} d="M12 20l-4 9M12 20l4 9"/>`),
+    r_all: svg('<circle cx="12" cy="6" r="4" stroke-width="2.4"/><path stroke-width="2.4" d="M12 10v10M6 13l6-1 6 1M5 19l1-6M19 19l-1-6M12 20l-4 9M12 20l4 9"/>'),
+    move: svg('<path d="M12 4v24M2 16h20M12 4l-3 3M12 4l3 3M12 28l-3-3M12 28l3-3M2 16l3-3M2 16l3 3M22 16l-3-3M22 16l-3 3"/>'),
+    add: svg('<circle cx="8" cy="20" r="3" fill="currentColor"/><circle cx="20" cy="20" r="3" fill="currentColor"/><path d="M11 20h6"/><path d="M14 6v8M10 10h8" stroke-width="2.4"/>'),
+    remove: svg('<circle cx="12" cy="20" r="3.5" fill="currentColor"/><path d="M8 9h8" stroke-width="2.4"/>'),
+    orbit: svg('<path d="M20 12a8.5 8.5 0 1 0 1 7"/><path d="M21 6v6h-6"/><circle cx="12" cy="16" r="2" fill="currentColor"/>'),
+    pan: svg('<path d="M8 17V8a1.8 1.8 0 0 1 3.6 0v7M11.6 15V5.5a1.8 1.8 0 0 1 3.6 0V15M15.2 15V7.5a1.8 1.8 0 0 1 3.6 0V19a8 8 0 0 1-8 8h-1a7 7 0 0 1-5.5-2.8L3 19a1.8 1.8 0 0 1 2.9-2.2L8 19"/>'),
+};
 const PREFS_KEY = 'amo3d.sculptor.ui';
 const loadPrefs = () => { try { return JSON.parse(localStorage.getItem(PREFS_KEY) ?? '{}') ?? {}; } catch { return {}; } };
 const savePrefs = p => { try { localStorage.setItem(PREFS_KEY, JSON.stringify(p)); } catch { /* storage blocked */ } };
@@ -47,7 +66,8 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     .pe-b:disabled { opacity: .45; }
     .pe-sep { width: 1px; height: 28px; background: #c8963a55; margin: 0 4px; flex: none; }
     .pe-tools { position: fixed; top: 56px; left: 8px; width: 52px; display: none; flex-direction: column; gap: 4px; padding: 6px; background: #1c130bee; border: 1px solid #c8963a66; border-radius: 12px; z-index: 7; max-height: calc(100vh - 120px); overflow-y: auto; scrollbar-width: none; }
-    .pe-tools .pe-b { width: 52px; min-width: 0; padding: 0; font-size: 18px; }
+    .pe-tools .pe-b { width: 52px; min-width: 0; padding: 0; font-size: 18px; display: grid; place-items: center; height: 44px; }
+    .pe-tools .pe-b svg { pointer-events: none; }
     .pe-tools .pe-b small { font-size: 12px; }
     .pe-tools .pe-sep { width: 40px; height: 1px; margin: 4px auto; }
     .pe-panel { position: fixed; top: 56px; right: 8px; bottom: 36px; width: 260px; display: none; flex-direction: column; gap: 8px; padding: 10px; background: #1c130bf2; border: 1px solid #c8963a66; border-radius: 12px; z-index: 7; overflow-y: auto; }
@@ -98,14 +118,14 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
 
     // ---- the tool palette ----
     const tools = make('div', 'pe pe-tools', document.body);
-    const TOOLS = [['move', '✥', 'Move points: pick a dot and drag it (its mirror follows)'], ['add', '＋', 'Add a point: pick a dot, then a neighbour — a new point halfway between them'], ['remove', '−', 'Remove a point: it merges into its nearest neighbour'], ['orbit', '⟲', 'Turn the view'], ['pan', '✋', 'Move the view (strafe, up and down)']];
+    const TOOLS = [['move', ICON.move, 'Move points: pick a dot and drag it (its mirror follows)'], ['add', ICON.add, 'Add a point: pick a dot, then a neighbour — a new point halfway between them'], ['remove', ICON.remove, 'Remove a point: it merges into its nearest neighbour'], ['orbit', ICON.orbit, 'Turn the view'], ['pan', ICON.pan, 'Move the view (strafe, up and down)']];
     const toolBtns = {};
     for (const [id, icon, title] of TOOLS) toolBtns[id] = button(tools, icon, () => setTool(id), title);
     sep(tools);
-    for (const [t, y, p, title] of [['F', 0, 0.05, 'Front'], ['¾', 0.7, 0.1, 'Three-quarter'], ['S', Math.PI / 2, 0.05, 'Side'], ['B', Math.PI, 0.05, 'Back'], ['⌄', 0.3, -0.6, 'From below']]) button(tools, `<small>${t}</small>`, () => { yaw = y; pitch = p; }, title);
+    for (const [k, y, p, title] of [['front', 0, 0.05, 'Front'], ['quarter', 0.7, 0.1, 'Three-quarter'], ['side', Math.PI / 2, 0.05, 'Side'], ['back', Math.PI, 0.05, 'Back'], ['below', 0.3, -0.6, 'From below']]) button(tools, ICON[k], () => { yaw = y; pitch = p; }, title);
     sep(tools);
     const regBtns = {};
-    for (const [id, t, title] of [['head', 'H', 'The head'], ['upper', 'U', 'The upper body'], ['all', 'W', 'The whole body']]) regBtns[id] = button(tools, `<small>${t}</small>`, () => setRegion(id), title);
+    for (const [id, title] of [['head', 'The head'], ['upper', 'The upper body'], ['all', 'The whole body']]) regBtns[id] = button(tools, ICON[`r_${id}`], () => setRegion(id), title);
     function setTool(id) { prefs.tool = id; keep(); addFrom = -1; for (const [k, b] of Object.entries(toolBtns)) b.classList.toggle('on', k === id); describe(); }
 
     // ---- the properties panel ----
