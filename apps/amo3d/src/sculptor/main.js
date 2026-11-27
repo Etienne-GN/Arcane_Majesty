@@ -24,7 +24,7 @@ renderer.outputColorSpace = THREE.SRGBColorSpace; document.body.prepend(renderer
 const scene = new THREE.Scene(); scene.background = new THREE.Color(0x3c3c40);
 const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
 scene.add(new THREE.HemisphereLight(0xdedcf0, 0x404048, 1.3));
-const sun = new THREE.DirectionalLight(0xffffff, 2.2); sun.position.set(2, 4, 3); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); scene.add(sun);
+const sun = new THREE.DirectionalLight(0xffffff, 2.2); sun.position.set(2, 4, 3); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.03; scene.add(sun);   // (the bias as in the game: without it the flat faces striped themselves — shadow acne)
 const floor = new THREE.Mesh(new THREE.CircleGeometry(6, 48).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0x46464c, roughness: 1 })); floor.receiveShadow = true; scene.add(floor);
 
 const HAIRLESS = Q.get('hair') === '0';   // ?hair=0: the base bodies without hair

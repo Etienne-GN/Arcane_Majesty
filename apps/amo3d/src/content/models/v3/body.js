@@ -45,6 +45,13 @@ const HEAD_LV = [
     [1.785, [[0, 0.07, 0], [0.035, 0.068, 0], [0.06, 0.05, 0], [0.071, 0.002, 0], [0.069, -0.06, 0], [0.046, -0.09, 0], [0, -0.096, 0]]],   // the crown
 ];
 const TOP_M = 1.806;
+// (2026-11-27, "it is still too short": re-measured on the sheet — sole y 596, hair top 89 — the chin is at 1.51, the mouth
+// 1.56, the nose's tip 1.59, the eyes 1.65, the hairline 1.71: the lower face is longer than the levels above, which sit 4 cm
+// high; and the face is narrower (half 0.074 at the cheeks). The levels are kept as drawn and mapped: HY their heights
+// (the chin down, the face stretched), HX their widths.)
+const HY_A = [[1.499, 1.499], [1.55, 1.51], [1.668, 1.649], [1.806, 1.785], [1.9, 1.879]];
+function HY(y) { for (let k = 0; k < HY_A.length - 1; k++) { const [a0, b0] = HY_A[k], [a1, b1] = HY_A[k + 1]; if (y <= a1 || k === HY_A.length - 2) return b0 + (b1 - b0) * (y - a0) / (a1 - a0); } }
+const HX = y => (y >= 1.54 ? 0.86 : y <= 1.5 ? 1 : 1 - 0.14 * (y - 1.5) / 0.04);
 // the head's surface at a level and a corner (between the levels: interpolated) — the hair is laid over it
 function headAt(y, i) {
     for (let k = 0; k < HEAD_LV.length - 1; k++) { const [y0, a] = HEAD_LV[k], [y1, b] = HEAD_LV[k + 1]; if (y <= y1 || k === HEAD_LV.length - 2) { const t = Math.max(0, Math.min(1, (y - y0) / (y1 - y0))); return [a[i][0] + (b[i][0] - a[i][0]) * t, a[i][1] + (b[i][1] - a[i][1]) * t]; } }
@@ -66,7 +73,7 @@ export function buildBodyV3(ctx, { sex = 'male' } = {}) {
     setPose(1);
     const gen = ({ edits = null, dry = false, topo = null } = {}) => {
         root.updateMatrixWorld(true);
-        const sk = createSkin(root, bones, { edits, dry, topo }), V = (g, x, y, z) => sk.at(g, x, y, z), B = (x, y, z) => sk.at(body, x, y, z);   // (B: the body's own frame — the figure scales as one with the body's height)
+        const sk = createSkin(root, bones, { edits, dry, topo }), V = (g, x, y, z) => sk.at(g, x, y, z), B = (x, y, z) => sk.at(body, x, y, z), H = (x, y, z) => B(x * HX(y), HY(y), z);   // (H: a head point, mapped — see HY)   // (B: the body's own frame — the figure scales as one with the body's height)
         const torsoW = y => (y > 1.56 ? [[head, 1]] : y > 1.5 ? [[spine, 0.5], [head, 0.5]] : y > 1.08 ? [[spine, 1]] : y > 0.96 ? blend(hips, spine, (y - 0.96) / 0.12) : [[hips, 1]]);
         // a torso or head loop: half its outline from the front's centre to the back's, at anatomical corners (ringPts mirrors it)
         // (dy: each corner's own height — so a plane's edge can run diagonally along the anatomy, not round in a band)
@@ -77,26 +84,26 @@ export function buildBodyV3(ctx, { sex = 'male' } = {}) {
         // torso corners: the front's centre, the pec / abs edge, the side front, the side, the side back, the shoulder blade, the spine (a groove)
         const T = (w, f, b) => [[0, f], [0.52 * w, 0.97 * f], [0.9 * w, 0.55 * f], [w, 0], [0.9 * w, -0.62 * b], [0.5 * w, -0.98 * b], [0, -0.93 * b]];
         sk.section('torso');
-        sk.loft(TORSO_M.map(([y, w, f, b, dy]) => loop(y, w, f, b, T, y < 0.99 ? SHORTS : SKIN, torsoW(y), dy)), { mat: 'double', capStart: true });
+        sk.loft(TORSO_M.map(([y, w, f, b, dy]) => loop(y, w, f, b, T, y < 0.99 ? SHORTS : SKIN, torsoW(y), dy)), { mat: 'double', capStart: true, inward: true });   // (inward: the loops go up, from the crotch — the loft's faces turn outward only for loops going down)
         // the head: its levels as loops (each corner at its own height), from a band joining the neck to the crown's cap
         sk.section('head');
         const hloop = (y, half, wts, col = SKIN) => {
             const all = [...half]; for (let k = half.length - 2; k >= 1; k--) all.push([-half[k][0], half[k][1], half[k][2]]);
-            const c = B(0, y, 0); return { c, pts: all.map(([x, z, d]) => { const p = B(x, y + d, z); return [p.x - c.x, p.z - c.z, p.y - c.y]; }), w: wts, col };
+            const c = H(0, y, 0); return { c, pts: all.map(([x, z, d]) => { const p = H(x, y + d, z); return [p.x - c.x, p.z - c.z, p.y - c.y]; }), w: wts, col };
         };
-        const N = TORSO_M.at(-1), neckHalf = [[0, N[2], 0], [N[1] * 0.5, N[2] * 0.95, 0], [N[1] * 0.9, N[2] * 0.5, 0], [N[1], 0.0, 0], [N[1] * 0.9, -N[3] * 0.5, 0], [N[1] * 0.5, -N[3] * 0.95, 0], [0, -N[3], 0]];
+        const N = TORSO_M.at(-1), neckHalf = T(N[1], N[2], N[3]).map(([x, z], i) => [x, z, N[4]?.[i] ?? 0]);   // (the torso's top loop itself: no seam at the neck)
         const levels = HEAD_LV.map(([y, half]) => hloop(y, half, [[head, 1]]));
-        sk.loft([hloop(N[0] + 0.004, neckHalf, [[spine, 0.4], [head, 0.6]]), ...levels, { c: B(0, TOP_M, -0.012), pts: levels.at(-1).pts.map(([x, z]) => [x * 0.3, z * 0.3, 0]), w: [[head, 1]], col: SKIN }], { mat: 'double', cap: true });
+        sk.loft([hloop(N[0], neckHalf, torsoW(N[0])), ...levels, { c: H(0, TOP_M, -0.012), pts: levels.at(-1).pts.map(([x, z]) => [x * 0.3, z * 0.3, 0]), w: [[head, 1]], col: SKIN }], { mat: 'double', cap: true, inward: true });   // (going up: see the torso)
         // the nose: a ridge from the brow to the tip, its wings, the underside
         sk.section('nose');
-        { const P = (x, y, z) => ({ p: B(x, y, z), w: [[head, 1]] }), c = B(0, 1.665, 0.07);
+        { const P = (x, y, z) => ({ p: H(x, y, z), w: [[head, 1]] }), c = H(0, 1.665, 0.07);
           const br = P(0, 1.698, 0.113), mid = P(0, 1.672, 0.122), tip = P(0, 1.642, 0.136), l = P(0.02, 1.634, 0.112), r = P(-0.02, 1.634, 0.112), lu = P(0.012, 1.66, 0.112), ru = P(-0.012, 1.66, 0.112), u = P(0, 1.63, 0.116);
           sk.poly([br, lu, mid], SKIN, c); sk.poly([br, mid, ru], SKIN, c); sk.poly([mid, lu, l, tip], SKIN, c); sk.poly([mid, tip, r, ru], SKIN, c); sk.poly([tip, l, u], SKIN, c); sk.poly([tip, u, r], SKIN, c); }
         // the ears: a rim with thickness, set on the side of the head between the brow and the nose's base, leaning back
         sk.section('ears');
         for (const s of [1, -1]) {
-            const P = (y, z, x) => ({ p: B(s * x, y, z), w: [[head, 1]] }), outline = [P(1.692, -0.008, 0.088), P(1.698, -0.03, 0.096), P(1.68, -0.046, 0.099), P(1.645, -0.042, 0.097), P(1.626, -0.022, 0.093), P(1.632, -0.004, 0.088)];
-            slabPoly(sk, outline, SKIN, 0.012, B(s * 0.04, 1.66, -0.02));
+            const P = (y, z, x) => ({ p: H(s * (x + 0.006 / 0.86), y, z), w: [[head, 1]] })   /* (out from the narrower head: the ears kept against the head, a little out) */, outline = [P(1.692, -0.008, 0.088), P(1.698, -0.03, 0.096), P(1.68, -0.046, 0.099), P(1.645, -0.042, 0.097), P(1.626, -0.022, 0.093), P(1.632, -0.004, 0.088)];
+            slabPoly(sk, outline, SKIN, 0.012, H(s * 0.04, 1.66, -0.02));
         }
         // the arms, in the A-pose: rings square to the bone (its −y), measured along the sheet's arm — deltoid, biceps, elbow, forearm, wrist
         sk.section('arms');
@@ -148,40 +155,23 @@ export function buildBodyV3(ctx, { sex = 'male' } = {}) {
             return hloop(y0, half, [[head, 1]], HAIR);
         };
         sk.loft([hairRing(1.7, 0, 1.04, 1), hairRing(1.735, 0.012, 1.1, 0.7), hairRing(1.775, 0.02, 1.1, 0.35), hairRing(1.805, 0.016, 0.92, 0.1),
-            { c: B(0, 1.832, -0.01), pts: Array.from({ length: 12 }, (_, i) => { const a = (i / 12) * Math.PI * 2; return [Math.sin(a) * 0.03, Math.cos(a) * 0.035, 0]; }), w: [[head, 1]], col: HAIR }], { mat: 'double', cap: true });
+            { c: H(0, 1.832, -0.01), pts: Array.from({ length: 12 }, (_, i) => { const a = (i / 12) * Math.PI * 2; return [Math.sin(a) * 0.03, Math.cos(a) * 0.035, 0]; }), w: [[head, 1]], col: HAIR }], { mat: 'double', cap: true, inward: true });
         // the face: eyes in their sockets, the brows on the ridge, the mouth's line
         sk.section('face');
         for (const s of [1, -1]) {
-            const P = (x, y, z) => ({ p: B(s * x, y, z), w: [[head, 1]] }), c = B(0, 1.66, 0);
+            const P = (x, y, z) => ({ p: H(s * x, y, z), w: [[head, 1]] }), c = H(0, 1.66, 0);
             sk.poly([P(0.02, 1.668, 0.101), P(0.036, 1.674, 0.1), P(0.054, 1.669, 0.097), P(0.036, 1.661, 0.1)], DARK, c);   // the eye
             sk.poly([P(0.014, 1.692, 0.113), P(0.06, 1.697, 0.101), P(0.062, 1.688, 0.1), P(0.014, 1.684, 0.112)], BROW, c);   // the brow
         }
-        { const P = (x, y, z) => ({ p: B(x, y, z), w: [[head, 1]] }); sk.poly([P(-0.022, 1.6, 0.108), P(0.022, 1.6, 0.108), P(0.02, 1.595, 0.108), P(-0.02, 1.595, 0.108)], '#8a5a48', B(0, 1.6, 0)); }   // the mouth
+        { const P = (x, y, z) => ({ p: H(x, y, z), w: [[head, 1]] }); sk.poly([P(-0.022, 1.6, 0.115), P(0.022, 1.6, 0.115), P(0.02, 1.595, 0.115), P(-0.02, 1.595, 0.115)], '#8a5a48', H(0, 1.6, 0)); }   // the mouth
         if (dry) return { points: sk.build().points, bones };
         return { mesh: sk.build() };
     };
     const out = buildLayered(root, `v3_${sex}`, gen);
-    if (out?.mesh) addOutline(out.mesh);
     setPose(0);   // (the arms down again: the mesh follows them)
     if (out?.mesh) { out.mesh.userData.editSex = sex; out.mesh.userData.layers = [`v3_${sex}`]; out.mesh.name = `v3_${sex}`; }
     return out;
 }
 
-// The outline (the sheet's thin dark line round every form): the same skinned mesh drawn again, its back faces only, pushed
-// out along each point's averaged normal (so the line has no cracks at the flat faces' edges), in a dark ink.
-const INK = 0.006;
-function addOutline(mesh) {
-    const g = mesh.geometry, pos = g.attributes.position, n = new Float32Array(pos.count * 3), acc = new Map(), key = i => `${pos.getX(i).toFixed(4)},${pos.getY(i).toFixed(4)},${pos.getZ(i).toFixed(4)}`;
-    g.computeVertexNormals();
-    const nor = g.attributes.normal;
-    for (let i = 0; i < pos.count; i++) { const k = key(i), a = acc.get(k) ?? [0, 0, 0]; a[0] += nor.getX(i); a[1] += nor.getY(i); a[2] += nor.getZ(i); acc.set(k, a); }
-    for (let i = 0; i < pos.count; i++) { const a = acc.get(key(i)), l = Math.hypot(...a) || 1; n.set([a[0] / l, a[1] / l, a[2] / l], i * 3); }
-    const og = new THREE.BufferGeometry();
-    for (const name of ['position', 'skinIndex', 'skinWeight']) og.setAttribute(name, g.attributes[name]);
-    og.setAttribute('normal', new THREE.BufferAttribute(n, 3));
-    const mat = new THREE.MeshBasicMaterial({ color: 0x1a1210, side: THREE.BackSide });
-    mat.onBeforeCompile = sh => { sh.vertexShader = sh.vertexShader.replace('#include <begin_vertex>', `#include <begin_vertex>\ntransformed += normalize(objectNormal) * ${INK.toFixed(4)};`); };
-    const o = new THREE.SkinnedMesh(og, mat);
-    o.frustumCulled = false; o.userData.keep = o.userData.v2 = true; o.userData.outline = true;
-    mesh.parent.add(o); o.bind(mesh.skeleton, mesh.bindMatrix);
-}
+// (2026-11-27: the outline — an inverted hull — removed: it striped the whole body (shadow acne), and the user was unsure
+// of it. It is in git history before this date, as addOutline, if it comes back.)
