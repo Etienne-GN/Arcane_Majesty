@@ -46,7 +46,14 @@ outfit })`, registered in `models/v2/index.js`, its own cast file `content/cast/
 `CAST` in sculptor/main.js and to the Forge's list (forge/main.js, `Sculpt this character`). Face tattoos/paint:
 `outfit.facePaint({ P, poly, EX, EY, MY, MW })` — marks laid on the face (lift under 0.0012 = behind the eyes).
 
-## Dropped experiments (2026-11-27): v3 and v4 — v2 is THE body
+## Model v3 (2026-11-27, the second one): v2 copied, to the sheet's proportions
+`models/v3/body.js` = v2's base.js copied (v2 left as it is), its own layers v3_male / v3_female (seeded from v2's),
+Sculptor subjects base_male_v3 / base_female_v3. Proportions fixed by OVERLAY: `node tools/models/silhouette.mjs <subject>`
+then `python3 tools/models/overlay.py <subject>` → the model's outline in red on the sheet's figure, front and side, at
+the same height (as the Sculptor's reference › Fit). The changes live in v3Ring (torso rings), foreY (forearm), the
+_v3Rig block (head joint, arm joints), HV/hk (head), kl (legs).
+
+## Dropped experiments (2026-11-27): the first v3 and v4
 v3 (hand-placed loops from the sheet's measurements) and v4 (v2 with fewer loops) were both dropped by the user: v2's
 general shape, size and proportions are better. Lessons:
 - Every loft (v1, v2, v3) makes horizontal BANDS — the sheet's faces are not banded: their edges run DIAGONALLY along the
