@@ -556,8 +556,17 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         const y = T.P[i * 3 + 1], top = T.P.reduce((m, v, j) => (j % 3 === 1 && v > m ? v : m), 0); return region === 'all' || (region === 'head' ? y > top - 0.42 : y > top - 0.9);
     };
 
+    // (2026-11-27, the user: "I lose my camera position and editing settings on a reload — reload it like it was"): kept
+    // for this tab across the reload (a version, a dress, the compare, an alternate…), for ten minutes
+    function stashView() {
+        try { sessionStorage.setItem('sculptor.view', JSON.stringify({ t: Date.now(), who, n: T?.keys.length ?? 0, yaw, pitch, dist, target: target.toArray(), region, hairOn, eyesOn, mouthOn, cmpOn, polish, showPart, sel, group: [...groupSel] })); } catch { /* storage blocked */ }
+    }
+    function takeView(s) {
+        try { const v = JSON.parse(sessionStorage.getItem('sculptor.view') ?? 'null'); sessionStorage.removeItem('sculptor.view'); return v && v.who === s && Date.now() - v.t < 600000 ? v : null; } catch { return null; }
+    }
     function load(s, keepView = false) {   // (keepView: a live rebuild — the view, the region and the layer stay as they were)
-        who = s; B = getBody(s); T = B.table; bodyMesh = B.mesh; sex = bodyMesh.userData.editSex ?? 'male'; sel = -1; hover = -1; undo.length = 0; redo.length = 0;
+        who = s; B = getBody(s); T = B.table;
+        { const go0 = B.go; B.go = ch => { stashView(); go0(ch); }; }   /* (every reload keeps the view and the settings: restored below) */ bodyMesh = B.mesh; sex = bodyMesh.userData.editSex ?? 'male'; sel = -1; hover = -1; undo.length = 0; redo.length = 0;
         bodySel.value = String(s); showDress();
         const Ls = stackOf(); if (!Ls.includes(layer)) layer = Ls.at(-1); showLayers();   // (by default the body's own: its age layer, else its sex)
         group.clear();
@@ -577,7 +586,15 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         // mirrors: the point at (−x, y, z)
         const by = new Map(); T.keys.forEach((k, i) => by.set(k, i));
         mirrorOf = T.keys.map(k => { const [x, y, z] = keyPos(k); if (Math.abs(x) < 1e-4) return -2; const m = by.get(`${(-x).toFixed(4)},${y.toFixed(4)},${z.toFixed(4)}`); return m ?? -1; });
-        if (keepView) { buildDots(); drawRef(true); } else setRegion(region); applyHair(); show();   // (the hair and the hidden parts as they were set)
+        const st = keepView ? null : takeView(s);
+        if (st?.region) region = st.region;
+        if (keepView) { buildDots(); drawRef(true); } else setRegion(region);
+        if (st) {   // back from a reload: the view and the settings as they were
+            yaw = st.yaw; pitch = st.pitch; dist = st.dist; target.fromArray(st.target);
+            hairOn = st.hairOn; eyesOn = st.eyesOn; mouthOn = st.mouthOn; cmpOn = st.cmpOn; Object.assign(showPart, st.showPart ?? {});
+            if (st.n === T.keys.length) { if (st.sel >= 0 && st.sel < T.keys.length) sel = st.sel; for (const i of st.group ?? []) if (i < T.keys.length) groupSel.add(i); }
+        }
+        applyHair(); show(); if (st?.polish) setPolish(true); if (st) { showDress(); placeDots(); describe(); }   // (the hair and the hidden parts as they were set)
     }
     let dotIds = [];
     function buildDots() {
