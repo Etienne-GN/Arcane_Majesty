@@ -54,7 +54,11 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), tmpM = new THREE.Matrix4(), col = new THREE.Color();
     const keyPos = k => k.split(',').map(Number);
     const COARSE = matchMedia('(pointer: coarse)').matches, NARROW = innerWidth < 760;
-    const prefs = { tool: 'move', panel: !NARROW, refOn: true, trace: false, refOpacity: 0.5, refSize: NARROW ? 220 : 300, refX: null, refY: null, padMode: 'view', wireOn: true, ...loadPrefs() };
+    const prefs = { tool: 'move', panel: !NARROW, refOn: true, refOpacity: 1, refLine: false, refSize: NARROW ? 220 : 300, refX: null, refY: null, padMode: 'view', wireOn: true, ...loadPrefs() };
+    // (2026-11-27, the user: "add a transparency slider to replace the Trace button" — one value now: the reference's
+    // opacity; below 1 it lies over the model, see-through, touches passing through it. An old 'trace: off' is opacity 1.)
+    if ('trace' in prefs) { if (!prefs.trace) prefs.refOpacity = 1; delete prefs.trace; }
+    const seeThrough = () => prefs.refOpacity < 0.99;
     const keep = () => savePrefs(prefs);
     renderer.domElement.style.touchAction = 'none';
     let B = null;   // (what getBody gave: the alternate this body shows, and how to reload the page)
@@ -101,6 +105,8 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     .pe-ref .pe-b { height: 30px; min-width: 30px; padding: 0 7px; font-size: 13px; }
     .pe-ref .pe-pic { background-repeat: no-repeat; background-color: #3b3b3b; }
     .pe-ref .pe-grip { position: absolute; right: 0; bottom: 0; width: 26px; height: 26px; cursor: nwse-resize; touch-action: none; background: linear-gradient(135deg, transparent 50%, #c8963a 50%); }
+    .pe-ref .pe-line { position: absolute; pointer-events: none; }
+    .pe-ref .pe-op { width: 84px; accent-color: #c8963a; touch-action: none; }
     .pe-ref.trace { background: transparent; border-style: dashed; }
     .pe-ref.trace .pe-pic { pointer-events: none; background-color: transparent; }
     `;
@@ -157,11 +163,11 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     toggle('wire', 'Wireframe', () => prefs.wireOn, v => { prefs.wireOn = v; keep(); if (wire) wire.visible = v; });
     make('h4', '', panel, 'Reference');
     const refRow = make('div', 'pe-row', panel);
-    const traceBtn = button(refRow, 'Trace over the model', () => { prefs.trace = !prefs.trace; if (prefs.trace) prefs.refOn = true; keep(); layoutRef(); }, 'Lay the reference over the model, see-through; touches pass through it');
+    const lineBtn = button(refRow, 'Outline', () => { prefs.refLine = !prefs.refLine; keep(); drawLine(); }, 'A red line round the reference figure, over the model: move the points until the model meets it (lower the opacity to keep only the line)');
     const sheetBtn = button(refRow, 'Whole sheet', () => { refMode = refMode === 'sheet' ? 'auto' : 'sheet'; sheetBtn.classList.toggle('on', refMode === 'sheet'); drawRef(true); });
     const opLab = make('div', 'pe-help', panel, 'Opacity');
-    const opacity = make('input', '', panel); Object.assign(opacity, { type: 'range', min: 0.1, max: 1, step: 0.05, value: prefs.refOpacity });
-    opacity.oninput = () => { prefs.refOpacity = +opacity.value; keep(); layoutRef(); };
+    const opacity = make('input', '', panel); Object.assign(opacity, { type: 'range', min: 0, max: 1, step: 0.05, value: prefs.refOpacity, title: 'The reference: solid (right) to see-through over the model (left); at 0 only its outline, if on' });
+    opacity.oninput = () => { prefs.refOpacity = +opacity.value; if (seeThrough()) prefs.refOn = true; keep(); layoutRef(); };
     void opLab;
     make('h4', '', panel, 'Point');
     const ptRow = make('div', 'pe-row', panel);
@@ -214,16 +220,18 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const refHead = make('div', 'pe-reft', refBox), refLabel = make('span', '', refHead);
     button(refHead, '−', () => { prefs.refSize = Math.max(140, prefs.refSize - 50); keep(); drawRef(true); });
     button(refHead, '+', () => { prefs.refSize = Math.min(MAX_REF, prefs.refSize + 50); keep(); drawRef(true); });
-    const traceMini = button(refHead, 'Trace', () => traceBtn.click());
+    const refOp = make('input', 'pe-op', refHead); Object.assign(refOp, { type: 'range', min: 0, max: 1, step: 0.05, value: prefs.refOpacity, title: 'See-through: drag left to lay the reference over the model' });
+    refOp.oninput = () => { prefs.refOpacity = +refOp.value; keep(); layoutRef(); };
     button(refHead, 'Fit', () => fitToRef(), 'Move the view so the model stands exactly on the reference figure (its height, its feet, its middle)');
     button(refHead, '✕', () => { prefs.refOn = false; keep(); layoutRef(); });
     const REF_URL = hairless ? REF_BALD : REF_HAIR;
     const refPic = make('div', 'pe-pic', refBox); refPic.style.backgroundImage = `url(${REF_URL})`;
+    const refLine = make('canvas', 'pe-line', refBox);
     const grip = make('div', 'pe-grip', refBox);
     let refMode = 'auto';
     const dragWin = (handle, onMove) => {
         handle.addEventListener('pointerdown', e => {
-            if (e.target.closest('button')) return;
+            if (e.target.closest('button, input')) return;
             e.preventDefault(); e.stopPropagation(); handle.setPointerCapture(e.pointerId);
             let x = e.clientX, y = e.clientY;
             const move = ev => { onMove(ev.clientX - x, ev.clientY - y); x = ev.clientX; y = ev.clientY; };
@@ -245,7 +253,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         const a = ((yaw % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI), view = a < 0.9 || a > 5.4 ? 'front' : a > 2.3 && a < 4.0 ? 'back' : 'side';
         const fig = FIG[hairless || !hairOn ? 'bald' : 'hair'][sex]?.[view]; if (!fig) return;
         if (!prefs.refOn) { prefs.refOn = true; layoutRef(); }
-        if (!prefs.trace) { prefs.trace = true; keep(); layoutRef(); }
+        if (!seeThrough()) { prefs.refOpacity = 0.5; keep(); layoutRef(); }
         yaw = view === 'front' ? 0 : view === 'back' ? Math.PI : Math.PI / 2; pitch = 0;   // (the sheet's side view faces left: seen from +x)
         const pos = geo.attributes.position; let top = 0;
         for (let i = 0; i < pos.count; i++) if ((hairOn || !T.hair?.[i]) && pos.getY(i) > top) top = pos.getY(i);
@@ -260,9 +268,9 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     }
     function layoutRef() {
         refBox.style.display = on && prefs.refOn ? 'flex' : 'none';
-        refBox.classList.toggle('trace', prefs.trace);
-        refPic.style.opacity = prefs.trace ? String(prefs.refOpacity) : '1';
-        traceBtn.classList.toggle('on', prefs.trace); traceMini.classList.toggle('on', prefs.trace);
+        refBox.classList.toggle('trace', seeThrough());
+        refPic.style.opacity = String(prefs.refOpacity);
+        refOp.value = opacity.value = prefs.refOpacity;
         toggles.ref?.(); refBtn.classList.toggle('on', prefs.refOn); placeRef(); if (prefs.refOn) drawRef(true);
     }
     let lastRef = '';
@@ -274,6 +282,51 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         const box = refMode === 'sheet' ? [0, 0, 896, 1200] : REF[sex][view][region === 'head' ? 1 : 0], [x0, y0, x1, y1] = box, k = prefs.refSize / (x1 - x0);
         Object.assign(refPic.style, { width: `${prefs.refSize}px`, height: `${Math.round((y1 - y0) * k)}px`, backgroundSize: `${Math.round(896 * k)}px ${Math.round(1200 * k)}px`, backgroundPosition: `${-Math.round(x0 * k)}px ${-Math.round(y0 * k)}px` });
         refLabel.textContent = (refMode === 'sheet' ? 'The sheet' : `${sex}, ${view}`) + (hairless ? ' (no hair)' : '');
+        drawLine(box);
+    }
+    // The reference figure's outline (2026-11-27, the user: "can I have this red outline in the sculptor?"): the figure found
+    // by filling the sheet's background in from the box's edges — pixel to like pixel, stopped by the figure's own dark
+    // contour (the dark shorts are close to the background's colour: a plain colour test loses them) — and its edge drawn
+    // in red over the model, at full strength whatever the picture's opacity
+    const OUTLINES = new Map();
+    function figureEdge(url, box) {
+        const key = `${url}|${box.join(',')}`; if (OUTLINES.has(key)) return OUTLINES.get(key);
+        OUTLINES.set(key, null);
+        const img = new Image();
+        img.onload = () => {
+            const [x0, y0, x1, y1] = box, w = x1 - x0, h = y1 - y0, c = document.createElement('canvas'); c.width = w; c.height = h;
+            const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(img, -x0, -y0);
+            const d = g.getImageData(0, 0, w, h).data, bg = new Uint8Array(w * h), q = [], corner = ((h - 3) * w + 2) * 4;
+            const diff = (a, b) => Math.abs(d[a] - d[b]) + Math.abs(d[a + 1] - d[b + 1]) + Math.abs(d[a + 2] - d[b + 2]);
+            const seed = i => { if (!bg[i] && diff(i * 4, corner) <= 40) { bg[i] = 1; q.push(i); } };
+            for (let x = 0; x < w; x++) { seed(x); seed((h - 1) * w + x); }
+            for (let y = 0; y < h; y++) { seed(y * w); seed(y * w + w - 1); }
+            while (q.length) {
+                const i = q.pop(), x = i % w;
+                for (const j of [x > 0 ? i - 1 : -1, x < w - 1 ? i + 1 : -1, i - w, i + w]) {
+                    if (j < 0 || j >= w * h || bg[j]) continue;
+                    if (diff(i * 4, j * 4) <= 24 && diff(j * 4, corner) <= 60) { bg[j] = 1; q.push(j); }
+                }
+            }
+            const edge = [];
+            for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) { const i = y * w + x; if (!bg[i] && (bg[i - 1] || bg[i + 1] || bg[i - w] || bg[i + w])) edge.push(x, y); }
+            OUTLINES.set(key, { w, h, edge: Float32Array.from(edge) }); drawLine();
+        };
+        img.src = url;
+        return null;
+    }
+    let lineBox = null;
+    function drawLine(box = lineBox) {
+        lineBox = box; lineBtn.classList.toggle('on', prefs.refLine);
+        const show = prefs.refLine && prefs.refOn && refMode !== 'sheet' && box && REF[sex];
+        refLine.style.display = show ? '' : 'none'; if (!show) return;
+        const E = figureEdge(REF_IMG[sex] ?? REF_URL, box); if (!E) return;
+        const W = refPic.offsetWidth, H = refPic.offsetHeight, dpr = Math.min(2, devicePixelRatio || 1);
+        Object.assign(refLine.style, { left: `${refPic.offsetLeft}px`, top: `${refPic.offsetTop}px`, width: `${W}px`, height: `${H}px` });
+        refLine.width = Math.round(W * dpr); refLine.height = Math.round(H * dpr);
+        const g = refLine.getContext('2d'), kx = refLine.width / E.w, ky = refLine.height / E.h, r = Math.max(1.2 * dpr, kx * 0.9);
+        g.clearRect(0, 0, refLine.width, refLine.height); g.fillStyle = '#ff2a2a';
+        for (let n = 0; n < E.edge.length; n += 2) g.fillRect(E.edge[n] * kx, E.edge[n + 1] * ky, r, r);
     }
 
     function layout() {
