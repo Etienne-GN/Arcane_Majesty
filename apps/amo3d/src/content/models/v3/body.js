@@ -44,6 +44,15 @@ const EDIT_CACHE = new Map();
 // (2026-11-27, the user with the reference's outline: "the shoulders are too high" — measured row by row, the model
 // reached each shoulder width 2–4 cm above the sheet's: the shoulder line, the arms' joints with it, lowered)
 const SHOULDER_DROP = 0.035;
+// The face (2026-11-27, the user, the sheet laid over the head: "our face is too big, but the outline of the head is fine"):
+// the head's outline kept, the face reworked inside it — the brows (−3.5 cm), the eyes (−2 cm), the nose (−1 cm) lowered to
+// the sheet's, the chin and crown kept; the front of the face narrowed toward the bottom (the jaw tapering to a narrower
+// chin, the cheeks a little in), the back of the head untouched. Head-local, before the head's scale (y up from the neck,
+// z forward): a point's height mapped by FACE_Y, its width by FACE_W, the more it faces forward.
+const tab = (T, v) => { if (v <= T[0][0]) return T[0][1]; for (let i = 1; i < T.length; i++) if (v <= T[i][0]) { const [a, A] = T[i - 1], [b, B] = T[i]; return A + (B - A) * (v - a) / (b - a); } return T.at(-1)[1]; };
+const FACE_Y = [[0.058, 0.058], [0.098, 0.094], [0.118, 0.107], [0.155, 0.14], [0.182, 0.165], [0.205, 0.178], [0.318, 0.318]];
+const FACE_W = [[0.058, 0.7], [0.098, 0.8], [0.118, 0.86], [0.155, 0.92], [0.182, 0.95], [0.205, 0.98], [0.25, 1]];
+function faceWarp(x, y, z) { const front = Math.max(0, Math.min(1, (z + 0.03) / 0.05)); return [x * (1 + (tab(FACE_W, y) - 1) * front), tab(FACE_Y, y)]; }
 export function buildBodyV3(ctx, opts = {}) {
     const { root, head } = ctx;
     if (!ctx._v2Head) { ctx._v2Head = true; head.position.z += 0.024; head.position.y += 0.005; }
@@ -91,7 +100,7 @@ function genBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair 
     // (2026-11-26: the female head's "share" of the male face's edits is gone — the layers carry it now: Common for both
     // sexes, Female for hers; docs/3d/characters/LAYERS_PLAN.md)
     let hk = 1;   // (set with the head, below; the share reads it when the head's points are made)
-    const sk = createSkin(root, bones, { edits, dry, topo }), V = (g, x, y, z) => sk.at(g, x, g === head ? y * HV : g === arms.L.fore || g === arms.R.fore ? foreY(y) : y, z);
+    const sk = createSkin(root, bones, { edits, dry, topo }), V = (g, x, y, z) => { if (g === head) { const [wx, wy] = faceWarp(x / hk, y / hk, z / hk); return sk.at(g, wx * hk, wy * hk * HV, z); } return sk.at(g, x, g === arms.L.fore || g === arms.R.fore ? foreY(y) : y, z); };
     // (v3: the forearm ~7 cm longer, as the sheet's — the hand moved down with the wrist)
     const foreY = y => (y >= 0 ? y : y > -0.265 ? y * 1.27 : y - 0.0715);
 
@@ -348,11 +357,12 @@ function genBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair 
     // hair: big swept chunks, as the reference — the hairline high in front, lower at the nape
     const hl = th => (Math.cos(th) > 0 ? Math.pow(Math.cos(th), 0.7) * (F ? 0.11 : 0.11) : Math.cos(th) * (F ? 0.0 : 0.05));   // up to the hairline in front; down to the nape behind
     const HR = F ? [[0.322, 0.02, 0.02, 0.03], [0.305, 0.064, 0.06, 0.085], [0.27, 0.09, 0.092, 0.108], [0.225, 0.096, 0.1, 0.112], [0.13, 0.094, 0.098, 0.108]]
-        : [[0.322, 0.03, 0.045, 0.035], [0.31, 0.082, 0.094, 0.088], [0.282, 0.104, 0.108, 0.112], [0.24, 0.108, 0.108, 0.12], [0.19, 0.106, 0.104, 0.118], [0.135, 0.1, 0.1, 0.09]];   // (low on top; full at the sides and back, round the skull)   // (swept back: volume over the brow, hugging the sides and the back)   // (to the nape, round the back and sides)   // (male: volume on top, swept up at the front)
-    const HL = F ? 0.25 : 0.262;   // the hairline's height in front: every hair ring's front rises to it (the forehead and brows show)
+        : [[0.338, 0.014, 0.03, 0.03, []], [0.322, 0.05, 0.075, 0.07, []], [0.298, 0.084, 0.1, 0.1, [...sym(0.9, 0.008, 0.3)]],
+            [0.262, 0.1, 0.108, 0.115, [...sym(1.3, 0.01, 0.28), ...sym(2.1, 0.008, 0.3)]], [0.21, 0.106, 0.104, 0.118, []], [0.135, 0.1, 0.1, 0.09, []]];   // (v3, 2026-11-27, after the sheet's outline: a peaked crown, the widest at the temples, tufts breaking the silhouette)   // (low on top; full at the sides and back, round the skull)   // (swept back: volume over the brow, hugging the sides and the back)   // (to the nape, round the back and sides)   // (male: volume on top, swept up at the front)
+    const HL = F ? 0.25 : 0.248;   // (v3: lower — the sheet's hairline; FACE_Y lowers it again)   // the hairline's height in front: every hair ring's front rises to it (the forehead and brows show)
     const front = (y, last) => th => { const c = Math.cos(th); return c > 0 ? Math.pow(c, 0.8) * Math.max(0, HL - y) : last ? c * (F ? 0 : 0.05) : 0; };
     const earLift = (y, last) => th => (!F && last ? Math.pow(Math.abs(Math.sin(th)), 6) * 0.055 : 0);   // the male's cut clears the ears
-    if (!BALD) sk.loft(HR.map(([y, w, df, db], i) => ({ c: V(head, 0, y * hk, 0.0), shape: profile((w + 0.01) * hk, (df + 0.006) * hk, (db + 0.012) * hk), w: [[head, 1]], col: HAIR, dy: (th => (front(y, i === HR.length - 1)(th) + earLift(y, i === HR.length - 1)(th)) * hk) })), { seg: 12, mat: 'double', capStart: true });   // (a touch bigger than the skull all round: it never pokes through)   // (capped at the crown: 2026-11-26, "an empty spot on top")
+    if (!BALD) sk.loft(HR.map(([y, w, df, db, tufts = []], i) => ({ c: V(head, 0, y * hk, 0.0), shape: profile((w + 0.01) * hk, (df + 0.006) * hk, (db + 0.012) * hk, tufts.map(t => ({ ...t, amp: t.amp * hk }))), w: [[head, 1]], col: HAIR, dy: (th => (front(y, i === HR.length - 1)(th) + earLift(y, i === HR.length - 1)(th)) * hk) })), { seg: 12, mat: 'double', capStart: true });   // (a touch bigger than the skull all round: it never pokes through)   // (capped at the crown: 2026-11-26, "an empty spot on top")
     if (false) for (const [x, len] of [[-0.055, 0.1], [0, 0.11], [0.055, 0.1]]) {   // (the tufts read as horns: gone)   // three big locks swept back over the crown
         sk.loft([
             { c: V(head, x * hk, 0.328 * hk, 0.075 * hk), rx: 0.035 * hk, rz: 0.012, w: [[head, 1]], col: HAIR },

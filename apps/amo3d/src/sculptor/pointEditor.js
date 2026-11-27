@@ -64,6 +64,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     let region = 'head', yaw = 0, pitch = 0.05, dist = 0.55, target = new THREE.Vector3(0, 1.66, 0);
     // (2026-11-27, the user: "I can't dezoom more on the model, nor expand the ref further, so I can superpose them")
     const MAX_DIST = 12, MAX_REF = 4000;
+    let lens = null;   // (Fit's lens shift, screen px: the picture moved, not the camera)
     const undo = [], group = new THREE.Group(); scene.add(group); group.visible = false;
     const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), tmpM = new THREE.Matrix4(), col = new THREE.Color();
     const keyPos = k => k.split(',').map(Number);
@@ -358,8 +359,13 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         const r = area(), tanH = Math.tan(camera.fov * Math.PI / 360), pxPerM = (figSole - figTop) / top;
         const dk = r.height / (2 * tanH * pxPerM), stretch = Math.max(1, 0.8 / camera.aspect);
         dist = Math.min(MAX_DIST, dk / stretch);
-        const ri = new THREE.Vector3(Math.cos(yaw), 0, -Math.sin(yaw));   // (the view's right, square to it)
-        target.set(0, (figSole - (r.top + r.height / 2)) / pxPerM, 0).addScaledVector(ri, ((r.left + r.width / 2) - figCx) / pxPerM);
+        // (2026-11-27: the camera stays square in front of the model — its middle — and the picture is shifted like a lens
+        // shift, to where the figure is: moving the camera sideways instead looked at the model from an angle when the
+        // reference sat off the screen's middle, and the faces could not be compared)
+        // (aimed at what is framed — the head, the chest, the middle — so that part is seen without a perspective drift)
+        const ay = region === 'head' ? top - 0.16 : region === 'upper' ? top - 0.45 : top / 2;
+        target.set(0, ay, 0);
+        lens = { x: figCx - (r.left + r.width / 2), y: (figSole - (ay / top) * (figSole - figTop)) - (r.top + r.height / 2) };
         info.textContent = `Fitted to the ${sex}'s ${view} figure: the model's ${top.toFixed(2)} m over its height on the sheet. Drag or size the reference and Fit again.`;
     }
     function layoutRef() {
@@ -494,6 +500,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         buildDots(); describe();
     }
     function setRegion(r) {
+        lens = null;   // (a new frame: no Fit shift)
         region = r; for (const [k, b] of Object.entries(regBtns)) b.classList.toggle('on', k === r);
         const top = T ? Math.max(...T.P.filter((_, j) => j % 3 === 1)) : 1.85;   // (the crown's height: frame from it)
         if (T && !HUMAN(sex)) {   // a creature: framed from its own size — the head is its front end (+z), the upper body its front half
@@ -732,12 +739,13 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     }
 
     function show() { on = true; group.visible = true; setTool(prefs.tool); labelPad(); for (const f of Object.values(toggles)) f(); hairBtn.classList.toggle('on', hairOn); sheetBtn.classList.toggle('on', refMode === 'sheet'); layout(); onEnter?.(); describe(); }
-    function exit() { on = false; group.visible = false; layout(); onExit?.(); }
+    function exit() { on = false; lens = null; if (camera.view?.enabled) camera.clearViewOffset(); group.visible = false; layout(); onExit?.(); }
     return {
         enter: (s, l) => { if (l) layer = l; load(s ?? who); }, exit, get on() { return on; }, get showCompare() { return cmpOn; }, group,
         frame() {
             if (!on) return; drawRef(); const dk = dist * Math.max(1, 0.8 / camera.aspect);   // (a tall narrow screen: further back, so the region fits across)
             camera.position.set(target.x + Math.sin(yaw) * Math.cos(pitch) * dk, target.y + Math.sin(pitch) * dk, target.z + Math.cos(yaw) * Math.cos(pitch) * dk); camera.lookAt(target);
+            if (lens) { const r = area(); camera.setViewOffset(r.width, r.height, -lens.x, -lens.y, r.width, r.height); } else if (camera.view?.enabled) camera.clearViewOffset();
         },
         state: () => ({ who, sex, layer, sel, region, tool: prefs.tool, points: T?.keys.length ?? 0 }), _move: (i, dx, dy, dz) => { sel = i; snapshot(); movePoint(i, dx, dy, dz); }, _save: save, _saveAs: saveTo, _topo: topoOp, _neighbours: i => neighbours(i), _pad: padAct, _target: () => target.toArray(),
     };
