@@ -22,14 +22,26 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), tmpM = new THREE.Matrix4(), col = new THREE.Color();
     const keyPos = k => k.split(',').map(Number);
 
+    // ---- phones (2026-11-26: the Sculptor from a phone's browser on the dev server) ----
+    // the panel is a sheet along the bottom (collapsible), the view shifted up above it; a tap picks the nearest dot within a
+    // finger's reach (the dots are tiny); two fingers pinch to zoom; a pad of buttons nudges the point (no arrow keys)
+    const MOBILE = matchMedia('(pointer: coarse)').matches || innerWidth < 760;
+    renderer.domElement.style.touchAction = 'none';
     // ---- the panel ----
     const panel = document.createElement('div');
     panel.style.cssText = 'position:fixed;top:44px;right:12px;width:270px;display:none;flex-direction:column;gap:6px;font:14px Georgia,serif;color:#f1e4c4;background:#2a1c10ee;border:1px solid #c8963a88;border-radius:10px;padding:10px';
     const row = () => { const r = document.createElement('div'); r.style.cssText = 'display:flex;gap:4px;flex-wrap:wrap'; panel.append(r); return r; };
     const btn = (parent, t, fn) => { const b = document.createElement('button'); b.textContent = t; b.style.cssText = 'font:13px Georgia,serif;padding:5px 9px;border-radius:7px;border:1px solid #c8963a88;background:#4a3220;color:#f1e4c4;cursor:pointer'; b.onclick = fn; parent.append(b); return b; };
     const title = document.createElement('div'); title.style.cssText = 'font-size:16px;color:#f3d88b'; title.textContent = 'Point editor'; panel.append(title);
+    let folded = false;
+    if (MOBILE) {   // (the sheet: full width along the bottom; tap the title to fold it down to its first lines)
+        Object.assign(panel.style, { top: 'auto', bottom: '0', left: '0', right: '0', width: 'auto', maxHeight: '44vh', overflowY: 'auto', borderRadius: '12px 12px 0 0', font: '15px Georgia,serif', padding: '8px 10px', zIndex: '6' });
+        title.textContent = 'Point editor ▾'; title.style.cursor = 'pointer';
+        title.onclick = () => { folded = !folded; title.textContent = `Point editor ${folded ? '▴' : '▾'}`; for (const c of panel.children) if (c !== title && c !== info) c.style.display = folded ? 'none' : ''; };
+    }
     const help = document.createElement('div'); help.style.cssText = 'font-style:italic;font-size:12px;opacity:.85;line-height:1.35';
-    help.innerHTML = 'Click a dot, drag it (its mirror follows).<br>Drag empty space: turn. Wheel: zoom.<br>Arrows: nudge · Shift+arrows: forward/back · Ctrl+Z: undo';
+    help.innerHTML = MOBILE ? 'Tap a dot (the nearest is taken), drag it — its mirror follows. Drag empty space: turn. Two fingers: zoom. The pad below nudges the point.'
+        : 'Click a dot, drag it (its mirror follows).<br>Drag empty space: turn. Wheel: zoom.<br>Arrows: nudge · Shift+arrows: forward/back · Ctrl+Z: undo';
     panel.append(help);
     const rSex = row(); for (const b of bodies) btn(rSex, b.name, () => load(b.id));
     // the layer the edits are saved into (docs/3d/characters/LAYERS_PLAN.md): Common (every body), the sex, or the age —
@@ -89,7 +101,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         await saveTo(B?.alt?.layer === layer ? B.alt.name : null, null, { '@topo': ops });
     });
     // what to see beside the body: the reference sheet, the compare (the Sculptor's other model, same angle), both or neither
-    let refOn = true, cmpOn = true;
+    let refOn = !MOBILE, cmpOn = !MOBILE;   // (a phone: neither, by default — the screen is small)
     const rShow = row(), showLab = document.createElement('span'); showLab.textContent = 'Show:'; showLab.style.cssText = 'align-self:center;margin-right:2px'; rShow.append(showLab);
     const tog = (b, v) => { b.style.background = v ? '#8a6a2a' : '#4a3220'; b.style.opacity = v ? '1' : '.7'; };
     const refTog = btn(rShow, 'Reference', () => setRef(!refOn)), cmpTog = btn(rShow, 'Compare', () => { cmpOn = !cmpOn; tog(cmpTog, cmpOn); });
@@ -111,6 +123,11 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const rView = row(); for (const [t, y, p] of [['Front', 0, 0.05], ['¾', 0.7, 0.1], ['Side', Math.PI / 2, 0.05], ['Back', Math.PI, 0.05], ['Below', 0.3, -0.6]]) btn(rView, t, () => { yaw = y; pitch = p; });
     const info = document.createElement('div'); info.style.cssText = 'font-size:12px;min-height:30px'; panel.append(info);
     const rAct = row(); btn(rAct, 'Undo', () => doUndo()); btn(rAct, 'Reset point', () => resetSel()); btn(rAct, 'Reset all', () => resetAll());
+    if (MOBILE) {   // the nudge pad: the arrow keys' moves, in the view's frame (In/Out: toward or away from you); Fine: a quarter step
+        let fine = false; const rPad = row(), lab = document.createElement('span'); lab.textContent = 'Nudge:'; lab.style.cssText = 'align-self:center'; rPad.append(lab);
+        for (const [t, k] of [['←', 'ArrowLeft'], ['↑', 'ArrowUp'], ['↓', 'ArrowDown'], ['→', 'ArrowRight'], ['In', 'in'], ['Out', 'out']]) btn(rPad, t, () => nudge(k, fine)).style.minWidth = '40px';
+        const fb = btn(rPad, 'Fine', () => { fine = !fine; fb.style.background = fine ? '#8a6a2a' : '#4a3220'; });
+    }
     const rSave = row(); btn(rSave, 'Save', () => save()).style.background = '#8a6a2a'; btn(rSave, 'Close', () => exit());
     document.body.append(panel);
 
@@ -259,10 +276,23 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         const r = area(); if (e.clientX > r.left + r.width) return -1;   // (a click on the compare's half: no point)
         ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
         ray.setFromCamera(ndc, camera); const hit = ray.intersectObject(dots, false)[0];
-        return hit ? dotIds[hit.instanceId] : -1;
+        if (hit || !MOBILE) return hit ? dotIds[hit.instanceId] : -1;
+        // a finger: the nearest dot on screen within ~28 px that is not hidden behind the surface
+        const p = geo.attributes.position, v = new THREE.Vector3(), cand = [];
+        for (const i of dotIds) { v.set(p.getX(i), p.getY(i), p.getZ(i)).project(camera); if (v.z > 1) continue; const sx = r.left + (v.x + 1) / 2 * r.width, sy = r.top + (1 - v.y) / 2 * r.height, d = Math.hypot(sx - e.clientX, sy - e.clientY); if (d < 28) cand.push([d, i]); }
+        cand.sort((a, b) => a[0] - b[0]);
+        const eye = camera.getWorldPosition(new THREE.Vector3());
+        for (const [, i] of cand.slice(0, 8)) {
+            const at = new THREE.Vector3(p.getX(i), p.getY(i), p.getZ(i)), dir = at.clone().sub(eye), len = dir.length(); ray.set(eye, dir.normalize());
+            const h = ray.intersectObject(mesh, false)[0]; if (!h || h.distance > len - 0.006) return i;
+        }
+        return -1;
     }
+    const touches = new Map(); let pinch = null;   // (two fingers: zoom)
     canvas.addEventListener('pointerdown', e => {
         if (!on) return; e.stopImmediatePropagation();
+        touches.set(e.pointerId, [e.clientX, e.clientY]);
+        if (touches.size === 2) { const [a, b2] = [...touches.values()]; pinch = { d: Math.hypot(a[0] - b2[0], a[1] - b2[1]), dist }; if (drag?.kind === 'point') doUndo(); drag = null; return; }
         const i = pick(e);
         if (addFrom >= 0 && i >= 0) {   // (Add…: the second point)
             const from = addFrom; addFrom = -1;
@@ -272,19 +302,24 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         if (i >= 0) {
             sel = i; snapshot();
             const p = geo.attributes.position, at = new THREE.Vector3(p.getX(i), p.getY(i), p.getZ(i));
-            drag = { kind: 'point', plane: new THREE.Plane().setFromNormalAndCoplanarPoint(camera.getWorldDirection(new THREE.Vector3()), at), last: at.clone() };
+            drag = { kind: 'point', plane: new THREE.Plane().setFromNormalAndCoplanarPoint(camera.getWorldDirection(new THREE.Vector3()), at), last: at.clone(), x0: e.clientX, y0: e.clientY, live: !MOBILE };
             placeDots(); describe();
         } else drag = { kind: 'orbit', x: e.clientX, y: e.clientY };
         canvas.setPointerCapture(e.pointerId);
     }, true);
     canvas.addEventListener('pointermove', e => {
-        if (!on || !drag) return; e.stopImmediatePropagation();
+        if (!on) return;
+        if (touches.has(e.pointerId)) touches.set(e.pointerId, [e.clientX, e.clientY]);
+        if (pinch && touches.size === 2) { e.stopImmediatePropagation(); const [a, b2] = [...touches.values()]; const d = Math.hypot(a[0] - b2[0], a[1] - b2[1]); dist = Math.max(0.2, Math.min(4, pinch.dist * pinch.d / Math.max(1, d))); return; }
+        if (!drag) return; e.stopImmediatePropagation();
+        if (drag.kind === 'point' && !drag.live) { if (Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < 8) return; drag.live = true; }   // (a tap selects; the point moves once the finger does)
         if (drag.kind === 'orbit') { yaw -= (e.clientX - drag.x) * 0.01; pitch = Math.max(-1.3, Math.min(1.3, pitch + (e.clientY - drag.y) * 0.01)); drag.x = e.clientX; drag.y = e.clientY; return; }
         const r = area(); ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
         ray.setFromCamera(ndc, camera); const hit = new THREE.Vector3();
         if (ray.ray.intersectPlane(drag.plane, hit)) { const d = hit.clone().sub(drag.last); drag.last.copy(hit); movePoint(sel, d.x, d.y, d.z); }
     }, true);
-    canvas.addEventListener('pointerup', e => { if (on) { e.stopImmediatePropagation(); drag = null; } }, true);
+    const lift = e => { touches.delete(e.pointerId); if (touches.size < 2) pinch = null; if (on) { e.stopImmediatePropagation(); drag = null; } };
+    canvas.addEventListener('pointerup', lift, true); canvas.addEventListener('pointercancel', lift, true);
     canvas.addEventListener('wheel', e => { if (!on) return; e.preventDefault(); dist = Math.max(0.2, Math.min(4, dist * (e.deltaY > 0 ? 1.1 : 0.9))); }, { passive: false });
     addEventListener('keydown', e => {
         if (!on) return;
@@ -292,19 +327,27 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         if (e.code === 'Escape' && addFrom >= 0) { addFrom = -1; info.textContent = 'Add cancelled.'; return; }
         if (sel < 0 || !/^Arrow/.test(e.code)) return;
         e.preventDefault();
-        const step = e.altKey ? 0.0005 : 0.002, right = new THREE.Vector3(), up = new THREE.Vector3(), fwd = camera.getWorldDirection(new THREE.Vector3());
+        nudge(e.shiftKey ? (e.code === 'ArrowUp' ? 'in' : e.code === 'ArrowDown' ? 'out' : null) : e.code, e.altKey);
+    });
+    function nudge(code, fine) {
+        if (sel < 0 || !code) { if (sel < 0) info.textContent = 'Select a point first.'; return; }
+        const e = { shiftKey: code === 'in' || code === 'out', code: code === 'in' ? 'ArrowUp' : code === 'out' ? 'ArrowDown' : code };
+        const step = fine ? 0.0005 : 0.002, right = new THREE.Vector3(), up = new THREE.Vector3(), fwd = camera.getWorldDirection(new THREE.Vector3());
         right.crossVectors(fwd, camera.up).normalize(); up.crossVectors(right, fwd).normalize();
         const d = new THREE.Vector3();
         if (e.shiftKey) { if (e.code === 'ArrowUp') d.copy(fwd).multiplyScalar(-step); if (e.code === 'ArrowDown') d.copy(fwd).multiplyScalar(step); }
         else { if (e.code === 'ArrowLeft') d.copy(right).multiplyScalar(-step); if (e.code === 'ArrowRight') d.copy(right).multiplyScalar(step); if (e.code === 'ArrowUp') d.copy(up).multiplyScalar(step); if (e.code === 'ArrowDown') d.copy(up).multiplyScalar(-step); }
         snapshot(); movePoint(sel, d.x, d.y, d.z);
-    });
+    }
 
     function show() { on = true; group.visible = true; panel.style.display = 'flex'; refBox.style.display = refOn ? 'flex' : 'none'; drawRef(true); onEnter?.(); describe(); }
     function exit() { on = false; group.visible = false; panel.style.display = 'none'; refBox.style.display = 'none'; onExit?.(); }
     return {
         enter: (s, l) => { if (l) layer = l; load(s ?? who); }, exit, get on() { return on; }, get showCompare() { return cmpOn; }, group,
-        frame() { if (!on) return; drawRef(); camera.position.set(target.x + Math.sin(yaw) * Math.cos(pitch) * dist, target.y + Math.sin(pitch) * dist, target.z + Math.cos(yaw) * Math.cos(pitch) * dist); camera.lookAt(target); },
+        frame() {
+            if (MOBILE) { if (on && !folded) { const ph = panel.offsetHeight; camera.setViewOffset(innerWidth, innerHeight, 0, ph / 2, innerWidth, innerHeight); } else if (camera.view?.enabled) camera.clearViewOffset(); }   // (the body drawn above the sheet)
+            if (!on) return; drawRef(); const dk = dist * Math.max(1, 0.8 / camera.aspect);   // (a tall narrow screen: further back, so the region fits across)
+            camera.position.set(target.x + Math.sin(yaw) * Math.cos(pitch) * dk, target.y + Math.sin(pitch) * dk, target.z + Math.cos(yaw) * Math.cos(pitch) * dk); camera.lookAt(target); },
         state: () => ({ who, sex, layer, sel, region, points: T?.keys.length ?? 0 }), _move: (i, dx, dy, dz) => { sel = i; snapshot(); movePoint(i, dx, dy, dz); }, _save: save, _saveAs: saveTo, _topo: topoOp, _neighbours: i => neighbours(i),
     };
 }

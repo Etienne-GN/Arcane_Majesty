@@ -88,8 +88,8 @@ if (slots.some(sl => SUBJECTS[sl.id].sex) || LINEUP) {   // dress the base bodie
 }
 document.body.append(top);
 const topBtn = (t, fn, hot = false) => { const b = document.createElement('button'); b.textContent = t; b.style.cssText = `font:14px Georgia,serif;padding:6px 12px;border-radius:9px;border:1px solid ${hot ? '#f3d88b' : '#c8963a88'};background:${hot ? '#8a6a2a' : '#2e1e12'};color:#f1e4c4;cursor:pointer`; b.onclick = fn; top.append(b); return b; };
-{ const a = document.createElement('a'); a.href = 'forge.html'; a.textContent = 'The Forge →'; a.style.cssText = 'position:fixed;left:92px;bottom:8px;z-index:50;padding:5px 10px;font:14px Georgia,serif;color:#f3e2b0;background:#120a06d8;border:1px solid #f3d88b66;border-radius:4px;text-decoration:none'; document.body.append(a); }
-{ const a = document.createElement('a'); a.href = 'index.html'; a.textContent = '← Game'; a.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:50;padding:5px 10px;font:14px Georgia,serif;color:#f3e2b0;background:#120a06d8;border:1px solid #f3d88b66;border-radius:4px;text-decoration:none'; document.body.append(a); }
+{ const a = document.createElement('a'); a.id = 'lnkForge'; a.href = 'forge.html'; a.textContent = 'The Forge →'; a.style.cssText = 'position:fixed;left:92px;bottom:8px;z-index:50;padding:5px 10px;font:14px Georgia,serif;color:#f3e2b0;background:#120a06d8;border:1px solid #f3d88b66;border-radius:4px;text-decoration:none'; document.body.append(a); }
+{ const a = document.createElement('a'); a.id = 'lnkGame'; a.href = 'index.html'; a.textContent = '← Game'; a.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:50;padding:5px 10px;font:14px Georgia,serif;color:#f3e2b0;background:#120a06d8;border:1px solid #f3d88b66;border-radius:4px;text-decoration:none'; document.body.append(a); }
 const bar = document.getElementById('bar');
 for (const [id, label] of [['apose', 'A-pose'], ['idle', 'Idle'], ['walk', 'Walk'], ['run', 'Run'], ['strike', 'Strike'], ['spin', 'Turn']]) {
     const b = document.createElement('button'); b.textContent = label; b.dataset.id = id;
@@ -101,7 +101,11 @@ let drag = null;
 renderer.domElement.addEventListener('pointerdown', e => { drag = e.clientX; spin = false; refresh(); });
 addEventListener('pointerup', () => { drag = null; });
 addEventListener('pointermove', e => { if (drag != null) { yaw += (e.clientX - drag) * 0.01; drag = e.clientX; } });
-function resize() { renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); const d = (camera.aspect < 1 ? 9 : 6) * (LINEUP ? 1.55 : 1); camera.position.set(0, 1.1, d); camera.lookAt(0, 0.95, 0); }
+// a phone (2026-11-26): the labels below the wrapped top bar, the pose buttons above the two links
+const NARROW = () => innerWidth < 760;
+function layoutBars() { if (!NARROW()) return; const L = document.getElementById('labels'), b = document.getElementById('bar'); if (L) L.style.top = `${document.getElementById('top').offsetHeight + 18}px`; if (b) b.style.bottom = '48px'; }
+addEventListener('resize', layoutBars); setTimeout(layoutBars, 0);
+function resize() { renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); const d = (camera.aspect < 0.6 ? 11.5 : camera.aspect < 1 ? 9 : 6) * (LINEUP ? 1.55 : 1);   // (a phone held upright: further back, both bodies whole) camera.position.set(0, 1.1, d); camera.lookAt(0, 0.95, 0); }
 addEventListener('resize', resize); resize();
 window.__lab = { ground: () => models.map(m => [-0.4, -0.45, -0.48].map(y => m.rig.legs.L.shin.localToWorld(new THREE.Vector3(0, y, 0)).y.toFixed(3)).join(',')).join(' / '), plain: () => { floor.visible = false; scene.background.set(0x3b3b3b); for (const id of ['bar', 'labels']) document.getElementById(id).style.display = 'none'; }, solo: i => { models.forEach((m, j) => { m.root.visible = j === i; m.root.position.x = 0; }); }, tris: () => models.map(m => { let t = 0; m.root.traverse(o => { if (o.isMesh && o.visible && o.userData.v2) t += (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3; }); return Math.round(t); }).join(' / '), setYaw: v => { yaw = v; spin = false; refresh(); }, setMode: v => { mode = v; refresh(); }, zoom: (d, y, x = 0) => { camera.position.set(x, y, d); camera.lookAt(x, y - 0.05, 0); }, cam: (p, t) => { camera.position.set(...p); camera.lookAt(...t); } };
 // ---- the Blender round trip (docs/3d/characters/BLENDER.md): Export a base body as .glb (one vertex per point, its id in
@@ -223,8 +227,8 @@ const split = () => !!(editor?.on && editor.showCompare);
 const editor = EDITABLE.length && !LINEUP ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, bodies: EDITABLE, alts: ALTS,
     getBody: i => { cmpIdx = 1 - i; const cast = EDITABLE.find(b => b.id === i)?.cast; return { table: posedTable(i), mesh: bodyMesh(i), alt: altOf[i], io: cast ? castIO(cast) : null, go: ({ alt, ...ch }) => go({ ...ch, [`alt${i}`]: alt ?? null }) }; },
     viewRect: () => ({ left: 0, top: 0, width: split() ? Math.floor(innerWidth / 2) : innerWidth, height: innerHeight }),
-    onEnter: () => { models.forEach(m => { m.root.visible = false; }); floor.visible = false; for (const id of ['bar', 'labels', 'blender', 'top']) { const e = document.getElementById(id); if (e) e.style.display = 'none'; } },
-    onExit: () => { models.forEach(m => { m.root.visible = true; }); floor.visible = true; for (const id of ['bar', 'labels', 'blender', 'top']) { const e = document.getElementById(id); if (e) e.style.display = ''; } resize(); } }) : null;
+    onEnter: () => { models.forEach(m => { m.root.visible = false; }); floor.visible = false; for (const id of ['bar', 'labels', 'blender', 'top', 'lnkGame', 'lnkForge']) { const e = document.getElementById(id); if (e) e.style.display = 'none'; } },
+    onExit: () => { models.forEach(m => { m.root.visible = true; }); floor.visible = true; for (const id of ['bar', 'labels', 'blender', 'top', 'lnkGame', 'lnkForge']) { const e = document.getElementById(id); if (e) e.style.display = ''; } resize(); } }) : null;
 if (editor) {
     for (const b of EDITABLE) topBtn(`✎ Edit ${b.name}`, () => editor.enter(b.id), true);
     topBtn(HAIRLESS ? 'Hair: off' : 'Hair: on', () => go({ hair: HAIRLESS ? null : '0', edit: editor.on ? editor.state().who : null, layer: editor.on ? editor.state().layer : null }));

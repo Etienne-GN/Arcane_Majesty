@@ -165,8 +165,11 @@ function jsonDirApi(route, dir, label) {
                     // CORS preflight, which this server doesn't answer) from this server's own origin.
                     const origin = req.headers.origin;
                     // Only when reached as this machine (blocks DNS-rebinding pages, whose Host is their own name).
-                    const local = h => /^(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/.test(h ?? '');
-                    if (!local(req.headers.host)) return send(403, { error: 'writes only from localhost' });
+                    // (this machine by any of its own names — localhost or its LAN addresses, so the Forge and the editor save from a
+                    // phone on the LAN too, 2026-11-26 — never a foreign hostname: DNS rebinding)
+                    const own = new Set(['localhost', '127.0.0.1', '[::1]', ...Object.values(networkInterfaces()).flat().filter(Boolean).map(i => (i.family === 'IPv6' ? `[${i.address}]` : i.address))]);
+                    const local = h => own.has((h ?? '').replace(/:\d+$/, ''));
+                    if (!local(req.headers.host)) return send(403, { error: 'writes only to this machine' });
                     if (origin && !local(new URL(origin).host)) return send(403, { error: 'cross-origin write refused' });
                     if (!/^application\/json\b/.test(req.headers['content-type'] ?? '')) return send(415, { error: 'JSON only' });
                     if (origin && new URL(origin).host !== req.headers.host) return send(403, { error: 'cross-origin write refused' });
