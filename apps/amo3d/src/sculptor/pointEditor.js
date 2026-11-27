@@ -399,8 +399,13 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         img.onload = () => {
             const [x0, y0, x1, y1] = box, w = x1 - x0, h = y1 - y0, c = document.createElement('canvas'); c.width = w; c.height = h;
             const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(img, -x0, -y0);
-            const d = g.getImageData(0, 0, w, h).data, bg = new Uint8Array(w * h), q = [], corner = ((h - 3) * w + 2) * 4;
-            const diff = (a, b) => Math.abs(d[a] - d[b]) + Math.abs(d[a + 1] - d[b + 1]) + Math.abs(d[a + 2] - d[b + 2]);
+            const d = g.getImageData(0, 0, w, h).data, bg = new Uint8Array(w * h), q = [];
+            // the backdrop's colour: on the characters' sheet a known spot of it (a box's corner can be the figure — the head
+            // box's lower corner is the shoulder's skin, and only the skin was outlined); elsewhere the box's lower corner
+            const s1 = document.createElement('canvas'); s1.width = s1.height = 1; const g1 = s1.getContext('2d', { willReadFrequently: true });
+            g1.drawImage(img, -(HUMAN(sex) ? 40 : x0 + 2), -(HUMAN(sex) ? 300 : y1 - 3)); const bgc = g1.getImageData(0, 0, 1, 1).data;
+            const corner = w * h * 4; const D = new Uint8ClampedArray(d.length + 4); D.set(d); D.set([bgc[0], bgc[1], bgc[2], 255], d.length);
+            const diff = (a, b) => Math.abs(D[a] - D[b]) + Math.abs(D[a + 1] - D[b + 1]) + Math.abs(D[a + 2] - D[b + 2]);
             const seed = i => { if (!bg[i] && diff(i * 4, corner) <= 40) { bg[i] = 1; q.push(i); } };
             for (let x = 0; x < w; x++) { seed(x); seed((h - 1) * w + x); }
             for (let y = 0; y < h; y++) { seed(y * w); seed(y * w + w - 1); }
