@@ -753,7 +753,10 @@ function seedChest(station) {
     }
 }
 function clock(min = stats.gameMinutes ?? clockRules.START_MINUTES) {
-    const weather = world.current?.terrain ? (weatherOverride || weatherOf(world.current.weatherDef ?? GLADE_WEATHER, min)) : 'clear';
+    // online (§3, 2026-11-26): the server's sky — everyone on it sees the same hour and weather (the save keeps its own clock)
+    let sky = null; try { sky = net.worldSky(); } catch { /* (before the net exists) */ }
+    if (sky) { min = sky.minutes; }
+    const weather = world.current?.terrain ? (weatherOverride || (sky ? weatherRules.weatherAt({ ...(world.current.weatherDef ?? GLADE_WEATHER), id: `${(world.current.weatherDef ?? GLADE_WEATHER).id}#${sky.seed}` }, min).id : weatherOf(world.current.weatherDef ?? GLADE_WEATHER, min))) : 'clear';
     return { minutes: min, hour: clockRules.gameHour(min), weather, voidMult: clockRules.isNight(min) ? clockRules.NIGHT_DAMAGE_MULT : 1 };
 }
 

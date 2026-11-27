@@ -11,6 +11,10 @@ const PORT = +(process.env.AMO3D_PORT ?? 3003);
 const MAX_PLAYERS = 32;
 const players = new Map();   // socket.id → state
 const snaps = new Map();     // `${map}|${zone}` → the zone host's latest creature snapshot (index → { v: [x, y, z, heading, state, hp, dead], t, untrustedUntil })
+// The online sky (2026-11-26, §3): one world clock and one weather seed for everyone on this server — the time of day and
+// the weather each client shows while online (their save keeps its own clock for everything else). 1 game minute a second.
+const WORLD = { seed: Math.floor(Math.random() * 1e6), t0: Date.now(), startMin: 8 * 60 };
+const worldClock = () => ({ min: WORLD.startMin + (Date.now() - WORLD.t0) / 1000, seed: WORLD.seed });
 const MAX_STRIKE = 60;       // amo's hardest-hitting creature, elite (×1.4) and with room to spare
 
 const httpServer = createServer((req, res) => {
@@ -83,6 +87,7 @@ io.on('connection', socket => {
         players.set(socket.id, p);
         enterMap(p, mapId(j.map));
         socket.emit('players:init', inMap(p.map).filter(o => o.id !== p.id).map(pub));
+        socket.emit('world:clock', worldClock());
         socket.to(p.map).emit('player:joined', pub(p));
         announceZones(p.map);
         console.log(`[+] ${p.name} → ${p.map} (${players.size} online)`);

@@ -94,15 +94,18 @@ export function createMalphas({ scene, map, at, rng = Math.random }) {
         ring.material.opacity = 0;
     }
 
-    function strikeUpdate(who, P, dt, ctx, isReal) {
-        const toP = Math.hypot(P.x - who.pos.x, P.z - who.pos.z);
+    // (online, 2026-11-26: he fights everyone on the pass — T is whoever he goes for; a remote player is struck through the
+    // server, which checks the blow against this host's snapshot)
+    const hurt = (T, d, from, ctx) => (T.id === 'me' ? ctx.hurtPlayer(d, from) : ctx.hurtRemote?.(T.id, d, pos));
+    function strikeUpdate(who, T, dt, ctx, isReal) {
+        const P = T.pos, toP = Math.hypot(P.x - who.pos.x, P.z - who.pos.z);
         if (who.swing) {
             who.swing.t += dt;
             if (!who.swing.hit && who.swing.t > 0.6) {
                 who.swing.hit = true;
-                if (toP < REACH + 0.5 && !ctx.player.dead) {
-                    if (isReal) ctx.hurtPlayer(dmg(), who.pos);
-                    else { ctx.drainVigor?.(18); ctx.floater?.(P.clone().setY(P.y + 2), 'doubt −18 vigor', '#bfe4ff'); }
+                if (toP < REACH + 0.5 && !T.dead) {
+                    if (isReal) hurt(T, dmg(), who.pos, ctx);
+                    else if (T.id === 'me') { ctx.drainVigor?.(18); ctx.floater?.(new THREE.Vector3(P.x, P.y + 2, P.z), 'doubt −18 vigor', '#bfe4ff'); }
                 }
             }
             if (who.swing.t > 1.0) who.swing = null;
@@ -129,12 +132,40 @@ export function createMalphas({ scene, map, at, rng = Math.random }) {
         b.parts.eyes.material.color.setRGB(tell ? 2.4 : 0.6, tell ? 2.4 : 0.9, tell ? 2.6 : 1);
     }
 
+    // Online: a puppet (another player hosts the pass) follows the host's snapshots — where he is, his mode and his health —
+    // and when he flees there, he flees here too (this player's own retreat: the quest completes for them as well)
+    const MODES = ['dormant', 'intro', 'fight', 'fleeing'];
+    let snap = null;
+    const snapshot = () => [+pos.x.toFixed(2), +pos.y.toFixed(2), +pos.z.toFixed(2), +st.heading.toFixed(2), Math.max(0, MODES.indexOf(st.mode)), Math.round(s.hp), st.fled ? 1 : 0];
+    const applySnapshot = v => { snap = v; };
+    function puppetUpdate(dt, ctx) {
+        if (!snap) { real.root.visible = false; return; }
+        const mode = MODES[snap[4]] ?? 'dormant';
+        if ((snap[6] || mode === 'fleeing') && !st.fled) { pos.set(snap[0], snap[1], snap[2]); real.root.visible = true; begin_flee(ctx); return; }
+        if (mode === 'dormant') { if (st.mode !== 'dormant') reset(); core.updatePlate(ctx.camera, 3.4); return; }
+        if (st.mode === 'dormant') { real.root.visible = true; ctx.message?.('The wind falls silent. Something rises from the snow…'); }
+        st.mode = mode;
+        const k = 1 - Math.exp(-dt * 10);
+        pos.x += (snap[0] - pos.x) * k; pos.z += (snap[2] - pos.z) * k; pos.y += (snap[1] - pos.y) * k;
+        const dh = ((((snap[3] - st.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI; st.heading += dh * k;
+        s.hp = snap[5]; s.engaged = true;
+        st.whiteout = Math.min(1, (1 - s.hp / DEF.health) * 1.1);
+        pose(real, st, st.t, false);
+        if (mode === 'intro') real.root.position.y = pos.y;
+        core.updatePlate(ctx.camera, 3.4);
+    }
+
     function update(dt, ctx) {
         st.t += dt;
-        const P = ctx.player.pos, fromHome = Math.hypot(P.x - home.x, P.z - home.z);
         if (st.fled || ctx.flags?.malphas_retreated) { real.root.visible = st.mode === 'fleeing' && st.t < 3.2; if (st.mode === 'fleeing') flee(dt, ctx); return; }
-        if (st.mode === 'dormant') { if (fromHome < ARENA - 1 && !ctx.player.dead) wake(ctx); core.updatePlate(ctx.camera, 3.4); return; }
-        if ((fromHome > LEASH || ctx.player.dead) && st.mode !== 'fleeing') { reset(); return; }
+        if (core.net.puppet) { puppetUpdate(dt, ctx); return; }
+        // whom he fights: everyone alive on the pass (online); he goes for the nearest
+        const all = (ctx.players ?? [{ id: 'me', pos: ctx.player.pos, dead: ctx.player.dead }]).filter(q => !q.dead);
+        const onPass = all.filter(q => Math.hypot(q.pos.x - home.x, q.pos.z - home.z) < LEASH);
+        const T = onPass.reduce((b, q) => (!b || Math.hypot(q.pos.x - pos.x, q.pos.z - pos.z) < Math.hypot(b.pos.x - pos.x, b.pos.z - pos.z) ? q : b), null) ?? { id: 'me', pos: ctx.player.pos, dead: ctx.player.dead };
+        const P = T.pos, Pme = ctx.player.pos, fromHome = Math.hypot(Pme.x - home.x, Pme.z - home.z);
+        if (st.mode === 'dormant') { if (all.some(q => Math.hypot(q.pos.x - home.x, q.pos.z - home.z) < ARENA - 1)) wake(ctx); core.updatePlate(ctx.camera, 3.4); return; }
+        if (!onPass.length && st.mode !== 'fleeing') { reset(); return; }   // (everyone has left the pass, or fallen)
         if (!core.tick(dt, ctx)) { begin_flee(ctx); return; }
         s.engaged = true;
         if (st.mode === 'intro') {
@@ -146,9 +177,9 @@ export function createMalphas({ scene, map, at, rng = Math.random }) {
             core.updatePlate(ctx.camera, 3.4);
             return;
         }
-        if (fromHome > ARENA + 0.5 && Math.abs(P.y - home.y) < 4) {   // a wall of wind: no leaving the pass while he stands
-            P.x = home.x + (P.x - home.x) / fromHome * (ARENA + 0.5); P.z = home.z + (P.z - home.z) / fromHome * (ARENA + 0.5);
-            ctx.player.knock.set(home.x - P.x, 0, home.z - P.z).normalize().multiplyScalar(3);
+        if (fromHome > ARENA + 0.5 && fromHome < LEASH && Math.abs(Pme.y - home.y) < 4) {   // a wall of wind: no leaving the pass while he stands
+            Pme.x = home.x + (Pme.x - home.x) / fromHome * (ARENA + 0.5); Pme.z = home.z + (Pme.z - home.z) / fromHome * (ARENA + 0.5);
+            ctx.player.knock.set(home.x - Pme.x, 0, home.z - Pme.z).normalize().multiplyScalar(3);
             say('wall', 'The wind howls round the pass and throws you back. There is no leaving while he stands.', ctx);
         }
         const pct = s.hp / DEF.health;
@@ -188,7 +219,7 @@ export function createMalphas({ scene, map, at, rng = Math.random }) {
             r.t += dt;
             r.mesh.scale.setScalar(r.t < 0.52 ? 0.6 + r.t : 1.2);
             r.mesh.material.opacity = r.t < 0.52 ? 0.5 + Math.sin(r.t * 30) * 0.3 : Math.max(0, 1 - (r.t - 0.52) * 3);
-            if (!r.done && r.t >= 0.52) { r.done = true; if (Math.hypot(P.x - r.x, P.z - r.z) < 1.25) ctx.hurtPlayer(Math.round(dmg() * 0.75), { x: r.x, z: r.z, y: P.y }); }
+            if (!r.done && r.t >= 0.52) { r.done = true; for (const q of onPass) if (Math.hypot(q.pos.x - r.x, q.pos.z - r.z) < 1.25) hurt(q, Math.round(dmg() * 0.75), { x: r.x, z: r.z, y: q.pos.y }, ctx); }
         }
         st.rains = st.rains.filter(r => { if (r.t > 0.9) { scene.remove(r.mesh); r.mesh.material.dispose(); return false; } return true; });
 
@@ -205,10 +236,10 @@ export function createMalphas({ scene, map, at, rng = Math.random }) {
             ring.material.opacity = st.burst.t < 0.8 ? 0.4 + 0.4 * Math.sin(st.burst.t * 25) : Math.max(0, 1 - (st.burst.t - 0.8) * 4);
             if (st.burst.t >= 0.8 && !st.burst.hit) {
                 st.burst.hit = true;
-                if (toP < BURST_R && ctx.hurtPlayer(Math.round(dmg() * 0.75), pos)) ctx.player.knock.set(P.x - pos.x, 0, P.z - pos.z).normalize().multiplyScalar(7);
+                for (const q of onPass) if (Math.hypot(q.pos.x - pos.x, q.pos.z - pos.z) < BURST_R && hurt(q, Math.round(dmg() * 0.75), pos, ctx) && q.id === 'me') ctx.player.knock.set(q.pos.x - pos.x, 0, q.pos.z - pos.z).normalize().multiplyScalar(7);
             }
             if (st.burst.t > 1.1) { st.burst = null; st.burstCd = 4.2 * (st.enraged ? 0.6 : 1) * (st.phase >= 3 ? 0.65 : 1); ring.material.opacity = 0; }
-        } else speed = strikeUpdate(st, P, dt, ctx, true);
+        } else speed = strikeUpdate(st, T, dt, ctx, true);
         moveToward(st, P, speed, dt);
         pose(real, st, st.t, !!st.burst || (st.swing && st.swing.t < 0.6));
         if (s.flash > 0) real.parts.eyes.material.color.setRGB(3, 3, 3);
@@ -216,7 +247,7 @@ export function createMalphas({ scene, map, at, rng = Math.random }) {
         for (const il of st.illusions) {
             if (il.gone) continue;
             il.t += dt;
-            const sp = strikeUpdate(il, P, dt, ctx, false);
+            const sp = strikeUpdate(il, T, dt, ctx, false);
             moveToward(il, P, sp, dt);
             pose(il.b, il, il.t, il.swing && il.swing.t < 0.6);
         }
@@ -249,5 +280,8 @@ export function createMalphas({ scene, map, at, rng = Math.random }) {
         update,
         hit: (...a) => (st.mode === 'fight' ? core.hit(...a) : 'handled'),
         reset: () => { if (st.mode !== 'fleeing' && !st.fled) reset(); },
+        net: core.net, snapshot, applySnapshot,
+        hitFromNet: (h, attacker) => { if (st.mode === 'fight') core.hit(h.dmg, h.from ? new THREE.Vector3(h.from.x, h.from.y, h.from.z) : pos, h.burnMs, core.lastCtx, h.status, h.element, attacker); },
+        credit: () => {},   // (no reward of his own: his retreat completes the quest for everyone, on each client)
     };
 }

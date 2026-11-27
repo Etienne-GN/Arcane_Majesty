@@ -30,7 +30,7 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
     const stat = document.createElement('div'); stat.id = 'netstat'; document.body.append(stat);
     const plates = document.createElement('div'); plates.style.cssText = 'position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:4'; document.body.append(plates);
 
-    let socket = null, sendT = 0, casts = 0, snapT = 0, zonesKey = '', zonesT = 0, zoneHosts = {};
+    let socket = null, sendT = 0, casts = 0, snapT = 0, zonesKey = '', zonesT = 0, zoneHosts = {}, worldClock = null;
     // Shared creatures by zone (2026-11-26): a map that is one place is one zone; the open world reports its built places
     // (map.netZones) — each with the same creature list on every client that has built it. Positions go out in world
     // coordinates (the place's offset added) and come back into the place's own.
@@ -97,7 +97,7 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
             say(`Connected to ${addr}.`, null, true);
         });
         socket.on('connect_error', () => { stat.textContent = '○ cannot reach the server'; });
-        socket.on('disconnect', () => { stat.textContent = '○ offline — retrying'; clearRemotes(); zonesKey = ''; zoneHosts = {}; });
+        socket.on('disconnect', () => { stat.textContent = '○ offline — retrying'; clearRemotes(); zonesKey = ''; zoneHosts = {}; worldClock = null; });
         socket.on('server:full', () => say('The server is full.', null, true));
         socket.on('players:init', list => { clearRemotes(); list.forEach(addRemote); count(); });
         socket.on('player:joined', d => { addRemote(d); say(`${d.name} is here.`, null, true); count(); });
@@ -112,6 +112,7 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
         socket.on('chat:message', ({ name, text }) => say(text, name));
         // ---- shared creatures (6.3): the map's host runs them; everyone else follows its snapshots ----
         socket.on('zones:hosts', hosts => { zoneHosts = hosts ?? {}; });
+        socket.on('world:clock', c => { if (Number.isFinite(c?.min) && Number.isFinite(c?.seed)) worldClock = { min: c.min, seed: c.seed, at: performance.now() }; });
         socket.on('enemy:snap', ({ zone, list }) => {
             if (hostsZone(zone)) return; const Z = zoneOf(zone); if (!Z) return;
             for (const [i, x, y, z, ...rest] of list) Z.list[i]?.applySnapshot([x - Z.off.x, y - Z.off.y, z - Z.off.z, ...rest]);
@@ -151,6 +152,8 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
         get online() { return !!socket?.connected; },
         get isHost() { return zones().every(z => hostsZone(z.zone)); },
         get zoneHosts() { return zoneHosts; },
+        // the server's sky while online: its world clock (game minutes) and weather seed — null offline
+        worldSky() { return socket?.connected && worldClock ? { minutes: worldClock.min + (performance.now() - worldClock.at) / 1000, seed: worldClock.seed } : null; },
         get zones() { return zones().map(z => ({ zone: z.zone, off: [z.off.x, z.off.y, z.off.z], n: z.list.length, live: z.list.filter(h => h.alive).length, at: z.list.map(h => [+(h.pos.x + z.off.x).toFixed(1), +(h.pos.z + z.off.z).toFixed(1), h.kind]).slice(0, 4) })); },   // (debug)
         // Everyone a creature may go for: this hero and the others on this map.
         targets() {

@@ -102,6 +102,28 @@ function createAnimal({ scene, map, rng, type, home }) {
     const ai = { state: 'idle', timer: rng() * 3, heading: rng() * 6.28, speed: 0, t: rng() * 9, cd: 1, hit: false, fly: 0 };
     const turn = (want, k) => { const df = ((((want - ai.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI; ai.heading += df * Math.min(1, k); };
 
+    // Online (2026-11-26, §3: the deer and the rest shared): a puppet follows the zone host's snapshots ([x, y, z, heading,
+    // state, hp, dead]) instead of thinking for itself — as the wolf does
+    const STATES = ['idle', 'wander', 'flee', 'chase', 'return', 'windup', 'strike', 'recover'];
+    let snap = null;
+    function applySnapshot(v) {
+        snap = v; s.hp = v[5];
+        if (v[6] && !s.dead) { s.dead = true; s.deadT = 0; s.hp = 0; }
+        else if (!v[6] && s.dead) { core.revive(); pos.set(v[0], map.heightAt(v[0], v[2]), v[2]); d.root.rotation.z = 0; d.root.visible = true; }
+    }
+    const snapshot = () => [+pos.x.toFixed(2), +pos.y.toFixed(2), +pos.z.toFixed(2), +ai.heading.toFixed(2), Math.max(0, STATES.indexOf(ai.state)), Math.round(s.hp), s.dead ? 1 : 0];
+    function puppetStep(dt) {
+        if (!snap) return false;
+        const k = 1 - Math.exp(-dt * 10), px = pos.x, pz = pos.z;
+        pos.x += (snap[0] - pos.x) * k; pos.z += (snap[2] - pos.z) * k; pos.y = map.heightAt(pos.x, pos.z);
+        const dh = ((((snap[3] - ai.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI;
+        ai.heading += dh * k;
+        ai.state = STATES[snap[4]] ?? 'idle';
+        ai.speed = Math.hypot(pos.x - px, pos.z - pz) / Math.max(dt, 1e-3);
+        s.engaged = fighter && !['idle', 'wander', 'return', 'flee'].includes(ai.state);
+        return true;
+    }
+
     function update(dt, ctx) {
         ai.t += dt;
         if (!core.tick(dt, ctx)) {
@@ -115,7 +137,9 @@ function createAnimal({ scene, map, rng, type, home }) {
         const P = T.pos, toP = Math.hypot(P.x - pos.x, P.z - pos.z), away = Math.atan2(pos.x - P.x, pos.z - P.z), fromHome = Math.hypot(pos.x - home.x, pos.z - home.z);
         let want = 0;
         ai.cd -= dt;
-        if (core.stunned()) ai.state = 'idle';
+        const puppet = core.net.puppet && puppetStep(dt);
+        if (puppet) { /* (the host thinks; we only draw) */ }
+        else if (core.stunned()) ai.state = 'idle';
         else if (!fighter) {
             if (!T.dead && toP < FLEE && ai.state !== 'flee') { ai.state = 'flee'; ai.timer = 2.5 + rng(); if (K.flies) ai.fly = 1; }
             if (ai.state === 'flee') { turn(away, dt * 8); want = SPEED; if ((ai.timer -= dt) <= 0 && toP > FLEE) { ai.state = 'idle'; ai.timer = 2 + rng() * 3; } }
@@ -135,12 +159,14 @@ function createAnimal({ scene, map, rng, type, home }) {
                 if ((ai.timer -= dt) <= 0) { ai.state = 'recover'; ai.timer = 0.6; }
             } else if (ai.state === 'recover') { if ((ai.timer -= dt) <= 0) { ai.state = 'chase'; ai.cd = 1.2 + rng(); } }
         }
-        s.engaged = fighter && !['idle', 'wander', 'return'].includes(ai.state);
-        ai.speed += (want * core.fxMult('speedMult') - ai.speed) * Math.min(1, dt * 6);
-        const px = pos.x, pz = pos.z;
-        pos.x += Math.sin(ai.heading) * ai.speed * dt; pos.z += Math.cos(ai.heading) * ai.speed * dt;
-        if (!K.flies || ai.fly < 0.1) { map.resolve(pos, K.len * 0.4); if (map.blockedAt(pos.x, pos.z, 0.2) === 'wall' && !map.passable(pos.x, pos.z)) { pos.x = px; pos.z = pz; ai.heading += 2; } }
-        pos.y = map.heightAt(pos.x, pos.z);
+        if (!puppet) {
+            s.engaged = fighter && !['idle', 'wander', 'return'].includes(ai.state);
+            ai.speed += (want * core.fxMult('speedMult') - ai.speed) * Math.min(1, dt * 6);
+            const px = pos.x, pz = pos.z;
+            pos.x += Math.sin(ai.heading) * ai.speed * dt; pos.z += Math.cos(ai.heading) * ai.speed * dt;
+            if (!K.flies || ai.fly < 0.1) { map.resolve(pos, K.len * 0.4); if (map.blockedAt(pos.x, pos.z, 0.2) === 'wall' && !map.passable(pos.x, pos.z)) { pos.x = px; pos.z = pz; ai.heading += 2; } }
+            pos.y = map.heightAt(pos.x, pos.z);
+        }
 
         // animate
         if (K.flies) ai.fly = ai.state === 'flee' ? Math.min(1, ai.fly + dt * 2) : Math.max(0, ai.fly - dt * 0.5);
@@ -168,6 +194,9 @@ function createAnimal({ scene, map, rng, type, home }) {
         update,
         hit: (...a) => { const r = core.hit(...a); if (!s.dead) { if (fighter) ai.state = 'chase'; else { ai.state = 'flee'; ai.timer = 3; if (K.flies) ai.fly = 1; } } return r; },
         reset: () => { if (!s.dead) ai.state = fighter ? 'return' : 'idle'; },
+        net: core.net, snapshot, applySnapshot,
+        hitFromNet: (h, attacker) => { core.hit(h.dmg, h.from ? new THREE.Vector3(h.from.x, h.from.y, h.from.z) : pos, h.burnMs, core.lastCtx, h.status, h.element, attacker); if (!s.dead) { if (fighter) ai.state = 'chase'; else { ai.state = 'flee'; ai.timer = 3; if (K.flies) ai.fly = 1; } } },
+        credit: () => core.reward(core.lastCtx),
     };
 }
 
