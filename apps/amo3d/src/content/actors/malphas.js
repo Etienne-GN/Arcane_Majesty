@@ -9,11 +9,42 @@
 import * as THREE from 'three';
 import { createEnemyCore, PX } from './enemyCore.js';
 import { flat } from '../../engine/lib.js';
+import { settings } from '../../engine/settings.js';
+import { humanV2 } from './humanRig.js';
 
 const DEF = { name: 'Malphas', health: 350, damage: 20, speed: 42, sightRange: 260, attackRange: 52, xpReward: 280, lootTable: [] };
 const SPEED = (DEF.speed / PX) * 1.6, REACH = 2.2, BURST_R = 4.6, ARENA = 10, LEASH = 24;
 
+// Character models: New (2026-11-27, the user: "Malphas is an abomination — he is supposed to be humanoid, rework him"):
+// a Void General as a man too tall (the v2 male body, ~2.6 m), robed dark to the ground, frost-grey hands, a white mask
+// for a face with cold eyes, a hood, a crown of ice, a torn mantle and rags that stir, the long ice staff he carries his
+// winter on in his hand. The parts the fight drives are the same: arm (the blow), rag0–5, eyes, light.
+function bodyV2(illusion) {
+    const root = new THREE.Group(), parts = {}, cast = !illusion;
+    const add = (geo, m, x = 0, y = 0, z = 0, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = cast; parent.add(o); return o; };
+    const ROBE = '#1a1c26', robe = flat(0x1a1c26), rag = flat(0x262a38, { side: THREE.DoubleSide }), mask = flat(0xdfe6ee),
+        ice = new THREE.MeshStandardMaterial({ color: 0xcfeaff, emissive: 0x5aa8e8, emissiveIntensity: 0.9, flatShading: true });
+    const outfit = { torso: () => ROBE, arm: part => (part === 'upper' ? ROBE : null), leg: () => ROBE, foot: ROBE };   // (robed: the head and the hands bare)
+    const R = humanV2({ scale: 1.38, skin: '#9aa6b4', cloth: ROBE, outfit }); root.add(R.root);
+    // the robe falling to the ground from the hips, the torn mantle from the shoulders
+    add(new THREE.CylinderGeometry(0.2, 0.42, 0.92, 9, 1, true).translate(0, -0.46, 0), rag, 0, 0, 0, R.hips);
+    const mantle = add(new THREE.PlaneGeometry(0.55, 1.15, 1, 3).translate(0, -0.575, 0), rag, 0, 0.52, -0.12, R.spine); mantle.rotation.x = 0.12;
+    add(new THREE.CylinderGeometry(0.13, 0.36, 0.62, 10, 1, true, 0.35, Math.PI * 2 - 0.7).translate(0, -0.31, 0), rag, 0, 0.6, -0.01, R.spine);   // a cloak over the shoulders, split at the front
+    for (let k = 0; k < 6; k++) { const a = (k / 6) * Math.PI * 2, r = add(new THREE.PlaneGeometry(0.14, 0.5).translate(0, -0.25, 0), rag, Math.sin(a) * 0.3, -0.62, Math.cos(a) * 0.3, R.hips); r.rotation.y = a; parts['rag' + k] = r; }
+    // the head: a hood, a white mask over the face, cold eyes, a crown of ice
+    parts.hood = add(new THREE.SphereGeometry(0.155, 9, 7, Math.PI / 2 + 0.8, Math.PI * 2 - 1.6, 0, Math.PI * 0.7), robe, 0, 0.15, -0.01, R.head); parts.hood.scale.set(1.08, 1.2, 1.15); parts.hood.material = flat(0x1a1c26, { side: THREE.DoubleSide });   // (open at the front: the mask shows)
+    const m = add(new THREE.SphereGeometry(0.1, 8, 6, 0, Math.PI), mask, 0, 0.13, 0.07, R.head); m.scale.set(0.95, 1.3, 0.38);   // (a white plate over the face: the front half, flattened)
+    parts.eyes = add(new THREE.BoxGeometry(0.1, 0.018, 0.02), new THREE.MeshBasicMaterial({ color: 0x9ae8ff, toneMapped: false }), 0, 0.15, 0.112, R.head);   // (the slit, before the mask)
+    for (let k = 0; k < 5; k++) { const a = (k / 4 - 0.5) * 1.5, c = add(new THREE.ConeGeometry(0.018, 0.13 + (k % 2) * 0.07, 4), ice, Math.sin(a) * 0.11, 0.3, Math.cos(a) * 0.02 - 0.02, R.head); c.rotation.z = -a * 0.6; }
+    // the winter he carries: a long ice staff in his hand; the arm the fight raises for the blow
+    parts.arm = R.arms.L.upper;
+    parts.staff = add(new THREE.CylinderGeometry(0.025, 0.035, 1.9, 5), ice, 0, -0.42, 0.05, R.arms.L.fore); parts.staff.rotation.x = 0.12;   // (upright in his hand)
+    if (!illusion) { parts.light = new THREE.PointLight(0x8fd0ff, 6, 10, 1.6); parts.light.position.y = 2.4; root.add(parts.light); }
+    root.traverse(o => { if (o.isMesh) o.castShadow = cast; });   // (an illusion casts no shadow: Aether Sight)
+    return { root, parts };
+}
 function body(illusion) {
+    if (settings.charModels === 'new') return bodyV2(illusion);
     const root = new THREE.Group(), parts = {};
     const cast = !illusion;   // Aether Sight: an illusion casts no shadow
     const add = (geo, m, x = 0, y = 0, z = 0, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = cast; parent.add(o); return o; };
