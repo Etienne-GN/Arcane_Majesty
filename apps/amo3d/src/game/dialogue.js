@@ -94,7 +94,7 @@ export function createDialogue({ stats, hud, onShop, onQuest, onTeach, onTalked,
     const bubbles = [];
     function say(person, line) {
         const el = document.createElement('div');
-        el.className = 'bubble';
+        el.className = 'bubble'; el.style.opacity = 0;   // (shown once placed: never a flash in the corner)
         el.textContent = line;
         document.body.append(el);
         bubbles.push({ el, person, t: 0 });
@@ -172,7 +172,7 @@ export function createDialogue({ stats, hud, onShop, onQuest, onTeach, onTalked,
             for (let k = bubbles.length - 1; k >= 0; k--) {
                 const b = bubbles[k];
                 b.t += dt;
-                const s = project(b.person.pos.x, (b.person.height ?? 2) + 0.4, b.person.pos.z);
+                const P = b.person.pos, s = project(P.x, (P.y ?? 0) + (b.person.height ?? 2) + 0.4, P.z);   // (above the speaker's head, on the ground where they stand: the open world's land is high — at y≈2.4 the bubble was underground, hidden after one frame in the corner)
                 b.el.style.transform = `translate(${s.x}px, ${s.y}px) translate(-50%, -100%)`;
                 b.el.style.opacity = s.visible && b.t < 3.6 ? 1 : 0;
                 if (b.t > 4) { b.el.remove(); bubbles.splice(k, 1); }

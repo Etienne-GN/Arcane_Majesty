@@ -138,7 +138,7 @@ export function createTownsfolk({ scene, W, H, resolve = null, mapId = 'thaloria
                     m.update(dt, { speed: p.speed, sprinting: false, hopK: null });
                 }
                 if (p.label) {
-                    tmp.set(p.pos.x, p.height, p.pos.z).project(ctx.camera);
+                    tmp.set(p.pos.x, p.pos.y + p.height, p.pos.z).project(ctx.camera);   // (above the head where they stand: the ground is not at 0 in the open world)
                     const close = Math.hypot(p.pos.x - P.x, p.pos.z - P.z) < 9 && tmp.z < 1;
                     p.label.style.opacity = close ? 1 : 0;
                     p.label.style.transform = `translate(${(tmp.x * 0.5 + 0.5) * innerWidth}px, ${(-tmp.y * 0.5 + 0.5) * innerHeight}px) translate(-50%, -100%)`;
