@@ -15,6 +15,7 @@ import { buildHound } from '../models/hound.js';
 import { buildRobed } from '../models/robed.js';
 import { settings } from '../../engine/settings.js';
 import { humanV2, walkLegs } from './humanRig.js';
+import { buildWolf } from './wolf.js';
 export const NAMES = { ...NAMES2, grave_wraith: 'Grave-Wraith', cursed_knight: 'Cursed Knight', lava_elemental: 'Magma-Eater', ember_imp: 'Cinder-Soul', stone_golem: 'Obsidian Golem', cave_bat: 'Cave Bat', blind_stalker: 'Blind Stalker', deep_horror: 'Deep Horror', gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
 const TUNE = { sight: 2.6, reach: 2, speed: 1.4 };
 
@@ -102,6 +103,21 @@ function body(type) {
             parts[s > 0 ? 'wingL' : 'wingR'] = pivot;
         }
         parts.eyes = add(new THREE.BoxGeometry(0.1, 0.025, 0.02), new THREE.MeshBasicMaterial({ color: 0xff3a2a, toneMapped: false }), 0, 0.06, 0.18);
+    } else if ((type === 'void_stalker' || type === 'blind_stalker') && settings.charModels === 'new') {   // (2026-11-27, TODO §5: on v2)
+        // the stalkers on the v2 wolf (its skeleton and body, shaped in the Sculptor's Wolf layer), a quarter bigger: the Void-Stalker
+        // near-black with glowing violet spines and eyes; the Blind Stalker pale and eyeless, a bony ridge, its maw glowing
+        const blind = type === 'blind_stalker', w = buildWolf(blind ? 0xb8b0a4 : 0x1e1828); w.root.scale.setScalar(1.25); root.add(w.root);
+        parts.legs = w.legs.map(l => l.upper); parts.lowers = w.legs.map(l => l.lower);
+        const eyeMeshes = []; w.root.traverse(o => { if (o.isMesh && o.material === w.M.eye) eyeMeshes.push(o); });
+        if (blind) {
+            for (const e of eyeMeshes) e.visible = false;
+            const D = flat(0x5a524a); for (let i = 0; i < 7; i++) add(new THREE.BoxGeometry(0.05, 0.06, 0.05), D, 0, 0.2 - Math.abs(i - 3) * 0.01, 0.34 - i * 0.11, w.body);   // the bony ridge
+            parts.eyes = add(new THREE.BoxGeometry(0.07, 0.025, 0.18), new THREE.MeshBasicMaterial({ color: 0xd8ff8a, toneMapped: false }), 0, -0.075, 0.2, w.head);   // (under the muzzle, where it shows: the tell brightens it)   // the glowing maw
+        } else {
+            w.M.eye.color.set(0xc86aff); parts.eyes = eyeMeshes[0] ?? add(new THREE.BoxGeometry(0.1, 0.02, 0.01), w.M.eye, 0, 0.04, 0.12, w.head);
+            const S = new THREE.MeshStandardMaterial({ color: 0x6a2aaa, emissive: 0x6a2aaa, emissiveIntensity: 0.9, flatShading: true });
+            for (let i = 0; i < 6; i++) { const sp = add(new THREE.ConeGeometry(0.035, 0.24 - Math.abs(i - 2) * 0.025, 4), S, 0, 0.22, 0.34 - i * 0.12, w.body); sp.rotation.x = -0.55; }
+        }
     } else if (type === 'blind_stalker') {   // a pale eyeless hound that hunts by sound: a long blind skull, a knuckled spine, a glowing maw
         const h = buildHound({ coat: 0xb8b0a4, belly: 0x9a9286, dark: 0x5a524a, mawColor: 0xd8ff8a, eyeless: true, knuckles: true, scale: 1.05 });
         root.add(h.root); Object.assign(parts, { legs: h.legs, lowers: h.lowers, jaw: h.jaw, tail: h.tail, eyes: h.eyes });
