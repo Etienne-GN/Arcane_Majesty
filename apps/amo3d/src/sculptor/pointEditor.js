@@ -48,6 +48,8 @@ const savePrefs = p => { try { localStorage.setItem(PREFS_KEY, JSON.stringify(p)
 export function createPointEditor({ hairless = false, THREE, scene, camera, renderer, getBody, bodies = [], alts = {}, viewRect = null, onEnter, onExit }) {
     let loaded = null, bodyMesh = null, on = false, sex = 'male', who = bodies[0]?.id, layer = null, T = null, geo = null, mesh = null, wire = null, dots = null, sel = -1, hover = -1, mirrorOf = [], drag = null;
     let region = 'head', yaw = 0, pitch = 0.05, dist = 0.55, target = new THREE.Vector3(0, 1.66, 0);
+    // (2026-11-27, the user: "I can't dezoom more on the model, nor expand the ref further, so I can superpose them")
+    const MAX_DIST = 12, MAX_REF = 4000;
     const undo = [], group = new THREE.Group(); scene.add(group); group.visible = false;
     const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), tmpM = new THREE.Matrix4(), col = new THREE.Color();
     const keyPos = k => k.split(',').map(Number);
@@ -202,7 +204,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         const s = dist * 0.04;
         if (id === 'left' || id === 'right' || id === 'up' || id === 'down') { const [r, u] = camAxes(); const d = new THREE.Vector3(); if (id === 'left') d.addScaledVector(r, -s); if (id === 'right') d.addScaledVector(r, s); if (id === 'up') d.addScaledVector(u, s); if (id === 'down') d.addScaledVector(u, -s); target.add(d); }
         else if (id === 'tl') yaw += 0.08; else if (id === 'tr') yaw -= 0.08;
-        else if (id === 'bl') dist = Math.min(4, dist * 1.08); else if (id === 'br') dist = Math.max(0.15, dist / 1.08);
+        else if (id === 'bl') dist = Math.min(MAX_DIST, dist * 1.08); else if (id === 'br') dist = Math.max(0.15, dist / 1.08);
         else if (id === 'mid' && first) setRegion(region);
     }
     const camAxes = () => { const f = camera.getWorldDirection(new THREE.Vector3()), r = new THREE.Vector3().crossVectors(f, camera.up).normalize(), u = new THREE.Vector3().crossVectors(r, f).normalize(); return [r, u, f]; };
@@ -211,8 +213,9 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const refBox = make('div', 'pe pe-ref', document.body);
     const refHead = make('div', 'pe-reft', refBox), refLabel = make('span', '', refHead);
     button(refHead, '−', () => { prefs.refSize = Math.max(140, prefs.refSize - 50); keep(); drawRef(true); });
-    button(refHead, '+', () => { prefs.refSize = Math.min(900, prefs.refSize + 50); keep(); drawRef(true); });
+    button(refHead, '+', () => { prefs.refSize = Math.min(MAX_REF, prefs.refSize + 50); keep(); drawRef(true); });
     const traceMini = button(refHead, 'Trace', () => traceBtn.click());
+    button(refHead, 'Fit', () => fitToRef(), 'Move the view so the model stands exactly on the reference figure (its height, its feet, its middle)');
     button(refHead, '✕', () => { prefs.refOn = false; keep(); layoutRef(); });
     const REF_URL = hairless ? REF_BALD : REF_HAIR;
     const refPic = make('div', 'pe-pic', refBox); refPic.style.backgroundImage = `url(${REF_URL})`;
@@ -228,9 +231,33 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
             handle.addEventListener('pointermove', move); handle.addEventListener('pointerup', up); handle.addEventListener('pointercancel', up);
         });
     };
-    dragWin(refHead, (dx, dy) => { prefs.refX = Math.max(-200, Math.min(innerWidth - 60, (prefs.refX ?? refBox.offsetLeft) + dx)); prefs.refY = Math.max(48, Math.min(innerHeight - 40, (prefs.refY ?? refBox.offsetTop) + dy)); placeRef(); });
-    dragWin(grip, dx => { prefs.refSize = Math.max(140, Math.min(1200, prefs.refSize + dx)); drawRef(true); });
+    dragWin(refHead, (dx, dy) => { prefs.refX = Math.max(-(refBox.offsetWidth - 120), Math.min(innerWidth - 60, (prefs.refX ?? refBox.offsetLeft) + dx)); prefs.refY = Math.max(48, Math.min(innerHeight - 40, (prefs.refY ?? refBox.offsetTop) + dy)); placeRef(); });
+    dragWin(grip, dx => { prefs.refSize = Math.max(140, Math.min(MAX_REF, prefs.refSize + dx)); drawRef(true); });
     const placeRef = () => { const minY = (on ? bar.offsetHeight : 48) + 6; refBox.style.left = `${prefs.refX ?? 70}px`; refBox.style.top = `${Math.max(minY, prefs.refY ?? minY + 4)}px`; };   // (never under the top bar: its title must stay in reach)
+    // Fit (2026-11-27): each sheet figure's head top, sole and centre line (sheet px; with and without hair) — the view is
+    // turned square to the reference's view and moved so the model's top, feet and middle land on the figure's
+    const FIG = {
+        hair: { male: { front: [89, 596, 188], side: [89, 596, 464], back: [89, 595, 719.5] }, female: { front: [670, 1175, 181.5], side: [670, 1174, 465], back: [666, 1171, 719] } },
+        bald: { male: { front: [92, 596, 188], side: [93, 596, 463], back: [92, 595, 719] }, female: { front: [683, 1175, 181.5], side: [683, 1175, 457], back: [683, 1171, 719] } },
+    };
+    function fitToRef() {
+        if (!T || !REF[sex] || refMode === 'sheet') { info.textContent = 'Fit works on a body with its reference figure shown (not the whole sheet).'; return; }
+        const a = ((yaw % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI), view = a < 0.9 || a > 5.4 ? 'front' : a > 2.3 && a < 4.0 ? 'back' : 'side';
+        const fig = FIG[hairless || !hairOn ? 'bald' : 'hair'][sex]?.[view]; if (!fig) return;
+        if (!prefs.refOn) { prefs.refOn = true; layoutRef(); }
+        if (!prefs.trace) { prefs.trace = true; keep(); layoutRef(); }
+        yaw = view === 'front' ? 0 : view === 'back' ? Math.PI : Math.PI / 2; pitch = 0;   // (the sheet's side view faces left: seen from +x)
+        const pos = geo.attributes.position; let top = 0;
+        for (let i = 0; i < pos.count; i++) if ((hairOn || !T.hair?.[i]) && pos.getY(i) > top) top = pos.getY(i);
+        const box = REF[sex][view][region === 'head' ? 1 : 0], pr = refPic.getBoundingClientRect(), k = pr.width / (box[2] - box[0]);
+        const figTop = pr.top + (fig[0] - box[1]) * k, figSole = pr.top + (fig[1] - box[1]) * k, figCx = pr.left + (fig[2] - box[0]) * k;
+        const r = area(), tanH = Math.tan(camera.fov * Math.PI / 360), pxPerM = (figSole - figTop) / top;
+        const dk = r.height / (2 * tanH * pxPerM), stretch = Math.max(1, 0.8 / camera.aspect);
+        dist = Math.min(MAX_DIST, dk / stretch);
+        const ri = new THREE.Vector3(Math.cos(yaw), 0, -Math.sin(yaw));   // (the view's right, square to it)
+        target.set(0, (figSole - (r.top + r.height / 2)) / pxPerM, 0).addScaledVector(ri, ((r.left + r.width / 2) - figCx) / pxPerM);
+        info.textContent = `Fitted to the ${sex}'s ${view} figure: the model's ${top.toFixed(2)} m over its height on the sheet. Drag or size the reference and Fit again.`;
+    }
     function layoutRef() {
         refBox.style.display = on && prefs.refOn ? 'flex' : 'none';
         refBox.classList.toggle('trace', prefs.trace);
@@ -503,7 +530,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         if (e.pointerType === 'touch' && touches.has(e.pointerId)) touches.set(e.pointerId, [e.clientX, e.clientY]);
         if (pinch && touches.size === 2) {   // two fingers: zoom, and move the view with their middle
             e.stopImmediatePropagation(); const [a, b2] = [...touches.values()]; const d = Math.hypot(a[0] - b2[0], a[1] - b2[1]);
-            dist = Math.max(0.15, Math.min(4, pinch.dist * pinch.d / Math.max(1, d)));
+            dist = Math.max(0.15, Math.min(MAX_DIST, pinch.dist * pinch.d / Math.max(1, d)));
             const cx = (a[0] + b2[0]) / 2, cy = (a[1] + b2[1]) / 2; panBy(cx - pinch.cx, cy - pinch.cy); pinch.cx = cx; pinch.cy = cy; return;
         }
         if (!drag) {   // a pen hovering (or a mouse): the point it would take
@@ -529,7 +556,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     };
     canvas.addEventListener('pointerup', lift, true); canvas.addEventListener('pointercancel', lift, true);
     canvas.addEventListener('pointerleave', () => { if (hover >= 0 && dots) { hover = -1; placeDots(); } });
-    canvas.addEventListener('wheel', e => { if (!on) return; e.preventDefault(); dist = Math.max(0.15, Math.min(4, dist * (e.deltaY > 0 ? 1.1 : 0.9))); }, { passive: false });
+    canvas.addEventListener('wheel', e => { if (!on) return; e.preventDefault(); dist = Math.max(0.15, Math.min(MAX_DIST, dist * (e.deltaY > 0 ? 1.1 : 0.9))); }, { passive: false });
     addEventListener('keydown', e => {
         if (!on || e.target.closest?.('input, select, textarea')) return;
         if ((e.ctrlKey || e.metaKey) && e.code === 'KeyZ') { e.preventDefault(); doUndo(); return; }
