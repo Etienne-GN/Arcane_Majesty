@@ -61,10 +61,12 @@ export function buildWolfV2(d, { fur = '#6b6862', belly = '#b8b0a2', dark = '#1c
         }
         // the legs: thigh or shoulder to the knee, the shank to the paw (the joints bend between)
         sk.section('legs');
-        legs.forEach(({ upper, lower }) => {
+        legs.forEach(({ upper, lower, front }) => {
+            const hind = !front;   // (the hind legs: the big thigh — "the rear legs are usually larger")
             sk.tube([
-                { c: V(upper, 0, 0.06, 0), r: 0.075, rz: 0.08, w: [[body, 0.6], [upper, 0.4]], col: fur },
-                { c: V(upper, 0, -0.06, 0), r: 0.06, rz: 0.065, w: [[upper, 1]], col: fur },
+                { c: V(upper, 0, 0.06, hind ? -0.02 : 0), r: hind ? 0.085 : 0.065, rz: hind ? 0.1 : 0.07, w: [[body, 0.6], [upper, 0.4]], col: fur },
+                { c: V(upper, 0, -0.06, hind ? -0.035 : 0), r: hind ? 0.075 : 0.052, rz: hind ? 0.095 : 0.058, w: [[upper, 1]], col: fur },
+                ...(hind ? [{ c: V(upper, 0, -0.15, -0.02), r: 0.055, rz: 0.068, w: [[upper, 1]], col: fur }] : []),
                 { c: V(upper, 0, -0.24, 0), r: 0.042, w: [[upper, 1]], col: fur },
                 { c: V(lower, 0, 0.0, 0), r: 0.036, w: [[upper, 0.5], [lower, 0.5]], col: fur },   // the knee
                 { c: V(lower, 0, -0.2, 0), r: 0.028, w: [[lower, 1]], col: fur },
@@ -151,9 +153,11 @@ export function buildHorseV2(d, { coat = '#4a3328', mane = '#1e1e24', hoof = '#1
         // the legs: forearm or gaskin to the knee or hock, the cannon to the fetlock, the hoof
         sk.section('legs');
         legs.forEach(({ g, low }) => {
+            const hind = g.position.z < 0;   // (the hind legs: the big thigh and gaskin — "the rear legs are usually larger")
             sk.tube([
-                { c: V(g, 0, 0.14, 0), r: 0.15, rz: 0.19, w: [[body, 0.7], [g, 0.3]], col: coat },
-                { c: V(g, 0, -0.08, 0), r: 0.12, rz: 0.15, w: [[g, 1]], col: coat },
+                { c: V(g, 0, 0.14, hind ? -0.04 : 0), r: hind ? 0.19 : 0.14, rz: hind ? 0.25 : 0.17, w: [[body, 0.7], [g, 0.3]], col: coat },
+                { c: V(g, 0, -0.08, hind ? -0.06 : 0), r: hind ? 0.16 : 0.11, rz: hind ? 0.21 : 0.13, w: [[g, 1]], col: coat },
+                ...(hind ? [{ c: V(g, 0, -0.22, -0.04), r: 0.11, rz: 0.14, w: [[g, 1]], col: coat }] : []),
                 { c: V(g, 0, -0.36, 0), r: 0.078, rz: 0.092, w: [[g, 1]], col: coat },
                 { c: V(low, 0, 0.0, 0), r: 0.074, rz: 0.086, w: [[g, 0.5], [low, 0.5]], col: coat },   // the knee / hock
                 { c: V(low, 0, -0.1, 0), r: 0.06, rz: 0.068, w: [[low, 1]], col: coat },
@@ -287,15 +291,26 @@ export function buildAnimalV2(d, kind) {
             if (K.bristle) sk.tube([-0.3, 0, 0.3, 0.55].map(f => ({ c: V(body, 0, r * 0.95 + 0.02, f * K.len), r: 0.02, rz: 0.06, w: B, col: dark })), { seg: 4, cap: true, mat: 'double' });
             sk.section('legs');
             for (const { g } of parts.legs) {
-                const lr = K.legs * 0.28, ix = -g.position.x * 0.5;   // (2026-11-26: "the upper legs look weird" — the leg began above its joint, wide and open, and stood out of the body's side: now it starts buried in the body, drawn in toward the middle, and swells into the thigh or shoulder just below the belly)
+                const lr = K.legs * 0.28, ix = -g.position.x * 0.5, H = K.h;
+                // (2026-11-26, the user: "the rear legs are usually larger than the front legs, with the big thigh") — a hind leg:
+                // a big thigh bulging back like a ham, tapering to the hock; a foreleg: a lighter shoulder and forearm
+                const hind = g.position.z < 0;
+                // (sized to the body — at most about half its girth, inside the rump's line: "balloons" otherwise)
+                const hr = Math.min(lr * 1.7, r * 0.55 * w0), tr = Math.min(lr * 1.45, r * 0.46 * w0);
+                const top = hind
+                    ? [{ c: V(g, ix, 0.24 * H, -0.01 * H), r: lr * 1.1, w: [[body, 1]], col: fur },
+                        { c: V(g, ix * 0.4, 0.03 * H, -0.035 * H), r: hr, rz: hr * 1.15, w: [[body, 0.6], [g, 0.4]], col: fur },   // the haunch
+                        { c: V(g, 0, -0.16 * H, -0.035 * H), r: tr, rz: tr * 1.12, w: [[g, 1]], col: fur },   // the thigh, deep front to back
+                        { c: V(g, 0, -0.33 * H, -0.015 * H), r: lr * 1.0, rz: lr * 1.1, w: [[g, 1]], col: fur }]   // into the hock
+                    : [{ c: V(g, ix, 0.22 * H, 0), r: lr * 0.8, w: [[body, 1]], col: fur },
+                        { c: V(g, ix * 0.4, 0.02 * H, 0.01 * H), r: lr * 1.15, w: [[body, 0.6], [g, 0.4]], col: fur },
+                        { c: V(g, 0, -0.17 * H, 0.01 * H), r: lr * 1.0, w: [[g, 1]], col: fur }];   // the shoulder, the forearm
                 sk.tube([
-                    { c: V(g, ix, 0.22 * K.h, 0), r: lr * 0.9, w: [[body, 1]], col: fur },
-                    { c: V(g, ix * 0.4, 0.02 * K.h, 0), r: lr * 1.35, w: [[body, 0.6], [g, 0.4]], col: fur },
-                    { c: V(g, 0, -0.17 * K.h, 0), r: lr * 1.2, w: [[g, 1]], col: fur },   // the thigh or shoulder, under the belly
-                    { c: V(g, 0, -0.45 * K.h, 0), r: lr * 0.85, w: [[g, 1]], col: fur },
-                    { c: V(g, 0, -0.7 * K.h, 0), r: lr * 0.8, w: [[g, 1]], col: fur },
-                    { c: V(g, 0, -0.74 * K.h, 0.01), r: lr * 0.95, w: [[g, 1]], col: dark },   // the hoof or paw
-                    { c: V(g, 0, -0.78 * K.h, 0.015), r: lr, w: [[g, 1]], col: dark },
+                    ...top,
+                    { c: V(g, 0, -0.45 * H, 0), r: lr * (hind ? 0.8 : 0.85), w: [[g, 1]], col: fur },
+                    { c: V(g, 0, -0.7 * H, 0), r: lr * 0.8, w: [[g, 1]], col: fur },
+                    { c: V(g, 0, -0.74 * H, 0.01), r: lr * 0.95, w: [[g, 1]], col: dark },   // the hoof or paw
+                    { c: V(g, 0, -0.78 * H, 0.015), r: lr, w: [[g, 1]], col: dark },
                 ], { seg: 6, cap: true, mat: 'double' });
             }
             sk.section('tail');
