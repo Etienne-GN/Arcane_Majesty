@@ -10,7 +10,7 @@ import { Server } from 'socket.io';
 const PORT = +(process.env.AMO3D_PORT ?? 3003);
 const MAX_PLAYERS = 32;
 const players = new Map();   // socket.id → state
-const snaps = new Map();     // map id → the host's latest creature snapshot (index → [x, y, z, heading, state, hp, dead])
+const snaps = new Map();     // `${map}|${zone}` → the zone host's latest creature snapshot (index → { v: [x, y, z, heading, state, hp, dead], t, untrustedUntil })
 const MAX_STRIKE = 60;       // amo's hardest-hitting creature, elite (×1.4) and with room to spare
 
 const httpServer = createServer((req, res) => {
@@ -45,21 +45,31 @@ const pub = p => ({ id: p.id, name: p.name, level: p.level, look: p.look, weapon
 
 const vec = o => { o = obj(o); return { x: num(o.x, -2000, 2000), y: num(o.y, -500, 500), z: num(o.z, -2000, 2000) }; };
 const inMap = map => [...players.values()].filter(o => o.map === map);
-// The map's host (6.3): whoever has been there longest runs its creatures and streams them to the others.
-const hostOf = map => inMap(map).sort((x, y) => x.since - y.since)[0] ?? null;
-const hosts = new Map();     // map id → current host id
-const announceHost = map => {
-    const h = hostOf(map);
-    if ((h?.id ?? null) !== (hosts.get(map) ?? null)) snaps.delete(map);   // a new host: nothing the old one said counts
-    if (h) { hosts.set(map, h.id); io.to(map).emit('map:host', { id: h.id }); } else hosts.delete(map);
-};
+// Shared creatures are shared by zone (2026-11-26): a map that is one place has one zone (its id); the open world has one per
+// built place (each client reports the places it has built, with the same creatures in each). A zone's host — whoever has
+// had it longest — runs its creatures and streams them to the others who have it.
+const ZONE_RE = /^[a-z0-9_:.-]{1,60}$/;
+const withZone = (map, zone) => inMap(map).filter(o => o.zones?.has(zone));
+const hostOf = (map, zone) => withZone(map, zone).sort((x, y) => x.zones.get(zone) - y.zones.get(zone))[0] ?? null;
+const zoneHosts = new Map();   // `${map}|${zone}` → host id
+function announceZones(map) {   // to everyone on the map: each zone's host and how many have it ({ zone: [host, n] })
+    const all = new Set(); for (const o of inMap(map)) for (const z of o.zones?.keys() ?? []) all.add(z);
+    const out = {};
+    for (const z of all) {
+        const h = hostOf(map, z), key = `${map}|${z}`;
+        if ((h?.id ?? null) !== (zoneHosts.get(key) ?? null)) snaps.delete(key);   // a new host: nothing the old one said counts
+        if (h) { zoneHosts.set(key, h.id); out[z] = [h.id, withZone(map, z).length]; } else zoneHosts.delete(key);
+    }
+    for (const key of [...zoneHosts.keys()]) if (key.startsWith(`${map}|`) && !all.has(key.slice(map.length + 1))) { zoneHosts.delete(key); snaps.delete(key); }
+    io.to(map).emit('zones:hosts', out);
+}
 const MAX_CREATURE_SPEED = 15;   // m/s — no creature in amo moves faster; anything quicker is not to be believed
 
 io.on('connection', socket => {
-    let lastMove = 0, lastChat = 0, lastJoin = 0, lastUpdate = 0, lastAct = 0, lastSnap = 0, hitsWindow = 0, hitsT = 0, strikeT = 0;
+    let lastMove = 0, lastChat = 0, lastJoin = 0, lastUpdate = 0, lastAct = 0, lastZones = 0, snapT = new Map(), hitsWindow = 0, hitsT = 0, strikeT = 0;
     // Every handler gets an object (never null, never an array) and cannot bring the server down.
     const on = (ev, fn) => socket.on(ev, raw => { try { fn(obj(raw)); } catch (e) { console.error(`bad ${ev} from ${socket.id}: ${e.message}`); } });
-    const enterMap = (p, map) => { p.map = map; p.since = Date.now(); socket.join(map); };
+    const enterMap = (p, map) => { p.map = map; p.since = Date.now(); p.zones = new Map(); socket.join(map); };
 
     on('player:join', j => {
         const now = Date.now();
@@ -67,14 +77,14 @@ io.on('connection', socket => {
         lastJoin = now;
         if (players.size >= MAX_PLAYERS && !players.has(socket.id)) { socket.emit('server:full'); socket.disconnect(true); return; }
         const old = players.get(socket.id);
-        if (old) { socket.to(old.map).emit('player:left', { id: old.id }); socket.leave(old.map); players.delete(socket.id); announceHost(old.map); }   // a repeated join leaves the old room cleanly
+        if (old) { socket.to(old.map).emit('player:left', { id: old.id }); socket.leave(old.map); players.delete(socket.id); announceZones(old.map); }   // a repeated join leaves the old room cleanly
         const p = { id: socket.id, name: str(j.name, 24, '') || `Wanderer ${socket.id.slice(0, 4)}`, level: num(j.level, 1, 99, 1),
             look: cleanLook(j.look), weapon: str(j.weapon, 20, 'staff'), move: cleanMove(obj(j.move)) };
         players.set(socket.id, p);
         enterMap(p, mapId(j.map));
         socket.emit('players:init', inMap(p.map).filter(o => o.id !== p.id).map(pub));
         socket.to(p.map).emit('player:joined', pub(p));
-        announceHost(p.map);
+        announceZones(p.map);
         console.log(`[+] ${p.name} → ${p.map} (${players.size} online)`);
     });
 
@@ -92,7 +102,7 @@ io.on('connection', socket => {
             p.move = cleanMove(m);
             socket.emit('players:init', inMap(map).filter(o => o.id !== p.id).map(pub));
             socket.to(map).emit('player:joined', pub(p));
-            announceHost(from); announceHost(map);
+            announceZones(from); announceZones(map);
             return;
         }
         p.move = cleanMove(m);
@@ -123,53 +133,65 @@ io.on('connection', socket => {
         socket.to(p.map).emit('player:act', { id: p.id, kind: 'fireball', spell: typeof a.spell === 'string' && /^[a-z_]{1,32}$/.test(a.spell) ? a.spell : 'fireball', origin: vec(a.origin), dir: { x: d.x / len, y: d.y / len, z: d.z / len } });
     });
 
-    // ---- shared creatures (6.3) ----
-    const isHost = p => p && hostOf(p.map)?.id === p.id;
-    on('enemy:snap', a => {   // host → the room: [[index, x, y, z, heading, state, hp, dead], …]
+    // ---- shared creatures (6.3; by zone since 2026-11-26) ----
+    on('player:zones', a => {   // the zones this player has (a place-map: its id; the open world: its built places)
         const p = players.get(socket.id);
         const now = Date.now();
-        if (!isHost(p) || now - lastSnap < 70 || !Array.isArray(a.list) || a.list.length > 400) return;
+        if (!p || now - lastZones < 400 || !Array.isArray(a.zones)) return;
+        lastZones = now;
+        const want = new Set(a.zones.slice(0, 60).filter(z => typeof z === 'string' && ZONE_RE.test(z)));
+        let changed = false;
+        for (const z of [...p.zones.keys()]) if (!want.has(z)) { p.zones.delete(z); changed = true; }
+        for (const z of want) if (!p.zones.has(z)) { p.zones.set(z, now); changed = true; }
+        if (changed) announceZones(p.map);
+    });
+    const isHost = (p, zone) => p && typeof zone === 'string' && hostOf(p.map, zone)?.id === p.id;
+    on('enemy:snap', a => {   // a zone's host → the others with it: [[index, x, y, z, heading, state, hp, dead], …] (world positions)
+        const p = players.get(socket.id);
+        const now = Date.now();
+        if (!isHost(p, a.zone) || now - (snapT.get(a.zone) ?? 0) < 70 || !Array.isArray(a.list) || a.list.length > 400) return;
         if (!a.list.every(e => Array.isArray(e) && Number.isInteger(e[0]) && e[0] >= 0 && e[0] <= 400)) return;
-        lastSnap = now;
+        snapT.set(a.zone, now);
         const list = a.list.filter(e => Array.isArray(e) && e.length === 8).map(e => e.map(v => num(+v, -1e5, 1e5)));
         // Each creature keeps its history across snapshots (one left out keeps its last place). A creature that
         // jumped further than it could have run, or that appears with no recent history (new, or left out and
         // brought back), is not trusted to strike for two seconds.
-        const m = snaps.get(p.map) ?? new Map();
+        const key = `${p.map}|${a.zone}`, m = snaps.get(key) ?? new Map();
         for (const [i, ...v] of list) {
             const was = m.get(i), fresh = was && now - was.t <= 1500, dt = fresh ? (now - was.t) / 1000 : 0;
             const jumped = fresh && Math.hypot(v[0] - was.v[0], v[2] - was.v[2]) > MAX_CREATURE_SPEED * Math.max(dt, 0.07) + 1;
             m.set(i, { v, t: now, untrustedUntil: !fresh || jumped ? now + 2000 : was.untrustedUntil });
         }
-        snaps.set(p.map, m);
-        socket.to(p.map).emit('enemy:snap', { list });
+        snaps.set(key, m);
+        for (const o of withZone(p.map, a.zone)) if (o.id !== p.id) io.to(o.id).emit('enemy:snap', { zone: a.zone, list });
     });
-    on('enemy:hit', a => {   // a player → the host: their blow on creature `i`
+    on('enemy:hit', a => {   // a player → the zone's host: their blow on creature `i`
         const p = players.get(socket.id);
         const now = Date.now();
-        if (!p || isHost(p)) return;
+        if (!p || typeof a.zone !== 'string' || !p.zones.has(a.zone) || isHost(p, a.zone)) return;
         if (now - hitsT > 1000) { hitsT = now; hitsWindow = 0; }
         if (++hitsWindow > 20) return;   // twenty blows a second is already a lot
-        const host = hostOf(p.map), h = obj(a.h), st = obj(h.status);
-        io.to(host.id).emit('enemy:hit', { i: num(a.i, 0, 400) | 0, attacker: p.id, h: {
+        const host = hostOf(p.map, a.zone), h = obj(a.h), st = obj(h.status);
+        if (!host) return;
+        io.to(host.id).emit('enemy:hit', { zone: a.zone, i: num(a.i, 0, 400) | 0, attacker: p.id, h: {
             dmg: num(h.dmg, 0, 5000), burnMs: num(h.burnMs, 0, 20000), element: h.element ? str(h.element, 16) : null,
             status: h.status ? { id: str(st.id, 24), ms: num(st.ms, 0, 30000) } : null, from: h.from ? vec(h.from) : null } });
     });
-    on('enemy:killed', a => {   // host → the players who helped: credit for creature `i`
+    on('enemy:killed', a => {   // the zone's host → the players who helped: credit for creature `i`
         const p = players.get(socket.id);
-        if (!isHost(p) || !Array.isArray(a.by)) return;
-        for (const id of a.by.slice(0, 32)) { const q = players.get(id); if (q && q.map === p.map) io.to(id).emit('enemy:credit', { i: num(a.i, 0, 400) | 0 }); }
+        if (!isHost(p, a.zone) || !Array.isArray(a.by)) return;
+        for (const id of a.by.slice(0, 32)) { const q = players.get(id); if (q && q.map === p.map) io.to(id).emit('enemy:credit', { zone: a.zone, i: num(a.i, 0, 400) | 0 }); }
     });
-    // host → a player: creature `i` landed a blow on them. The host is a client, so the claim is checked against
-    // its own last snapshot: that creature must be alive and within reach of the target; damage is capped and
+    // the zone's host → a player: creature `i` landed a blow on them. The host is a client, so the claim is checked
+    // against its own last snapshot: that creature must be alive and within reach of the target; damage is capped and
     // each player can be struck at most every 0.4 s.
     on('player:strike', a => {
         const p = players.get(socket.id);
         const now = Date.now();
-        if (!isHost(p) || now - strikeT < 30) return;
+        if (!isHost(p, a.zone) || now - strikeT < 30) return;
         strikeT = now;
         if (!Number.isInteger(a.i) || a.i < 0 || a.i > 400) return;
-        const q = players.get(a.target), e = snaps.get(p.map)?.get(a.i), c = e?.v;
+        const q = players.get(a.target), e = snaps.get(`${p.map}|${a.zone}`)?.get(a.i), c = e?.v;
         if (!q || q.map !== p.map || !c || c[6] || now < e.untrustedUntil || now - e.t > 1500) return;   // dead, teleported, or stale
         if (Math.hypot(c[0] - q.move.x, c[2] - q.move.z) > 6) return;   // nowhere near: not a real blow
         if (now - (q.lastHurt ?? 0) < 400) return;
@@ -191,8 +213,7 @@ io.on('connection', socket => {
         if (!p) return;
         socket.to(p.map).emit('player:left', { id: p.id });
         players.delete(socket.id);
-        announceHost(p.map);   // the next player takes over the creatures
-        if (!inMap(p.map).length) snaps.delete(p.map);
+        announceZones(p.map);   // the next player takes over the creatures
         console.log(`[-] ${p.name} (${players.size} online)`);
     });
 });

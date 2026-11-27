@@ -343,6 +343,9 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         if (ctx.camera) { st.lcam.copy(ctx.camera); st.lcam.position.sub(st.off); st.lcam.updateMatrixWorld(); }
         const L = Object.create(ctx);
         L.player = st.lplayer; L.camera = ctx.camera ? st.lcam : ctx.camera;
+        // who the place's creatures may go for, in the place's own frame (2026-11-26: they were given world positions — so
+        // a creature inside a place chased a point shifted by the place's offset; the hero is the place-local player)
+        if (ctx.players) { st.lplayers = ctx.players.map((q, i) => { const o = st.lplayers?.[i]?.id === q.id ? st.lplayers[i] : { id: q.id, pos: new THREE.Vector3() }; o.pos.copy(q.pos).sub(st.off); o.dead = q.dead; return o; }); L.players = st.lplayers; }
         for (const k of ['hurtPlayer', 'floater', 'onKill', 'dropLoot', 'hurtRemote']) if (typeof ctx[k] === 'function') { const f = ctx[k]; L[k] = (...a) => f(...a.map(x => toWorld(st, x))); }
         return L;
     }
@@ -729,6 +732,9 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         update() {},
     };
     map.gatherSpots.push(...extraGather);   // the open land's own (the world: fishing along the rivers)
+    // Online (2026-11-26): the creatures players can share — each built place's own, by the place (the same list on every
+    // client that has built it, whatever else is near); the wildlife between places is each player's own
+    map.netZones = () => stamps.filter(st => st.built).map(st => ({ zone: st.id, off: st.off, list: (st.map.hittables ?? []).filter(h => typeof h.snapshot === 'function') }));
     map.refreshLife = refreshLife;   // after anything is added to a stamp's hittables (main.js: each place's animals)
     map.ensureStamp = id => { const st = stamps.find(s2 => s2.id === id); return st ? integrate(st) : null; };   // (a door or a save arriving there)
     // Built at once: places given already built, and lazy ones near the arrival point; the rest as you come near.

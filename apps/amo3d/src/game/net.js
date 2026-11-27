@@ -30,9 +30,21 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
     const stat = document.createElement('div'); stat.id = 'netstat'; document.body.append(stat);
     const plates = document.createElement('div'); plates.style.cssText = 'position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:4'; document.body.append(plates);
 
-    let socket = null, sendT = 0, casts = 0, hostId = null, snapT = 0;
-    const creatures = () => (world.current.hittables ?? []).filter(h => h.snapshot);   // the same order on every client
-    const isHost = () => !socket?.connected || !remotes.size || hostId === socket.id;
+    let socket = null, sendT = 0, casts = 0, snapT = 0, zonesKey = '', zonesT = 0, zoneHosts = {};
+    // Shared creatures by zone (2026-11-26): a map that is one place is one zone; the open world reports its built places
+    // (map.netZones) — each with the same creature list on every client that has built it. Positions go out in world
+    // coordinates (the place's offset added) and come back into the place's own.
+    const ZERO = new THREE.Vector3();
+    const zones = () => {
+        const m = world.current;
+        if (typeof m.netZones === 'function') return m.netZones().map(z => ({ ...z, zone: String(z.zone).toLowerCase().replace(/[^a-z0-9_:.-]/g, '_').slice(0, 60) }));
+        return [{ zone: world.id, off: ZERO, list: (m.hittables ?? []).filter(h => typeof h.snapshot === 'function') }];
+    };
+    const zoneOf = z => zones().find(q => q.zone === z);
+    const hostsZone = z => !socket?.connected || zoneHosts[z]?.[0] === socket.id || !zoneHosts[z];
+    const sharedZone = z => !!socket?.connected && (zoneHosts[z]?.[1] ?? 0) > 1;
+    const toWorldV = (o, off) => (o ? { x: o.x + off.x, y: o.y + off.y, z: o.z + off.z } : null);
+    const toLocalV = (o, off) => (o ? { x: o.x - off.x, y: o.y - off.y, z: o.z - off.z } : null);
     const remotes = new Map();   // id → { model, plate, target, data, scene }
     const tmp = new THREE.Vector3();
 
@@ -85,7 +97,7 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
             say(`Connected to ${addr}.`, null, true);
         });
         socket.on('connect_error', () => { stat.textContent = '○ cannot reach the server'; });
-        socket.on('disconnect', () => { stat.textContent = '○ offline — retrying'; clearRemotes(); });
+        socket.on('disconnect', () => { stat.textContent = '○ offline — retrying'; clearRemotes(); zonesKey = ''; zoneHosts = {}; });
         socket.on('server:full', () => say('The server is full.', null, true));
         socket.on('players:init', list => { clearRemotes(); list.forEach(addRemote); count(); });
         socket.on('player:joined', d => { addRemote(d); say(`${d.name} is here.`, null, true); count(); });
@@ -99,10 +111,13 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
         });
         socket.on('chat:message', ({ name, text }) => say(text, name));
         // ---- shared creatures (6.3): the map's host runs them; everyone else follows its snapshots ----
-        socket.on('map:host', ({ id }) => { hostId = id; });
-        socket.on('enemy:snap', ({ list }) => { if (isHost()) return; const cs = creatures(); for (const [i, ...v] of list) cs[i]?.applySnapshot(v); });
-        socket.on('enemy:hit', ({ i, attacker, h }) => { if (isHost()) creatures()[i]?.hitFromNet(h, attacker); });
-        socket.on('enemy:credit', ({ i }) => creatures()[i]?.credit());
+        socket.on('zones:hosts', hosts => { zoneHosts = hosts ?? {}; });
+        socket.on('enemy:snap', ({ zone, list }) => {
+            if (hostsZone(zone)) return; const Z = zoneOf(zone); if (!Z) return;
+            for (const [i, x, y, z, ...rest] of list) Z.list[i]?.applySnapshot([x - Z.off.x, y - Z.off.y, z - Z.off.z, ...rest]);
+        });
+        socket.on('enemy:hit', ({ zone, i, attacker, h }) => { if (!hostsZone(zone)) return; const Z = zoneOf(zone); if (Z) Z.list[i]?.hitFromNet({ ...h, from: toLocalV(h.from, Z.off) }, attacker); });
+        socket.on('enemy:credit', ({ zone, i }) => zoneOf(zone)?.list[i]?.credit());
         socket.on('player:hurt', ({ dmg, from }) => hurtSelf?.(dmg, new THREE.Vector3(from.x, from.y, from.z)));
         socket.on('player:act', a => {
             const r = remotes.get(a.id);
@@ -134,19 +149,22 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
         connect, disconnect, openChat,
         cast(origin, dir, spell = 'fireball') { if (socket?.connected) socket.emit('player:act', { kind: 'fireball', spell, origin: { x: origin.x, y: origin.y, z: origin.z }, dir: { x: dir.x, y: dir.y, z: dir.z } }); },
         get online() { return !!socket?.connected; },
-        get isHost() { return isHost(); },
+        get isHost() { return zones().every(z => hostsZone(z.zone)); },
+        get zoneHosts() { return zoneHosts; },
+        get zones() { return zones().map(z => ({ zone: z.zone, off: [z.off.x, z.off.y, z.off.z], n: z.list.length, live: z.list.filter(h => h.alive).length, at: z.list.map(h => [+(h.pos.x + z.off.x).toFixed(1), +(h.pos.z + z.off.z).toFixed(1), h.kind]).slice(0, 4) })); },   // (debug)
         // Everyone a creature may go for: this hero and the others on this map.
         targets() {
             const me = { id: 'me', pos: player.state.pos, dead: !!player.state.dead || player.state.veil > 0 };   // Shadow Veil: they lose you
             if (!socket?.connected || !remotes.size) return [me];
             return [me, ...[...remotes.entries()].map(([id, r]) => ({ id, pos: r.model.root.position, dead: !!r.target.dead }))];
         },
-        hurtRemote(id, dmg, from) {   // from: the striking creature's position — the server checks it against our snapshot
+        hurtRemote(id, dmg, from) {   // from: the striking creature's world position — the server checks it against our snapshot
             if (!socket?.connected) return false;
-            const i = creatures().findIndex(h => h.pos === from || (h.pos.x === from.x && h.pos.z === from.z));
-            if (i < 0) return false;   // not one of the shared creatures: nothing to send
-            socket.emit('player:strike', { target: id, i, dmg, from: { x: from.x, y: from.y, z: from.z } });
-            return true;
+            for (const Z of zones()) {
+                const i = Z.list.findIndex(h => Math.abs(h.pos.x + Z.off.x - from.x) < 0.01 && Math.abs(h.pos.z + Z.off.z - from.z) < 0.01);
+                if (i >= 0) { socket.emit('player:strike', { zone: Z.zone, target: id, i, dmg }); return true; }
+            }
+            return false;   // not one of the shared creatures: nothing to send
         },
         get remoteCasts() { return casts; },
         // The hero changed clothes or weapons, or levelled up.
@@ -171,18 +189,27 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
                 r.plate.style.opacity = on ? 1 : 0;
                 r.plate.style.transform = `translate(${(tmp.x * 0.5 + 0.5) * innerWidth}px, ${(-tmp.y * 0.5 + 0.5) * innerHeight}px) translate(-50%, -100%)`;
             }
-            // Creatures: host or puppet, wired to the server; the host streams them ~8 times a second.
-            const shared = socket.connected && remotes.size > 0, host = isHost(), cs = creatures();
-            cs.forEach((h, i) => {
-                h.net.networked = shared;
-                h.net.puppet = shared && !host;
-                h.net.sendHit = hit => socket.emit('enemy:hit', { i, h: hit });
-                h.net.onDied = by => { if (by.length) socket.emit('enemy:killed', { i, by }); };
-            });
-            snapT -= dt;
-            if (shared && host && snapT <= 0 && cs.length) { snapT = 0.12; socket.emit('enemy:snap', { list: cs.map((h, i) => [i, ...h.snapshot()]) }); }
-            const key = JSON.stringify([getWeapons(), getLevel()]);
-            if (key !== lastLookKey) { lastLookKey = key; this.refresh?.(); }
+            // Creatures: host or puppet, zone by zone, wired to the server; each zone's host streams it ~8 times a second.
+            const Zs = socket.connected ? zones() : [];
+            const key = Zs.map(z => z.zone).join(',');
+            zonesT -= dt;
+            if (socket.connected && key !== zonesKey && zonesT <= 0) { zonesKey = key; zonesT = 0.5; socket.emit('player:zones', { zones: Zs.map(z => z.zone) }); }
+            snapT -= dt; const snapNow = snapT <= 0; if (snapNow) snapT = 0.12;
+            for (const Z of Zs) {
+                const shared = sharedZone(Z.zone), host = hostsZone(Z.zone);
+                Z.list.forEach((h, i) => {
+                    h.net.networked = shared;
+                    h.net.puppet = shared && !host;
+                    h.net.sendHit = hit => socket.emit('enemy:hit', { zone: Z.zone, i, h: { ...hit, from: toWorldV(hit.from, Z.off) } });
+                    h.net.onDied = by => { if (by.length) socket.emit('enemy:killed', { zone: Z.zone, i, by }); };
+                });
+                if (shared && host && snapNow && Z.list.length) {
+                    const list = Z.list.flatMap((h, i) => { const v = h.snapshot(); return Array.isArray(v) ? [[i, v[0] + Z.off.x, v[1] + Z.off.y, v[2] + Z.off.z, ...v.slice(3)]] : []; });   // (a duelist has none: skipped)
+                    if (list.length) socket.emit('enemy:snap', { zone: Z.zone, list });
+                }
+            }
+            const lk = JSON.stringify([getWeapons(), getLevel()]);
+            if (lk !== lastLookKey) { lastLookKey = lk; this.refresh?.(); }
         },
     };
 }
