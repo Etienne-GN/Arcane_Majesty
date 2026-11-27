@@ -378,12 +378,12 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         // to the end of the handle.)
         // How each kind is carried at rest (k = how much of the walking arm-swing stays; x / z the arm, fore the
         // elbow, mount the wrist): swords in a low guard; a dagger in a reverse grip, blade down from the fist; axes
-        // and maces hanging at the side, head down by the knee; a bow upright beside the leg; a crossbow pointing down
+        // and maces hanging at the side, head down by the knee; (daggers: a ready forward grip since 2026-11-26) a bow upright beside the leg; a crossbow pointing down
         // and ahead. The slash starts from and returns to this.
         const REST = {
             sword: { k: 0.5, x: -0.3, z: -0.22, fore: -0.6, mount: GUARD_MOUNT }, greatsword: { k: 0.5, x: -0.3, z: -0.22, fore: -0.6, mount: GUARD_MOUNT },
             claymore: { k: 0.5, x: -0.3, z: -0.22, fore: -0.6, mount: GUARD_MOUNT },
-            dagger: { k: 0.6, x: -0.12, z: -0.2, fore: -0.55, mount: 3.8 },
+            dagger: { k: 0.55, x: -0.2, z: -0.22, fore: -0.95, mount: GUARD_MOUNT + 0.4 },   // (2026-11-26: a ready forward grip — forearms raised, arms a little out, the blades ahead and down, as Seraphina Rebel's sheet; the reverse grip, blade hanging from the fist, "looked so dumb")
             axe: { k: 0.7, x: 0.0, z: -0.2, fore: -0.38, mount: 1.15, choke: 0.44 }, mace: { k: 0.7, x: 0.0, z: -0.2, fore: -0.38, mount: 1.15, choke: 0.42 },
             bow: { k: 0.6, x: -0.08, z: -0.3, fore: -0.42, mount: 1.0 }, crossbow: { k: 0.5, x: -0.1, z: -0.15, fore: -0.45, mount: 2.45 },
         };

@@ -462,7 +462,7 @@ function actionsSection() {
             sc.onclick = () => {
                 const lk = normalizeLook(def.look), p = lk.body.preset, F = /female/.test(p);
                 const base = /child/.test(p) ? (F ? 'base_girl' : 'base_boy') : /elder/.test(p) ? (F ? 'base_old_woman' : 'base_old_man') : F ? 'base_female' : 'base_male';
-                const cast = lk.v2 && ['eldrin', 'seraphina', 'anya'].includes(def.id) ? def.id : null;
+                const cast = lk.v2 && ['eldrin', 'seraphina', 'seraphina_rebel', 'anya'].includes(def.id) ? def.id : null;
                 location.href = `sculptor.html?a=${base}:new&b=${cast ? `${cast}:new` : (F ? 'base_male' : 'base_female') + ':new'}${cast ? '&edit=1' : ''}`;
             };
             row.append(sc);

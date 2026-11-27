@@ -8,7 +8,7 @@
    "race": "nythorian",
    "height": 1.02,
    "width": 0.92,
-   "skin": "#d8ccd6"
+   "skin": "#dcd4e0"
   },
   "face": {
    "eyes": "#3a2a3a"
@@ -93,10 +93,11 @@
     "id": "none"
    },
    "left": {
-    "id": "dagger"
+    "id": "none"
    },
    "right": {
-    "id": "dagger"
+    "id": "sword",
+    "accent": "#c03a4a"
    }
   },
   "v2": "seraphina"

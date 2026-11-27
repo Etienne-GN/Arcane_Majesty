@@ -13,11 +13,12 @@ import { settings } from '../engine/settings.js';
 import { V2_MODELS } from '../content/models/v2/index.js';
 import { DRESSES } from '../content/models/v2/dress.js';
 import seraphina from '../content/cast/seraphina.json';
+import seraphinaRebel from '../content/cast/seraphina_rebel.json';
 import eldrin from '../content/cast/eldrin.json';
 import anya from '../content/cast/anya.json';
 import { layerFromPositions } from '../content/models/v2/skin.js';
 
-const CAST = { seraphina, eldrin, anya }, Q = new URLSearchParams(location.search);
+const CAST = { seraphina, seraphina_rebel: seraphinaRebel, eldrin, anya }, Q = new URLSearchParams(location.search);
 const renderer = new THREE.WebGLRenderer({ antialias: true }); renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.shadowMap.enabled = true;
 renderer.outputColorSpace = THREE.SRGBColorSpace; document.body.prepend(renderer.domElement);
 const scene = new THREE.Scene(); scene.background = new THREE.Color(0x3c3c40);
@@ -47,7 +48,7 @@ for (const [id, c] of Object.entries(CREATURES)) SUBJECTS[id] = { name: c.name, 
 // ?lineup=1: the six bodies side by side (man, woman, boy, girl, old man, old woman), A-pose, to judge them together
 const LINEUP = Q.get('lineup') === '1' ? ['base_male', 'base_female', 'base_boy', 'base_girl', 'base_old_man', 'base_old_woman'] : null;
 for (const [id, c] of Object.entries(CAST)) SUBJECTS[id] = { name: c.name, vers: Object.hasOwn(V2_MODELS, c.look.v2 ?? '') ? ['classic', 'new'] : ['classic'],
-    look: () => JSON.parse(JSON.stringify(c.look)) };
+    look: () => { const lk = JSON.parse(JSON.stringify(c.look)); if (id === 'seraphina') lk.parts.right = { id: 'spear' }; return lk; } };   // (the Queen of Carnage's glaive; the Rebel holds her daggers)
 const VER = { new: 'v2', classic: 'classic' };
 const parseSlot = v => { const [id, ver] = (v ?? '').split(':'); const S = SUBJECTS[id]; return S ? { id, ver: S.vers.includes(ver) ? ver : S.vers.at(-1) } : null; };
 const legacy = Q.get('who'), slots = [parseSlot(Q.get('a')), parseSlot(Q.get('b'))];

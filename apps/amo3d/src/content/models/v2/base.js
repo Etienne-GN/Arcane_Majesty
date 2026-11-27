@@ -392,6 +392,9 @@ function genBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair 
                 fs.poly([P(s * x0, y0, 0.0016), P(s * x1, y1, 0.0016), P(s * x1, y1 + t1, 0.0016), P(s * x0, y0 + t0, 0.0016)], browCol, centre);
             }
         }
+        // face paint and tattoos (2026-11-26, Seraphina Rebel): an outfit's own marks laid on the face as the eyes are — P(x, y,
+        // lift) head-local (before the head's scale); a lift under the eyes' (0.0012) puts paint behind them
+        outfit?.facePaint?.({ P, poly: (pts, col) => fs.poly(pts, col, centre), EX, EY, MY: 0.098, MW: F ? 0.019 : 0.022 });
         fs.build().userData.face = true;   // (the point editor shows it: Show › Eyes)
         // the mouth (2026-11-23: "subtle, as the reference"): a slightly darker lip line, its corners turned down a hair, a
         // faint lower lip beneath it and a soft shadow under that — laid on the face the same way; its own mesh (Show › Mouth)
