@@ -1,3 +1,5 @@
+// (Every tube here is drawn from both sides — 2026-11-26: a tube's winding can face inward, and the bear's legs showed their
+// inside: "we see the inside of its leg".)
 // The creatures on v2 models (LAYERS_PLAN step 6, 2026-11-26: "mobs AND animals should get v2 models like the characters, and
 // the Sculptor will let me fine-tune the models"): each kind's body is one continuous skinned mesh over its own joints (the
 // groups its AI already animates — so the walk, the lunge and the bite are unchanged), its points keyed by where they sit in
@@ -68,7 +70,7 @@ export function buildWolfV2(d, { fur = '#6b6862', belly = '#b8b0a2', dark = '#1c
                 { c: V(lower, 0, -0.2, 0), r: 0.028, w: [[lower, 1]], col: fur },
                 { c: V(lower, 0, -0.28, 0.01), r: 0.03, rz: 0.036, w: [[lower, 1]], col: dark },   // the paw
                 { c: V(lower, 0, -0.31, 0.03), r: 0.032, rz: 0.04, w: [[lower, 1]], col: dark },
-            ], { seg: 6, cap: true });
+            ], { seg: 6, cap: true, mat: 'double' });
         });
         // the tail: a brush hanging back and down
         sk.section('tail');
@@ -77,7 +79,7 @@ export function buildWolfV2(d, { fur = '#6b6862', belly = '#b8b0a2', dark = '#1c
             { c: V(tail, 0, -0.07, -0.12), r: 0.065, w: [[tail, 1]], col: fur },
             { c: V(tail, 0, -0.17, -0.27), r: 0.055, w: [[tail, 1]], col: fur },
             { c: V(tail, 0, -0.25, -0.38), r: 0.03, w: [[tail, 1]], col: belly },
-        ], { seg: 6, cap: true });
+        ], { seg: 6, cap: true, mat: 'double' });
         if (dry) return { points: sk.build().points, bones };
         return { mesh: sk.build() };
     };
@@ -158,12 +160,12 @@ export function buildHorseV2(d, { coat = '#4a3328', mane = '#1e1e24', hoof = '#1
                 { c: V(low, 0, -0.33, 0.01), r: 0.06, rz: 0.07, w: [[low, 1]], col: coat },   // the fetlock
                 { c: V(low, 0, -0.39, 0.02), r: 0.066, rz: 0.075, w: [[low, 1]], col: hoof },   // the hoof
                 { c: V(low, 0, -0.49, 0.03), r: 0.08, rz: 0.088, w: [[low, 1]], col: hoof },
-            ], { seg: 7, cap: true });
+            ], { seg: 7, cap: true, mat: 'double' });
         });
         // the mane along the neck's crest (and the forelock), and the long tail
         sk.section('mane');
-        sk.tube([[0.02, 0.32], [0.2, 0.3], [0.4, 0.26], [0.6, 0.22], [0.8, 0.18]].map(([z, y]) => ({ c: V(neck, 0, y, z), r: 0.045, rz: 0.1, w: [[neck, 1]], col: mane })), { seg: 5, cap: true });   // (standing on the crest, clear of the neck)
-        sk.tube([{ c: V(head, 0, 0.13, -0.02), r: 0.035, rz: 0.04, w: [[head, 1]], col: mane }, { c: V(head, 0, 0.12, 0.12), r: 0.03, rz: 0.03, w: [[head, 1]], col: mane }], { seg: 5, cap: true });
+        sk.tube([[0.02, 0.32], [0.2, 0.3], [0.4, 0.26], [0.6, 0.22], [0.8, 0.18]].map(([z, y]) => ({ c: V(neck, 0, y, z), r: 0.045, rz: 0.1, w: [[neck, 1]], col: mane })), { seg: 5, cap: true, mat: 'double' });   // (standing on the crest, clear of the neck)
+        sk.tube([{ c: V(head, 0, 0.13, -0.02), r: 0.035, rz: 0.04, w: [[head, 1]], col: mane }, { c: V(head, 0, 0.12, 0.12), r: 0.03, rz: 0.03, w: [[head, 1]], col: mane }], { seg: 5, cap: true, mat: 'double' });
         sk.section('tail');
         sk.tube([
             { c: V(tail, 0, 0.0, 0.03), r: 0.06, w: [[body, 0.5], [tail, 0.5]], col: mane },
@@ -171,7 +173,7 @@ export function buildHorseV2(d, { coat = '#4a3328', mane = '#1e1e24', hoof = '#1
             { c: V(tail, 0, -0.38, -0.16), r: 0.13, rz: 0.1, w: [[tail, 1]], col: mane },
             { c: V(tail, 0, -0.68, -0.16), r: 0.11, rz: 0.08, w: [[tail, 1]], col: mane },
             { c: V(tail, 0, -0.92, -0.12), r: 0.03, w: [[tail, 1]], col: mane },
-        ], { seg: 6, cap: true });
+        ], { seg: 6, cap: true, mat: 'double' });
         if (dry) return { points: sk.build().points, bones };
         return { mesh: sk.build() };
     };
@@ -180,16 +182,16 @@ export function buildHorseV2(d, { coat = '#4a3328', mane = '#1e1e24', hoof = '#1
     if (saddled) {
         root.updateMatrixWorld(true);
         const tk = createSkin(root, [body, neck, head]), V = (g, x, y, z) => tk.at(g, x, y, z);
-        tk.tube([0.32, 0.18, 0.0, -0.16, -0.3].map((z, i) => ({ c: V(body, 0, 1.5 + (i === 0 || i === 4 ? 0.05 : 0), z), r: 0.3, rz: 0.05, w: [[body, 1]], col: tack })), { seg: 8, cap: true });   // the seat, cantle and pommel raised
+        tk.tube([0.32, 0.18, 0.0, -0.16, -0.3].map((z, i) => ({ c: V(body, 0, 1.5 + (i === 0 || i === 4 ? 0.05 : 0), z), r: 0.3, rz: 0.05, w: [[body, 1]], col: tack })), { seg: 8, cap: true, mat: 'double' });   // the seat, cantle and pommel raised
         for (const s of [1, -1]) {
             const P = (x, y, z) => ({ p: V(body, s * x, y, z), w: [[body, 1]] }), c = V(body, 0, 1.2, 0.0);
             tk.poly([P(0.33, 1.48, 0.22), P(0.35, 1.2, 0.2), P(0.35, 1.2, -0.12), P(0.33, 1.48, -0.16)], tack, c);   // the flap
             tk.poly([P(0.36, 1.32, 0.07), P(0.365, 1.27, 0.07), P(0.365, 1.27, 0.02), P(0.36, 1.32, 0.02)], gold, c);   // a buckle
-            tk.tube([{ c: V(body, s * 0.34, 1.2, 0.05), r: 0.012, w: [[body, 1]], col: tack }, { c: V(body, s * 0.3, 0.92, 0.05), r: 0.012, w: [[body, 1]], col: tack }], { seg: 4, cap: false });   // the girth
+            tk.tube([{ c: V(body, s * 0.34, 1.2, 0.05), r: 0.012, w: [[body, 1]], col: tack }, { c: V(body, s * 0.3, 0.92, 0.05), r: 0.012, w: [[body, 1]], col: tack }], { seg: 4, cap: false, mat: 'double' });   // the girth
         }
-        tk.tube(Array.from({ length: 9 }, (_, i) => { const a = (i / 8) * Math.PI * 2; return { c: V(head, Math.sin(a) * 0.095, -0.035 + Math.cos(a) * 0.1, 0.44), r: 0.012, w: [[head, 1]], col: tack }; }), { seg: 4, cap: false });   // the noseband
-        tk.tube(Array.from({ length: 9 }, (_, i) => { const a = (i / 8) * Math.PI * 2; return { c: V(head, Math.sin(a) * 0.14, -0.07 + Math.cos(a) * 0.215, 0.05), r: 0.012, w: [[head, 1]], col: tack }; }), { seg: 4, cap: false });   // the headpiece, behind the eyes
-        for (const s of [1, -1]) tk.tube([{ c: V(head, s * 0.1, -0.06, 0.46), r: 0.012, w: [[head, 1]], col: gold }, { c: V(neck, s * 0.2, -0.05, 0.3), r: 0.012, w: [[neck, 1]], col: tack }, { c: V(body, s * 0.22, 1.5, 0.34), r: 0.012, w: [[body, 1]], col: tack }], { seg: 4, cap: false });   // the reins
+        tk.tube(Array.from({ length: 9 }, (_, i) => { const a = (i / 8) * Math.PI * 2; return { c: V(head, Math.sin(a) * 0.095, -0.035 + Math.cos(a) * 0.1, 0.44), r: 0.012, w: [[head, 1]], col: tack }; }), { seg: 4, cap: false, mat: 'double' });   // the noseband
+        tk.tube(Array.from({ length: 9 }, (_, i) => { const a = (i / 8) * Math.PI * 2; return { c: V(head, Math.sin(a) * 0.14, -0.07 + Math.cos(a) * 0.215, 0.05), r: 0.012, w: [[head, 1]], col: tack }; }), { seg: 4, cap: false, mat: 'double' });   // the headpiece, behind the eyes
+        for (const s of [1, -1]) tk.tube([{ c: V(head, s * 0.1, -0.06, 0.46), r: 0.012, w: [[head, 1]], col: gold }, { c: V(neck, s * 0.2, -0.05, 0.3), r: 0.012, w: [[neck, 1]], col: tack }, { c: V(body, s * 0.22, 1.5, 0.34), r: 0.012, w: [[body, 1]], col: tack }], { seg: 4, cap: false, mat: 'double' });   // the reins
         const tm = tk.build(); tm.userData.tack = true;
     }
     return out;
@@ -232,7 +234,7 @@ export function buildAnimalV2(d, kind) {
                 sk.poly([P(L * 0.2, L * 0.3), P(L * 0.18, -L * 0.36), P(-L * 0.12, -L * 0.42), P(-L * 0.18, L * 0.2)], fur, c);
             }
             sk.section('legs');
-            for (const { g } of parts.legs) sk.tube([{ c: V(g, 0, 0.0, 0), r: 0.012, w: [[g, 1]], col: '#c8a040' }, { c: V(g, 0, -K.h * 0.4, 0.01), r: 0.008, w: [[g, 1]], col: '#c8a040' }], { seg: 4, cap: true });
+            for (const { g } of parts.legs) sk.tube([{ c: V(g, 0, 0.0, 0), r: 0.012, w: [[g, 1]], col: '#c8a040' }, { c: V(g, 0, -K.h * 0.4, 0.01), r: 0.008, w: [[g, 1]], col: '#c8a040' }], { seg: 4, cap: true, mat: 'double' });
             if (K.comb) { const C = hex(K.comb), P = (y, z) => ({ p: V(head, 0, y, z), w: [[head, 1]] }); sk.poly([P(L * 0.24, -L * 0.1), P(L * 0.36, 0.0), P(L * 0.24, L * 0.12)], C, V(head, 0.05, L * 0.2, 0)); }
             sk.section('tail');
             { const P = (x, y, z) => ({ p: V(body, x, y, z), w: [[body, 1]] }); sk.poly([P(0, 0.02, -L * 0.45), P(L * 0.18, 0.08, -L * 0.85), P(-L * 0.18, 0.08, -L * 0.85)], fur, V(body, 0, -0.1, -L * 0.6)); }
@@ -276,13 +278,13 @@ export function buildAnimalV2(d, kind) {
             }
             sk.section('horns');
             for (const s of [1, -1]) {
-                const T = (pts, col = horn) => sk.tube(pts.map(([x, y, z, rr]) => ({ c: V(head, s * x * hs, y * hs, z * hs), r: rr * hs, w: [[head, 1]], col })), { seg: 5, cap: true });
+                const T = (pts, col = horn) => sk.tube(pts.map(([x, y, z, rr]) => ({ c: V(head, s * x * hs, y * hs, z * hs), r: rr * hs, w: [[head, 1]], col })), { seg: 5, cap: true, mat: 'double' });
                 if (K.horns === 'short') T([[0.45, 0.75, -0.1, 0.1], [0.7, 0.95, -0.15, 0.07], [0.9, 1.2, -0.1, 0.02]]);
                 if (K.horns === 'curve') T([[0.3, 0.8, -0.2, 0.1], [0.4, 1.15, -0.5, 0.08], [0.45, 1.05, -0.95, 0.06], [0.5, 0.65, -1.1, 0.02]]);
                 if (K.tusks) T([[0.38, -0.3, 1.1, 0.07], [0.48, -0.05, 1.35, 0.04], [0.42, 0.25, 1.4, 0.01]]);
             }
-            if (K.beard) sk.tube([{ c: V(head, 0, -0.55 * hs, 0.55 * hs), r: 0.15 * hs, w: [[head, 1]], col: belly }, { c: V(head, 0, -1.0 * hs, 0.5 * hs), r: 0.04 * hs, w: [[head, 1]], col: belly }], { seg: 5, cap: true });
-            if (K.bristle) sk.tube([-0.3, 0, 0.3, 0.55].map(f => ({ c: V(body, 0, r * 0.95 + 0.02, f * K.len), r: 0.02, rz: 0.06, w: B, col: dark })), { seg: 4, cap: true });
+            if (K.beard) sk.tube([{ c: V(head, 0, -0.55 * hs, 0.55 * hs), r: 0.15 * hs, w: [[head, 1]], col: belly }, { c: V(head, 0, -1.0 * hs, 0.5 * hs), r: 0.04 * hs, w: [[head, 1]], col: belly }], { seg: 5, cap: true, mat: 'double' });
+            if (K.bristle) sk.tube([-0.3, 0, 0.3, 0.55].map(f => ({ c: V(body, 0, r * 0.95 + 0.02, f * K.len), r: 0.02, rz: 0.06, w: B, col: dark })), { seg: 4, cap: true, mat: 'double' });
             sk.section('legs');
             for (const { g } of parts.legs) {
                 const lr = K.legs * 0.28, ix = -g.position.x * 0.5;   // (2026-11-26: "the upper legs look weird" — the leg began above its joint, wide and open, and stood out of the body's side: now it starts buried in the body, drawn in toward the middle, and swells into the thigh or shoulder just below the belly)
@@ -294,11 +296,11 @@ export function buildAnimalV2(d, kind) {
                     { c: V(g, 0, -0.7 * K.h, 0), r: lr * 0.8, w: [[g, 1]], col: fur },
                     { c: V(g, 0, -0.74 * K.h, 0.01), r: lr * 0.95, w: [[g, 1]], col: dark },   // the hoof or paw
                     { c: V(g, 0, -0.78 * K.h, 0.015), r: lr, w: [[g, 1]], col: dark },
-                ], { seg: 6, cap: true });
+                ], { seg: 6, cap: true, mat: 'double' });
             }
             sk.section('tail');
             if (tail) {
-                const T = (pts, col = fur) => sk.tube(pts.map(([x, y, z, rr, c2]) => ({ c: V(tail, x, y, z), r: rr, w: [[tail, 1]], col: c2 ?? col })), { seg: 6, cap: true });
+                const T = (pts, col = fur) => sk.tube(pts.map(([x, y, z, rr, c2]) => ({ c: V(tail, x, y, z), r: rr, w: [[tail, 1]], col: c2 ?? col })), { seg: 6, cap: true, mat: 'double' });
                 if (K.tail === 'brush') T([[0, 0, 0.02, 0.05], [0, -0.08, -0.16, 0.085], [0, -0.16, -0.34, 0.07], [0, -0.2, -0.44, 0.02, belly]]);
                 else if (K.tail === 'thin') T([[0, 0, 0, 0.022], [0, -K.len * 0.3, -K.len * 0.12, 0.015], [0, -K.len * 0.5, -K.len * 0.16, 0.025, dark]]);
                 else if (K.tail === 'curl') T([[0, 0, 0, 0.015], [0, 0.04, -0.04, 0.013], [0, 0.07, 0.0, 0.012], [0, 0.04, 0.03, 0.01]]);
