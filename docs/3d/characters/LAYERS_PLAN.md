@@ -121,3 +121,9 @@ the user on the Lab before the next.
   Classic / New button. Cost: ~19 ms to build a character (layers cached per body shape; the face's rays on the head
   only); the Crossroads draws 300 calls instead of 491 with the same triangles. Still classic: the rigid parts' fit
   (pauldrons sit wide), the classic hair and beards (a v2 hair and beard set to come), Classic stays the default.
+- **Step 6 begun (2026-11-26): the wolf and the horse.** `models/v2/creatures.js`: `buildLayered(root, kind, gen)` (the
+  kind's layer turned into positions, as buildBase) and a body per kind over its own joints, so its animation is
+  unchanged: `buildWolfV2` (wolf.js), `buildHorseV2` (horse.js; after the user's sheet `docs/3d/creatures/horse_reference.jpg`,
+  the tack its own pieces). With Character models: New the game uses them. The Sculptor lists them as subjects (layers
+  `wolf.json`, `horse.json`; a kind's own reference sheet: `REF_IMG`), framed by their own size. Next kinds: the beasts
+  (beast.js bodies), the animals (animals.js), the shadow soldiers; the werewolves when they come.
