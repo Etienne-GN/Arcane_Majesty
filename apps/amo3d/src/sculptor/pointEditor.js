@@ -161,7 +161,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const showRow = make('div', 'pe-row', panel);
     const toggles = {};
     const toggle = (id, label, get, set) => { const b = button(showRow, label, () => { set(!get()); b.classList.toggle('on', get()); }); toggles[id] = () => b.classList.toggle('on', get()); return b; };
-    let cmpOn = !NARROW, hairOn = true, eyesOn = true, mouthOn = true, faceMesh = null, mouthMesh = null;
+    let cmpOn = false,   /* (off by default — the user, 2026-11-27) */ hairOn = true, eyesOn = true, mouthOn = true, faceMesh = null, mouthMesh = null;
     toggle('ref', 'Reference', () => prefs.refOn, v => { prefs.refOn = v; keep(); layoutRef(); });
     toggle('cmp', 'Compare', () => cmpOn, v => { cmpOn = v; });
     toggle('hair', 'Hair', () => hairOn, v => { hairOn = v; applyHair(); hairBtn.classList.toggle('on', hairOn); });
