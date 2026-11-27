@@ -17,6 +17,7 @@ import seraphinaRebel from '../content/cast/seraphina_rebel.json';
 import eldrin from '../content/cast/eldrin.json';
 import anya from '../content/cast/anya.json';
 import { layerFromPositions } from '../content/models/v2/skin.js';
+import { NAMES as BEAST_NAMES } from '../content/actors/beast.js';
 
 const CAST = { seraphina, seraphina_rebel: seraphinaRebel, eldrin, anya }, Q = new URLSearchParams(location.search);
 const renderer = new THREE.WebGLRenderer({ antialias: true }); renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.shadowMap.enabled = true;
@@ -50,6 +51,26 @@ for (const [k, n] of Object.entries({ rabbit: 'Rabbit', forest_fox: 'Fox', feral
     CREATURES[k] = { name: n, build: () => import('../content/actors/animals.js').then(m => m.build(k)) };
 for (const [id, c] of Object.entries(CREATURES)) SUBJECTS[id] = { name: c.name, sex: id, creature: c, vers: ['new'] };
 // the mobs on the human body (2026-11-27): a shadow soldier wears the male base — shaping it edits the Male layer, shared
+// Every mob (2026-11-27, the user: "continue adding all the mobs to the sculptor"): built as the game builds it (the same
+// create functions as the Bestiary, on a flat stand-in ground), still on the stage. The ones already on a v2 body (the
+// shadow soldiers, the Cursed Knight: the male body) can be shaped — the rest are shown until each has its own v2 body.
+const MOB_MAP = { id: 'sculptor', heightAt: () => 0, groundAt: () => 0, resolve() {}, blockedAt: () => null, passable: () => true, stepBlocked: () => false, hittables: [], nav: null, projectileHit: () => null };
+const mobOf = make => async () => {
+    const holder = new THREE.Group(), out = await make(holder);
+    for (const a of [].concat(out ?? [])) if (a?.root && !a.root.parent) holder.add(a.root);
+    holder.traverse(o => { if (o.isSprite) o.visible = false; });   // (no nameplates or labels on the stage)
+    return { root: holder };
+};
+const beasts = () => import('../content/actors/beast.js');
+const MOBS = {
+    ...Object.fromEntries(Object.entries(BEAST_NAMES).map(([id, n]) => [`mob_${id}`, { name: `Mob · ${n}`, build: mobOf(h => beasts().then(m => m.createBeasts({ scene: h, map: MOB_MAP, rng: Math.random, type: id, posts: [{ x: 0, z: 0 }] }))) }])),
+    mob_werewolf: { name: 'Mob · Guardian of the Wild', build: mobOf(h => import('../content/actors/werewolf.js').then(m => m.createWerewolves({ scene: h, map: MOB_MAP, rng: Math.random, den: { x: 0, z: 0 }, count: 1 }))) },
+    mob_shadow: { name: 'Mob · Shadow-man', build: mobOf(h => import('../content/actors/shadowSoldier.js').then(m => m.createShadows({ scene: h, map: MOB_MAP, rng: Math.random, posts: [{ x: 0, z: 0 }] }).list)) },
+    mob_malphas: { name: 'Mob · Malphas (boss)', build: mobOf(h => import('../content/actors/malphas.js').then(m => { const b = m.createMalphas({ scene: h, map: MOB_MAP, at: { x: 0, y: 0, z: 0 }, rng: Math.random }); h.traverse(o => { if (!o.isSprite && !o.isPoints) o.visible = true; }); return [b]; })) },   // (dormant in the game until he rises: shown here)
+    mob_balrog: { name: 'Mob · The Shadow Balrog (boss)', build: mobOf(h => import('../content/models/balrog.js').then(m => { const b = m.buildBalrog(); h.add(b.root ?? b); return []; })) },
+    mob_deer: { name: 'Mob · Deer', build: mobOf(h => import('../content/actors/deer.js').then(m => [m.createDeer({ home: { x: 0, z: 0 }, stag: true, rng: Math.random, map: MOB_MAP })])) },
+};
+for (const [id, c] of Object.entries(MOBS)) SUBJECTS[id] = { name: c.name, creature: c, vers: ['new'], ...(id === 'mob_cursed_knight' ? { sex: 'male' } : {}) };
 SUBJECTS.shadow_soldier = { name: 'Shadow soldier', sex: 'male', creature: { name: 'Shadow soldier', build: () => import('../content/actors/shadowSoldier.js').then(m => m.buildSoldier()) }, vers: ['new'] };
 // ?lineup=1: the six bodies side by side (man, woman, boy, girl, old man, old woman), A-pose, to judge them together
 const LINEUP = Q.get('lineup') === '1' ? ['base_male', 'base_female', 'base_boy', 'base_girl', 'base_old_man', 'base_old_woman'] : null;
