@@ -51,7 +51,7 @@ const SHOULDER_DROP = 0.035;
 // z forward): a point's height mapped by FACE_Y, its width by FACE_W, the more it faces forward.
 const tab = (T, v) => { if (v <= T[0][0]) return T[0][1]; for (let i = 1; i < T.length; i++) if (v <= T[i][0]) { const [a, A] = T[i - 1], [b, B] = T[i]; return A + (B - A) * (v - a) / (b - a); } return T.at(-1)[1]; };
 const FACE_Y = [[0.058, 0.058], [0.098, 0.094], [0.118, 0.107], [0.155, 0.14], [0.182, 0.165], [0.205, 0.178], [0.318, 0.318]];
-const FACE_W = [[0.058, 0.7], [0.098, 0.8], [0.118, 0.86], [0.155, 0.92], [0.182, 0.95], [0.205, 0.98], [0.25, 1]];
+const FACE_W = [[0.058, 0.7], [0.098, 0.78], [0.118, 0.8], [0.155, 0.8], [0.182, 0.8], [0.205, 0.84], [0.25, 0.93], [0.3, 1]];   // (and narrower at the eyes: 'the face widens too much at the eyes')
 function faceWarp(x, y, z) { const front = Math.max(0, Math.min(1, (z + 0.03) / 0.05)); return [x * (1 + (tab(FACE_W, y) - 1) * front), tab(FACE_Y, y)]; }
 export function buildBodyV3(ctx, opts = {}) {
     const { root, head } = ctx;
