@@ -38,19 +38,20 @@ export function buildBodyV3(ctx, { sex = 'male' } = {}) {
         legs[side].thigh.position.set(s * 0.108, -0.09, 0); legs[side].shin.position.y = -0.347;
     }
     head.position.set(0, 0.54, 0.008);
+    body.scale.multiplyScalar(0.95);   // (2026-11-27: "he's too tall" — the sheet's 1.80 m read lanky beside the others: 95%)
     const bones = [hips, spine, head, arms.L.upper, arms.L.fore, arms.R.upper, arms.R.fore, legs.L.thigh, legs.L.shin, legs.R.thigh, legs.R.shin];
     // made in the A-pose: the arms out while the mesh is built and bound, then down again
     const setPose = k => { arms.L.upper.rotation.set(0, 0, ARM_OUT * k); arms.R.upper.rotation.set(0, 0, -ARM_OUT * k); for (const s of ['L', 'R']) arms[s].fore.rotation.set(0, 0, 0); };
     setPose(1);
     const gen = ({ edits = null, dry = false, topo = null } = {}) => {
         root.updateMatrixWorld(true);
-        const sk = createSkin(root, bones, { edits, dry, topo }), V = (g, x, y, z) => sk.at(g, x, y, z);
+        const sk = createSkin(root, bones, { edits, dry, topo }), V = (g, x, y, z) => sk.at(g, x, y, z), B = (x, y, z) => sk.at(body, x, y, z);   // (B: the body's own frame — the figure scales as one with the body's height)
         const torsoW = y => (y > 1.56 ? [[head, 1]] : y > 1.5 ? [[spine, 0.5], [head, 0.5]] : y > 1.08 ? [[spine, 1]] : y > 0.96 ? blend(hips, spine, (y - 0.96) / 0.12) : [[hips, 1]]);
         // a torso or head loop: half its outline from the front's centre to the back's, at anatomical corners (ringPts mirrors it)
         // (dy: each corner's own height — so a plane's edge can run diagonally along the anatomy, not round in a band)
         const loop = (y, w, f, b, pts, col, wts, dy = null) => {
             const half = pts(w, f, b).map(([x, z], i) => [x, z, dy?.[i] ?? 0]), all = [...half]; for (let i = half.length - 2; i >= 1; i--) all.push([-half[i][0], half[i][1], half[i][2]]);
-            return { c: new THREE.Vector3(0, y, 0), pts: all, w: wts, col };
+            const c = B(0, y, 0); return { c, pts: all.map(([x, z, d]) => { const p = B(x, y + d, z); return [p.x - c.x, p.z - c.z, p.y - c.y]; }), w: wts, col };
         };
         // torso corners: the front's centre, the pec / abs edge, the side front, the side, the side back, the shoulder blade, the spine (a groove)
         const T = (w, f, b) => [[0, f], [0.52 * w, 0.97 * f], [0.9 * w, 0.55 * f], [w, 0], [0.9 * w, -0.62 * b], [0.5 * w, -0.98 * b], [0, -0.93 * b]];
@@ -61,13 +62,13 @@ export function buildBodyV3(ctx, { sex = 'male' } = {}) {
         sk.section('head');
         const N = TORSO_M.at(-1);   // (the neck's top loop has 12 points; the head's 10 — joined by its own band below)
         const headRings = HEAD_M.map(([y, w, f, b]) => loop(y, w, f, b, Hc, SKIN, [[head, 1]]));
-        sk.loft([loop(N[0] + 0.004, N[1], N[2], N[3], Hc, SKIN, [[spine, 0.4], [head, 0.6]]), ...headRings, { c: new THREE.Vector3(0, TOP_M, -0.01), pts: headRings.at(-1).pts.map(([x, z]) => [x * 0.35, z * 0.35, 0]), w: [[head, 1]], col: SKIN }], { mat: 'double', cap: true });
+        sk.loft([loop(N[0] + 0.004, N[1], N[2], N[3], Hc, SKIN, [[spine, 0.4], [head, 0.6]]), ...headRings, { c: B(0, TOP_M, -0.01), pts: headRings.at(-1).pts.map(([x, z, d]) => [x * 0.35, z * 0.35, 0]), w: [[head, 1]], col: SKIN }], { mat: 'double', cap: true });
         sk.section('nose');
-        { const P = (x, y, z) => ({ p: new THREE.Vector3(x, y, z), w: [[head, 1]] }), c = new THREE.Vector3(0, 1.67, 0.05);
+        { const P = (x, y, z) => ({ p: B(x, y, z), w: [[head, 1]] }), c = B(0, 1.67, 0.05);
           const br = P(0, 1.7, 0.112), tip = P(0, 1.652, 0.138), l = P(0.021, 1.643, 0.112), r = P(-0.021, 1.643, 0.112), u = P(0, 1.64, 0.118);
           sk.poly([br, l, tip], SKIN, c); sk.poly([br, tip, r], SKIN, c); sk.poly([tip, l, u], SKIN, c); sk.poly([tip, u, r], SKIN, c); }
         sk.section('ears');
-        for (const s of [1, -1]) { const P = (y, z, x = 0.09) => ({ p: new THREE.Vector3(s * x, y, z), w: [[head, 1]] }); const c = new THREE.Vector3(s * 0.05, 1.66, -0.01);
+        for (const s of [1, -1]) { const P = (y, z, x = 0.09) => ({ p: B(s * x, y, z), w: [[head, 1]] }); const c = B(s * 0.05, 1.66, -0.01);
             const a = P(1.685, -0.005), b = P(1.69, -0.04, 0.096), d = P(1.635, -0.036, 0.095), e = P(1.625, -0.005);
             sk.poly([a, b, d, e], SKIN, c); sk.poly([a, e, P(1.655, 0.0, 0.082)], SKIN, c); }
         // the arms, in the A-pose: rings square to the bone (its −y), measured along the sheet's arm — deltoid, biceps, elbow, forearm, wrist
@@ -104,10 +105,11 @@ export function buildBodyV3(ctx, { sex = 'male' } = {}) {
                 ring(sh, -0.1, 0.077, 0.086, 8, [[sh, 1]], SKIN, -0.022),   // the calf, full behind and at the sides (the sheet: ~16 cm across)
                 ring(sh, -0.22, 0.056, 0.062, 8, [[sh, 1]], SKIN, -0.012),
                 ring(sh, -0.36, 0.04, 0.046, 8, [[sh, 1]], SKIN, -0.01),   // the ankle
+                ring(sh, -0.42, 0.042, 0.05, 8, [[sh, 1]], SKIN, -0.004),   // (carried down into the foot: no gap — 2026-11-27, "fix the feet to the legs")
             ], { mat: 'double' });
             // the foot: rings across it, from the heel to the toes (flat sole on the ground)
-            const F = (z, w, h, col = SKIN) => { const c = V(sh, 0, -0.453 + h / 2, z); return { c, pts: [[0, h / 2], [w, h * 0.35], [w * 1.05, -h / 2], [0, -h / 2], [-w * 1.05, -h / 2], [-w, h * 0.35]].map(([x, y]) => [sx * x * 0 + x, 0, y]), w: [[sh, 1]], col }; };
-            const foot = [F(-0.1, 0.03, 0.065), F(-0.05, 0.034, 0.08), F(0.02, 0.038, 0.06), F(0.09, 0.04, 0.038), F(0.14, 0.034, 0.024)];   // (smaller and flatter: 2026-11-27)
+            const F = (z, w, h, col = SKIN) => { const c = V(sh, 0, -0.513 + h / 2, z); /* (the sole on the ground: the ankle joint 0.1 m up) */ return { c, pts: [[0, h / 2], [w, h * 0.35], [w * 1.05, -h / 2], [0, -h / 2], [-w * 1.05, -h / 2], [-w, h * 0.35]].map(([x, y]) => [sx * x * 0 + x, 0, y]), w: [[sh, 1]], col }; };
+            const foot = [F(-0.09, 0.03, 0.07), F(-0.04, 0.036, 0.11), F(0.03, 0.04, 0.08), F(0.1, 0.04, 0.042), F(0.15, 0.034, 0.025)];   // (the instep high enough to meet the ankle)   // (smaller and flatter: 2026-11-27)
             sk.loft(foot, { mat: 'double', cap: true, capStart: true });
         }
         // the hair, cut short (the sheet): a cap over the crown and the back, the hairline high at the front
@@ -116,12 +118,12 @@ export function buildBodyV3(ctx, { sex = 'male' } = {}) {
         sk.loft(HR.map(([y, k, lift], i) => {
             const base = HEAD_M[Math.min(HEAD_M.length - 1, 2 + i)] ?? HEAD_M.at(-1), [, w, f, b] = base;
             const half = Hc(w * k, f * k, b * k), all = [...half]; for (let j = half.length - 2; j >= 1; j--) all.push([-half[j][0], half[j][1]]);
-            return { c: new THREE.Vector3(0, y, -0.005), pts: all.map(([x, z]) => [x, z, z > 0.04 ? lift + (0.745 - y > 0 ? 0 : 0) + (i < 2 ? 0.05 * (z / f) : 0) : 0]), w: [[head, 1]], col: HAIR };
+            const c = B(0, y, -0.005); return { c, pts: all.map(([x, z]) => { const p = B(x, y + (z > 0.04 ? lift + (i < 2 ? 0.05 * (z / f) : 0) : 0), z - 0.005); return [p.x - c.x, p.z - c.z, p.y - c.y]; }), w: [[head, 1]], col: HAIR };
         }), { mat: 'double', cap: true });
         // the eyes and brows: small dark planes on the face
         sk.section('face');
         for (const s of [1, -1]) {
-            const P = (x, y, z) => ({ p: new THREE.Vector3(s * x, y, z), w: [[head, 1]] }), c = new THREE.Vector3(0, 1.67, 0);
+            const P = (x, y, z) => ({ p: B(s * x, y, z), w: [[head, 1]] }), c = B(0, 1.67, 0);
             sk.poly([P(0.024, 1.674, 0.111), P(0.05, 1.676, 0.103), P(0.05, 1.666, 0.103), P(0.024, 1.666, 0.111)], DARK, c);
             sk.poly([P(0.017, 1.694, 0.114), P(0.058, 1.698, 0.103), P(0.058, 1.69, 0.103), P(0.017, 1.687, 0.114)], BROW, c);
         }
