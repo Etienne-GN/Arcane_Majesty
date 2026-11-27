@@ -328,7 +328,7 @@ function genBase(ctx, { sex = 'male', skin = '#e2b590', cloth = '#3a3530', hair 
     const HL = F ? 0.25 : 0.262;   // the hairline's height in front: every hair ring's front rises to it (the forehead and brows show)
     const front = (y, last) => th => { const c = Math.cos(th); return c > 0 ? Math.pow(c, 0.8) * Math.max(0, HL - y) : last ? c * (F ? 0 : 0.05) : 0; };
     const earLift = (y, last) => th => (!F && last ? Math.pow(Math.abs(Math.sin(th)), 6) * 0.055 : 0);   // the male's cut clears the ears
-    if (!BALD) sk.loft(HR.map(([y, w, df, db], i) => ({ c: V(head, 0, y * hk, 0.0), shape: profile((w + 0.01) * hk, (df + 0.006) * hk, (db + 0.012) * hk), w: [[head, 1]], col: HAIR, dy: (th => (front(y, i === HR.length - 1)(th) + earLift(y, i === HR.length - 1)(th)) * hk) })), { seg: 12, mat: 'double' });   // (a touch bigger than the skull all round: it never pokes through)
+    if (!BALD) sk.loft(HR.map(([y, w, df, db], i) => ({ c: V(head, 0, y * hk, 0.0), shape: profile((w + 0.01) * hk, (df + 0.006) * hk, (db + 0.012) * hk), w: [[head, 1]], col: HAIR, dy: (th => (front(y, i === HR.length - 1)(th) + earLift(y, i === HR.length - 1)(th)) * hk) })), { seg: 12, mat: 'double', capStart: true });   // (a touch bigger than the skull all round: it never pokes through)   // (capped at the crown: 2026-11-26, "an empty spot on top")
     if (false) for (const [x, len] of [[-0.055, 0.1], [0, 0.11], [0.055, 0.1]]) {   // (the tufts read as horns: gone)   // three big locks swept back over the crown
         sk.loft([
             { c: V(head, x * hk, 0.328 * hk, 0.075 * hk), rx: 0.035 * hk, rz: 0.012, w: [[head, 1]], col: HAIR },
