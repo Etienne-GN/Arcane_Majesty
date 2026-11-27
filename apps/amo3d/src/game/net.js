@@ -88,7 +88,7 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
     function connect() {
         if (socket || !settings.online) return;
         const addr = (settings.server || `${location.hostname}:3003`).trim();
-        const url = /^https?:\/\//.test(addr) ? addr : `http://${addr}`;
+        const url = /^https?:\/\//.test(addr) ? addr : `${location.protocol === 'https:' ? 'https' : 'http'}://${addr}`;   // (https: a secure server — wss)
         socket = io(url, { transports: ['websocket'], reconnectionDelay: 2000, timeout: 6000 });
         stat.textContent = '○ connecting…';
         socket.on('connect', () => {

@@ -22,10 +22,10 @@ game-only lore gets `origin: "game"`.
 - [ ] A v2 hair and beard set (the classic styles stand in on v2 heads today).
 
 ## 3. Multiplayer (parked 2026-11-14 — don't forget)
-- [ ] Test the shared wolves and shadow soldiers (coded, untested).
-- [ ] Share Malphas and the deer; per-map shared weather.
-- [ ] 6.4: online characters and a server list.
-- [ ] TLS (wss) for the server, so release builds can play online.
+- [x] (2026-11-26) Test the shared wolves and shadow soldiers — tested with the game and a bot; found and fixed: in the open world the creature lists differed per player (now shared by zone: each built place), place creatures chased a shifted point (players given in world coordinates), a duelist's missing snapshot threw on the host.
+- [x] (2026-11-26) Share Malphas (he fights everyone on the pass; his retreat completes the quest for each) and the deer (all animals); one sky per server (world clock and weather seed while online).
+- [x] (2026-11-26) 6.4: a server list in Options › Online (live players and response time, use / add / remove); you appear as the hero of the save you play (Saves on the title screen picks it).
+- [x] (2026-11-26) TLS: AMO3D_TLS_KEY / AMO3D_TLS_CERT serve https/wss (tested with a self-signed certificate); the game connects securely to an https:// address or from an https page. Still to do for release: a real certificate on a public host.
 
 ## 4. Characters & clothing ★ — ONLY after §2 (every NPC and the Forge on the v2 models): no clothing work before the model
 - [ ] **More garments in every Forge slot** (today ~1–4 each). Torso: gambeson, chain shirt, plate cuirass, leather jerkin, tabard, gown/dress, vest, apron, priest's vestment. Legs: skirts, kilts, greaves, breeches, hose. Feet: sandals, riding boots, sabatons. Arms: gloves, gauntlets, vambraces. Shoulders: mantle, fur collar, plate pauldrons. Waist: pouches, tassets, rope belt. Neck: amulets, scarves, gorget. Head: circlet, crown, coif, great helm, kettle hat, feathered cap, veils. Back: quiver, cloak variants, banner pole, backpack.

@@ -5,6 +5,8 @@
 // Shared enemies and fights come in the next slices. Every message is checked and rate-limited.
 //   node server/index.js        (port 3003; AMO3D_PORT to change)
 import { createServer } from 'node:http';
+import { createServer as createSecureServer } from 'node:https';
+import { readFileSync } from 'node:fs';
 import { Server } from 'socket.io';
 
 const PORT = +(process.env.AMO3D_PORT ?? 3003);
@@ -17,7 +19,10 @@ const WORLD = { seed: Math.floor(Math.random() * 1e6), t0: Date.now(), startMin:
 const worldClock = () => ({ min: WORLD.startMin + (Date.now() - WORLD.t0) / 1000, seed: WORLD.seed });
 const MAX_STRIKE = 60;       // amo's hardest-hitting creature, elite (×1.4) and with room to spare
 
-const httpServer = createServer((req, res) => {
+// A secure server (2026-11-26, §3: release builds can only reach wss): AMO3D_TLS_KEY and AMO3D_TLS_CERT (PEM files) serve
+// https/wss on the same port; without them, plain http/ws as before (the LAN, the dev server).
+const TLS = process.env.AMO3D_TLS_KEY && process.env.AMO3D_TLS_CERT ? { key: readFileSync(process.env.AMO3D_TLS_KEY), cert: readFileSync(process.env.AMO3D_TLS_CERT) } : null;
+const httpServer = (TLS ? (fn => createSecureServer(TLS, fn)) : createServer)((req, res) => {
     if (req.url === '/status') {
         res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
         res.end(JSON.stringify({ players: players.size, list: [...players.values()].map(p => ({ name: p.name, map: p.map, level: p.level })) }));
@@ -224,4 +229,4 @@ io.on('connection', socket => {
 });
 process.on('uncaughtException', e => console.error('uncaught:', e));   // log, never die mid-session
 
-httpServer.listen(PORT, () => console.log(`amo3d game server on :${PORT}`));
+httpServer.listen(PORT, () => console.log(`amo3d game server on :${PORT}${TLS ? ' (secure: https / wss)' : ''}`));

@@ -646,7 +646,7 @@ stats.onSpellEvent((id, lvl, isNew) => {
 });
 const options = createOptions({ quality, onQuality: name => { save(); setQualityName(name); location.reload(); },
     onApply: (name, tw) => { save(); setQualityName(name); setTweaks(tw); location.reload(); },   /* a preset, then its tweaks (setQualityName clears them) */
-    onFps: v => perf.set(v), onOnline: v => (v ? net.connect() : net.disconnect()) });
+    onFps: v => perf.set(v), onOnline: v => (v ? net.connect() : net.disconnect()), onlineHero: () => ({ name: settings.onlineName || HERO_NAME, level: stats.level }) });
 if (settings.online) net.connect();
 if (settings.showFps) perf.set(true);
 createPadNav();   // gamepad: D-pad / stick moves through any open menu, A presses, B backs out

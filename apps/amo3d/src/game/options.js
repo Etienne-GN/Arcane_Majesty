@@ -5,7 +5,7 @@ import { checkForUpdate, openDownload, latestKnown, lastError, VERSION } from '.
 import { PRESETS, getTweaks, setTweaks } from '../engine/quality.js';
 import { ACTIONS, HOLD_MS, mapFor, modeOf, bind, resetMap, padCapture, label as padLabel } from '../engine/padmap.js';
 
-export function createOptions({ quality, onQuality, onApply, onFps, onOnline }) {
+export function createOptions({ quality, onQuality, onApply, onFps, onOnline, onlineHero = null }) {
     const css = document.createElement('style');
     css.textContent = `
 #options { position: fixed; inset: 0; z-index: 25; display: none; place-items: center; background: #05060acc; font-family: Georgia, serif; color: #eee6d2; }
@@ -130,10 +130,40 @@ export function createOptions({ quality, onQuality, onApply, onFps, onOnline }) 
             row.append(el('span', null, label), inp);
             return row;
         };
+        // who goes online: the hero of the save being played (change it on the title's Saves screen)
+        { const h = onlineHero?.(); if (h) p.append(el('div', 'note', `You appear online as ${h.name}${h.level ? `, level ${h.level}` : ''} — the hero of the save you are playing (pick another on the title screen, Saves).`)); }
         p.append(field('Your name', 'onlineName', 'your hero\'s name'));
-        p.append(field('Server', 'server', `${location.hostname || 'address'}:3003`));
+        // The servers (2026-11-26, §3 6.4): a list of your own, each asked how many are on it and how fast it answers;
+        // pick one to play on. An address with https:// (or a page served over https) connects securely (wss).
+        const here = `${location.hostname || 'localhost'}:3003`;
+        const servers = () => { const l = Array.isArray(settings.servers) ? settings.servers.filter(x => typeof x === 'string' && x.trim()) : []; if (!l.length) l.push(settings.server || here); if (settings.server && !l.includes(settings.server)) l.unshift(settings.server); return [...new Set(l)].slice(0, 12); };
+        const list = el('div'); list.style.cssText = 'display:flex;flex-direction:column;gap:6px;margin:6px 0';
+        const urlOf = a => (/^https?:\/\//.test(a) ? a : `${location.protocol === 'https:' ? 'https' : 'http'}://${a}`).replace(/\/$/, '');
+        const drawServers = () => {
+            list.textContent = '';
+            for (const a of servers()) {
+                const row = el('div', 'row'), cur = (settings.server || here) === a;
+                const name = el('span', null, `${cur ? '● ' : ''}${a}`); name.style.cssText = `flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;${cur ? 'color:#f3d88b' : ''}`;
+                const st = el('span', null, '…'); st.style.cssText = 'opacity:.75;margin:0 8px;white-space:nowrap';
+                const t0 = performance.now();
+                fetch(`${urlOf(a)}/status`, { signal: AbortSignal.timeout?.(4000) }).then(r => r.json()).then(j => { st.textContent = `${j.players} online · ${Math.round(performance.now() - t0)} ms`; st.style.color = '#9fe0a0'; }).catch(() => { st.textContent = 'no answer'; st.style.color = '#ff9a8a'; });
+                const use = el('button', null, cur ? 'In use' : 'Use'); use.disabled = cur;
+                use.onclick = () => { setSetting('server', a); if (settings.online) { onOnline?.(false); onOnline?.(true); } drawServers(); };
+                const del = el('button', null, '✕'); del.title = 'Remove from the list';
+                del.onclick = () => { setSetting('servers', servers().filter(x => x !== a)); if (cur) setSetting('server', ''); drawServers(); };
+                row.append(name, st, use, del); list.append(row);
+            }
+            const add = el('div', 'row'), inp = el('input');
+            Object.assign(inp, { type: 'text', placeholder: 'add a server: address:port or https://…', maxLength: 80 });
+            inp.style.cssText = 'flex:1;padding:7px 9px;font:inherit;color:#fff;background:#0b0a10;border:1px solid #eee6d244;border-radius:7px';
+            const addB = el('button', null, 'Add');
+            addB.onclick = () => { const v = inp.value.trim(); if (!v) return; setSetting('servers', [...servers(), v]); drawServers(); };
+            add.append(inp, addB); list.append(add);
+        };
+        const h3 = el('div', 'note', 'Servers'); h3.style.cssText = 'margin-top:8px;letter-spacing:.12em;text-transform:uppercase;opacity:.75';
+        p.append(h3, list); drawServers();
         p.append(seg('Play online', [[false, 'Off'], [true, 'On']], !!settings.online, v => { setSetting('online', v); onOnline?.(v); }));
-        p.append(el('div', 'note', 'Everyone on the same server and the same map sees each other. Start the server with npm run server on the host.'));
+        p.append(el('div', 'note', 'Everyone on the same server sees each other, and the same sky. Start a server with npm run server on the host (AMO3D_TLS_KEY and AMO3D_TLS_CERT for a secure one).'));
 
         }
         if (T('about')) {
