@@ -146,11 +146,12 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const regBtns = {};
     for (const [id, title] of [['head', 'The head'], ['upper', 'The upper body'], ['all', 'The whole body']]) regBtns[id] = button(tools, ICON[`r_${id}`], () => setRegion(id), title);
     sep(tools);
-    // Polish (2026-11-27, the user: "a polish option to preview the in-game model, hiding dots and lines"): the points, the
-    // wireframe and the reference's outline hidden, and no point picked by a touch — the model as the game draws it
+    // Polish (2026-11-27, the user: "a polish option to preview the in-game model, hiding dots and lines"): the points and
+    // the wireframe hidden, no point picked by a touch — the model as the game draws it. The reference (its picture and its
+    // outline) stays as it is (the user: "polish should NOT remove the reference")
     let polish = false;
-    const setPolish = v => { polish = v; if (dots) dots.visible = !v; if (wire) wire.visible = prefs.wireOn && !v; if (v) { sel = -1; hover = -1; } polishBtn.classList.toggle('on', v); toggles.polish?.(); drawLine(); describe?.(); };
-    const polishBtn = button(tools, ICON.polish, () => setPolish(!polish), 'Polish: preview the model as in the game — no points, no wireframe, no outline (press again to edit)');
+    const setPolish = v => { polish = v; if (dots) dots.visible = !v; if (wire) wire.visible = prefs.wireOn && !v; if (v) { sel = -1; hover = -1; } polishBtn.classList.toggle('on', v); toggles.polish?.(); describe?.(); };
+    const polishBtn = button(tools, ICON.polish, () => setPolish(!polish), 'Polish: preview the model as in the game — no points, no wireframe; the reference stays (press again to edit)');
     const hairBtn = button(tools, ICON.hair, () => { hairOn = !hairOn; applyHair(); toggles.hair?.(); hairBtn.classList.toggle('on', hairOn); }, 'Show or hide the hair (hidden: its points can\'t be picked; the scalp shows)');
     function setTool(id) { prefs.tool = id; keep(); addFrom = -1; for (const [k, b] of Object.entries(toolBtns)) b.classList.toggle('on', k === id); describe(); }
 
@@ -325,7 +326,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     let lineBox = null;
     function drawLine(box = lineBox) {
         lineBox = box; lineBtn.classList.toggle('on', prefs.refLine);
-        const show = prefs.refLine && !polish && prefs.refOn && refMode !== 'sheet' && box && REF[sex];
+        const show = prefs.refLine && prefs.refOn && refMode !== 'sheet' && box && REF[sex];
         refLine.style.display = show ? '' : 'none'; if (!show) return;
         const E = figureEdge(REF_IMG[sex] ?? REF_URL, box); if (!E) return;
         const W = refPic.offsetWidth, H = refPic.offsetHeight, dpr = Math.min(2, devicePixelRatio || 1);
