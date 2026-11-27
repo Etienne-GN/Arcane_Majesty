@@ -40,6 +40,9 @@ const SUBJECTS = { base_male: { name: 'Male base', look: () => baseLook('adult_m
 // the creatures (LAYERS_PLAN step 6): each kind's v2 body, shaped in its own layer — the wolf first
 const CREATURES = { wolf: { name: 'Wolf', build: () => import('../content/actors/wolf.js').then(m => m.buildWolf(0x6b6862)) },
     horse: { name: 'Horse', build: () => import('../content/models/horse.js').then(m => m.buildHorse()) } };
+// the animals (animals.js), each kind its own subject and layer
+for (const [k, n] of Object.entries({ rabbit: 'Rabbit', forest_fox: 'Fox', feral_boar: 'Feral boar', black_bear: 'Black bear', grizzly_bear: 'Grizzly bear', sheep: 'Sheep', cow: 'Cow', pig: 'Pig', goat: 'Goat', chicken: 'Chicken', crow: 'Crow' }))
+    CREATURES[k] = { name: n, build: () => import('../content/actors/animals.js').then(m => m.build(k)) };
 for (const [id, c] of Object.entries(CREATURES)) SUBJECTS[id] = { name: c.name, sex: id, creature: c, vers: ['new'] };
 // ?lineup=1: the six bodies side by side (man, woman, boy, girl, old man, old woman), A-pose, to judge them together
 const LINEUP = Q.get('lineup') === '1' ? ['base_male', 'base_female', 'base_boy', 'base_girl', 'base_old_man', 'base_old_woman'] : null;

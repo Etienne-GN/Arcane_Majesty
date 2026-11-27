@@ -194,3 +194,115 @@ export function buildHorseV2(d, { coat = '#4a3328', mane = '#1e1e24', hoof = '#1
     }
     return out;
 }
+
+// The animals (animals.js: rabbit, fox, boar, the bears, sheep, cow, pig, goat — and the birds, chicken and crow): one
+// parametric body per kind from its numbers (K: length, height, legs, snout, ears, tail, horns, tusks, wool, hump,
+// patches…), over the same joints (body, head, legs, tail; a bird's wings), each kind shaped by its own layer.
+// d: animals.js build()'s { root, body, parts: { head, legs: [{ g }], tail, wingL, wingR }, K }; kind: its type.
+const hex = c => '#' + new THREE.Color(c).getHexString();
+export function buildAnimalV2(d, kind) {
+    const { root, body, parts, K } = d, head = parts.head, tail = parts.tail;
+    const fur = hex(K.fur), belly = hex(K.belly ?? K.fur), headC = hex(K.head ?? K.fur), dark = '#1a1410', horn = '#d8ccb0';
+    const bones = [body, head, ...(tail ? [tail] : []), ...parts.legs.map(l => l.g), ...(parts.wingL ? [parts.wingL, parts.wingR] : [])];
+    const N = 10;
+    const ring = (sk, g, cx, cy, cz, rx, ry, w, col) => {
+        const c = sk.at(g, cx, cy, cz);
+        return { c, pts: Array.from({ length: N }, (_, i) => { const th = (i / N) * Math.PI * 2, p = sk.at(g, cx + Math.sin(th) * rx, cy + Math.cos(th) * ry, cz); return [p.x - c.x, p.z - c.z, p.y - c.y]; }), w, col };
+    };
+    const gen = ({ edits = null, dry = false, topo = null } = {}) => {
+        root.updateMatrixWorld(true);
+        const sk = createSkin(root, bones, { edits, dry, topo }), V = (g, x, y, z) => sk.at(g, x, y, z);
+        if (K.bird) {
+            const L = K.len, beak = hex(K.beakC ?? 0xe0a030);
+            sk.section('torso');
+            sk.loft([
+                ring(sk, body, 0, 0.01, -L * 0.55, L * 0.12, L * 0.1, [[body, 1]], fur),
+                ring(sk, body, 0, 0, -L * 0.3, L * 0.33, L * 0.34, [[body, 1]], fur),
+                ring(sk, body, 0, 0, 0.0, L * 0.4, L * 0.4, [[body, 1]], fur),
+                ring(sk, body, 0, 0.02, L * 0.3, L * 0.32, L * 0.34, [[body, 1]], fur),
+                ring(sk, head, 0, -L * 0.12, -L * 0.1, L * 0.18, L * 0.2, [[body, 0.4], [head, 0.6]], fur),   // the neck
+                ring(sk, head, 0, 0, 0.0, L * 0.25, L * 0.26, [[head, 1]], fur),
+                ring(sk, head, 0, 0, L * 0.18, L * 0.17, L * 0.18, [[head, 1]], fur),
+                ring(sk, head, 0, -0.01, L * 0.26, L * 0.07, L * 0.06, [[head, 1]], beak),   // the beak
+                ring(sk, head, 0, -0.015, L * 0.42, L * 0.01, L * 0.01, [[head, 1]], beak),
+            ], { seg: N, mat: 'double', cap: true, capStart: true });
+            sk.section('wings');
+            for (const [w, s] of [[parts.wingL, 1], [parts.wingR, -1]]) {
+                const P = (y, z) => ({ p: V(w, 0, y, z), w: [[w, 1]] }), c = V(w, -s * 0.2, 0, 0);
+                sk.poly([P(L * 0.2, L * 0.3), P(L * 0.18, -L * 0.36), P(-L * 0.12, -L * 0.42), P(-L * 0.18, L * 0.2)], fur, c);
+            }
+            sk.section('legs');
+            for (const { g } of parts.legs) sk.tube([{ c: V(g, 0, 0.0, 0), r: 0.012, w: [[g, 1]], col: '#c8a040' }, { c: V(g, 0, -K.h * 0.4, 0.01), r: 0.008, w: [[g, 1]], col: '#c8a040' }], { seg: 4, cap: true });
+            if (K.comb) { const C = hex(K.comb), P = (y, z) => ({ p: V(head, 0, y, z), w: [[head, 1]] }); sk.poly([P(L * 0.24, -L * 0.1), P(L * 0.36, 0.0), P(L * 0.24, L * 0.12)], C, V(head, 0.05, L * 0.2, 0)); }
+            sk.section('tail');
+            { const P = (x, y, z) => ({ p: V(body, x, y, z), w: [[body, 1]] }); sk.poly([P(0, 0.02, -L * 0.45), P(L * 0.18, 0.08, -L * 0.85), P(-L * 0.18, 0.08, -L * 0.85)], fur, V(body, 0, -0.1, -L * 0.6)); }
+        } else {
+            const hl = K.len * 0.5, w0 = K.wool ? 1.25 : 1, r = K.h * 0.38, hs = K.h * 0.34, B = [[body, 1]];
+            // the cow's patches: on one side of a ring, then the other
+            const side = k => (K.patches ? th => ((k % 2 ? th > 0 : th < 0) ? hex(K.patches) : fur) : fur);
+            sk.section('torso');
+            const rings = [
+                ring(sk, body, 0, 0.02 * r, -hl - 0.25 * r, 0.5 * r * w0, 0.55 * r * w0, B, fur),   // (the end rings: one colour — the caps take it)
+                ring(sk, body, 0, 0, -hl + 0.3 * r, 0.95 * r * w0, 0.98 * r * w0, B, side(1)),   // the haunches
+                ring(sk, body, 0, 0, -hl * 0.3, 0.92 * r * w0, 0.95 * r * w0, B, side(2)),
+                ring(sk, body, 0, K.hump ? 0.18 * r : 0, hl * 0.25, 1.0 * r * w0, (K.hump ? 1.2 : 1.03) * r * w0, B, side(3)),   // the ribs (a grizzly's hump)
+                ring(sk, body, 0, 0.04 * r, hl * 0.75, 0.88 * r * w0, 0.95 * r * w0, B, side(4)),   // the shoulders
+                ring(sk, head, 0, -0.15 * hs, -0.75 * hs, 0.7 * hs, 0.78 * hs, [[body, 0.5], [head, 0.5]], fur),   // the neck
+                ring(sk, head, 0, 0, -0.2 * hs, 0.88 * hs, 0.9 * hs, [[head, 1]], headC),
+                ring(sk, head, 0, 0.02 * hs, 0.35 * hs, 0.8 * hs, 0.82 * hs, [[head, 1]], headC),   // the brow
+            ];
+            if (K.snout) {
+                const tip = 0.85 * hs + (K.snout + 0.4 * hs) / 2;
+                rings.push(ring(sk, head, 0, -0.18 * hs, 0.8 * hs, 0.55 * hs, 0.55 * hs, [[head, 1]], headC),
+                    ring(sk, head, 0, -0.22 * hs, tip - 0.05, 0.42 * hs, 0.38 * hs, [[head, 1]], headC),
+                    ring(sk, head, 0, -0.22 * hs, tip + 0.01, 0.3 * hs, 0.26 * hs, [[head, 1]], dark));   // the nose
+            } else rings.push(ring(sk, head, 0, -0.1 * hs, 0.8 * hs, 0.55 * hs, 0.55 * hs, [[head, 1]], headC), ring(sk, head, 0, -0.14 * hs, 0.98 * hs, 0.25 * hs, 0.22 * hs, [[head, 1]], dark));
+            sk.loft(rings, { seg: N, mat: 'double', cap: true, capStart: true });
+            sk.section('face');
+            for (const s of [1, -1]) {
+                const P = (x, y, z) => ({ p: V(head, s * x, y, z), w: [[head, 1]] }), c = V(head, 0, 0, 0);
+                sk.poly([P(0.62 * hs, 0.32 * hs, 0.38 * hs), P(0.6 * hs, 0.2 * hs, 0.5 * hs), P(0.62 * hs, 0.14 * hs, 0.36 * hs)], dark, c);   // an eye
+                const ear = K.ears, E = (pts, col = fur) => sk.poly(pts.map(([x, y, z]) => P(x * hs, y * hs, z * hs)), col, V(head, s * 0.5 * hs, 0.5 * hs, -0.3 * hs));
+                if (ear === 'long') { E([[0.25, 0.75, 0.0], [0.45, 0.75, -0.1], [0.42, 2.0, -0.25]]); E([[0.45, 0.75, -0.1], [0.3, 0.75, -0.22], [0.42, 2.0, -0.25]]); }
+                else if (ear === 'point') { E([[0.3, 0.7, 0.05], [0.65, 0.65, -0.1], [0.55, 1.35, -0.15]]); E([[0.65, 0.65, -0.1], [0.4, 0.68, -0.3], [0.55, 1.35, -0.15]]); }
+                else if (ear === 'round' || ear === 'small') { const k = ear === 'round' ? 1 : 0.75; E([[0.45, 0.65, 0.0], [0.8, 0.62 + 0.1 * k, -0.08], [0.72, 0.62 + 0.42 * k, -0.12], [0.5, 0.62 + 0.4 * k, -0.1]]); }
+                else if (ear === 'flop') E([[0.45, 0.6, 0.1], [0.9, 0.55, 0.0], [0.95, 0.15, 0.35], [0.55, 0.3, 0.4]]);
+                else E([[0.75, 0.35, 0.0], [1.35, 0.15, -0.05], [1.3, 0.05, -0.25], [0.75, 0.22, -0.2]], headC);   // (side ears: a sheep's, a cow's, a goat's)
+            }
+            sk.section('horns');
+            for (const s of [1, -1]) {
+                const T = (pts, col = horn) => sk.tube(pts.map(([x, y, z, rr]) => ({ c: V(head, s * x * hs, y * hs, z * hs), r: rr * hs, w: [[head, 1]], col })), { seg: 5, cap: true });
+                if (K.horns === 'short') T([[0.45, 0.75, -0.1, 0.1], [0.7, 0.95, -0.15, 0.07], [0.9, 1.2, -0.1, 0.02]]);
+                if (K.horns === 'curve') T([[0.3, 0.8, -0.2, 0.1], [0.4, 1.15, -0.5, 0.08], [0.45, 1.05, -0.95, 0.06], [0.5, 0.65, -1.1, 0.02]]);
+                if (K.tusks) T([[0.38, -0.3, 1.1, 0.07], [0.48, -0.05, 1.35, 0.04], [0.42, 0.25, 1.4, 0.01]]);
+            }
+            if (K.beard) sk.tube([{ c: V(head, 0, -0.55 * hs, 0.55 * hs), r: 0.15 * hs, w: [[head, 1]], col: belly }, { c: V(head, 0, -1.0 * hs, 0.5 * hs), r: 0.04 * hs, w: [[head, 1]], col: belly }], { seg: 5, cap: true });
+            if (K.bristle) sk.tube([-0.3, 0, 0.3, 0.55].map(f => ({ c: V(body, 0, r * 0.95 + 0.02, f * K.len), r: 0.02, rz: 0.06, w: B, col: dark })), { seg: 4, cap: true });
+            sk.section('legs');
+            for (const { g } of parts.legs) {
+                const lr = K.legs * 0.28, ix = -g.position.x * 0.5;   // (2026-11-26: "the upper legs look weird" — the leg began above its joint, wide and open, and stood out of the body's side: now it starts buried in the body, drawn in toward the middle, and swells into the thigh or shoulder just below the belly)
+                sk.tube([
+                    { c: V(g, ix, 0.22 * K.h, 0), r: lr * 0.9, w: [[body, 1]], col: fur },
+                    { c: V(g, ix * 0.4, 0.02 * K.h, 0), r: lr * 1.35, w: [[body, 0.6], [g, 0.4]], col: fur },
+                    { c: V(g, 0, -0.17 * K.h, 0), r: lr * 1.2, w: [[g, 1]], col: fur },   // the thigh or shoulder, under the belly
+                    { c: V(g, 0, -0.45 * K.h, 0), r: lr * 0.85, w: [[g, 1]], col: fur },
+                    { c: V(g, 0, -0.7 * K.h, 0), r: lr * 0.8, w: [[g, 1]], col: fur },
+                    { c: V(g, 0, -0.74 * K.h, 0.01), r: lr * 0.95, w: [[g, 1]], col: dark },   // the hoof or paw
+                    { c: V(g, 0, -0.78 * K.h, 0.015), r: lr, w: [[g, 1]], col: dark },
+                ], { seg: 6, cap: true });
+            }
+            sk.section('tail');
+            if (tail) {
+                const T = (pts, col = fur) => sk.tube(pts.map(([x, y, z, rr, c2]) => ({ c: V(tail, x, y, z), r: rr, w: [[tail, 1]], col: c2 ?? col })), { seg: 6, cap: true });
+                if (K.tail === 'brush') T([[0, 0, 0.02, 0.05], [0, -0.08, -0.16, 0.085], [0, -0.16, -0.34, 0.07], [0, -0.2, -0.44, 0.02, belly]]);
+                else if (K.tail === 'thin') T([[0, 0, 0, 0.022], [0, -K.len * 0.3, -K.len * 0.12, 0.015], [0, -K.len * 0.5, -K.len * 0.16, 0.025, dark]]);
+                else if (K.tail === 'curl') T([[0, 0, 0, 0.015], [0, 0.04, -0.04, 0.013], [0, 0.07, 0.0, 0.012], [0, 0.04, 0.03, 0.01]]);
+                else if (K.tail === 'puff') T([[0, 0, 0.0, 0.03, belly], [0, 0.01, -0.04, 0.055, belly], [0, 0.01, -0.07, 0.02, belly]]);
+                else T([[0, 0, 0.02, 0.05], [0, -0.02, -0.05, 0.045], [0, -0.04, -0.08, 0.015]]);   // a stub
+            }
+        }
+        if (dry) return { points: sk.build().points, bones };
+        return { mesh: sk.build() };
+    };
+    return buildLayered(root, kind, gen);
+}

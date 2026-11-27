@@ -75,7 +75,8 @@ function v2EditsApi() {
                 });
             });
             // The shape layers (docs/3d/characters/LAYERS_PLAN.md): models/v2/layers/<layer>.json — { structural key: [dx, dy, dz] }
-            const LAYER_NAMES = ['common', 'male', 'female', 'boy', 'girl', 'old_man', 'old_woman', 'wolf', 'horse'],   // (+ the creatures' kinds, LAYERS_PLAN step 6)
+            // the layers: every file in layers/ (the characters' and each creature kind's — LAYERS_PLAN step 6), looked up live
+            const LAYER_NAMES = { includes: l => typeof l === 'string' && /^[a-z_]{2,24}$/.test(l) && existsSync(join(v2Dir, 'layers', `${l}.json`)), map: f => readdirSync(join(v2Dir, 'layers')).filter(n => n.endsWith('.json')).map(n => n.slice(0, -5)).map(f) },
                 ALT_RE = /^[a-z0-9_-]{1,40}$/;
             const layerFile = (layer, alt) => alt ? join(v2Dir, 'layers', 'alt', layer, `${alt}.json`) : join(v2Dir, 'layers', `${layer}.json`);
             // Each save keeps the version it replaces (layers/history/<layer>[~alt]/<time>.json, the last 50; not in git), so the

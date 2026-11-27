@@ -6,6 +6,8 @@ import * as THREE from 'three';
 import { createEnemyCore, PX } from './enemyCore.js';
 import { flat } from '../../engine/lib.js';
 import { sfx } from '../../engine/sfx.js';
+import { settings } from '../../engine/settings.js';
+import { buildAnimalV2 } from '../models/v2/creatures.js';
 
 export const NAMES = { rabbit: 'Rabbit', forest_fox: 'Fox', crow: 'Crow', feral_boar: 'Feral Boar', black_bear: 'Black Bear', grizzly_bear: 'Grizzly Bear',
     sheep: 'Sheep', cow: 'Cow', pig: 'Pig', chicken: 'Chicken', goat: 'Goat' };
@@ -25,7 +27,19 @@ const KINDS = {
 };
 const FIGHTERS = new Set(['feral_boar', 'black_bear', 'grizzly_bear']);
 
-function build(kind) {
+// Character models: New (2026-11-26, LAYERS_PLAN step 6) — each kind's v2 body over the same joints (models/v2/creatures.js,
+// shaped in the Sculptor): the classic pieces go (a bird's wings stay as joints, unseen)
+export function build(kind) {
+    const d = buildClassic(kind);
+    if (settings.charModels !== 'new') return d;
+    const joints = new Set([d.parts.wingL, d.parts.wingR].filter(Boolean)), old = [];
+    d.root.traverse(o => { if (o.isMesh) old.push(o); });
+    for (const o of old) { if (joints.has(o)) o.visible = false; else { o.parent.remove(o); o.geometry.dispose(); } }
+    buildAnimalV2(d, kind);
+    d.root.traverse(o => { if (o.isMesh && o.visible) o.castShadow = true; });
+    return d;
+}
+function buildClassic(kind) {
     const K = KINDS[kind], root = new THREE.Group(), body = new THREE.Group(), parts = { legs: [] };
     root.add(body);
     const M = { fur: flat(K.fur), belly: flat(K.belly ?? K.fur), dark: flat(0x1a1410), head: flat(K.head ?? K.fur), horn: flat(0xd8ccb0) };
