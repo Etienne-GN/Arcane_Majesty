@@ -52,7 +52,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const keep = () => savePrefs(prefs);
     renderer.domElement.style.touchAction = 'none';
     let B = null;   // (what getBody gave: the alternate this body shows, and how to reload the page)
-    const LAYER_LABEL = { override: 'This character', common: 'Common', male: 'Male', female: 'Female', boy: 'Boy', girl: 'Girl', old_man: 'Old man', old_woman: 'Old woman' };
+    const LAYER_LABEL = { wolf: 'Wolf', override: 'This character', common: 'Common', male: 'Male', female: 'Female', boy: 'Boy', girl: 'Girl', old_man: 'Old man', old_woman: 'Old woman' };
     const stackOf = () => [...(bodyMesh?.userData.layers ?? [sex]), ...(B?.io ? ['override'] : [])];   // (a cast character: its own override on top)
 
     // ---- the look of the tool ----
@@ -233,6 +233,8 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     function drawRef(force = false) {
         const a = ((yaw % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI), view = a < 0.9 || a > 5.4 ? 'front' : a > 2.3 && a < 4.0 ? 'back' : 'side';
         const key = `${sex}|${view}|${region}|${refMode}|${prefs.refSize}`; if (key === lastRef && !force) return; lastRef = key;
+        if (!REF[sex] && refMode !== 'sheet') { refPic.style.width = `${prefs.refSize}px`; refPic.style.height = '60px'; refPic.style.backgroundImage = 'none'; refLabel.textContent = `No reference sheet for the ${sex} yet`; return; }   // (a creature: none yet)
+        refPic.style.backgroundImage = `url(${REF_URL})`;
         const box = refMode === 'sheet' ? [0, 0, 896, 1200] : REF[sex][view][region === 'head' ? 1 : 0], [x0, y0, x1, y1] = box, k = prefs.refSize / (x1 - x0);
         Object.assign(refPic.style, { width: `${prefs.refSize}px`, height: `${Math.round((y1 - y0) * k)}px`, backgroundSize: `${Math.round(896 * k)}px ${Math.round(1200 * k)}px`, backgroundPosition: `${-Math.round(x0 * k)}px ${-Math.round(y0 * k)}px` });
         refLabel.textContent = (refMode === 'sheet' ? 'The sheet' : `${sex}, ${view}`) + (hairless ? ' (no hair)' : '');
@@ -300,11 +302,17 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     function setRegion(r) {
         region = r; for (const [k, b] of Object.entries(regBtns)) b.classList.toggle('on', k === r);
         const top = T ? Math.max(...T.P.filter((_, j) => j % 3 === 1)) : 1.85;   // (the crown's height: frame from it)
-        if (r === 'head') { target.set(0, top - 0.19, 0.02); dist = 0.78; } else if (r === 'upper') { target.set(0, top - 0.45, 0); dist = 1.3; } else { target.set(0, top / 2, 0); dist = 3.6; }
+        if (T && !REF[sex]) {   // a creature: framed from its own size — the head is its front end (+z), the upper body its front half
+            const b = new THREE.Box3().setFromArray(T.P), c = b.getCenter(new THREE.Vector3()), z = b.getSize(new THREE.Vector3()), big = Math.max(z.x, z.y, z.z);
+            if (r === 'head') { target.set(c.x, c.y + z.y * 0.25, b.max.z - z.z * 0.12); dist = big * 0.75; } else if (r === 'upper') { target.set(c.x, c.y, c.z + z.z * 0.25); dist = big * 1.2; } else { target.copy(c); dist = big * 2; }
+        } else if (r === 'head') { target.set(0, top - 0.19, 0.02); dist = 0.78; } else if (r === 'upper') { target.set(0, top - 0.45, 0); dist = 1.3; } else { target.set(0, top / 2, 0); dist = 3.6; }
         if (T) buildDots();
         drawRef(true);
     }
-    const inRegion = i => { const y = T.P[i * 3 + 1], top = T.P.reduce((m, v, j) => (j % 3 === 1 && v > m ? v : m), 0); return region === 'all' || (region === 'head' ? y > top - 0.42 : y > top - 0.9); };
+    const inRegion = i => {
+        if (!REF[sex]) { if (region === 'all') return true; const zs = T.P.filter((_, j) => j % 3 === 2), z0 = Math.min(...zs), z1 = Math.max(...zs), z = T.P[i * 3 + 2]; return region === 'head' ? z > z1 - (z1 - z0) * 0.3 : z > (z0 + z1) / 2; }   // (a creature: by its length)
+        const y = T.P[i * 3 + 1], top = T.P.reduce((m, v, j) => (j % 3 === 1 && v > m ? v : m), 0); return region === 'all' || (region === 'head' ? y > top - 0.42 : y > top - 0.9);
+    };
 
     function load(s) {
         who = s; B = getBody(s); T = B.table; bodyMesh = B.mesh; sex = bodyMesh.userData.editSex ?? 'male'; sel = -1; hover = -1; undo.length = 0;
@@ -333,7 +341,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     function buildDots() {
         if (dots) { group.remove(dots); dots.geometry.dispose(); }
         dotIds = T.keys.map((_, i) => i).filter(i => inRegion(i) && (hairOn || !T.hair?.[i]));
-        const r = region === 'head' ? 0.0028 : region === 'upper' ? 0.005 : 0.008;
+        const r = (region === 'head' ? 0.0028 : region === 'upper' ? 0.005 : 0.008) * (REF[sex] ? 1 : 1.4);
         dots = new THREE.InstancedMesh(new THREE.SphereGeometry(r, 8, 6), new THREE.MeshBasicMaterial({ depthTest: true }), dotIds.length);
         dots.renderOrder = 5; group.add(dots); placeDots();
     }

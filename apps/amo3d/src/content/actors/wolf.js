@@ -6,6 +6,8 @@ import * as THREE from 'three';
 import { createEnemyCore, PX } from './enemyCore.js';
 import { flat } from '../../engine/lib.js';
 import { bakeRig } from '../../engine/batch.js';
+import { settings } from '../../engine/settings.js';
+import { buildWolfV2 } from '../models/v2/creatures.js';
 
 const TYPE = 'wolf';
 const TUNE = { sight: 3, reach: 2, speed: 1.6 };   // 2D distances feel short in 3D (as for the soldiers)
@@ -17,7 +19,7 @@ function limb(len, r0, r1, m) {
 }
 const part = (g, geo, m, x = 0, y = 0, z = 0) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); g.add(o); return o; };
 
-function buildWolf(tint) {
+export function buildWolf(tint) {
     const M = { fur: flat(tint), belly: flat(0xb8b0a2), dark: flat(0x1c1a18),
         eye: new THREE.MeshBasicMaterial({ color: 0xffd060, toneMapped: false }) };
     const root = new THREE.Group();
@@ -50,10 +52,21 @@ function buildWolf(tint) {
     const snout = part(head, new THREE.CylinderGeometry(0.045, 0.08, 0.22, 6).rotateX(Math.PI / 2), M.fur, 0, -0.03, 0.2);
     snout.scale.set(1, 0.8, 1);
     part(head, new THREE.SphereGeometry(0.03, 5, 4), M.dark, 0, -0.01, 0.31);
+    const eyes = [];
     for (const sgn of [1, -1]) {
         part(head, new THREE.ConeGeometry(0.045, 0.12, 4), M.fur, sgn * 0.07, 0.13, -0.03);
         const e = part(head, new THREE.BoxGeometry(0.03, 0.014, 0.01), M.eye, sgn * 0.055, 0.04, 0.11);
-        e.rotation.z = sgn * 0.3;
+        e.rotation.z = sgn * 0.3; eyes.push([e, sgn]);
+    }
+    // Character models: New (2026-11-26, LAYERS_PLAN step 6) — the v2 wolf over the same joints (models/v2/creatures.js,
+    // shaped in the Sculptor); the classic pieces go, the eyes stay, set on the new head
+    if (settings.charModels === 'new') {
+        const keep = new Set(eyes.map(([e]) => e));
+        const old = []; root.traverse(o => { if (o.isMesh && !keep.has(o)) old.push(o); });
+        for (const o of old) { o.parent.remove(o); o.geometry.dispose(); }
+        for (const [e, sgn] of eyes) { e.position.set(sgn * 0.07, 0.035, 0.095); e.rotation.set(0, sgn * 0.5, sgn * 0.3); }
+        const tc = '#' + new THREE.Color(tint).getHexString();
+        buildWolfV2({ root, body, head, tail, legs }, { fur: tc });
     }
     root.traverse(o => { if (o.isMesh) o.castShadow = true; });
     bakeRig(root);

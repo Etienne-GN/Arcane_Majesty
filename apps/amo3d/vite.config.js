@@ -75,7 +75,8 @@ function v2EditsApi() {
                 });
             });
             // The shape layers (docs/3d/characters/LAYERS_PLAN.md): models/v2/layers/<layer>.json — { structural key: [dx, dy, dz] }
-            const LAYER_NAMES = ['common', 'male', 'female', 'boy', 'girl', 'old_man', 'old_woman'], ALT_RE = /^[a-z0-9_-]{1,40}$/;
+            const LAYER_NAMES = ['common', 'male', 'female', 'boy', 'girl', 'old_man', 'old_woman', 'wolf'],   // (+ the creatures' kinds, LAYERS_PLAN step 6)
+                ALT_RE = /^[a-z0-9_-]{1,40}$/;
             const layerFile = (layer, alt) => alt ? join(v2Dir, 'layers', 'alt', layer, `${alt}.json`) : join(v2Dir, 'layers', `${layer}.json`);
             // Each save keeps the version it replaces (layers/history/<layer>[~alt]/<time>.json, the last 50; not in git), so the
             // Sculptor can take saves back one by one — /api/v2undo: GET ?layer=&alt= → { count }, POST { layer, alt } restores the last

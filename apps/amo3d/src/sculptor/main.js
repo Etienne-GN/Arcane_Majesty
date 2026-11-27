@@ -37,6 +37,9 @@ const SUBJECTS = { base_male: { name: 'Male base', look: () => baseLook('adult_m
     base_girl: { name: 'Girl base', look: () => baseLook('child_female', 'base_female'), sex: 'female', vers: ['new'] },
     base_old_man: { name: 'Old man base', look: () => baseLook('elder_male', 'base_male'), sex: 'male', vers: ['new'] },
     base_old_woman: { name: 'Old woman base', look: () => baseLook('elder_female', 'base_female'), sex: 'female', vers: ['new'] } };
+// the creatures (LAYERS_PLAN step 6): each kind's v2 body, shaped in its own layer — the wolf first
+const CREATURES = { wolf: { name: 'Wolf', build: () => import('../content/actors/wolf.js').then(m => m.buildWolf(0x6b6862)) } };
+for (const [id, c] of Object.entries(CREATURES)) SUBJECTS[id] = { name: c.name, sex: id, creature: c, vers: ['new'] };
 // ?lineup=1: the six bodies side by side (man, woman, boy, girl, old man, old woman), A-pose, to judge them together
 const LINEUP = Q.get('lineup') === '1' ? ['base_male', 'base_female', 'base_boy', 'base_girl', 'base_old_man', 'base_old_woman'] : null;
 for (const [id, c] of Object.entries(CAST)) SUBJECTS[id] = { name: c.name, vers: Object.hasOwn(V2_MODELS, c.look.v2 ?? '') ? ['classic', 'new'] : ['classic'],
@@ -49,12 +52,14 @@ if (!slots[0] || !slots[1]) {
     slots.forEach((sl, i) => { if (!sl) slots[i] = parseSlot(L[i]); });
 }
 const make = (mode, lk) => { settings.charModels = mode; const c = createCharacter(lk); scene.add(c.root); return c; };
+// a creature on stage: its built body, still (the editor shows its rest shape; the stage turns it)
+const makeCreature = async S => { settings.charModels = 'new'; const d = await S.creature.build(); scene.add(d.root); return { root: d.root, update: () => {}, creature: true }; };
 // Alternates (other versions of a layer, layers/alt/): ?alt0=boy:round shows the left side's body with its boy layer
 // replaced by the alternate "round", ?alt1=… the right side's — the same body on both sides compares two versions
 const ALTS = await fetch('/api/v2alts').then(r => r.json()).catch(() => ({}));
 const altOf = slots.map((sl, i) => { const [layer, name] = (Q.get(`alt${i}`) ?? '').split(':'); return SUBJECTS[sl.id].sex && ALTS[layer]?.includes(name) ? { layer, name } : null; });
 const altData = await Promise.all(altOf.map(a => a ? fetch(`/api/v2layer?layer=${a.layer}&alt=${a.name}`).then(r => r.json()) : null));
-const models = slots.map((sl, i) => { const lk = SUBJECTS[sl.id].look(); if (altOf[i]) lk.sculpt = { ...(lk.sculpt ?? {}), swap: { [altOf[i].layer]: altData[i] } }; return make(sl.ver, lk); });
+const models = await Promise.all(slots.map(async (sl, i) => { if (SUBJECTS[sl.id].creature) return makeCreature(SUBJECTS[sl.id]); const lk = SUBJECTS[sl.id].look(); if (altOf[i]) lk.sculpt = { ...(lk.sculpt ?? {}), swap: { [altOf[i].layer]: altData[i] } }; return make(sl.ver, lk); }));
 const slotName = sl => `${SUBJECTS[sl.id].name} — ${VER[sl.ver]}` + ((a => a ? ` · ${a.layer}: ${a.name}` : '')(altOf[slots.indexOf(sl)]));
 const BASE = slots.some(sl => SUBJECTS[sl.id].sex);   // a base body on stage: the point editor and the hair toggle are offered
 document.getElementById('labels').innerHTML = slots.map(sl => `<span>${slotName(sl).toUpperCase()}</span>`).join('');
