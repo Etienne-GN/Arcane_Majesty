@@ -38,6 +38,7 @@ const ICON = {
     add: svg('<circle cx="8" cy="20" r="3" fill="currentColor"/><circle cx="20" cy="20" r="3" fill="currentColor"/><path d="M11 20h6"/><path d="M14 6v8M10 10h8" stroke-width="2.4"/>'),
     edge: svg('<path d="M4 26L20 6M4 6l16 20" stroke-dasharray="2 3"/><path d="M4 26L20 6" stroke-width="2.6"/><circle cx="4" cy="26" r="2.6" fill="currentColor"/><circle cx="20" cy="6" r="2.6" fill="currentColor"/>'),
     group: svg('<rect x="3" y="8" width="18" height="16" rx="2" stroke-dasharray="3 2"/><circle cx="9" cy="14" r="2.2" fill="currentColor"/><circle cx="15" cy="18" r="2.2" fill="currentColor"/><circle cx="15" cy="12" r="2.2" fill="currentColor"/>'),
+    fuse: svg('<circle cx="5" cy="10" r="2.6" fill="currentColor"/><circle cx="19" cy="10" r="2.6" fill="currentColor"/><path d="M7 12l4 8M17 12l-4 8"/><circle cx="12" cy="24" r="3.4" fill="currentColor"/>'),
     remove: svg('<circle cx="12" cy="20" r="3.5" fill="currentColor"/><path d="M8 9h8" stroke-width="2.4"/>'),
     orbit: svg('<path d="M20 12a8.5 8.5 0 1 0 1 7"/><path d="M21 6v6h-6"/><circle cx="12" cy="16" r="2" fill="currentColor"/>'),
     polish: svg('<path d="M2 16c3-6 7-9 10-9s7 3 10 9c-3 6-7 9-10 9s-7-3-10-9z"/><circle cx="12" cy="16" r="3.5" fill="currentColor"/>'),
@@ -217,7 +218,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     // ---- the tool palette ----
     const tools = make('div', 'pe pe-tools', document.body);
     const cap = (parent, text) => make('div', 'pe-cap', parent, text);   // (a group's name: Tool, View, Frame, Show)
-    const TOOLS = [['move', ICON.move, 'Move points (V): pick a dot and drag it (its mirror follows)'], ['add', ICON.add, 'Add a point (A): pick a dot, then a neighbour — a new point halfway between them'], ['remove', ICON.remove, 'Remove a point (X): it merges into its nearest neighbour'], ['edge', ICON.edge, 'Turn a line (E): pick the two ends of a line between two triangles — it turns to join their other two corners (its mirror too, where it is the same line)'], ['group', ICON.group, 'Group (G): tap points to add or remove them, or drag a box round them; drag any of them to move them all (their mirrors follow). Esc clears the group'], ['orbit', ICON.orbit, 'Turn the view (O)'], ['pan', ICON.pan, 'Move the view (P): strafe, up and down']];
+    const TOOLS = [['move', ICON.move, 'Move points (V): pick a dot and drag it (its mirror follows)'], ['add', ICON.add, 'Add a point (A): pick a dot, then a neighbour — a new point halfway between them'], ['remove', ICON.remove, 'Remove a point (X): it merges into its nearest neighbour'], ['fuse', ICON.fuse, 'Fuse (F): pick a point, then the point it joins — the two become one, the faces between them go (its mirror too)'], ['edge', ICON.edge, 'Turn a line (E): pick the two ends of a line between two triangles — it turns to join their other two corners (its mirror too, where it is the same line)'], ['group', ICON.group, 'Group (G): tap points to add or remove them, or drag a box round them; drag any of them to move them all (their mirrors follow). Esc clears the group'], ['orbit', ICON.orbit, 'Turn the view (O)'], ['pan', ICON.pan, 'Move the view (P): strafe, up and down']];
     const toolBtns = {};
     cap(tools, 'Tool');
     for (const [id, icon, title] of TOOLS) toolBtns[id] = button(tools, icon, () => setTool(id), title);
@@ -234,7 +235,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const setPolish = v => { polish = v; if (dots) dots.visible = !v; if (wire) wire.visible = prefs.wireOn && !v; if (v) { sel = -1; hover = -1; } polishBtn.classList.toggle('on', v); toggles.polish?.(); describe?.(); };
     const polishBtn = button(tools, ICON.polish, () => setPolish(!polish), 'Polish: preview the model as in the game — no points, no wireframe; the reference stays (press again to edit)');
     const hairBtn = button(tools, ICON.hair, () => { hairOn = !hairOn; applyHair(); toggles.hair?.(); hairBtn.classList.toggle('on', hairOn); }, 'Show or hide the hair (hidden: its points can\'t be picked; the scalp shows)');
-    function setTool(id) { prefs.tool = id; keep(); addFrom = -1; edgeFrom = -1; for (const [k, b] of Object.entries(toolBtns)) b.classList.toggle('on', k === id); describe(); }
+    function setTool(id) { prefs.tool = id; keep(); addFrom = -1; edgeFrom = -1; fuseFrom = -1; for (const [k, b] of Object.entries(toolBtns)) b.classList.toggle('on', k === id); describe(); }
 
     // ---- the properties panel ----
     const panel = make('div', 'pe pe-panel', document.body);
@@ -279,6 +280,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     button(fitRow, 'Fit the view to the reference', () => fitToRef(), 'Move the view so the model stands exactly on the reference figure (its height, its feet, its middle)').classList.add('wide');
     make('h4', '', panel, 'Point');
     const ptRow = make('div', 'pe-row', panel);
+    button(ptRow, 'Fuse overlapping points', () => fuseOverlapping(), 'Every pair of points within 3 mm of each other becomes one point (the faces between them go): fewer polygons, the same shape').classList.add('wide');
     button(ptRow, 'Reset point', () => resetSel(), 'Put the selected point (and its mirror) back where it was built');
     button(ptRow, 'Reset all moves', () => { if (sessionMoves() === 0 || confirm('Reset every unsaved move?')) resetAll(); }, 'Put every point back (unsaved moves are lost)').classList.add('danger');
     const helpBox = make('details', '', panel); helpBox.open = !NARROW;
@@ -607,10 +609,10 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     function placeDots() {
         const p = geo.attributes.position;
         dotIds.forEach((i, n) => {
-            const big = i === hover || i === sel || (sel >= 0 && i === mirrorOf[sel]) || i === addFrom || i === edgeFrom || groupSel.has(i);
+            const big = i === hover || i === sel || (sel >= 0 && i === mirrorOf[sel]) || i === addFrom || i === edgeFrom || i === fuseFrom || groupSel.has(i);
             tmpM.makeTranslation(p.getX(i), p.getY(i), p.getZ(i)); if (big) tmpM.scale(new THREE.Vector3(1.8, 1.8, 1.8)); dots.setMatrixAt(n, tmpM);
             const isSel = i === sel || (sel >= 0 && i === mirrorOf[sel]);
-            dots.setColorAt(n, col.set(i === addFrom || i === edgeFrom ? 0x60ff80 : isSel ? 0xff3030 : groupSel.has(i) ? 0xff70ff : i === hover ? 0xffa040 : mirrorOf[i] === -2 ? 0xffe070 : moved(i) ? 0x60d0ff : 0xffffff));
+            dots.setColorAt(n, col.set(i === addFrom || i === edgeFrom || i === fuseFrom ? 0x60ff80 : isSel ? 0xff3030 : groupSel.has(i) ? 0xff70ff : i === hover ? 0xffa040 : mirrorOf[i] === -2 ? 0xffe070 : moved(i) ? 0x60d0ff : 0xffffff));
         });
         dots.instanceMatrix.needsUpdate = true; if (dots.instanceColor) dots.instanceColor.needsUpdate = true;
     }
@@ -648,14 +650,31 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     const save = () => saveTo(B?.alt?.layer === layer ? B.alt.name : null);
     const neighbours = i => { const s = new Set(), I = T.idx; for (let f = 0; f < I.length; f += 3) { const a = I[f], b = I[f + 1], c = I[f + 2]; if (a === i || b === i || c === i) for (const v of [a, b, c]) if (v !== i) s.add(v); } return [...s]; };
     // adding and removing points (saved into the chosen layer as its "@topo": skin.js) — each on the mirror too, saved at once
-    let addFrom = -1, edgeFrom = -1;
+    let addFrom = -1, edgeFrom = -1, fuseFrom = -1;
     const groupSel = new Set();   // (2026-11-27, the user: "select and move a group of points — the feet of an animal, to make its legs longer")
     function topoOp(kind, i, j) {   // (with the mirror: the centre line maps to itself; a point with no mirror, none)
         const pm = bodyMesh.userData.points, t = k => pm.get(T.keys[k])?.t, m = k => (mirrorOf[k] === -2 ? k : mirrorOf[k]), g = Date.now();
         if (!t(i) || !t(j)) return;
         const ops = [[kind, t(i), t(j), g]], mi = m(i), mj = m(j);
         if (mi >= 0 && mj >= 0 && !(new Set([mi, mj]).size === 2 && [mi, mj].every(x => x === i || x === j)) && t(mi) && t(mj)) ops.push([kind, t(mi), t(mj), g]);
-        info.textContent = kind === 'flip' ? `Turning the line${ops.length === 2 ? ' (and its mirror, where it is the same line)' : ''} — saving…` : `${kind === 'add' ? 'Adding' : 'Removing'} ${ops.length === 2 ? 'a point and its mirror' : 'a point'} — saving…`;
+        info.textContent = kind === 'remove' && prefs.tool === 'fuse' ? `Fusing ${ops.length === 2 ? 'two points and their mirrors' : 'two points'} — saving…` : kind === 'flip' ? `Turning the line${ops.length === 2 ? ' (and its mirror, where it is the same line)' : ''} — saving…` : `${kind === 'add' ? 'Adding' : 'Removing'} ${ops.length === 2 ? 'a point and its mirror' : 'a point'} — saving…`;
+        saveTo(B?.alt?.layer === layer ? B.alt.name : null, ops);
+    }
+    // every pair of points lying on each other (within 3 mm, as they are now — moves not yet saved included) fused at once
+    function fuseOverlapping() {
+        const pm = bodyMesh.userData.points, tk = k => pm.get(T.keys[k])?.t, n = T.keys.length, gone = new Set(), ops = [], g = Date.now();
+        const cell = new Map(), C = 0.003, at = i => [bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2]];
+        for (let i = 0; i < n; i++) { const [x, y, z] = at(i), key = `${Math.floor(x / C)},${Math.floor(y / C)},${Math.floor(z / C)}`; (cell.get(key) ?? cell.set(key, []).get(key)).push(i); }
+        for (let i = 0; i < n; i++) {
+            if (gone.has(i) || !tk(i)) continue; const [x, y, z] = at(i);
+            for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) for (let dz = -1; dz <= 1; dz++) for (const j of cell.get(`${Math.floor(x / C) + dx},${Math.floor(y / C) + dy},${Math.floor(z / C) + dz}`) ?? []) {
+                if (j <= i || gone.has(j) || !tk(j)) continue; const [a, b, c] = at(j);
+                if (Math.hypot(a - x, b - y, c - z) <= C) { ops.push(['remove', tk(j), tk(i), g]); gone.add(j); }
+            }
+        }
+        if (!ops.length) { info.textContent = 'No points lie on each other (within 3 mm).'; return; }
+        if (!confirm(`Fuse ${ops.length} overlapping point${ops.length > 1 ? 's' : ''} into ${ops.length > 1 ? 'their' : 'its'} neighbour? (⤺ Save takes it back)`)) return;
+        info.textContent = `Fusing ${ops.length} overlapping points — saving…`;
         saveTo(B?.alt?.layer === layer ? B.alt.name : null, ops);
     }
     function removeAt(i) {
@@ -722,6 +741,15 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         if (t === 'orbit' || t === 'pan') return { kind: t, x: e.clientX, y: e.clientY };
         const i = pick(e, reachOf(e));
         if (t === 'remove') { if (i >= 0) removeAt(i); return null; }
+        if (t === 'fuse') {   // (2026-11-27, the user: "attach points together, fuse some of them — cut some polygons") the point that goes, then the one it joins
+            if (i < 0) return null;
+            if (fuseFrom < 0) { fuseFrom = i; sel = i; placeDots(); info.textContent = 'Fuse: now the point it joins.'; return null; }
+            const from = fuseFrom; fuseFrom = -1; if (i === from) { placeDots(); return null; }
+            const gap = Math.hypot(bind[i * 3] - bind[from * 3], bind[i * 3 + 1] - bind[from * 3 + 1], bind[i * 3 + 2] - bind[from * 3 + 2]);
+            if (gap > 0.06 && !confirm(`These points are ${(gap * 100).toFixed(0)} cm apart — fuse them anyway?`)) { placeDots(); return null; }
+            topoOp('remove', from, i);
+            return null;
+        }
         if (t === 'edge') {   // turn a line: its two ends, one after the other
             if (i < 0) return null;
             if (edgeFrom < 0) { edgeFrom = i; sel = i; placeDots(); info.textContent = 'Turn a line: now the point at its other end.'; return null; }
@@ -774,7 +802,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
             const cx = (a[0] + b2[0]) / 2, cy = (a[1] + b2[1]) / 2; panBy(cx - pinch.cx, cy - pinch.cy); pinch.cx = cx; pinch.cy = cy; return;
         }
         if (!drag) {   // a pen hovering (or a mouse): the point it would take
-            if ((e.pointerType === 'pen' || e.pointerType === 'mouse') && !e.buttons && ['move', 'add', 'remove', 'edge', 'group'].includes(prefs.tool) && dots) { const h = pick(e, reachOf(e)); if (h !== hover) { hover = h; placeDots(); } }
+            if ((e.pointerType === 'pen' || e.pointerType === 'mouse') && !e.buttons && ['move', 'add', 'remove', 'fuse', 'edge', 'group'].includes(prefs.tool) && dots) { const h = pick(e, reachOf(e)); if (h !== hover) { hover = h; placeDots(); } }
             return;
         }
         e.stopImmediatePropagation();
@@ -824,9 +852,10 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         if ((e.ctrlKey || e.metaKey) && (e.code === 'KeyY' || (e.code === 'KeyZ' && e.shiftKey))) { e.preventDefault(); doRedo(); return; }
         if ((e.ctrlKey || e.metaKey) && e.code === 'KeyZ') { e.preventDefault(); doUndo(); return; }
         if (e.code === 'Escape' && addFrom >= 0) { addFrom = -1; placeDots(); info.textContent = 'Add cancelled.'; return; }
+        if (e.code === 'Escape' && fuseFrom >= 0) { fuseFrom = -1; placeDots(); info.textContent = 'Fuse cancelled.'; return; }
         if (e.code === 'Escape' && edgeFrom >= 0) { edgeFrom = -1; placeDots(); info.textContent = 'Turn cancelled.'; return; }
         if (e.code === 'Escape' && groupSel.size) { groupSel.clear(); placeDots(); info.textContent = 'Group cleared.'; return; }
-        const key = { KeyV: 'move', KeyA: 'add', KeyX: 'remove', KeyE: 'edge', KeyG: 'group', KeyO: 'orbit', KeyP: 'pan' }[e.code]; if (key && !e.ctrlKey && !e.metaKey) { setTool(key); return; }
+        const key = { KeyV: 'move', KeyA: 'add', KeyX: 'remove', KeyF: 'fuse', KeyE: 'edge', KeyG: 'group', KeyO: 'orbit', KeyP: 'pan' }[e.code]; if (key && !e.ctrlKey && !e.metaKey) { setTool(key); return; }
         if (sel < 0 || !/^Arrow/.test(e.code)) return;
         e.preventDefault();
         nudge(e.shiftKey ? (e.code === 'ArrowUp' ? 'in' : e.code === 'ArrowDown' ? 'out' : null) : e.code, e.altKey);
