@@ -14,6 +14,7 @@ import { sfx } from './engine/sfx.js';
 // Every button in every menu clicks.
 addEventListener('click', e => { if (e.target.closest?.('button, #tmenu button, .tool')) sfx.click(); }, true);
 import { createRenderer } from './engine/renderer.js';
+import { createTeleport } from './game/teleport.js';
 import { createOrbitCamera } from './engine/camera.js';
 import { createInput } from './engine/input.js';
 import { createTouchControls } from './engine/touch.js';
@@ -287,6 +288,7 @@ const hero = {
     setWeapons: (a, b) => model.setWeapons(a, b),
     get mainType() { return model.mainType; },
 };
+const teleport = createTeleport({ hero, player: { get state() { return player.state; } }, sfx });
 function dressHero() {
     const old = model;
     model = createCharacter(heroLook());
@@ -325,6 +327,9 @@ const world = createMapManager({
         ...Object.fromEntries(Object.keys(REGIONS).filter(id => !REGIONS[id].builder).map(id => [id, () => buildRegion(REGIONS[id], { quality })])),   // regions with a builder (the Sanctuary) keep their own code
     },
     fade: hud.ui.fade, fadeText: hud.ui.fadeText,
+    // (2026-11-27) the black holds until the destination is ready: nothing left to stream in round you, the shaders compiled
+    ready: m => { const s = m.streamStats?.(); return !s || s.queue === 0; },
+    warm: m => renderer.compileAsync?.(m.scene, camera),
     // The open world: Thaloria's corner (the glade, the city, the East Road, the mountain, the Sanctuary) is one land now;
     // every way into one of those places — a door, a stair, a gate, a cairn, an old save — arrives in the open world at
     // that place's own arrival point (or the saved spot, moved into world coordinates). Their old standalone maps retire.
@@ -600,7 +605,8 @@ const project = (x, y, z) => { projTmp.set(x, y, z).project(camera); return { x:
 const scent = createScent({ stats, getMap: () => world.current, getPlayer: () => player.state });   // Mana Scent (game/scent.js)
 const sight = createSight({ stats, hud, getMap: () => world.current, getPlayer: () => player.state });   // Aether Sight, the active use (L)
 travel = createTravel({
-    stats, hud, world, player, onAttune: id => quests.onAttune(id), interiors: Object.keys(interiorBuilders),
+    stats, hud, world, player,
+    warpOut: go => teleport.out(world.current.scene, go), warpIn: () => teleport.arrive(world.current.scene),   // (the teleport's light: content/game/teleport.js) onAttune: id => quests.onAttune(id), interiors: Object.keys(interiorBuilders),
     allGates: () => [
         ...(world.maps.eldoria?.stamps?.find(st => st.id === 'outdoor')?.map.gates ?? world.maps.outdoor?.gates ?? []).map(g => ({ ...g, map: 'outdoor' })),
         ...EAST_ROAD_GATES.map(g => ({ ...g, map: 'east_road' })),
@@ -666,7 +672,22 @@ function startNewJourney(kind) {
     setActiveSlot(addSave()); beginNew();             // otherwise a new save at the end of the list — never overwrite
 }
 const activeInfo = slotInfo(activeSlot());
-if (!SHOW_TITLE) { document.body.classList.add('booted'); setTimeout(() => document.getElementById('boot')?.remove(), 900); }   // no title screen (Play here, tests): the loading logo goes at once
+if (!SHOW_TITLE) {   // (2026-11-27, the user: "an animation that plays when we start the game and acts as a loading screen, then a fade to the game when it is ready") — the glowing sigil stays until the world round you is built, its shaders compiled and the frames steady
+    const boot = document.getElementById('boot'), cap = document.createElement('div');
+    cap.textContent = 'Loading the world…'; cap.style.cssText = 'position:absolute;bottom:14%;left:0;right:0;text-align:center;font:16px Georgia,serif;letter-spacing:.2em;color:#cdb98a;opacity:.75';
+    boot?.append(cap);
+    const t0 = performance.now(); let last = t0, ok = 0, warmed = false, warming = false;
+    const watch = () => {
+        const now = performance.now(), frame = now - last; last = now;
+        const m = world.current;
+        if (m && !warming) { warming = true; Promise.resolve(renderer.compileAsync?.(m.scene, camera)).finally(() => { warmed = true; }); }
+        const s = m?.streamStats?.(), good = m && warmed && (!s || s.queue === 0) && frame < 70;
+        ok = good ? ok + 1 : 0;
+        if ((ok >= 10 && now - t0 > 700) || now - t0 > 15000) { document.body.classList.add('booted'); setTimeout(() => boot?.remove(), 900); }
+        else requestAnimationFrame(watch);
+    };
+    requestAnimationFrame(watch);
+}   // no title screen (Play here, tests): the loading logo goes at once
 // The title over the open world: the Eldoria's Prophecy cover — from the west cliff of the gorge, high, the river below,
 // the Citadel on its cliff across it, the valley and the mountains behind; a slow drift. (COVER: tuned by eye.)
 const COVER = { from: [250, 14, 112], to: [-30, 12, 60], drift: 6 };
@@ -878,7 +899,8 @@ function tick(dt) {
         drainVigor: n => { stats.vigor = Math.max(0, stats.vigor - n); },
         onRetreat: () => { stats.flags.malphas_retreated = true; save(); }, map: world.current, coreOf,
         playerStatus: (id, ms) => player.addBuff(id, ms), dispelPlayer: () => player.dispelSelf(), fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot };
-    if (!world.step(dt)) lift = player.step(dt, act, ctx);
+    teleport.update(dt);
+    if (!world.step(dt) && !teleport.leaving) lift = player.step(dt, act, ctx);   // (held still while the light takes you)
     const p = player.state;
     updateHorse(dt);
     if (player.state.diving) lift += player.state.diving.depth * 2;   // (cam.update halves lift: the camera dives with you)

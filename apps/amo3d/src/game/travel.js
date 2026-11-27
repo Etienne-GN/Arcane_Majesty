@@ -61,7 +61,7 @@ export function buildMonolith(scene, gate, y) {
     };
 }
 
-export function createTravel({ stats, hud, world, player, allGates, onAttune, interiors = [] }) {
+export function createTravel({ stats, hud, world, player, allGates, onAttune, interiors = [], warpOut = null, warpIn = null }) {
     const css = document.createElement('style');
     css.textContent = `
 #travel { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #04060ccc; font-family: Georgia, serif; color: #e6ecff; }
@@ -120,11 +120,13 @@ export function createTravel({ stats, hud, world, player, allGates, onAttune, in
     }
     function close() { open = false; root.classList.remove('open'); }
 
+    // (2026-11-27) a teleport: the light takes you (warpOut, ~1.3 s), the black holds while the gate's land is built,
+    // and the light brings you back out (warpIn) once it is ready
     function arrive(g) {
-        world.go(g.map ?? 'outdoor', `gate:${g.id}`, () => {
+        const go = () => world.go(g.map ?? 'outdoor', `gate:${g.id}`, () => {
             stats.respawnPoint = { map: g.map ?? 'outdoor', spawn: `gate:${g.id}`, label: g.label };
-        });
-        hud.banner(`Arrived: ${g.label}`);
+        }, null, () => { warpIn?.(); hud.banner(`Arrived: ${g.label}`); });
+        if (warpOut && !world.busy) warpOut(go); else go();
     }
 
     // At a monolith: attune it, then offer travel.
@@ -180,6 +182,6 @@ export function createTravel({ stats, hud, world, player, allGates, onAttune, in
         if (e.code === 'KeyT') tear();
         else if (open && e.code === 'Escape') close();
     });
-    const api = { useGate, tear, update, close, beforeTear: null, get open() { return open; }, get channelling() { return !!channel; } };
+    const api = { useGate, arrive, tear, update, close, beforeTear: null, get open() { return open; }, get channelling() { return !!channel; } };
     return api;
 }
