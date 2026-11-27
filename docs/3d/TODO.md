@@ -14,10 +14,12 @@ game-only lore gets `origin: "game"`.
 - [x] (2026-11-26: engine/padmap.js + Options → Controls → Gamepad buttons) Options → Controls → a "map buttons" screen for the gamepad: every action (hop, the hands / cast and strike, cycle, Blink-Step, Aether Sight, satchel, sheet, hotbar, camera cycle, sprint…) listed with its button; press a row then a button to rebind; conflicts shown; reset to defaults; saved per device (engine/settings.js). engine/input.js reads the map instead of fixed indices (today: A hop, X/RT right hand, LT left hand, LB/RB cycle, B Blink-Step, Y tap Aether Sight / hold satchel, Start sheet, Back Blink-Step, D-pad hotbar, L3 sprint, R3 camera / hold change).
 
 ## 2. The v2 character models everywhere (asked 2026-11-25 — once the v2 models are polished)
-- [ ] **First: character layers** (`docs/3d/characters/LAYERS_PLAN.md`, decided 2026-11-26) — man, woman, boy, girl, old man, old woman; layers Common → Sex → Age → Character override, for the model's shape (body and face — not clothes or hair, which dress the shape); edits in design space so they land on every proportion; the Lab's layer picker and a "dress the model" view (basic clothes and hair while sculpting).
-- [ ] Replace every NPC (townsfolk, villagers, cast, story people) with the v2 skinned models.
-- [ ] Refactor the Forge (forge.html / forge/main.js) onto the v2 models.
-- [ ] Make every Forge item (garments, armour, hair, beards, handhelds, wardrobe.js equipment) compatible with the v2 bodies.
+- [x] (2026-11-26: steps 1-4 — the six bodies, the Sculptor) **First: character layers** (`docs/3d/characters/LAYERS_PLAN.md`, decided 2026-11-26) — man, woman, boy, girl, old man, old woman; layers Common → Sex → Age → Character override, for the model's shape (body and face — not clothes or hair, which dress the shape); edits in design space so they land on every proportion; the Lab's layer picker and a "dress the model" view (basic clothes and hair while sculpting).
+- [x] (2026-11-26, first pass, behind Options › Character models: New) Replace every NPC (townsfolk, villagers, cast, story people) with the v2 skinned models.
+- [x] (2026-11-26: the Model: Classic / New button; Boy, Girl, Old man, Old woman) Refactor the Forge (forge.html / forge/main.js) onto the v2 models.
+- [x] (2026-11-26: v2/wardrobe.js; pauldrons and mantle fitted) Make every Forge item (garments, armour, hair, beards, handhelds, wardrobe.js equipment) compatible with the v2 bodies.
+- [ ] **The user:** review the NPCs on New; sculpt the boy, girl, old man and old woman layers; decide when New becomes the default.
+- [ ] A v2 hair and beard set (the classic styles stand in on v2 heads today).
 
 ## 3. Multiplayer (parked 2026-11-14 — don't forget)
 - [ ] Test the shared wolves and shadow soldiers (coded, untested).
