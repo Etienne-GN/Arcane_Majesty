@@ -46,6 +46,6 @@ the planes (do they read like the sheet's?), the head (does it look like **that*
 it deforms when the arms come down and the legs walk.
 
 ## Where it goes afterwards (for information)
-The game is `apps/amo3d` (Three.js). Today's attempt is generated in code: `apps/amo3d/src/content/models/v3/body.js`;
-the glTF will be loaded in its place and skinned to the same rig. A tool to compare: `apps/amo3d/tools/models/compare.py`
-(after `shots.mjs`, with the dev server running).
+The game is `apps/amo3d` (Three.js). The v3 attempt in this folder was dropped (2026-11-27); the game's bodies are v2
+(`apps/amo3d/src/content/models/v2/base.js`, the same 11-bone rig). A result from this brief would be compared with v2 side
+by side and loaded on the same rig.

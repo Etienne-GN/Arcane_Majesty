@@ -46,12 +46,17 @@ outfit })`, registered in `models/v2/index.js`, its own cast file `content/cast/
 `CAST` in sculptor/main.js and to the Forge's list (forge/main.js, `Sculpt this character`). Face tattoos/paint:
 `outfit.facePaint({ P, poly, EX, EY, MY, MW })` — marks laid on the face (lift under 0.0012 = behind the eyes).
 
-## Model v3 (2026-11-27, in progress): the hand-placed low-poly bodies after the sheet
-`models/v3/body.js` (`base_male_v3` in the registry and the Sculptor; layer `v3_male`). Numbers measured from the sheet
-(507 px = 1.80 m). Lessons so far: matching the outline is not enough — the sheet's look comes from sharp planes whose
-edges run DIAGONALLY along the anatomy (the pec's lower edge rising to the armpit, the trapezius slanting, the lats) and
-from the thin dark outline (addOutline: an inverted hull on averaged normals). Horizontal-only ring steps read as bands
-("a shelf"): give each corner of a loop its own height (the loft's pts take [x, z, dy]).
+## Dropped experiments (2026-11-27): v3 and v4 — v2 is THE body
+v3 (hand-placed loops from the sheet's measurements) and v4 (v2 with fewer loops) were both dropped by the user: v2's
+general shape, size and proportions are better. Lessons:
+- Every loft (v1, v2, v3) makes horizontal BANDS — the sheet's faces are not banded: their edges run DIAGONALLY along the
+  muscles (the pec's lower edge to the armpit, the trapezius, the lats). Per-corner heights ([x, z, dy] in a loft's pts)
+  help but don't remove the bands.
+- The user judges height and proportions against v2 side by side in the Sculptor, not against the sheet's numbers.
+- Upward lofts (rings listed bottom first) wind inward — use `inward: true`, or list the rings top first.
+- An inverted-hull outline striped the body with shadow acne and the user was unsure of it (removed).
+- The Sculptor's sun now has the game's shadow bias (flat faces striped themselves without it).
+v3's code is in git history (models/v3/body.js before its removal); docs/3d/characters/v3/ keeps the hand-off brief and glb.
 
 ## Traps already hit
 - `sk.tube` winding can face inward → creature tubes use `mat: 'double'`. Lofts on tilted joints (neck, head): build the

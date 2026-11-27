@@ -34,7 +34,6 @@ const baseLook = (preset, v2) => ({ v2, body: { preset, race: 'human', skin: '#e
 const SUBJECTS = { base_male: { name: 'Male base', look: () => baseLook('adult_male', 'base_male'), sex: 'male', vers: ['new'] },
     base_female: { name: 'Female base', look: () => baseLook('adult_female', 'base_female'), sex: 'female', vers: ['new'] },
     // the four other bodies (LAYERS_PLAN step 3): the male or female shape, with the age's proportions and age layer
-    base_male_v3: { name: 'Male base v3', look: () => baseLook('adult_male', 'base_male_v3'), sex: 'male', vers: ['new'] },
     base_boy: { name: 'Boy base', look: () => baseLook('child_male', 'base_male'), sex: 'male', vers: ['new'] },
     base_girl: { name: 'Girl base', look: () => baseLook('child_female', 'base_female'), sex: 'female', vers: ['new'] },
     base_old_man: { name: 'Old man base', look: () => baseLook('elder_male', 'base_male'), sex: 'male', vers: ['new'] },
