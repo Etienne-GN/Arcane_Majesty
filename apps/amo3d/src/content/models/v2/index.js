@@ -3,6 +3,7 @@
 import { buildSeraphina } from './seraphina.js';
 import { buildSeraphinaRebel } from './seraphina_rebel.js';
 import { buildBase } from './base.js';
+import { buildBodyV3 } from '../v3/body.js';
 import { buildEldrin } from './eldrin.js';
 import { DRESSES } from './dress.js';
 export const V2_MODELS = {
@@ -11,5 +12,8 @@ export const V2_MODELS = {
     eldrin: buildEldrin,
     // (the base bodies, undressed — or in one of the Sculptor's basic outfits: look.sculpt.dress, dress.js)
     base_male: ctx => buildBase(ctx, { sex: 'male', outfit: DRESSES[ctx.look?.sculpt?.dress] ?? null }),
+    // model v3 (2026-11-27): v2 copied, to the sheet's proportions (models/v3/body.js)
+    base_male_v3: ctx => buildBodyV3(ctx, { sex: 'male', outfit: DRESSES[ctx.look?.sculpt?.dress] ?? null }),
+    base_female_v3: ctx => buildBodyV3(ctx, { sex: 'female', outfit: DRESSES[ctx.look?.sculpt?.dress] ?? null }),
     base_female: ctx => buildBase(ctx, { sex: 'female', outfit: DRESSES[ctx.look?.sculpt?.dress] ?? null }),
 };
