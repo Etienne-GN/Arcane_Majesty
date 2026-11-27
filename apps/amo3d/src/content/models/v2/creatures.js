@@ -94,11 +94,12 @@ export function buildHorseV2(d, { coat = '#4a3328', mane = '#1e1e24', hoof = '#1
     const bones = [body, neck, head, tail, ...legs.flatMap(l => [l.g, l.low])];
     const N = 10;
     // a ring square to a joint's own z axis (the neck and head are tilted): its points made in the joint's frame
-    const ringIn = (sk, g, cx, cy, cz, rx, ry, w, col, flatTop = 0) => {
-        const c = sk.at(g, cx, cy, cz);
+    // (sq: 2 a round ring, more a squarer one — the head's flat cheeks and face)
+    const ringIn = (sk, g, cx, cy, cz, rx, ry, w, col, flatTop = 0, sq = 2) => {
+        const c = sk.at(g, cx, cy, cz), e = 2 / sq, pw = v => Math.sign(v) * Math.abs(v) ** e;
         const pts = Array.from({ length: N }, (_, i) => {
-            const th = (i / N) * Math.PI * 2, sy = Math.cos(th), y = sy > 0 ? sy * (1 - flatTop) : sy;
-            const p = sk.at(g, cx + Math.sin(th) * rx, cy + y * ry, cz);
+            const th = (i / N) * Math.PI * 2, sy = pw(Math.cos(th)), y = sy > 0 ? sy * (1 - flatTop) : sy;
+            const p = sk.at(g, cx + pw(Math.sin(th)) * rx, cy + y * ry, cz);
             return [p.x - c.x, p.z - c.z, p.y - c.y];
         });
         return { c, pts, w, col };
@@ -110,7 +111,7 @@ export function buildHorseV2(d, { coat = '#4a3328', mane = '#1e1e24', hoof = '#1
         sk.section('torso');
         const B = (z, cy, rx, ry, w = [[body, 1]], col = coat) => ringIn(sk, body, 0, cy, z, rx, ry, w, col, 0.08);
         const Nk = (z, cy, rx, ry, w) => ringIn(sk, neck, 0, cy, z, rx, ry, w, coat);
-        const Hd = (z, cy, rx, ry, col = coat) => ringIn(sk, head, 0, cy, z, rx, ry, [[head, 1]], col);
+        const Hd = (z, cy, rx, ry, col = coat) => ringIn(sk, head, 0, cy, z, rx, ry, [[head, 1]], col, 0, 3.2);
         sk.loft([
             B(-0.88, 1.3, 0.12, 0.12),
             B(-0.8, 1.25, 0.29, 0.29),   // the buttocks
@@ -123,12 +124,16 @@ export function buildHorseV2(d, { coat = '#4a3328', mane = '#1e1e24', hoof = '#1
             Nk(0.12, -0.02, 0.22, 0.31, [[body, 0.3], [neck, 0.7]]),   // the neck: deep at the shoulders
             Nk(0.36, 0.0, 0.18, 0.25, [[neck, 1]]),
             Nk(0.6, 0.0, 0.14, 0.2, [[neck, 1]]),
-            Nk(0.8, 0.0, 0.12, 0.16, [[neck, 0.6], [head, 0.4]]),   // the throat latch, under the poll
-            Hd(0.04, 0.0, 0.12, 0.12),   // the cheeks, broad between the eyes
-            Hd(0.22, -0.02, 0.1, 0.11),
-            Hd(0.42, -0.04, 0.085, 0.1),   // the long face
-            Hd(0.58, -0.05, 0.085, 0.095, nose),   // the soft nose
-            Hd(0.66, -0.05, 0.06, 0.07, nose),
+            Nk(0.8, 0.03, 0.1, 0.12, [[neck, 0.6], [head, 0.4]]),   // the throat latch: narrow, where the head hangs from the neck
+            // (2026-11-26: "it looks like a tapir" — the head was the neck carried on as one tube to a snout. A horse's head is a
+            // wedge: deep flat cheeks (the jowl) at the back, a broad flat forehead, a straight face narrowing, a blunt nose)
+            Hd(-0.06, -0.07, 0.1, 0.17),   // the back of the jowl, deep below
+            Hd(0.07, -0.08, 0.125, 0.2),   // the cheeks: the deepest, under the eyes
+            Hd(0.21, -0.05, 0.11, 0.15),
+            Hd(0.36, -0.03, 0.085, 0.105),   // the long straight face
+            Hd(0.5, -0.035, 0.078, 0.088),
+            Hd(0.6, -0.04, 0.088, 0.088, nose),   // the nose, a little broader (the nostrils)
+            Hd(0.67, -0.045, 0.072, 0.07, nose),   // blunt
         ], { seg: N, mat: 'double', cap: true, capStart: true });
         // the ears, upright, and the eyes on the sides of the head
         sk.section('ears');
@@ -137,7 +142,9 @@ export function buildHorseV2(d, { coat = '#4a3328', mane = '#1e1e24', hoof = '#1
             const a = P(0.04, 0.1, 0.0), b = P(0.1, 0.09, -0.02), t = P(0.08, 0.27, -0.06), back = P(0.07, 0.1, -0.07);
             sk.poly([a, b, t], coat, c); sk.poly([b, back, t], coat, c); sk.poly([back, a, t], mane, c);
             const e = (x, y, z) => ({ p: V(head, s * x, y, z), w: [[head, 1]] }), ec = V(head, 0, 0.03, 0.12);
-            sk.poly([e(0.128, 0.05, 0.1), e(0.13, 0.02, 0.14), e(0.128, 0.0, 0.1), e(0.125, 0.03, 0.06)], hoof, ec);
+            sk.poly([e(0.126, 0.07, 0.08), e(0.128, 0.045, 0.12), e(0.126, 0.025, 0.08), e(0.123, 0.05, 0.04)], hoof, ec);   // (high on the side of the head, at the top of the cheek)
+            const n = (x, y, z) => ({ p: V(head, s * x, y, z), w: [[head, 1]] });
+            sk.poly([n(0.05, 0.02, 0.665), n(0.075, -0.01, 0.66), n(0.05, -0.05, 0.665), n(0.03, -0.02, 0.672)], hoof, V(head, 0, -0.04, 0.6));   // a nostril
         }
         // the legs: forearm or gaskin to the knee or hock, the cannon to the fetlock, the hoof
         sk.section('legs');
@@ -180,8 +187,8 @@ export function buildHorseV2(d, { coat = '#4a3328', mane = '#1e1e24', hoof = '#1
             tk.poly([P(0.36, 1.32, 0.07), P(0.365, 1.27, 0.07), P(0.365, 1.27, 0.02), P(0.36, 1.32, 0.02)], gold, c);   // a buckle
             tk.tube([{ c: V(body, s * 0.34, 1.2, 0.05), r: 0.012, w: [[body, 1]], col: tack }, { c: V(body, s * 0.3, 0.92, 0.05), r: 0.012, w: [[body, 1]], col: tack }], { seg: 4, cap: false });   // the girth
         }
-        tk.tube(Array.from({ length: 9 }, (_, i) => { const a = (i / 8) * Math.PI * 2; return { c: V(head, Math.sin(a) * 0.1, -0.04 + Math.cos(a) * 0.115, 0.46), r: 0.012, w: [[head, 1]], col: tack }; }), { seg: 4, cap: false });   // the noseband
-        tk.tube(Array.from({ length: 9 }, (_, i) => { const a = (i / 8) * Math.PI * 2; return { c: V(head, Math.sin(a) * 0.13, 0.0 + Math.cos(a) * 0.135, 0.02), r: 0.012, w: [[head, 1]], col: tack }; }), { seg: 4, cap: false });   // the headpiece
+        tk.tube(Array.from({ length: 9 }, (_, i) => { const a = (i / 8) * Math.PI * 2; return { c: V(head, Math.sin(a) * 0.095, -0.035 + Math.cos(a) * 0.1, 0.44), r: 0.012, w: [[head, 1]], col: tack }; }), { seg: 4, cap: false });   // the noseband
+        tk.tube(Array.from({ length: 9 }, (_, i) => { const a = (i / 8) * Math.PI * 2; return { c: V(head, Math.sin(a) * 0.14, -0.07 + Math.cos(a) * 0.215, 0.05), r: 0.012, w: [[head, 1]], col: tack }; }), { seg: 4, cap: false });   // the headpiece, behind the eyes
         for (const s of [1, -1]) tk.tube([{ c: V(head, s * 0.1, -0.06, 0.46), r: 0.012, w: [[head, 1]], col: gold }, { c: V(neck, s * 0.2, -0.05, 0.3), r: 0.012, w: [[neck, 1]], col: tack }, { c: V(body, s * 0.22, 1.5, 0.34), r: 0.012, w: [[body, 1]], col: tack }], { seg: 4, cap: false });   // the reins
         const tm = tk.build(); tm.userData.tack = true;
     }
