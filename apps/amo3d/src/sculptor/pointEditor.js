@@ -58,6 +58,9 @@ const ICON = {
 // The bars' icons (2026-11-27: one line style instead of emoji that each phone draws its own way)
 const ic = body => `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${body}</svg>`;
 const UI = {
+    brush: ic('<path d="M18 3l3 3-9 9-3-3z"/><path d="M9 12c-3 0-5 2-5 5 0 1-1 3-2 3 4 1 8 0 9-3 1-2 0-4-2-5z" fill="currentColor" fill-opacity=".5"/>'),
+    erase: ic('<path d="M16 3l5 5-11 11H5l-3-3z"/><path d="M9 10l5 5M10 21h11"/>'),
+    dropper: ic('<path d="M14 4l6 6-2 2-6-6z"/><path d="M13 7l-9 9-1 5 5-1 9-9"/><path d="M5 19l2-2"/>'),
     undo: ic('<path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>'),
     redo: ic('<path d="M15 14l5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/>'),
     save: ic('<path d="M5 3h11l4 4v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3M7 21v-7h10v7"/>'),
@@ -142,8 +145,11 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
     .pe-bar.compact { gap: 4px; padding: 4px 6px; } .pe-bar.compact .lbl, .pe-bar.compact .pe-sep, .pe-bar.compact .pe-grow { display: none; } .pe-bar.compact .pe-b { min-width: 40px; padding: 0 8px; }
     .pe-tools:not(.compact) .pe-more { display: none; }
     .pe-file { display: none; flex-direction: column; gap: 6px; margin-bottom: 4px; }
-    .pe-paintbox { position: fixed; left: 8px; bottom: 40px; z-index: 6; display: none; width: 200px; padding: 6px 8px 8px; background: #1c130bf0; border: 1px solid var(--line, #c8963a55); border-radius: 12px; }
-    .pe-paintbox .pe-row { grid-template-columns: 1fr 1fr 1fr; } .pe-paintbox input[type=color] { grid-column: 1 / -1; } .pe-paintbox .pe-b { min-width: 0; padding: 0 4px; font-size: 12px; }
+    .pe-paintbox { position: fixed; left: 8px; bottom: 40px; z-index: 6; display: none; padding: 5px 6px 6px; background: #1c130bf0; border: 1px solid var(--line, #c8963a55); border-radius: 12px; }
+    .pe-paintbox .pe-row { grid-template-columns: 44px 44px; gap: 4px; } .pe-paintbox .pe-b { min-width: 0; width: 44px; height: 44px; padding: 0; display: grid; place-items: center; }
+    .pe-swatch { -webkit-appearance: none; appearance: none; width: 34px; height: 34px; margin: auto; padding: 0; border: 2px solid #f3d88b; border-radius: 50%; background: none; cursor: pointer; }
+    .pe-swatch::-webkit-color-swatch-wrapper { padding: 0; } .pe-swatch::-webkit-color-swatch { border: none; border-radius: 50%; } .pe-swatch::-moz-color-swatch { border: none; border-radius: 50%; }
+    .pe-panel .pe-row .pe-swatch { width: 36px; height: 36px; }
     .pe-file select { font: 13px var(--ui); height: 40px; padding: 0 6px; border-radius: 8px; background: var(--btn); color: var(--text); border: 1px solid var(--line2); width: 100%; }
     .pe-file .pe-b { align-self: flex-start; }
     .pe-panel.compact .pe-file { display: flex; }
@@ -321,11 +327,11 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
     const paintRow = make('div', 'pe-row', panel);
     const paintBox = make('div', 'pe pe-paintbox', document.body); make('div', 'pe-cap', paintBox, 'Paint');
     const paintCol = make('input', '', paintRow); Object.assign(paintCol, { type: 'color', value: prefs.paintColor ?? '#ffffff', title: 'The colour the brush paints' });
-    paintCol.style.cssText = 'width:100%;height:38px;padding:0;border-radius:8px;border:1px solid var(--line2);background:none';
+    paintCol.className = 'pe-swatch';   // (a small colour circle — tap it for the picker)
     paintCol.oninput = () => { prefs.paintColor = paintCol.value; keep(); };
     let paintMode = 'brush';
     const modeBtns = {};
-    for (const [m, t, title] of [['brush', 'Brush', 'Paint the faces you touch'], ['erase', 'Eraser', 'Give the faces you touch back their own colour'], ['pick', 'Eyedropper', 'Take the colour of the face you touch']]) {
+    for (const [m, t, title] of [['brush', UI.brush, 'Brush: paint the faces you touch'], ['erase', UI.erase, 'Eraser: give the faces you touch back their own colour'], ['pick', UI.dropper, 'Eyedropper: take the colour of the face you touch']]) {
         modeBtns[m] = button(paintRow, t, () => { paintMode = m; for (const [k, b] of Object.entries(modeBtns)) b.classList.toggle('on', k === m); if (prefs.tool !== 'paint') setTool('paint'); }, title);
     }
     modeBtns.brush.classList.add('on');
