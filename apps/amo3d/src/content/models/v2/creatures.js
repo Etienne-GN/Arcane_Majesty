@@ -11,8 +11,10 @@ import { LAYERS } from './base.js';
 
 // The kind's layer turned into positions for this body, then the real build (as buildBase: a dry pass maps the points).
 // gen({ edits, dry, topo }) builds the body with createSkin and returns { mesh } (or { points, bones } when dry).
-export function buildLayered(root, kind, gen) {
-    const L = LAYERS[kind] ?? {}, topo = Array.isArray(L['@topo']) ? L['@topo'] : null, edits = {};
+// layer: the layer it is shaped by — a Library clone's own (its id; until it has one, its kind's)
+export function buildLayered(root, kind, gen, layer = kind) {
+    if (!LAYERS[layer]) layer = kind;
+    const L = LAYERS[layer] ?? {}, topo = Array.isArray(L['@topo']) ? L['@topo'] : null, edits = {};
     const keys = Object.keys(L).filter(k => k !== '@topo');
     if (keys.length) {
         const plain = gen({ dry: true, topo });
@@ -22,13 +24,13 @@ export function buildLayered(root, kind, gen) {
         for (const [k, r] of plain.points) { const v = L[r.t]; if (!Array.isArray(v)) continue; d.set(v[0], v[1], v[2]).applyMatrix3(M[r.bone]); edits[k] = [r.p.x + d.x, r.p.y + d.y, r.p.z + d.z]; }
     }
     const out = gen({ edits, topo });
-    if (out?.mesh) { out.mesh.userData.editSex = kind; out.mesh.userData.layers = [kind]; out.mesh.name = `v2_${kind}`; }
+    if (out?.mesh) { out.mesh.userData.editSex = layer; out.mesh.userData.layers = [layer]; out.mesh.name = `v2_${layer}`; }
     return out;
 }
 
 // The wolf: a long ribcage tapering to a tucked waist and the haunches, a neck rising into a wedge head with a long muzzle,
 // upright ears, legs with a knee and a paw, a brush of a tail. d: buildWolf's joints { root, body, head, tail, legs[] }.
-export function buildWolfV2(d, { fur = '#6b6862', belly = '#b8b0a2', dark = '#1c1a18' } = {}) {
+export function buildWolfV2(d, { fur = '#6b6862', belly = '#b8b0a2', dark = '#1c1a18', layer = 'wolf' } = {}) {
     const { root, body, head, tail, legs } = d;
     const bones = [body, head, tail, ...legs.flatMap(l => [l.upper, l.lower])];
     const gen = ({ edits = null, dry = false, topo = null } = {}) => {
@@ -85,7 +87,7 @@ export function buildWolfV2(d, { fur = '#6b6862', belly = '#b8b0a2', dark = '#1c
         if (dry) return { points: sk.build().points, bones };
         return { mesh: sk.build() };
     };
-    return buildLayered(root, 'wolf', gen);
+    return buildLayered(root, 'wolf', gen, layer);
 }
 
 // The horse (2026-11-26, after the user's sheet docs/3d/creatures/horse_reference.jpg): a deep barrel, rounded
@@ -93,7 +95,7 @@ export function buildWolfV2(d, { fur = '#6b6862', belly = '#b8b0a2', dark = '#1c
 // legs with a knee, a fetlock and dark hooves; a long full tail. The tack (saddle, bridle, reins, gold buckles) is not
 // part of the body's shape: its own pieces on the same joints, as clothes dress the characters.
 // d: buildHorse's joints { root, body, neck, head, tail, legs: [{ g, low }] }.
-export function buildHorseV2(d, { coat = '#4a3328', mane = '#1e1e24', hoof = '#1a1614', nose = '#3a2820', tack = '#4a3020', gold = '#c8a050', saddled = true } = {}) {
+export function buildHorseV2(d, { coat = '#4a3328', mane = '#1e1e24', hoof = '#1a1614', nose = '#3a2820', tack = '#4a3020', gold = '#c8a050', saddled = true , layer = 'horse' } = {}) {
     const { root, body, neck, head, tail, legs } = d;
     const bones = [body, neck, head, tail, ...legs.flatMap(l => [l.g, l.low])];
     const N = 10;
@@ -181,7 +183,7 @@ export function buildHorseV2(d, { coat = '#4a3328', mane = '#1e1e24', hoof = '#1
         if (dry) return { points: sk.build().points, bones };
         return { mesh: sk.build() };
     };
-    const out = buildLayered(root, 'horse', gen);
+    const out = buildLayered(root, 'horse', gen, layer);
     // the tack: its own pieces (not shaped by the horse's layer) — a saddle with flaps and buckles, a bridle, the reins
     if (saddled) {
         root.updateMatrixWorld(true);
@@ -215,7 +217,7 @@ function slab(sk, pts, col, thick) {
     sk.poly(front, col, c); sk.poly(back, col, c);
     for (let i = 0; i < pts.length; i++) { const j = (i + 1) % pts.length; sk.poly([front[i], front[j], back[j], back[i]], col, c); }
 }
-export function buildAnimalV2(d, kind) {
+export function buildAnimalV2(d, kind, layer = kind) {
     const { root, body, parts, K } = d, head = parts.head, tail = parts.tail;
     const fur = hex(K.fur), belly = hex(K.belly ?? K.fur), headC = hex(K.head ?? K.fur), dark = '#1a1410', horn = '#d8ccb0';
     const bones = [body, head, ...(tail ? [tail] : []), ...parts.legs.map(l => l.g), ...(parts.wingL ? [parts.wingL, parts.wingR] : [])];
@@ -335,7 +337,7 @@ export function buildAnimalV2(d, kind) {
         if (dry) return { points: sk.build().points, bones };
         return { mesh: sk.build() };
     };
-    const out = buildLayered(root, kind, gen);
+    const out = buildLayered(root, kind, gen, layer);
     if (K.patches && out?.mesh) paintPatches(out.mesh, root, body, K, hex(K.patches), fur, head, parts.legs.map(l => l.g));
     return out;
 }

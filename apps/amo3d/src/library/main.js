@@ -38,16 +38,16 @@ const sculptUrl = (a, b = 'base_male') => `sculptor.html?a=${a}:new&b=${b}:new`;
 const SCULPT_ANIMALS = new Set(['rabbit', 'forest_fox', 'feral_boar', 'black_bear', 'grizzly_bear', 'sheep', 'cow', 'pig', 'goat', 'chicken', 'crow']);
 const creature = (id, name, group, make, sculpt) => ({ id, cls: ['Creatures', group], name, make, sculpt, notes: 'mob' });
 const ENTRIES = [
-    ...Object.entries(BEAST_NAMES).map(([id, name]) => creature(id, name, 'Monsters', (s, map) => createBeasts({ scene: s, map, rng: Math.random, type: id, posts: [{ x: 0, z: 0 }] }), sculptUrl(`mob_${id}`))),
+    ...Object.entries(BEAST_NAMES).map(([id, name]) => creature(id, name, 'Monsters', (s, map, layer) => createBeasts({ scene: s, map, rng: Math.random, type: id, posts: [{ x: 0, z: 0 }], layer }), sculptUrl(`mob_${id}`))),
     creature('werewolf', 'Guardian of the Wild', 'Monsters', (s, map) => createWerewolves({ scene: s, map, rng: Math.random, den: { x: 0, z: 0 }, count: 1 }), sculptUrl('mob_werewolf')),
     creature('shadow', 'Shadow-man', 'Monsters', (s, map) => createShadows({ scene: s, map, rng: Math.random, posts: [{ x: 0, z: 0 }] }).list, sculptUrl('shadow_soldier')),
     creature('malphas', 'Malphas', 'Bosses', (s, map) => { const b = createMalphas({ scene: s, map, at: { x: 0, y: 0, z: 0 }, rng: Math.random }); s.traverse(o => { if (!o.isSprite && !o.isPoints) o.visible = true; }); return [b]; }, sculptUrl('mob_malphas')),
     creature('shadow_balrog', 'The Shadow Balrog', 'Bosses', (s, map) => [createDuelist({ scene: s, map, at: { x: 0, z: 0, facing: 0 }, body: buildBalrog(), plateY: 8.2, name: 'The Shadow Balrog', reach: 4.2, speed: 2.2, windup: 0.8, def: { id: 'shadow_balrog', health: 9999, damage: 26, xpReward: 0, goldDrop: 0, lootTable: [] } })], sculptUrl('mob_balrog')),
     creature('boss_slam', 'Any boss (elite, slam)', 'Bosses', (s, map) => createBeasts({ scene: s, map, rng: Math.random, type: 'crag_fiend', posts: [{ x: 0, z: 0, boss: true, name: 'A boss' }] }), null),
-    creature('wolf', 'Wolf', 'Animals', (s, map) => createWolves({ scene: s, map, rng: Math.random, den: { x: 0, z: 0 }, count: 1 }), sculptUrl('wolf')),
+    creature('wolf', 'Wolf', 'Animals', (s, map, layer) => createWolves({ scene: s, map, rng: Math.random, den: { x: 0, z: 0 }, count: 1, layer: layer ?? 'wolf' }), sculptUrl('wolf')),
     creature('deer', 'Deer', 'Animals', (s, map) => { const d = createDeer({ home: { x: 0, z: 0 }, stag: true, rng: Math.random, map }); s.add(d.root); return [d]; }, sculptUrl('mob_deer')),
-    creature('horse', 'Horse', 'Animals', s => { const h = buildHorse(); s.add(h.root ?? h); return []; }, sculptUrl('horse')),
-    ...Object.entries(ANIMAL_NAMES).map(([id, name]) => creature(id, name, 'Animals', (s, map) => createAnimals({ scene: s, map, rng: Math.random, type: id, posts: [{ x: 0, z: 0 }] }), SCULPT_ANIMALS.has(id) ? sculptUrl(id) : null)),
+    creature('horse', 'Horse', 'Animals', (s, map, layer) => { const h = buildHorse({ layer: layer ?? 'horse' }); s.add(h.root ?? h); return []; }, sculptUrl('horse')),
+    ...Object.entries(ANIMAL_NAMES).map(([id, name]) => creature(id, name, 'Animals', (s, map, layer) => createAnimals({ scene: s, map, rng: Math.random, type: id, posts: [{ x: 0, z: 0 }], layer: layer ?? id }), SCULPT_ANIMALS.has(id) ? sculptUrl(id) : null)),
 ];
 // people: a character from its look (the game's own builder)
 const person = (id, name, group, look, extra = {}) => ({ id, cls: ['People', group], name, make: s => { const c = createCharacter(look); s.add(c.root); return [{ update: dt => c.update(dt, { speed: 0, sprinting: false, hopK: null }) }]; }, notes: 'npc', ...extra });
@@ -185,7 +185,8 @@ function renderSide() {
     if (D) { const st = el('div', { className: 'stats' }); for (const [k, v] of [['Health', D.health], ['Damage', D.damage], ['Speed', D.speed], ['Sight', D.sightRange], ['Reach', D.attackRange], ['XP', D.xpReward]]) if (v != null) st.append(el('span', {}, k), el('span', {}, String(v))); side.append(st); }
     // what can be done with it
     const acts = el('div', { className: 'acts' });
-    const sculpt = el('a', { className: `btn${e.sculpt ? '' : ' off'}`, href: e.sculpt ?? '#', title: e.sculpt ? 'Shape it in the Sculptor' : 'Not in the Sculptor yet (LIBRARY_PLAN phase 3)' }, '✎ Edit in the Sculptor'); acts.append(sculpt);
+    const sculpt = el('a', { className: `btn${e.sculpt ? '' : ' off'}`, href: e.sculpt ?? '#', title: e.sculpt ? (e.clone ? 'Shape this clone in the Sculptor (its own layer: the original stays as it is)' : 'Shape it in the Sculptor') : 'Not in the Sculptor yet (LIBRARY_PLAN phase 3)' }, '✎ Edit in the Sculptor'); acts.append(sculpt);
+    if (e.clone && e.layered) sculpt.onclick = async ev => { ev.preventDefault(); status('Preparing its own layer…'); if (await ensureCloneLayer(e.clone)) location.href = e.sculpt; else status('Could not make its layer (is the dev server running?)', true); };
     if (e.cls[0] === 'People') acts.append(el('a', { className: 'btn', href: e.forge ?? 'forge.html', title: 'Dress and create characters' }, 'Open the Forge'));
     const cl = el('button', { title: e.cls[0] === 'People' ? 'Copy this person into a new cast member (a cast file: in the Forge and the game)' : 'Copy it into a new entry of its own, to change and use in the game' }, '⧉ Clone'); cl.onclick = () => cloneOf(e); acts.append(cl);
     if (e.clone) { const del = el('button', { title: 'Delete this clone (its file goes)' }, 'Delete'); del.onclick = () => deleteClone(e); acts.append(del); }
@@ -265,11 +266,21 @@ async function saveCloneColors(e, colors) {
 // a clone: its base entry's build, its own name, size and (a monster) numbers; listed beside its base. The game reads it
 // where it reads its base kind (content/clones.js: a cloned monster is a beast kind of its own). A person's clone is a new
 // cast member instead (a cast file: the Forge's cast list, the game).
+// a creature whose body has shape layers: the layer its clones start from (copied into the clone's own on its first edit)
+const LAYER_OF = { wolf: 'wolf', void_stalker: 'wolf', blind_stalker: 'wolf', horse: 'horse', frost_bear: 'frost_bear', plague_rat: 'plague_rat', ...Object.fromEntries([...SCULPT_ANIMALS].map(k => [k, k])) };
+async function ensureCloneLayer(c) {   // the clone's own layer: made once, a copy of its base's (so its shape starts as the base's)
+    const has = await fetch(`api/v2layer?layer=${c.id}`).then(r => (r.ok ? r.json() : null)).catch(() => null);
+    if (has && Object.keys(has).length) return true;
+    const base = await fetch(`api/v2layer?layer=${LAYER_OF[c.base]}`).then(r => (r.ok ? r.json() : {})).catch(() => ({}));
+    const r = await fetch('api/v2layer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer: c.id, points: Object.keys(base).length ? base : { '@topo': [] } }) });
+    return r.ok;
+}
 const slug = s2 => String(s2).toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 34);
 function cloneEntry(c) {
     const base = ENTRIES.find(x => x.id === c.base); if (!base) return null;
-    return { ...base, id: c.id, name: c.name, clone: c, baseEntry: base, sculpt: null,
-        make: (s2, m) => { const g = new THREE.Group(); s2.add(g); const a = base.make(g, m) ?? []; g.scale.setScalar(c.scale ?? 1); return a; } };
+    const layered = !!LAYER_OF[c.base];   // (shaped in the Sculptor in its own layer)
+    return { ...base, id: c.id, name: c.name, clone: c, baseEntry: base, sculpt: layered ? `sculptor.html?a=${c.id}:new&b=${base.sculpt ? base.sculpt.match(/a=([^:&]+)/)[1] : 'base_male'}:new&edit=0` : null, layered,
+        make: (s2, m) => { const g = new THREE.Group(); s2.add(g); const a = base.make(g, m, layered ? c.id : undefined) ?? []; g.scale.setScalar(c.scale ?? 1); return a; } };
 }
 async function loadClones() {
     try { for (const c of await (await fetch('api/library')).json()) { if (c.of && c.colors) { recolors[c.of] = c.colors; continue; } const e = cloneEntry(c); if (e) ENTRIES.splice(ENTRIES.indexOf(e.baseEntry) + 1, 0, e); } } catch { /* no dev API */ }

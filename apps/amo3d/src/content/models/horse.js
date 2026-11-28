@@ -7,7 +7,7 @@ import { buildHorseV2 } from './v2/creatures.js';
 
 export const SADDLE_Y = 1.15;
 
-export function buildHorse({ coat = 0x6a4a32, mane = 0x2a1e16 } = {}) {
+export function buildHorse({ coat = 0x6a4a32, mane = 0x2a1e16, layer = 'horse' } = {}) {   // (layer: a Library clone's own)
     const root = new THREE.Group(), body = new THREE.Group(); root.add(body);
     const C = flat(coat), M = flat(mane), H = flat(0x2a2420), S = flat(0x5a3020), B = flat(0x8a6a30);
     const add = (geo, m, x, y, z, p = body) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; p.add(o); return o; };
@@ -47,7 +47,7 @@ export function buildHorse({ coat = 0x6a4a32, mane = 0x2a1e16 } = {}) {
     if (settings.charModels === 'new') {
         const old = []; root.traverse(o => { if (o.isMesh) old.push(o); });
         for (const o of old) { o.parent.remove(o); o.geometry.dispose(); }
-        buildHorseV2({ root, body, neck, head, tail, legs });
+        buildHorseV2({ root, body, neck, head, tail, legs }, { layer });
         root.traverse(o => { if (o.isMesh) o.castShadow = true; });
     }
     let t = 0;

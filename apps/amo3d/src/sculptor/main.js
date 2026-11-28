@@ -52,6 +52,29 @@ for (const [k, n] of Object.entries({ rabbit: 'Rabbit', forest_fox: 'Fox', feral
     CREATURES[k] = { name: n, build: () => import('../content/actors/animals.js').then(m => m.build(k)) };
 for (const [id, c] of Object.entries(CREATURES)) SUBJECTS[id] = { name: c.name, sex: id, creature: c, vers: ['new'] };
 // the mobs on the human body (2026-11-27): a shadow soldier wears the male base — shaping it edits the Male layer, shared
+// The Library's clones (2026-11-27, the user: "I made a clone of the fox, named car — can I edit it in the Sculptor?"): each
+// creature clone a subject of its own, shaped in its own layer (its id) — made, if it has none yet, as a copy of its base's,
+// and put into the page before it is built, so a save can never land in the base's layer
+const CLONE_LAYER_OF = { wolf: 'wolf', void_stalker: 'wolf', blind_stalker: 'wolf', horse: 'horse', frost_bear: 'frost_bear', plague_rat: 'plague_rat', rabbit: 'rabbit', forest_fox: 'forest_fox', feral_boar: 'feral_boar', black_bear: 'black_bear', grizzly_bear: 'grizzly_bear', sheep: 'sheep', cow: 'cow', pig: 'pig', goat: 'goat', chicken: 'chicken', crow: 'crow' };
+async function cloneLayer(c) {
+    let L = await fetch(`/api/v2layer?layer=${c.id}`).then(r => (r.ok ? r.json() : null)).catch(() => null);
+    if (!L || !Object.keys(L).length) {
+        const base = await fetch(`/api/v2layer?layer=${CLONE_LAYER_OF[c.base]}`).then(r => (r.ok ? r.json() : {})).catch(() => ({}));
+        L = Object.keys(base).length ? base : { '@topo': [] };
+        await fetch('/api/v2layer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer: c.id, points: L }) });
+    }
+    applyLayer(c.id, L);
+}
+for (const c of await fetch('/api/library').then(r => (r.ok ? r.json() : [])).catch(() => [])) {
+    const kind = CLONE_LAYER_OF[c.base]; if (!c.base || !kind) continue;
+    const build = async () => {
+        await cloneLayer(c);
+        if (kind === 'wolf') return (await import('../content/actors/wolf.js')).buildWolf(0x6b6862, { layer: c.id });
+        if (kind === 'horse') return (await import('../content/models/horse.js')).buildHorse({ layer: c.id });
+        return (await import('../content/actors/animals.js')).build(kind, { layer: c.id });
+    };
+    SUBJECTS[c.id] = { name: `${c.name} (clone)`, sex: c.id, creature: { name: c.name, build }, vers: ['new'] };
+}
 // Every mob (2026-11-27, the user: "continue adding all the mobs to the sculptor"): built as the game builds it (the same
 // create functions as the Bestiary, on a flat stand-in ground), still on the stage. The ones already on a v2 body (the
 // shadow soldiers, the Cursed Knight: the male body) can be shaped — the rest are shown until each has its own v2 body.

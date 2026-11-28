@@ -26,7 +26,7 @@ export const FLYERS2 = new Set(['cinder_hawk']);
 // Nameplate heights (beast.js otherwise uses 2.4).
 export const PLATE2 = { giant_spider: 1.4, spider_queen: 2.4, frost_bear: 2.3, glacier_crab: 1.7, wendigo: 3.4, ash_crawler: 1.1, plague_rat: 0.9, rot_toad: 1.3, forge_daemon: 2.8, arcane_sentinel: 3.0, mushroom_shaman: 1.9 };
 
-export function body2(type) {
+export function body2(type, layer = null) {
     const root = new THREE.Group(), parts = {};
     const add = (geo, m, x = 0, y = 0, z = 0, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; parent.add(o); return o; };
     // Eight jointed legs splayed from a body at height h (spiders, crabs: fewer).
@@ -63,7 +63,7 @@ export function body2(type) {
         parts.kind = 'legs';
     } else if (type === 'frost_bear' && settings.charModels === 'new') {   // (2026-11-27, TODO §5: on v2) the v2 bear, great and white
         // (animals.js kind 'frost_bear': its own Sculptor layer), icicles along its back, cold eyes; it walks and crouches to lunge
-        const d = buildAnimal('frost_bear'); root.add(d.root);
+        const d = buildAnimal('frost_bear', { layer: layer ?? 'frost_bear' }); root.add(d.root);
         const ice = flat(0x9ad0f0, { transparent: true, opacity: 0.85, emissive: 0x3a6a8a, emissiveIntensity: 0.4 });
         for (let i = 0; i < 6; i++) { const c = add(new THREE.ConeGeometry(0.075, 0.44, 4), ice, (i % 2 ? 0.1 : -0.1), 0.66, 0.5 - i * 0.22, d.body); c.rotation.x = -0.25; }   // (standing out of the back)
         const hs = 1.36 * 0.34, em = glow(0x8ad8ff);   // (on the v2 head's eyes: animals' K.h × 0.34)
@@ -163,7 +163,7 @@ export function body2(type) {
         parts.eyes = add(new THREE.BoxGeometry(0.28, 0.05, 0.02), glow(0xffc040), 0, 2.1, 0.36);
         parts.kind = 'brute';
     } else if (type === 'plague_rat' && settings.charModels === 'new') {   // (2026-11-27, TODO §5: on v2) a v2 rat body (its own layer), mangy green, sick glowing eyes
-        const d = buildAnimal('plague_rat'); root.add(d.root);
+        const d = buildAnimal('plague_rat', { layer: layer ?? 'plague_rat' }); root.add(d.root);
         const hs = 0.4 * 0.34, em = glow(0x9aff5a);
         for (const s of [1, -1]) { const e = add(new THREE.BoxGeometry(0.025, 0.025, 0.04), em, s * hs * 0.62, hs * 0.22, hs * 0.44, d.parts.head); e.rotation.y = s * 0.5; if (s > 0) parts.eyes = e; }
         parts.legs = d.parts.legs.map(l => l.g); parts.kind = 'legs';

@@ -31,13 +31,13 @@ const FIGHTERS = new Set(['feral_boar', 'black_bear', 'grizzly_bear']);
 
 // Character models: New (2026-11-26, LAYERS_PLAN step 6) — each kind's v2 body over the same joints (models/v2/creatures.js,
 // shaped in the Sculptor): the classic pieces go (a bird's wings stay as joints, unseen)
-export function build(kind) {
+export function build(kind, { layer = kind } = {}) {   // (layer: a Library clone's own)
     const d = buildClassic(kind);
     if (settings.charModels !== 'new') return d;
     const joints = new Set([d.parts.wingL, d.parts.wingR].filter(Boolean)), old = [];
     d.root.traverse(o => { if (o.isMesh) old.push(o); });
     for (const o of old) { if (joints.has(o)) o.visible = false; else { o.parent.remove(o); o.geometry.dispose(); } }
-    buildAnimalV2(d, kind);
+    buildAnimalV2(d, kind, layer);
     d.root.traverse(o => { if (o.isMesh && o.visible) o.castShadow = true; });
     return d;
 }
@@ -104,12 +104,12 @@ function buildClassic(kind) {
     return { root, body, parts, K };
 }
 
-export function createAnimals({ scene, map, rng, type, posts }) {
-    return posts.map(home => createAnimal({ scene, map, rng, type, home }));
+export function createAnimals({ scene, map, rng, type, posts, layer = type }) {
+    return posts.map(home => createAnimal({ scene, map, rng, type, home, layer }));
 }
 
-function createAnimal({ scene, map, rng, type, home }) {
-    const d = build(type), K = d.K;
+function createAnimal({ scene, map, rng, type, home, layer = type }) {
+    const d = build(type, { layer }), K = d.K;
     scene.add(d.root);
     const pos = new THREE.Vector3(home.x, map.heightAt(home.x, home.z), home.z);
     const core = createEnemyCore({ type, name: NAMES[type] ?? type, pos, rng, respawnS: 40 });

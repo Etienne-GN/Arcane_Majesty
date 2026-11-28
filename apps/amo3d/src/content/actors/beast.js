@@ -22,8 +22,8 @@ import { buildWolf } from './wolf.js';
 export const NAMES = { ...NAMES2, grave_wraith: 'Grave-Wraith', cursed_knight: 'Cursed Knight', lava_elemental: 'Magma-Eater', ember_imp: 'Cinder-Soul', stone_golem: 'Obsidian Golem', cave_bat: 'Cave Bat', blind_stalker: 'Blind Stalker', deep_horror: 'Deep Horror', gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
 const TUNE = { sight: 2.6, reach: 2, speed: 1.4 };
 
-function body(type) {
-    const b2 = body2(type); if (b2) return b2;   // the newer families (bodies2.js)
+function body(type, layer = null) {   // (layer: a Library clone's own, where its body has layers)
+    const b2 = body2(type, layer); if (b2) return b2;   // the newer families (bodies2.js)
     const root = new THREE.Group(), parts = {};
     const add = (geo, m, x = 0, y = 0, z = 0, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; parent.add(o); return o; };
     if (type === 'grave_wraith') {   // a pale hooded ghost of the old vigil, its ragged robe trailing into mist
@@ -109,7 +109,7 @@ function body(type) {
     } else if ((type === 'void_stalker' || type === 'blind_stalker') && settings.charModels === 'new') {   // (2026-11-27, TODO §5: on v2)
         // the stalkers on the v2 wolf (its skeleton and body, shaped in the Sculptor's Wolf layer), a quarter bigger: the Void-Stalker
         // near-black with glowing violet spines and eyes; the Blind Stalker pale and eyeless, a bony ridge, its maw glowing
-        const blind = type === 'blind_stalker', w = buildWolf(blind ? 0xb8b0a4 : 0x1e1828); w.root.scale.setScalar(1.25); root.add(w.root);
+        const blind = type === 'blind_stalker', w = buildWolf(blind ? 0xb8b0a4 : 0x1e1828, { layer: layer ?? 'wolf' }); w.root.scale.setScalar(1.25); root.add(w.root);
         parts.legs = w.legs.map(l => l.upper); parts.lowers = w.legs.map(l => l.lower);
         const eyeMeshes = []; w.root.traverse(o => { if (o.isMesh && o.material === w.M.eye) eyeMeshes.push(o); });
         if (blind) {
@@ -217,21 +217,21 @@ export function dailyRng(name) {
 
 // amo's elites: at most one per six spawns, each spawn an 8% chance (eliteCap / rollElite / pickAffixes);
 // rareFrom: the map definition whose gathering pools give the elite's rare drop (eliteRareDrop).
-export function createBeasts({ scene, map, rng, type, posts, rareFrom = null }) {
+export function createBeasts({ scene, map, rng, type, posts, rareFrom = null, layer = null }) {
     const cap = EL.eliteCap(posts.length);
     let count = 0;
     return posts.map(post => {
         // post.boss: a dungeon's boss — always elite, bigger, with its own name (post.name)
         const elite = post.boss ? { affixes: EL.pickAffixes(rng), rareDrop: EL.eliteRareDrop(rareFrom, rng), boss: true }
             : EL.rollElite(rng, count, cap) ? (count++, { affixes: EL.pickAffixes(rng), rareDrop: EL.eliteRareDrop(rareFrom, rng) }) : null;
-        return createBeast({ scene, map, rng, type, home: post, elite, name: post.name });
+        return createBeast({ scene, map, rng, type, home: post, elite, name: post.name, layer });
     });
 }
 
-function createBeast({ scene, map, rng, type, home, elite = null, name = null }) {
+function createBeast({ scene, map, rng, type, home, elite = null, name = null, layer = null }) {
     const C = beastClone(type);   // (a Library clone: its base kind's body and AI, its own name, size and numbers)
     if (C) { type = C.base; name ??= C.name; }
-    const { root, parts } = body(type);
+    const { root, parts } = body(type, layer ?? C?.id ?? null);
     applyPalette(root, RECOLORS[type]); if (C?.colors) applyPalette(root, C.colors);   // (the Library's palettes: the kind's own colours, then the clone's)
     scene.add(root);
     root.scale.setScalar((elite ? (elite.boss ? 1.7 : 1.2) : 1) * (C?.scale ?? 1));

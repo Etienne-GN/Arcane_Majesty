@@ -35,7 +35,7 @@ ws.addEventListener('message', e => {
     const m = JSON.parse(e.data);
     if (m.id && pending.has(m.id)) { pending.get(m.id)(m); pending.delete(m.id); }
     if (m.method === 'Runtime.consoleAPICalled') console.log('[console]', m.params.args.map(a => a.value ?? a.description).join(' '));
-    if (m.method === 'Runtime.exceptionThrown') console.log('[error]', m.params.exceptionDetails.exception?.description ?? m.params.exceptionDetails.text);
+    if (m.method === 'Runtime.exceptionThrown') { const d = m.params.exceptionDetails, st = d.stackTrace?.callFrames?.slice(0, 4).map(f => `${f.functionName || '?'} ${f.url.replace(/^.*\/src\//, '')}:${f.lineNumber + 1}`).join(' <- '); console.log('[error]', (d.exception?.description ?? d.text).split('\n')[0], st ? `@ ${st}` : (d.url ? `@ ${d.url.replace(/^.*\/src\//, '')}:${d.lineNumber + 1}` : '')); }
 });
 const send = (method, params = {}) => new Promise(r => { const i = ++id; pending.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
 
