@@ -348,7 +348,7 @@ ENTRIES.sort((a, b) => CLASS_ORDER.indexOf(a.cls[0]) - CLASS_ORDER.indexOf(b.cls
 await loadClones();   // (after the sort: each clone right after its base)
 const want = location.hash.slice(1);
 show(ENTRIES.find(e => e.id === want) ?? ENTRIES.find(e => e.id === `cast_${want}`) ?? ENTRIES[0]);
-window.__library = { ENTRIES, get actors() { return actors; }, get holder() { return holder; }, show: id => show(ENTRIES.find(e => e.id === id)), get current() { return current; }, get error() { return buildError; } };
+window.__library = { camera, controls, ENTRIES, get actors() { return actors; }, get holder() { return holder; }, show: id => show(ENTRIES.find(e => e.id === id)), get current() { return current; }, get error() { return buildError; } };
 
 // Back to the game (the title's Workshop opens this page).
 { const a = document.createElement('a'); a.href = 'index.html'; a.textContent = '← Game'; a.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:50;padding:5px 10px;font:14px Georgia,serif;color:#f3e2b0;background:#120a06d8;border:1px solid #f3d88b66;border-radius:4px;text-decoration:none'; document.body.append(a); }

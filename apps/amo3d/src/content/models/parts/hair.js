@@ -37,7 +37,9 @@ export function buildHair(style, head, m) {
         case 'ponytail':
             cap(head, m, 0.6);
             put(head, new THREE.TorusGeometry(0.03, 0.012, 5, 10), m, 0, 0.2, -0.13);
-            put(head, new THREE.ConeGeometry(0.05, 0.36, 7), m, 0, 0.03, -0.17, [1, 1, 0.8], [Math.PI - 0.35, 0, 0]);
+            // (2026-11-27, the user: "ponytails too" — the cone hung wide at the tie): narrow at the tie, full, then tapering to its end
+            put(head, new THREE.ConeGeometry(0.05, 0.12, 7), m, 0, 0.144, -0.14, [1, 1, 0.8], [0.35, 0, 0]);
+            put(head, new THREE.ConeGeometry(0.05, 0.26, 7), m, 0, -0.035, -0.205, [1, 1, 0.8], [Math.PI + 0.35, 0, 0]);
             return;
         case 'braids':
             cap(head, m, 0.62);

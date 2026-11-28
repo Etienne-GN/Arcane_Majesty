@@ -33,7 +33,7 @@ export function buildWolf(tint, { layer = 'wolf' } = {}) {   // (layer: a Librar
     const tail = new THREE.Group();
     tail.position.set(0, 0.06, -0.42);
     body.add(tail);
-    part(tail, new THREE.CylinderGeometry(0.07, 0.03, 0.45, 5).rotateX(-1.1).translate(0, -0.1, -0.18), M.fur);
+    part(tail, new THREE.CylinderGeometry(0.03, 0.07, 0.45, 5).rotateX(-1.1)   /* (thick at the body — it was backward) */.translate(0, -0.1, -0.18), M.fur);
     const legs = [];
     for (const [x, z, front] of [[0.11, 0.32, 1], [-0.11, 0.32, 1], [0.11, -0.3, 0], [-0.11, -0.3, 0]]) {
         const upper = limb(0.3, 0.06, 0.04, M.fur);

@@ -119,13 +119,13 @@ function buildClassic(kind) {
     }
     // tail
     parts.tail = new THREE.Group(); parts.tail.position.set(0, K.h * 0.15, -K.len * (K.tail === 'thick' ? 0.42 : 0.55)); body.add(parts.tail);   // (a crocodile's tail grows out of its body)
-    if (K.tail === 'brush') { const t = add(new THREE.ConeGeometry(0.09, 0.45, 6).translate(0, -0.22, 0), M.fur, 0, 0, 0, parts.tail); t.rotation.x = -2.2; add(new THREE.SphereGeometry(0.05, 5, 4), M.belly, 0, -0.42, 0, t); }   // (the white tip at the tail's end — it hung in the air)
+    if (K.tail === 'brush') { const t = add(new THREE.ConeGeometry(0.09, 0.45, 6).rotateX(Math.PI).translate(0, -0.225, 0)   /* (wide at the body, the tip away — cones were backward) */, M.fur, 0, 0, 0, parts.tail); t.rotation.x = -2.2; add(new THREE.SphereGeometry(0.05, 5, 4), M.belly, 0, -0.42, 0, t); }   // (the white tip at the tail's end — it hung in the air)
     else if (K.tail === 'bushy') { const L = K.len, t = add(new THREE.CylinderGeometry(L * 0.2, L * 0.08, L * 1.2, 6).translate(0, L * 0.6, 0), M.fur, 0, 0, 0, parts.tail); t.rotation.x = -0.35; }   // (big, up over the back)
-    else if (K.tail === 'long') { const t = add(new THREE.CylinderGeometry(0.004, 0.01, K.len * 1.1, 4).translate(0, -K.len * 0.55, 0), flat(0xc89a8a), 0, 0, 0, parts.tail); t.rotation.x = 1.3; }
-    else if (K.tail === 'thick') { const t = add(new THREE.ConeGeometry(K.h * 0.32, K.len * 0.75, 6).translate(0, -K.len * 0.375, 0), M.fur, 0, 0, 0, parts.tail); t.rotation.x = 1.62; }
+    else if (K.tail === 'long') { const t = add(new THREE.CylinderGeometry(0.01, 0.004, K.len * 1.1, 4).translate(0, -K.len * 0.55, 0), flat(0xc89a8a), 0, 0, 0, parts.tail); t.rotation.x = 1.3; }
+    else if (K.tail === 'thick') { const t = add(new THREE.ConeGeometry(K.h * 0.32, K.len * 0.75, 6).rotateX(Math.PI).translate(0, -K.len * 0.375, 0), M.fur, 0, 0, 0, parts.tail); t.rotation.x = 1.62; }
     else if (K.tail === 'puff') add(new THREE.SphereGeometry(0.05, 6, 4), M.belly, 0, 0, -0.02, parts.tail);
     else if (K.tail === 'curl') add(new THREE.TorusGeometry(0.04, 0.012, 4, 8), M.fur, 0, 0, -0.02, parts.tail);
-    else if (K.tail === 'thin') { const t = add(new THREE.CylinderGeometry(0.012, 0.02, K.len * 0.5, 4).translate(0, -K.len * 0.25, 0), M.fur, 0, 0, 0, parts.tail); t.rotation.x = 0.4; }
+    else if (K.tail === 'thin') { const t = add(new THREE.CylinderGeometry(0.02, 0.012, K.len * 0.5, 4).translate(0, -K.len * 0.25, 0), M.fur, 0, 0, 0, parts.tail); t.rotation.x = 0.4; }
     else add(new THREE.SphereGeometry(0.05, 5, 4), M.fur, 0, 0, -0.02, parts.tail);
     return { root, body, parts, K };
 }
