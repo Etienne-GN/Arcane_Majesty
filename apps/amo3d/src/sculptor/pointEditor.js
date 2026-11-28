@@ -142,6 +142,8 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
     .pe-bar.compact { gap: 4px; padding: 4px 6px; } .pe-bar.compact .lbl, .pe-bar.compact .pe-sep, .pe-bar.compact .pe-grow { display: none; } .pe-bar.compact .pe-b { min-width: 40px; padding: 0 8px; }
     .pe-tools:not(.compact) .pe-more { display: none; }
     .pe-file { display: none; flex-direction: column; gap: 6px; margin-bottom: 4px; }
+    .pe-paintbox { position: fixed; left: 8px; bottom: 40px; z-index: 6; display: none; width: 200px; padding: 6px 8px 8px; background: #1c130bf0; border: 1px solid var(--line, #c8963a55); border-radius: 12px; }
+    .pe-paintbox .pe-row { grid-template-columns: 1fr 1fr 1fr; } .pe-paintbox input[type=color] { grid-column: 1 / -1; } .pe-paintbox .pe-b { min-width: 0; padding: 0 4px; font-size: 12px; }
     .pe-file select { font: 13px var(--ui); height: 40px; padding: 0 6px; border-radius: 8px; background: var(--btn); color: var(--text); border: 1px solid var(--line2); width: 100%; }
     .pe-file .pe-b { align-self: flex-start; }
     .pe-panel.compact .pe-file { display: flex; }
@@ -258,7 +260,7 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
     const setPolish = v => { polish = v; if (dots) dots.visible = !v; if (wire) wire.visible = prefs.wireOn && !v; if (v) { sel = -1; hover = -1; } polishBtn.classList.toggle('on', v); toggles.polish?.(); describe?.(); };
     const polishBtn = button(tools, ICON.polish, () => setPolish(!polish), 'Polish: preview the model as in the game — no points, no wireframe; the reference stays (press again to edit)');
     const hairBtn = button(tools, ICON.hair, () => { hairOn = !hairOn; applyHair(); toggles.hair?.(); hairBtn.classList.toggle('on', hairOn); }, 'Show or hide the hair (hidden: its points can\'t be picked; the scalp shows)');
-    function setTool(id) { prefs.tool = id; keep(); addFrom = -1; edgeFrom = -1; fuseFrom = -1; for (const [k, b] of Object.entries(toolBtns)) b.classList.toggle('on', k === id); describe(); }
+    function setTool(id) { prefs.tool = id; keep(); addFrom = -1; edgeFrom = -1; fuseFrom = -1; if (typeof layout === 'function' && on) layout(); for (const [k, b] of Object.entries(toolBtns)) b.classList.toggle('on', k === id); describe(); }
 
     // ---- the properties panel ----
     const panel = make('div', 'pe pe-panel', document.body);
@@ -283,6 +285,7 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
     toggle('mouth', 'Mouth', () => mouthOn, v => { mouthOn = v; if (mouthMesh) mouthMesh.visible = v && showPart.head; });
     for (const [id, label] of [['arms', 'Arms'], ['head', 'Head'], ['legs', 'Legs']]) toggle(id, label, () => showPart[id], v => { showPart[id] = v; applyHair(); }, `Show or hide the ${label.toLowerCase()} — to judge the body without them (their points can't be picked while hidden)`);
     toggle('wire', 'Wireframe', () => prefs.wireOn, v => { prefs.wireOn = v; keep(); if (wire) wire.visible = v && !polish; });
+    toggle('paintbox', 'Paint box', () => prefs.paintBox ?? true, v => { prefs.paintBox = v; keep(); layout(); }, 'The paint box (colour, brush, eraser, eyedropper) — floating at the bottom left on a phone');
     toggle('pad', 'Pad', () => prefs.padOn, v => { prefs.padOn = v; keep(); layout(); }, 'The navigation pad (turn, move, zoom with buttons)');
     toggle('polish', 'Polish', () => polish, v => setPolish(v), 'The model as in the game: no points, no wireframe');
     // Dress & compare (2026-11-27, the user: "test dress my model in the sculptor, and display it in the compare too"): the
@@ -312,8 +315,11 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
     const fitRow = make('div', 'pe-row', panel);
     button(fitRow, 'Fit the view to the reference', () => fitToRef(), 'Move the view so the model stands exactly on the reference figure (its height, its feet, its middle)').classList.add('wide');
     // ---- Paint (2026-11-27, the user: "a way for me to paint the models, like the fox's tail tips") ----
-    make('h4', '', panel, 'Paint');
+    // (on a phone, 2026-11-27, the user: "colour picker and mode in their own floating toolbox, bottom left, with a toggle in
+    // Show"): the same controls move into a floating box; on a desktop they stay here in the panel
+    const paintH4 = make('h4', '', panel, 'Paint');
     const paintRow = make('div', 'pe-row', panel);
+    const paintBox = make('div', 'pe pe-paintbox', document.body); make('div', 'pe-cap', paintBox, 'Paint');
     const paintCol = make('input', '', paintRow); Object.assign(paintCol, { type: 'color', value: prefs.paintColor ?? '#ffffff', title: 'The colour the brush paints' });
     paintCol.style.cssText = 'width:100%;height:38px;padding:0;border-radius:8px;border:1px solid var(--line2);background:none';
     paintCol.oninput = () => { prefs.paintColor = paintCol.value; keep(); };
@@ -515,6 +521,10 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
         const compact = narrow || innerHeight < 500;   // (a phone, held either way)
         bar.style.display = on ? 'flex' : 'none'; tools.style.display = on ? 'grid' : 'none'; status.style.display = on ? 'flex' : 'none'; pad.style.display = on && prefs.padOn ? 'grid' : 'none';
         tools.classList.toggle('compact', compact); bar.classList.toggle('compact', compact); tools.classList.toggle('more', !!prefs.toolsMore); panel.classList.toggle('compact', compact);
+        { const home = compact ? paintBox : panel; if (paintRow.parentNode !== home) { if (compact) paintBox.append(paintRow); else paintH4.after(paintRow); } paintH4.style.display = compact ? 'none' : '';
+          paintBox.style.display = on && compact && (prefs.paintBox ?? true) && prefs.tool === 'paint' ? 'block' : 'none';
+          // (bottom left — beside the palette when the palette reaches down that far: a phone held sideways)
+          if (paintBox.style.display === 'block') { const tb = tools.getBoundingClientRect(), bh = paintBox.offsetHeight || 112, top = innerHeight - 40 - bh; paintBox.style.left = `${tb.bottom > top - 6 ? tb.right + 6 : 8}px`; } }   // (shown while painting)
         for (const el of [bodySel, layerSel, verSel, verMenu]) { const home = compact ? fileRow : bar; if (el.parentNode !== home) { if (compact) home.append(el); else bar.insertBefore(el, barAnchor); } }
         panel.style.display = on && prefs.panel ? 'flex' : 'none'; panelBtn.classList.toggle('on', prefs.panel);
         bar.classList.toggle('wrap', narrow && !compact);   // (a phone: the bar on two rows — what is edited, then the file's actions)
@@ -722,7 +732,7 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
     function resetAll() { for (let i = 0; i < T.keys.length; i++) { const [x, y, z] = keyPos(T.keys[i]); setPoint(i, x, y, z); } geo.attributes.position.needsUpdate = true; undo.length = 0; redo.length = 0; placeDots(); describe(); }
     function describe() {
         if (!T) return;
-        const n = sessionMoves(), toolName = { move: 'Move', add: addFrom >= 0 ? 'Add — now pick a neighbour' : 'Add — pick a point', remove: 'Remove — pick a point', orbit: 'Orbit', pan: 'Pan' }[prefs.tool];
+        const n = sessionMoves(), toolName = { move: 'Move', add: addFrom >= 0 ? 'Add — now pick a neighbour' : 'Add — pick a point', remove: 'Remove — pick a point', fuse: fuseFrom >= 0 ? 'Fuse — now the point it joins' : 'Fuse — pick the point that goes', edge: edgeFrom >= 0 ? 'Turn a line — now its other end' : 'Turn a line — pick one end', group: `Group — ${groupSel.size} points`, paint: `Paint — ${paintMode === 'erase' ? 'eraser' : paintMode === 'pick' ? 'eyedropper' : `brush ${paintCol.value}`}`, orbit: 'Orbit', pan: 'Pan' }[prefs.tool] ?? prefs.tool;
         const where = `${bodies.find(b => b.id === who)?.name ?? sex} → ${LAYER_LABEL[layer] ?? layer}`;
         if (sel < 0) { info.textContent = `${toolName} · ${where} · ${n} unsaved`; return; }
         info.textContent = `${toolName} · point ${sel}${mirrorOf[sel] === -2 ? ' (centre)' : ''} x ${bind[sel * 3].toFixed(3)} y ${bind[sel * 3 + 1].toFixed(3)} z ${bind[sel * 3 + 2].toFixed(3)} · ${where} · ${n} unsaved`;
