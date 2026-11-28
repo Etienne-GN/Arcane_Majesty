@@ -18,6 +18,7 @@ import eldrin from '../content/cast/eldrin.json';
 import anya from '../content/cast/anya.json';
 import { layerFromPositions } from '../content/models/v2/skin.js';
 import { applyLayer } from '../content/models/v2/base.js';
+import { applyPalette } from '../content/palette.js';
 import { NAMES as BEAST_NAMES } from '../content/actors/beast.js';
 
 const CAST = { seraphina, seraphina_rebel: seraphinaRebel, eldrin, anya }, Q = new URLSearchParams(location.search);
@@ -65,13 +66,17 @@ async function cloneLayer(c) {
     }
     applyLayer(c.id, L);
 }
-for (const c of await fetch('/api/library').then(r => (r.ok ? r.json() : [])).catch(() => [])) {
+const LIBRARY = await fetch('/api/library').then(r => (r.ok ? r.json() : [])).catch(() => []);
+const RECOLOR = Object.fromEntries(LIBRARY.filter(c => c.of && c.colors).map(c => [c.of, c.colors]));   // (an original's own colours, from the Library's palette)
+for (const c of LIBRARY) {
     const kind = CLONE_LAYER_OF[c.base]; if (!c.base || !kind) continue;
     const build = async () => {
         await cloneLayer(c);
-        if (kind === 'wolf') return (await import('../content/actors/wolf.js')).buildWolf(0x6b6862, { layer: c.id });
-        if (kind === 'horse') return (await import('../content/models/horse.js')).buildHorse({ layer: c.id });
-        return (await import('../content/actors/animals.js')).build(kind, { layer: c.id });
+        const d = kind === 'wolf' ? (await import('../content/actors/wolf.js')).buildWolf(0x6b6862, { layer: c.id })
+            : kind === 'horse' ? (await import('../content/models/horse.js')).buildHorse({ layer: c.id })
+            : (await import('../content/actors/animals.js')).build(kind, { layer: c.id });
+        applyPalette(d.root, RECOLOR[c.base]); applyPalette(d.root, c.colors);   // (in its own colours, as the Library and the game show it — the user: "the cat has the fox's colours")
+        return d;
     };
     SUBJECTS[c.id] = { name: `${c.name} (clone)`, sex: c.id, creature: { name: c.name, build }, vers: ['new'] };
 }
