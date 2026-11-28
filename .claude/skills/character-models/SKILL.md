@@ -65,6 +65,12 @@ general shape, size and proportions are better. Lessons:
 - The Sculptor's sun now has the game's shadow bias (flat faces striped themselves without it).
 v3's code is in git history (models/v3/body.js before its removal); docs/3d/characters/v3/ keeps the hand-off brief and glb.
 
+## Faces always outward (2026-11-27)
+skin.js turns every loft and tube face away from its rings' centre (triOut) — the order of the rings no longer matters
+(rings going up and every tube were inside out: hidden in the game by double-sided materials, shown by the Sculptor,
+which draws front faces only). `inward: true` still means a lining seen from inside. Hand-placed `poly` faces were
+already turned away from their `centre`.
+
 ## Traps already hit
 - `sk.tube` winding can face inward → creature tubes use `mat: 'double'`. Lofts on tilted joints (neck, head): build the
   rings in the joint's frame (`ringIn`), not root axes. Loft caps take a plain colour (no colour function on end rings).

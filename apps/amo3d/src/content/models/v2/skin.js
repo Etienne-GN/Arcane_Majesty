@@ -37,6 +37,15 @@ export function createSkin(root, bones, { edits = null, share = null, dry = fals
         const ws = (typeof w === 'function' ? w() : w).slice(0, 4), s = ws.reduce((a, [, v]) => a + v, 0) || 1;
         for (let i = 0; i < 4; i++) { const e = ws[i]; L.si.push(e ? index.get(e[0]) ?? 0 : 0); L.sw.push(e ? e[1] / s : 0); }
     }
+    // (2026-11-27, the user: "the horse's legs render inside out in the Sculptor — make sure it is solved everywhere"):
+    // a loft's or a tube's faces are turned by where they lie, not by the order the rings were given — away from the
+    // centre of their rings (toward it for an inward loft: a cape's lining). Rings going up and every tube were inside
+    // out (drawn double-sided in the game, it hid; the Sculptor shows front faces only).
+    function triOut(mat, a, b, c, color, centre, out = true) {
+        const n = new THREE.Vector3().subVectors(b.p, a.p).cross(new THREE.Vector3().subVectors(c.p, a.p));
+        const m = new THREE.Vector3().addVectors(a.p, b.p).add(c.p).multiplyScalar(1 / 3).sub(centre);
+        if ((n.dot(m) < 0) === out) tri(mat, a, c, b, color); else tri(mat, a, b, c, color);
+    }
     function tri(mat, a, b, c, color) { const L = lists[mat]; vert(L, a.p, a.w, color, a.key, a.t); vert(L, b.p, b.w, color, b.key, b.t); vert(L, c.p, c.w, color, c.key, c.t); }
     // A loft: rings [{ c: Vector3, rx, rz, w: [[bone, weight]…] or (θ) => […], col, dy?(θ) }], θ = 0 at the front (+z).
     // opts: seg (sides), from/to (an open sheet between two angles), mat ('front' | 'double'), inward (faces inward),
@@ -59,17 +68,19 @@ export function createSkin(root, bones, { edits = null, share = null, dry = fals
                 const j = closed ? (i + 1) % n : i + 1, a = A[i], b = A[j], c = B[j], d = B[i];
                 // a ring's colour may vary round it (a coat open over a shirt): col(θ) at the face's middle
                 const col = flatCol ?? new THREE.Color(colOf(Math.atan2((a.p.x + b.p.x) / 2 - rings[k].c.x, (a.p.z + b.p.z) / 2 - rings[k].c.z)));
-                // rings go downward (top first) for 'y' lofts: keep the faces turned outward
-                if (!inward) { tri(mat, a, d, c, col); tri(mat, a, c, b, col); } else { tri(mat, a, c, d, col); tri(mat, a, b, c, col); }
+                const mid = rings[k].c.clone().add(rings[k + 1].c).multiplyScalar(0.5);   // (the faces turned away from their rings' centre: see triOut)
+                triOut(mat, a, d, c, col, mid, !inward); triOut(mat, a, c, b, col, mid, !inward);
             }
         }
         if (capStart) {   // close the first ring too (a dome's top, a heel's back)
             const first = R[0], cr = rings[0], c = { p: cr.c.clone(), w: typeof cr.w === 'function' ? cr.w(0) : cr.w, t: `${id}.c0` }, col = tmp.set(cr.col).clone();
-            for (let i = 0; i < seg; i++) { const j = (i + 1) % n; if (!inward) tri(mat, first[j], c, first[i], col); else tri(mat, first[i], c, first[j], col); }
+            const inside = (rings[1] ?? rings[0]).c;   // (the cap faces away from the next ring: out of the shape)
+            for (let i = 0; i < seg; i++) { const j = (i + 1) % n; triOut(mat, first[j], c, first[i], col, inside, !inward); }
         }
         if (cap) {   // close the last ring with a fan
             const last = R.at(-1), cr = rings.at(-1), c = { p: cr.c.clone(), w: typeof cr.w === 'function' ? cr.w(0) : cr.w, t: `${id}.c1` }, col = tmp.set(cr.col).clone();
-            for (let i = 0; i < seg; i++) { const j = (i + 1) % n; if (!inward) tri(mat, last[i], c, last[j], col); else tri(mat, last[i], last[j], c, col); }
+            const inside = (rings.at(-2) ?? rings.at(-1)).c;
+            for (let i = 0; i < seg; i++) { const j = (i + 1) % n; triOut(mat, last[i], c, last[j], col, inside, !inward); }
         }
     }
     // A tube along any path (a ponytail, a strap): points [{ c: Vector3, r, rz?, w, col }], rings square to the path.
@@ -82,9 +93,10 @@ export function createSkin(root, bones, { edits = null, share = null, dry = fals
         }
         for (let k = 0; k < P.length - 1; k++) {
             const A = R[k], B = R[k + 1], col = tmp.set(P[k].col).clone();
-            for (let i = 0; i < seg; i++) { const j = (i + 1) % seg; tri(mat, A[i], B[i], B[j], col); tri(mat, A[i], B[j], A[j], col); }
+            const mid = P[k].c.clone().add(P[k + 1].c).multiplyScalar(0.5);
+            for (let i = 0; i < seg; i++) { const j = (i + 1) % seg; triOut(mat, A[i], B[i], B[j], col, mid); triOut(mat, A[i], B[j], A[j], col, mid); }
         }
-        if (cap) { const last = R.at(-1), c = { p: P.at(-1).c.clone(), w: P.at(-1).w, t: `${id}.c1` }, col = tmp.set(P.at(-1).col).clone(); for (let i = 0; i < seg; i++) tri(mat, last[i], c, last[(i + 1) % seg], col); }
+        if (cap) { const last = R.at(-1), c = { p: P.at(-1).c.clone(), w: P.at(-1).w, t: `${id}.c1` }, col = tmp.set(P.at(-1).col).clone(), inside = (P.at(-2) ?? P.at(-1)).c; for (let i = 0; i < seg; i++) triOut(mat, last[i], c, last[(i + 1) % seg], col, inside); }
     }
     // Hand-authored faces: polygons of {p, w} points (fan-triangulated), turned to face away from `centre` (a convex-ish part
     // such as a head: no winding to get wrong). Coplanar points make one clean flat plane.
