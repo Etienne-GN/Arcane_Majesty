@@ -12,14 +12,23 @@
 import REF_HAIR from './base_mesh_reference.jpg';
 import REF_BALD from './base_mesh_reference_bald.jpg';
 import REF_HORSE from './ref_horse.jpg';   // (the user's horse sheet, docs/3d/creatures/horse_reference.jpg: front three-quarter above, back below)   // (the hairless sheet: same layout)   // the reference sheet (docs/3d/characters/base_mesh_reference.jpg), 896 × 1200
+import REF_COW from './ref_cow.jpg';
+import REF_PIG from './ref_pig.jpg';
+import REF_WOLF from './ref_wolf.jpg';
+import REF_FOX from './ref_fox.jpg';   // (2026-11-27, the user's animal sheets: docs/3d/creatures/<kind>_reference.jpg — front and three-quarter sitting, side and back standing)
 import { layerFromPositions } from '../content/models/v2/skin.js';
 // Where each view sits on the sheet: [x0, y0, x1, y1] — the whole figure, and its head
 const REF = {
     male: { front: [[17, 75, 359, 615], [130, 70, 250, 215]], side: [[380, 75, 545, 615], [395, 70, 520, 215]], back: [[548, 75, 891, 615], [650, 70, 770, 215]] },   // (2026-11-27: the body boxes hold the whole figure, hands included — measured on the sheet, +12 px)
     female: { front: [[6, 655, 356, 1195], [130, 650, 250, 800]], side: [[385, 655, 544, 1195], [385, 650, 530, 800]], back: [[544, 655, 894, 1195], [640, 650, 780, 800]] },
     horse: { front: [[220, 130, 720, 600], [560, 140, 720, 310]], side: [[220, 130, 720, 600], [560, 140, 720, 310]], back: [[350, 660, 550, 1050], [400, 660, 500, 780]] },
+    // the animal sheets (measured, +12 px): front (sitting), side (standing), back; the head boxes round each view's head
+    cow: { front: [[154, 144, 350, 500], [170, 140, 340, 320]], side: [[46, 656, 462, 980], [40, 640, 210, 800]], back: [[596, 640, 788, 1094], [590, 630, 800, 760]] },
+    pig: { front: [[160, 132, 344, 520], [165, 125, 340, 330]], side: [[48, 640, 458, 992], [40, 640, 200, 800]], back: [[608, 630, 776, 1104], [600, 625, 785, 780]] },
+    wolf: { front: [[100, 120, 326, 524], [160, 115, 320, 320]], side: [[54, 620, 510, 994], [40, 620, 220, 800]], back: [[600, 615, 790, 1106], [600, 610, 790, 760]] },
+    forest_fox: { front: [[92, 112, 342, 522], [150, 105, 330, 300]], side: [[58, 620, 524, 972], [40, 620, 210, 790]], back: [[570, 615, 790, 1110], [570, 610, 790, 760]] },
 };
-const REF_IMG = { horse: REF_HORSE };
+const REF_IMG = { horse: REF_HORSE, cow: REF_COW, pig: REF_PIG, wolf: REF_WOLF, forest_fox: REF_FOX };
 const HUMAN = s => s === 'male' || s === 'female';   // (the characters' bodies; anything else is a creature, framed by its own size)   // (a kind's own sheet; the characters share the base sheet)
 // The palette's icons (2026-11-26: "a small stickman to preview the view"): a stick figure seen from each view, and one
 // lit where each region is (the rest dim) — inline SVG, in the button's own colour
@@ -63,11 +72,12 @@ const PREFS_KEY = 'amo3d.sculptor.ui';
 const loadPrefs = () => { try { return JSON.parse(localStorage.getItem(PREFS_KEY) ?? '{}') ?? {}; } catch { return {}; } };
 const savePrefs = p => { try { localStorage.setItem(PREFS_KEY, JSON.stringify(p)); } catch { /* storage blocked */ } };
 
-export function createPointEditor({ hairless = false, THREE, scene, camera, renderer, getBody, bodies = [], alts = {}, viewRect = null, onEnter, onExit, dresses = [], dressOf = () => null, subjects = [], slotOf = () => '' }) {
+export function createPointEditor({ refAlias = {}, hairless = false, THREE, scene, camera, renderer, getBody, bodies = [], alts = {}, viewRect = null, onEnter, onExit, dresses = [], dressOf = () => null, subjects = [], slotOf = () => '' }) {
     let loaded = null, bodyMesh = null, on = false, sex = 'male', who = bodies[0]?.id, layer = null, T = null, geo = null, mesh = null, wire = null, dots = null, sel = -1, hover = -1, mirrorOf = [], drag = null;
     let region = 'head', yaw = 0, pitch = 0.05, dist = 0.55, target = new THREE.Vector3(0, 1.66, 0);
     // (2026-11-27, the user: "I can't dezoom more on the model, nor expand the ref further, so I can superpose them")
     const MAX_DIST = 12, MAX_REF = 4000;
+    const rk = () => (REF[sex] ? sex : refAlias[sex] ?? sex);   // (whose sheet: a clone shows its base's — refAlias, from the page)
     let lens = null;   // (Fit's lens shift, screen px: the picture moved, not the camera)
     const redo = [];   // (2026-11-27, the user: "we have undo, we'd need redo")
     const undo = [], group = new THREE.Group(); scene.add(group); group.visible = false;
@@ -396,7 +406,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         bald: { male: { front: [92, 596, 188], side: [93, 596, 463], back: [92, 595, 719] }, female: { front: [683, 1175, 181.5], side: [683, 1175, 457], back: [683, 1171, 719] } },
     };
     function fitToRef() {
-        if (!T || !REF[sex] || refMode === 'sheet') { info.textContent = 'Fit works on a body with its reference figure shown (not the whole sheet).'; return; }
+        if (!T || !REF[rk()] || refMode === 'sheet') { info.textContent = 'Fit works on a body with its reference figure shown (not the whole sheet).'; return; }
         const a = ((yaw % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI), view = a < 0.9 || a > 5.4 ? 'front' : a > 2.3 && a < 4.0 ? 'back' : 'side';
         const fig = FIG[hairless || !hairOn ? 'bald' : 'hair'][sex]?.[view]; if (!fig) return;
         if (!prefs.refOn) { prefs.refOn = true; layoutRef(); }
@@ -404,7 +414,7 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         yaw = view === 'front' ? 0 : view === 'back' ? Math.PI : Math.PI / 2; pitch = 0;   // (the sheet's side view faces left: seen from +x)
         const pos = geo.attributes.position; let top = 0;
         for (let i = 0; i < pos.count; i++) if ((hairOn || !T.hair?.[i]) && pos.getY(i) > top) top = pos.getY(i);
-        const box = REF[sex][view][region === 'head' ? 1 : 0], pr = refPic.getBoundingClientRect(), k = pr.width / (box[2] - box[0]);
+        const box = REF[rk()][view][region === 'head' ? 1 : 0], pr = refPic.getBoundingClientRect(), k = pr.width / (box[2] - box[0]);
         const figTop = pr.top + (fig[0] - box[1]) * k, figSole = pr.top + (fig[1] - box[1]) * k, figCx = pr.left + (fig[2] - box[0]) * k;
         const r = area(), tanH = Math.tan(camera.fov * Math.PI / 360), pxPerM = (figSole - figTop) / top;
         const dk = r.height / (2 * tanH * pxPerM), stretch = Math.max(1, 0.8 / camera.aspect);
@@ -430,9 +440,9 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
         const a = ((yaw % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI), view = a < 0.9 || a > 5.4 ? 'front' : a > 2.3 && a < 4.0 ? 'back' : 'side';
         const key = `${sex}|${view}|${region}|${refMode}|${prefs.refSize}`; if (key === lastRef && !force) return; lastRef = key;
         refBox.style.width = `${prefs.refSize + 2}px`; refBox.classList.toggle('narrow', prefs.refSize < 330);   // (the window as wide as its picture: a narrow one puts its slider on a row of its own)
-        if (!REF[sex] && refMode !== 'sheet') { refPic.style.width = `${prefs.refSize}px`; refPic.style.height = '60px'; refPic.style.backgroundImage = 'none'; refLabel.textContent = `No reference sheet for the ${sex} yet`; return; }   // (a creature: none yet)
-        refPic.style.backgroundImage = `url(${REF_IMG[sex] ?? REF_URL})`;
-        const box = refMode === 'sheet' ? [0, 0, 896, 1200] : REF[sex][view][region === 'head' ? 1 : 0], [x0, y0, x1, y1] = box, k = prefs.refSize / (x1 - x0);
+        if (!REF[rk()] && refMode !== 'sheet') { refPic.style.width = `${prefs.refSize}px`; refPic.style.height = '60px'; refPic.style.backgroundImage = 'none'; refLabel.textContent = `No reference sheet for the ${sex} yet`; return; }   // (a creature: none yet)
+        refPic.style.backgroundImage = `url(${REF_IMG[rk()] ?? REF_URL})`;
+        const box = refMode === 'sheet' ? [0, 0, 896, 1200]  : REF[rk()][view][region === 'head' ? 1 : 0], [x0, y0, x1, y1] = box, k = prefs.refSize / (x1 - x0);
         Object.assign(refPic.style, { width: `${prefs.refSize}px`, height: `${Math.round((y1 - y0) * k)}px`, backgroundSize: `${Math.round(896 * k)}px ${Math.round(1200 * k)}px`, backgroundPosition: `${-Math.round(x0 * k)}px ${-Math.round(y0 * k)}px` });
         refLabel.textContent = (refMode === 'sheet' ? 'The sheet' : `${sex}, ${view}`) + (hairless ? ' (no hair)' : '');
         drawLine(box);
@@ -476,9 +486,9 @@ export function createPointEditor({ hairless = false, THREE, scene, camera, rend
     let lineBox = null;
     function drawLine(box = lineBox) {
         lineBox = box; lineBtn.classList.toggle('on', prefs.refLine);
-        const show = prefs.refLine && prefs.refOn && refMode !== 'sheet' && box && REF[sex];
+        const show = prefs.refLine && prefs.refOn && refMode !== 'sheet' && box && REF[rk()];
         refLine.style.display = show ? '' : 'none'; if (!show) return;
-        const E = figureEdge(REF_IMG[sex] ?? REF_URL, box); if (!E) return;
+        const E = figureEdge(REF_IMG[rk()] ?? REF_URL, box); if (!E) return;
         const W = refPic.offsetWidth, H = refPic.offsetHeight, dpr = Math.min(2, devicePixelRatio || 1);
         Object.assign(refLine.style, { left: `${refPic.offsetLeft}px`, top: `${refPic.offsetTop}px`, width: `${W}px`, height: `${H}px` });
         refLine.width = Math.round(W * dpr); refLine.height = Math.round(H * dpr);

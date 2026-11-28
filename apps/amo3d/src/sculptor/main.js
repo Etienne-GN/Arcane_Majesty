@@ -309,7 +309,7 @@ const castIO = id => ({
 });
 let cmpIdx = 1;
 const split = () => !!(editor?.on && editor.showCompare);
-const editor = EDITABLE.length && !LINEUP ? createPointEditor({ THREE, scene, hairless: HAIRLESS, camera, renderer, bodies: EDITABLE, alts: ALTS,
+const editor = EDITABLE.length && !LINEUP ? createPointEditor({ refAlias: Object.fromEntries(LIBRARY.filter(c => c.base && CLONE_LAYER_OF[c.base]).map(c => [c.id, CLONE_LAYER_OF[c.base]])), THREE, scene, hairless: HAIRLESS, camera, renderer, bodies: EDITABLE, alts: ALTS,
     dresses: Object.entries(DRESSES).map(([id, d]) => [id, d.label]), dressOf, slotOf: i => `${slots[i].id}:${slots[i].ver}`,
     subjects: Object.entries(SUBJECTS).flatMap(([id, S]) => S.vers.map(ver => [`${id}:${ver}`, `${S.name}${verTag(ver)}`])),
     getBody: i => { cmpIdx = 1 - i; const cast = EDITABLE.find(b => b.id === i)?.cast; return { table: posedTable(i), mesh: bodyMesh(i), alt: altOf[i], io: cast ? castIO(cast) : null, live: async layer => (altOf[i]?.layer === layer ? false : (await liveLayer(layer)) && (editor.enter(i, layer, true), true)), go: ({ alt, ...ch }) => go({ ...ch, [`alt${i}`]: alt ?? null }) }; },
