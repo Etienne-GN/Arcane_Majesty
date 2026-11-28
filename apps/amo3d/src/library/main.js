@@ -35,7 +35,7 @@ const flat = c => new THREE.MeshStandardMaterial({ color: c, flatShading: true, 
 const sculptUrl = (a, b = 'base_male') => `sculptor.html?a=${a}:new&b=${b}:new`;
 
 // ---------- every entry: { id, cls: [class, group], name, make(holder, map) → actors, sculpt?, forge?, notes, info? } ----------
-const SCULPT_ANIMALS = new Set(['rabbit', 'forest_fox', 'feral_boar', 'black_bear', 'grizzly_bear', 'sheep', 'cow', 'pig', 'goat', 'chicken', 'crow']);
+const SCULPT_ANIMALS = new Set(['rabbit', 'forest_fox', 'feral_boar', 'black_bear', 'grizzly_bear', 'sheep', 'cow', 'pig', 'goat', 'chicken', 'crow', 'squirrel', 'chipmunk', 'rat', 'dog', 'snake', 'crocodile']);
 const creature = (id, name, group, make, sculpt) => ({ id, cls: ['Creatures', group], name, make, sculpt, notes: 'mob' });
 const ENTRIES = [
     ...Object.entries(BEAST_NAMES).map(([id, name]) => creature(id, name, 'Monsters', (s, map, layer) => createBeasts({ scene: s, map, rng: Math.random, type: id, posts: [{ x: 0, z: 0 }], layer }), sculptUrl(`mob_${id}`))),
@@ -92,7 +92,7 @@ setPlatesVisible(false);
 const map = { id: 'library', heightAt: () => 0, groundAt: () => 0, resolve() {}, blockedAt: () => null, passable: () => true, stepBlocked: () => false, hittables: [], nav: null, projectileHit: () => null };
 const dummy = { pos: new THREE.Vector3(0, 0, 60), dead: false };
 const ctx = { camera, player: dummy, hurtPlayer: () => false, floater() {}, message() {}, shake() {}, hour: 12, weather: 'clear', flags: {}, voidMult: 1, dropLoot() {}, onKill() {} };
-let current = null, holder = null, actors = [], mode = 'idle', frameIn = 0, buildError = null;
+let current = null, holder = null, actors = [], mode = 'idle', frameIn = 0, buildError = null, reframe = 0, stageR = 0.8;
 // the palette (2026-11-27): an original's swatches are taken on its plain build, a clone's on its base as the game shows
 // it (the base's own colours applied); the working colours = what is saved + what is being changed (pending)
 const recolors = {};   // an original's saved colours (recolor_<id>.json): id → { hex: hex }
@@ -108,7 +108,7 @@ function show(e, keepView = false) {
         swatches = paletteOf(holder);
         applyPalette(holder, { ...savedColors(e), ...pending });
     } catch (err) { swatches = []; }
-    map.hittables = actors; current = e; if (!keepView) frameIn = 8;
+    map.hittables = actors; current = e; if (!keepView) { frameIn = 8; reframe = 40; }
     if (keepView) return renderPalette();
     history.replaceState(null, '', `#${e.id}`);
     renderSide(); renderList(); document.body.classList.remove('list-on');
@@ -119,14 +119,15 @@ renderer.setAnimationLoop(() => {
     if (mode === 'attack') dummy.pos.set(0, 0, 2.2); else if (mode === 'walk') dummy.pos.set(Math.sin(clock.elapsedTime * 0.6) * 5, 0, 7); else dummy.pos.set(0, 0, 60);
     for (const a of actors) {
         try { a.update?.(dt, ctx); } catch { /* a creature that needs more of the world: frozen */ }
-        if (a.pos && Math.hypot(a.pos.x, a.pos.z) > 0.8) { const k = 0.8 / Math.hypot(a.pos.x, a.pos.z); a.pos.x *= k; a.pos.z *= k; }   // stay in the middle of the turntable (a wandering fox left the frame)
+        if (a.pos && Math.hypot(a.pos.x, a.pos.z) > stageR) { const k = stageR / Math.hypot(a.pos.x, a.pos.z); a.pos.x *= k; a.pos.z *= k; }   /* (how far it may wander: by its size — a chipmunk left the frame at 0.8 m) */   // stay in the middle of the turntable (a wandering fox left the frame)
     }
+    if (reframe > 0 && --reframe === 0) frameIn = 1;   // (framed again once it has settled — a small animal that moved)
     if (frameIn > 0 && --frameIn === 0 && holder) {   // frame it once it has taken its pose
         const box = new THREE.Box3(); holder.traverse(o => { if (o.isMesh && o.visible) box.expandByObject(o); });
         const size = box.getSize(new THREE.Vector3()), c = box.getCenter(new THREE.Vector3());
         const h = Math.min(40, Math.max(0.4, Number.isFinite(size.y) ? Math.max(size.y, size.x * 0.7, size.z * 0.7) : 2));
         const cx = Number.isFinite(c.x) ? c.x : 0, cy = Number.isFinite(c.y) ? c.y : h / 2, cz = Number.isFinite(c.z) ? c.z : 0;
-        controls.target.set(cx, cy, cz); camera.position.set(cx + h * 1.5, cy + h * 0.65, cz + h * 2.6);
+        controls.target.set(0, cy, 0); camera.position.set(h * 1.5, cy + h * 0.65, h * 2.6); stageR = Math.min(0.8, h * 0.35);   // (aimed at the turntable's middle, where it is kept)
         const big = h > 10; floor.visible = ring.visible = grid.visible = !big;   // (a keep or a citadel: no turntable under it)
     }
     document.querySelectorAll('body > div').forEach(d => { if (!['rail', 'side', 'stage', 'hint'].includes(d.id)) d.style.display = 'none'; });   // the game's nameplates: not here

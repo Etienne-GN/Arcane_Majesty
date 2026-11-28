@@ -49,14 +49,14 @@ const SUBJECTS = { base_male: { name: 'Male base', look: () => baseLook('adult_m
 const CREATURES = { wolf: { name: 'Wolf', build: () => import('../content/actors/wolf.js').then(m => m.buildWolf(0x6b6862)) },
     horse: { name: 'Horse', build: () => import('../content/models/horse.js').then(m => m.buildHorse()) } };
 // the animals (animals.js), each kind its own subject and layer
-for (const [k, n] of Object.entries({ rabbit: 'Rabbit', forest_fox: 'Fox', feral_boar: 'Feral boar', black_bear: 'Black bear', grizzly_bear: 'Grizzly bear', sheep: 'Sheep', cow: 'Cow', pig: 'Pig', goat: 'Goat', chicken: 'Chicken', crow: 'Crow' }))
+for (const [k, n] of Object.entries({ rabbit: 'Rabbit', forest_fox: 'Fox', feral_boar: 'Feral boar', black_bear: 'Black bear', grizzly_bear: 'Grizzly bear', sheep: 'Sheep', cow: 'Cow', pig: 'Pig', goat: 'Goat', chicken: 'Chicken', crow: 'Crow', squirrel: 'Squirrel', chipmunk: 'Chipmunk', rat: 'Rat', dog: 'Dog', snake: 'Snake', crocodile: 'Crocodile' }))
     CREATURES[k] = { name: n, build: () => import('../content/actors/animals.js').then(m => m.build(k)) };
 for (const [id, c] of Object.entries(CREATURES)) SUBJECTS[id] = { name: c.name, sex: id, creature: c, vers: ['new'] };
 // the mobs on the human body (2026-11-27): a shadow soldier wears the male base — shaping it edits the Male layer, shared
 // The Library's clones (2026-11-27, the user: "I made a clone of the fox, named car — can I edit it in the Sculptor?"): each
 // creature clone a subject of its own, shaped in its own layer (its id) — made, if it has none yet, as a copy of its base's,
 // and put into the page before it is built, so a save can never land in the base's layer
-const CLONE_LAYER_OF = { wolf: 'wolf', void_stalker: 'wolf', blind_stalker: 'wolf', horse: 'horse', frost_bear: 'frost_bear', plague_rat: 'plague_rat', rabbit: 'rabbit', forest_fox: 'forest_fox', feral_boar: 'feral_boar', black_bear: 'black_bear', grizzly_bear: 'grizzly_bear', sheep: 'sheep', cow: 'cow', pig: 'pig', goat: 'goat', chicken: 'chicken', crow: 'crow' };
+const CLONE_LAYER_OF = { wolf: 'wolf', void_stalker: 'wolf', blind_stalker: 'wolf', horse: 'horse', frost_bear: 'frost_bear', plague_rat: 'plague_rat', rabbit: 'rabbit', forest_fox: 'forest_fox', feral_boar: 'feral_boar', black_bear: 'black_bear', grizzly_bear: 'grizzly_bear', sheep: 'sheep', cow: 'cow', pig: 'pig', goat: 'goat', chicken: 'chicken', crow: 'crow', squirrel: 'squirrel', chipmunk: 'chipmunk', rat: 'rat', dog: 'dog', snake: 'snake', crocodile: 'crocodile' };
 async function cloneLayer(c) {
     let L = await fetch(`/api/v2layer?layer=${c.id}`).then(r => (r.ok ? r.json() : null)).catch(() => null);
     if (!L || !Object.keys(L).length) {

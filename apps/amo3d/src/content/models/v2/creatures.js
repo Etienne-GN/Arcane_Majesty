@@ -221,7 +221,7 @@ function slab(sk, pts, col, thick) {
 export function buildAnimalV2(d, kind, layer = kind) {
     const { root, body, parts, K } = d, head = parts.head, tail = parts.tail;
     const fur = hex(K.fur), belly = hex(K.belly ?? K.fur), headC = hex(K.head ?? K.fur), dark = '#1a1410', horn = '#d8ccb0';
-    const bones = [body, head, ...(tail ? [tail] : []), ...parts.legs.map(l => l.g), ...(parts.wingL ? [parts.wingL, parts.wingR] : [])];
+    const bones = [body, head, ...(tail ? [tail] : []), ...parts.legs.map(l => l.g), ...(parts.wingL ? [parts.wingL, parts.wingR] : []), ...(parts.spine ?? [])];
     const N = K.patches ? 16 : 10;   // (a cow: a finer body, so its patches are blobs, not bands)
     const ring = (sk, g, cx, cy, cz, rx, ry, w, col) => {
         const c = sk.at(g, cx, cy, cz);
@@ -230,7 +230,20 @@ export function buildAnimalV2(d, kind, layer = kind) {
     const gen = ({ edits = null, dry = false, topo = null } = {}) => {
         root.updateMatrixWorld(true);
         const sk = createSkin(root, bones, { edits, dry, topo }), V = (g, x, y, z) => sk.at(g, x, y, z);
-        if (K.bird) {
+        if (K.snake) {   // a snake (2026-11-27): one tube from the head down the spine's segments to the tail's tip, banded; eyes, a forked tongue
+            const R = 0.045, N = parts.spine.length, seg = K.len * 0.82 / N, pat = hex(K.pattern ?? K.fur);
+            sk.section('torso');
+            const P = [{ c: V(head, 0, 0, R * 2.2), r: R * 0.35, rz: R * 0.25, w: [[head, 1]], col: headC },   // the snout
+                { c: V(head, 0, 0.004, R * 1.4), r: R * 1.05, rz: R * 0.7, w: [[head, 1]], col: headC },
+                { c: V(head, 0, 0, R * 0.3), r: R * 1.25, rz: R * 0.85, w: [[head, 1]], col: headC },   // the head's back, wider than the neck
+                { c: V(head, 0, 0, -R * 0.6), r: R * 0.85, rz: R * 0.7, w: [[head, 0.5], [body, 0.5]], col: fur }];
+            parts.spine.forEach((g, i) => { const r = R * (1 - 0.75 * (i / N)); P.push({ c: V(g, 0, 0, -seg * 0.5), r, rz: r * 0.8, w: [[g, 1]], col: i % 2 ? pat : fur }); });
+            P.push({ c: V(parts.spine.at(-1), 0, 0, -seg), r: 0.004, w: [[parts.spine.at(-1), 1]], col: fur });
+            sk.tube(P, { seg: 7, cap: true, mat: 'double' });
+            sk.section('face');
+            for (const s of [1, -1]) { const Q = (x, y, z) => ({ p: V(head, s * x, y, z), w: [[head, 1]] }); sk.poly([Q(R * 0.8, R * 0.62, R * 1.1), Q(R * 0.95, R * 0.45, R * 1.3), Q(R * 0.92, R * 0.4, R * 0.95)], dark, V(head, 0, 0, R)); }
+            sk.tube([{ c: V(head, 0, -0.01, R * 2.3), r: 0.004, w: [[head, 1]], col: '#c83a3a' }, { c: V(head, 0, -0.012, R * 3.2), r: 0.002, w: [[head, 1]], col: '#c83a3a' }], { seg: 3, cap: true, mat: 'double' });   // the tongue
+        } else if (K.bird) {
             const L = K.len, beak = hex(K.beakC ?? 0xe0a030);
             sk.section('torso');
             sk.loft([
@@ -280,6 +293,7 @@ export function buildAnimalV2(d, kind, layer = kind) {
                 const pv = rings[i - 1], at = t => ({ c: pv.c.clone().lerp(rg.c, t), pts: rg.pts.map((p2, j) => p2.map((v, q) => pv.pts[j][q] + (v - pv.pts[j][q]) * t)), w: B, col: fur });
                 return [at(0.25), at(0.5), at(0.75), rg];
             }) : rings;
+            if (K.flathead) for (const rg of fine.slice(5)) rg.pts = rg.pts.map(([x, z, y]) => [x, z, y * 0.5]);   // (a crocodile: a flat head and a long flat snout)
             sk.loft(fine, { seg: N, mat: 'double', cap: true, capStart: true });
             sk.section('face');
             for (const s of [1, -1]) {
@@ -290,7 +304,7 @@ export function buildAnimalV2(d, kind, layer = kind) {
                 else if (ear === 'point') E([[0.3, 0.7, -0.05], [0.68, 0.64, -0.14], [0.55, 1.38, -0.17]]);
                 else if (ear === 'round' || ear === 'small') { const k = ear === 'round' ? 1 : 0.75; E([[0.45, 0.65, 0.0], [0.8, 0.62 + 0.1 * k, -0.08], [0.72, 0.62 + 0.42 * k, -0.12], [0.5, 0.62 + 0.4 * k, -0.1]]); }
                 else if (ear === 'flop') E([[0.45, 0.6, 0.1], [0.9, 0.55, 0.0], [0.95, 0.15, 0.35], [0.55, 0.3, 0.4]]);
-                else E([[0.75, 0.35, 0.0], [1.35, 0.15, -0.05], [1.3, 0.05, -0.25], [0.75, 0.22, -0.2]], headC);   // (side ears: a sheep's, a cow's, a goat's)
+                else if (ear !== 'none') E([[0.75, 0.35, 0.0], [1.35, 0.15, -0.05], [1.3, 0.05, -0.25], [0.75, 0.22, -0.2]], headC);   // (side ears: a sheep's, a cow's, a goat's)
             }
             sk.section('horns');
             for (const s of [1, -1]) {
@@ -300,6 +314,7 @@ export function buildAnimalV2(d, kind, layer = kind) {
                 if (K.tusks) T([[0.38, -0.3, 1.1, 0.07], [0.48, -0.05, 1.35, 0.04], [0.42, 0.25, 1.4, 0.01]]);
             }
             if (K.beard) sk.tube([{ c: V(head, 0, -0.55 * hs, 0.55 * hs), r: 0.15 * hs, w: [[head, 1]], col: belly }, { c: V(head, 0, -1.0 * hs, 0.5 * hs), r: 0.04 * hs, w: [[head, 1]], col: belly }], { seg: 5, cap: true, mat: 'double' });
+            if (K.scutes) { const sc = hex(K.scutes); for (const s of [-1, 1]) for (let i = 0; i < 9; i++) { const z = -hl * 0.9 + i * hl * 0.2; sk.tube([{ c: V(body, s * r * 0.3, r * 0.82, z), r: r * 0.13, w: B, col: sc }, { c: V(body, s * r * 0.3, r * 1.02, z), r: r * 0.03, w: B, col: sc }], { seg: 4, cap: true, mat: 'double' }); } }   // (a crocodile: two rows of scales down its back)
             if (K.bristle) sk.tube([-0.3, 0, 0.3, 0.55].map(f => ({ c: V(body, 0, r * 0.95 + 0.02, f * K.len), r: 0.02, rz: 0.06, w: B, col: dark })), { seg: 4, cap: true, mat: 'double' });
             sk.section('legs');
             for (const { g } of parts.legs) {
@@ -330,6 +345,9 @@ export function buildAnimalV2(d, kind, layer = kind) {
                 const T = (pts, col = fur) => sk.tube(pts.map(([x, y, z, rr, c2]) => ({ c: V(tail, x, y, z), r: rr, w: [[tail, 1]], col: c2 ?? col })), { seg: 6, cap: true, mat: 'double' });
                 if (K.tail === 'brush') T([[0, 0, 0.02, 0.05], [0, -0.08, -0.16, 0.085], [0, -0.16, -0.34, 0.07], [0, -0.2, -0.44, 0.02, belly]]);
                 else if (K.tail === 'thin') T([[0, 0, 0, 0.034], [0, -K.len * 0.3, -K.len * 0.12, 0.026], [0, -K.len * 0.45, -K.len * 0.15, 0.04, dark], [0, -K.len * 0.55, -K.len * 0.17, 0.02, dark]]);   // (thick enough to see; a tuft)
+                else if (K.tail === 'bushy') { const L = K.len; T([[0, 0, 0, L * 0.08], [0, L * 0.35, -L * 0.3, L * 0.2], [0, L * 0.8, -L * 0.3, L * 0.24], [0, L * 1.15, -L * 0.05, L * 0.18], [0, L * 1.3, L * 0.12, L * 0.04]]); }   // (a squirrel's: big, curled up over its back)
+                else if (K.tail === 'long') T([[0, 0, 0, 0.011], [0, -0.02, -K.len * 0.5, 0.008], [0, -0.03, -K.len * 1.0, 0.005], [0, -0.03, -K.len * 1.2, 0.002]], '#c89a8a');   // (a rat's: long and bare)
+                else if (K.tail === 'thick') { const r0 = K.h * 0.34; T([[0, 0, 0, r0], [0, -0.04, -K.len * 0.25, r0 * 0.8], [0, -0.08, -K.len * 0.5, r0 * 0.5], [0, -0.1, -K.len * 0.72, r0 * 0.2], [0, -0.1, -K.len * 0.85, 0.01]]); }   // (a crocodile's)
                 else if (K.tail === 'curl') T([[0, 0, 0, 0.026], [0, 0.045, -0.045, 0.024], [0, 0.08, 0.0, 0.022], [0, 0.045, 0.035, 0.018]]);
                 else if (K.tail === 'puff') T([[0, 0, 0.0, 0.03, belly], [0, 0.01, -0.04, 0.055, belly], [0, 0.01, -0.07, 0.02, belly]]);
                 else T([[0, 0, 0.02, 0.05], [0, -0.02, -0.05, 0.045], [0, -0.04, -0.08, 0.015]]);   // a stub
@@ -339,8 +357,30 @@ export function buildAnimalV2(d, kind, layer = kind) {
         return { mesh: sk.build() };
     };
     const out = buildLayered(root, kind, gen, layer);
-    if (K.patches && out?.mesh) paintPatches(out.mesh, root, body, K, hex(K.patches), fur, head, parts.legs.map(l => l.g));
+    if (out?.mesh && (K.patches || K.saddle || K.stripes)) {   // (markings painted on the body's own colours — kept under the Sculptor's paint)
+        const col = out.mesh.geometry.attributes.color, base = out.mesh.geometry.attributes.colorBase; if (base) col.copy(base);
+        if (K.patches) paintPatches(out.mesh, root, body, K, hex(K.patches), fur, head, parts.legs.map(l => l.g));
+        if (K.saddle || K.stripes) paintMarkings(out.mesh, root, body, K);
+        if (base) { base.copy(col); applyPaint(out.mesh, out.mesh.userData.paint); }
+    }
     return out;
+}
+// a dog's dark saddle over its back, a chipmunk's dark stripes down it (2026-11-27) — face by face, from where each face lies
+function paintMarkings(mesh, root, body, K) {
+    const pos = mesh.geometry.attributes.position, col = mesh.geometry.attributes.color, keys = mesh.userData.editKeys, pts = mesh.userData.points;
+    root.updateMatrixWorld(true);
+    const inv = body.matrixWorld.clone().invert().multiply(mesh.matrixWorld), v = new THREE.Vector3(), c = new THREE.Vector3(), r = K.h * 0.38, hl = K.len * 0.5;
+    const dark = new THREE.Color(K.saddle ?? K.stripes), light = new THREE.Color(K.belly ?? K.fur);
+    for (let f = 0; f + 2 < pos.count; f += 3) {
+        const sec = (pts.get(keys[f])?.t ?? '').split('.')[0]; if (sec !== 'torso' && sec !== 'tail') continue;
+        c.set(0, 0, 0); for (let j = 0; j < 3; j++) { v.fromBufferAttribute(pos, f + j).applyMatrix4(inv); c.add(v); } c.multiplyScalar(1 / 3);
+        let to = null;
+        if (K.saddle && sec === 'torso' && c.y > r * 0.2 && c.z > -hl * 0.95 && c.z < hl * 0.7) to = dark;   // the saddle: the back, from the rump to behind the shoulders
+        if (K.saddle && sec === 'tail' && c.y > -r * 0.2) to = dark;
+        if (K.stripes && sec === 'torso' && c.y > 0 && c.z > -hl && c.z < hl * 0.9) { const ax = Math.abs(c.x) / r; to = ax < 0.12 || (ax > 0.42 && ax < 0.55) ? dark : ax >= 0.55 && ax < 0.72 ? light : null; }   // a dark stripe down the spine, light and dark ones at the sides
+        if (to) for (let j = 0; j < 3; j++) col.setXYZ(f + j, to.r, to.g, to.b);
+    }
+    col.needsUpdate = true;
 }
 
 // A cow's patches (2026-11-26): a few irregular spots on the body and the face — a face whose middle falls inside a spot

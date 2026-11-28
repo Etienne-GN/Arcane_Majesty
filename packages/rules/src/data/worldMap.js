@@ -405,6 +405,13 @@ export const ENEMY_TYPES = {
             { id: 'forest_herb', chance: 0.30 },
         ]
     },
+    // (2026-11-27, 3D only — the user: squirrels, chipmunks, dogs like German shepherds, rats, snakes, crocodiles)
+    squirrel: { spriteKey: null, health: 6, damage: 0, speed: 150, xpReward: 0, goldDrop: 0, patrolRadius: 70, passive: true, fleeRadius: 130, lootTable: [{ id: 'forest_herb', chance: 0.2 }] },
+    chipmunk: { spriteKey: null, health: 4, damage: 0, speed: 150, xpReward: 0, goldDrop: 0, patrolRadius: 60, passive: true, fleeRadius: 120, lootTable: [{ id: 'forest_herb', chance: 0.2 }] },
+    rat: { spriteKey: null, health: 5, damage: 0, speed: 130, xpReward: 0, goldDrop: 0, patrolRadius: 60, passive: true, fleeRadius: 100, lootTable: [{ id: 'bone_fragment', chance: 0.2 }] },
+    dog: { spriteKey: null, health: 30, damage: 0, speed: 140, xpReward: 0, goldDrop: 0, patrolRadius: 80, passive: true, fleeRadius: 40, lootTable: [] },
+    snake: { spriteKey: null, health: 18, damage: 9, speed: 70, sightRange: 70, attackRange: 26, xpReward: 12, goldDrop: 0, patrolRadius: 50, lootTable: [{ id: 'venom_sac', chance: 0.5 }, { id: 'bone_fragment', chance: 0.2 }] },
+    crocodile: { spriteKey: null, health: 85, damage: 22, speed: 75, sightRange: 90, attackRange: 40, xpReward: 45, goldDrop: 0, patrolRadius: 50, lootTable: [{ id: 'boar_meat', chance: 0.6 }, { id: 'bone_fragment', chance: 0.4 }] },
     grizzly_bear: {
         spriteKey: 'spr_bear_grizzly', animProfile: 'lpc_bear', tint: null,
         bodyConfig: { w: 30, h: 22, ox: 17, oy: 38 },

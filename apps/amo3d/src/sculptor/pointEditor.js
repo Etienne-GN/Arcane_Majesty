@@ -101,7 +101,7 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
     const keep = () => savePrefs(prefs);
     renderer.domElement.style.touchAction = 'none';
     let B = null;   // (what getBody gave: the alternate this body shows, and how to reload the page)
-    const LAYER_LABEL = { plague_rat: 'Plague Rat', frost_bear: 'Frost Bear', v3_male: 'Male v3', v3_female: 'Female v3', wolf: 'Wolf', horse: 'Horse', forest_fox: 'Fox', feral_boar: 'Feral boar', black_bear: 'Black bear', grizzly_bear: 'Grizzly bear', rabbit: 'Rabbit', sheep: 'Sheep', cow: 'Cow', pig: 'Pig', goat: 'Goat', chicken: 'Chicken', crow: 'Crow', override: 'This character', common: 'Common', male: 'Male', female: 'Female', boy: 'Boy', girl: 'Girl', old_man: 'Old man', old_woman: 'Old woman' };
+    const LAYER_LABEL = { squirrel: 'Squirrel', chipmunk: 'Chipmunk', rat: 'Rat', dog: 'Dog', snake: 'Snake', crocodile: 'Crocodile', plague_rat: 'Plague Rat', frost_bear: 'Frost Bear', v3_male: 'Male v3', v3_female: 'Female v3', wolf: 'Wolf', horse: 'Horse', forest_fox: 'Fox', feral_boar: 'Feral boar', black_bear: 'Black bear', grizzly_bear: 'Grizzly bear', rabbit: 'Rabbit', sheep: 'Sheep', cow: 'Cow', pig: 'Pig', goat: 'Goat', chicken: 'Chicken', crow: 'Crow', override: 'This character', common: 'Common', male: 'Male', female: 'Female', boy: 'Boy', girl: 'Girl', old_man: 'Old man', old_woman: 'Old woman' };
     const stackOf = () => [...(bodyMesh?.userData.layers ?? [sex]), ...(B?.io ? ['override'] : [])];   // (a cast character: its own override on top)
 
     // ---- the look of the tool ----
