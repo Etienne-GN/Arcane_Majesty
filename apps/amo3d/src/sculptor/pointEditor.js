@@ -21,6 +21,8 @@ import REF_RAT from './ref_rat.jpg';
 import REF_CAT from './ref_cat.jpg';
 import REF_DEER from './ref_deer.jpg';
 import REF_CROW from './ref_crow.jpg';
+import REF_HAWK from './ref_hawk.jpg';
+import REF_SPIDER from './ref_spider.jpg';
 import REF_GRIZZLY_BEAR from './ref_grizzly_bear.jpg';
 import REF_BLACK_BEAR from './ref_black_bear.jpg';
 import REF_GOAT from './ref_goat.jpg';
@@ -40,6 +42,9 @@ const REF = {
     pig: { front: [[160, 132, 344, 520], [165, 125, 340, 330]], side: [[48, 640, 458, 992], [40, 640, 200, 800]], back: [[608, 630, 776, 1104], [600, 625, 785, 780]] },
     wolf: { front: [[100, 120, 326, 524], [160, 115, 320, 320]], side: [[54, 620, 510, 994], [40, 620, 220, 800]], back: [[600, 615, 790, 1106], [600, 610, 790, 760]] },
     forest_fox: { front: [[92, 112, 342, 522], [150, 105, 330, 300]], side: [[58, 620, 524, 972], [40, 620, 210, 790]], back: [[570, 615, 790, 1110], [570, 610, 790, 760]] },
+    // (2026-11-28) the hawk and the spider: the Cinder Hawk's and the Giant Spider's (and the Spider Queen's) sheets for now
+    hawk: { front: [[136, 122, 344, 488], [136, 122, 344, 290]], side: [[64, 650, 480, 988], [40, 760, 230, 960]], back: [[604, 642, 788, 1110], [604, 642, 788, 800]] },
+    spider: { front: [[54, 156, 430, 506], [150, 280, 340, 470]], side: [[54, 724, 568, 974], [280, 740, 568, 960]], back: [[528, 644, 860, 1084], [600, 720, 790, 900]] },
     // (2026-11-28, the third set: the bears, goat, sheep, squirrel, chipmunk, snake, crocodile — the black bear takes the grizzly's boxes)
     grizzly_bear: { front: [[114, 118, 382, 510], [114, 118, 382, 306]], side: [[36, 680, 470, 988], [36, 680, 218, 849]], back: [[582, 640, 790, 1104], [582, 640, 790, 807]] },
     black_bear: { front: [[114, 118, 382, 510], [114, 118, 382, 306]], side: [[36, 680, 470, 988], [36, 680, 218, 849]], back: [[582, 640, 790, 1104], [582, 640, 790, 807]] },
@@ -56,7 +61,7 @@ const REF = {
     deer: { front: [[146, 122, 340, 522], [146, 122, 340, 314]], side: [[62, 642, 444, 990], [62, 642, 222, 816]], back: [[614, 632, 762, 1086], [614, 632, 762, 795]] },
     crow: { front: [[150, 152, 350, 522], [150, 152, 350, 329]], side: [[60, 650, 492, 996], [60, 650, 241, 823]], back: [[592, 656, 790, 1064], [592, 656, 790, 802]] },
 };
-const REF_IMG = { horse: REF_HORSE, cow: REF_COW, pig: REF_PIG, wolf: REF_WOLF, forest_fox: REF_FOX, chicken: REF_CHICKEN, rat: REF_RAT, cat: REF_CAT, deer: REF_DEER, crow: REF_CROW, grizzly_bear: REF_GRIZZLY_BEAR, black_bear: REF_BLACK_BEAR, goat: REF_GOAT, sheep: REF_SHEEP, squirrel: REF_SQUIRREL, chipmunk: REF_CHIPMUNK, snake: REF_SNAKE, crocodile: REF_CROCODILE };   // ('cat': the Library's Cat clone — its own id finds it)
+const REF_IMG = { horse: REF_HORSE, cow: REF_COW, pig: REF_PIG, wolf: REF_WOLF, forest_fox: REF_FOX, chicken: REF_CHICKEN, rat: REF_RAT, cat: REF_CAT, deer: REF_DEER, crow: REF_CROW, hawk: REF_HAWK, spider: REF_SPIDER, grizzly_bear: REF_GRIZZLY_BEAR, black_bear: REF_BLACK_BEAR, goat: REF_GOAT, sheep: REF_SHEEP, squirrel: REF_SQUIRREL, chipmunk: REF_CHIPMUNK, snake: REF_SNAKE, crocodile: REF_CROCODILE };   // ('cat': the Library's Cat clone — its own id finds it)
 const HUMAN = s => s === 'male' || s === 'female';   // (the characters' bodies; anything else is a creature, framed by its own size)   // (a kind's own sheet; the characters share the base sheet)
 // The palette's icons (2026-11-26: "a small stickman to preview the view"): a stick figure seen from each view, and one
 // lit where each region is (the rest dim) — inline SVG, in the button's own colour
@@ -109,7 +114,8 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
     let region = 'head', yaw = 0, pitch = 0.05, dist = 0.55, target = new THREE.Vector3(0, 1.66, 0);
     // (2026-11-27, the user: "I can't dezoom more on the model, nor expand the ref further, so I can superpose them")
     const MAX_DIST = 12, MAX_REF = 4000;
-    const rk = () => (REF[sex] ? sex : refAlias[sex] ?? sex);   // (whose sheet: a clone shows its base's — refAlias, from the page)
+    const SHEET_OF = { mob_cinder_hawk: 'hawk', mob_giant_spider: 'spider', mob_spider_queen: 'spider', mob_gloom_beak: 'hawk' };   // (a mob drawn after an animal's sheet)
+    const rk = () => (REF[sex] ? sex : refAlias[sex] ?? SHEET_OF[sex] ?? sex);   // (whose sheet: a clone shows its base's — refAlias, from the page)
     let lens = null;   // (Fit's lens shift, screen px: the picture moved, not the camera)
     const redo = [];   // (2026-11-27, the user: "we have undo, we'd need redo")
     const undo = [], group = new THREE.Group(); scene.add(group); group.visible = false;
