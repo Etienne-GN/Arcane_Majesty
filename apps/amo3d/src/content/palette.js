@@ -32,12 +32,13 @@ export function paletteOf(root) { return gather(root).map(g => ({ hex: `#${g.lea
 export function applyPalette(root, colors) {
     if (!colors || !Object.keys(colors).length) return;
     const owned = new Map();   // (a material shared with other things: copied for this model before it changes)
+    const byHex = new Map();   // (each recoloured shade: its new colour — for the colours kept from before painting, below)
     for (const g of gather(root)) {
         const to = colors[`#${g.lead.hex}`]; if (!to) continue;
         const T = new THREE.Color(to), L = g.lead;
         const shade = m => new THREE.Color(Math.min(1, T.r * (L.r ? m.r / L.r : 1)), Math.min(1, T.g * (L.g ? m.g / L.g : 1)), Math.min(1, T.b * (L.b ? m.b / L.b : 1)));
         for (const m of g.members) {
-            const c = shade(m);
+            const c = shade(m); byHex.set(m.hex, c);
             for (const [mesh, slot] of m.mats) {
                 const key = `${mesh.uuid}|${slot}`;
                 if (!owned.has(key)) {
@@ -51,4 +52,11 @@ export function applyPalette(root, colors) {
             for (const [attr, i] of m.verts) { attr.setXYZ(i, c.r, c.g, c.b); attr.needsUpdate = true; }
         }
     }
+    // the colours kept from before painting (colorBase — the Sculptor shows the points in them): recoloured the same way,
+    // so a clone is edited in its own colours, not its base's (the user: "editing the cat, I edit a model in the fox's colours")
+    if (byHex.size) root.traverse(o => {
+        const cb = o.isMesh && o.geometry?.attributes?.colorBase; if (!cb) return;
+        for (let i = 0; i < cb.count; i++) { tmp.setRGB(cb.getX(i), cb.getY(i), cb.getZ(i)); const c = byHex.get(tmp.getHexString()); if (c) cb.setXYZ(i, c.r, c.g, c.b); }
+        cb.needsUpdate = true;
+    });
 }
