@@ -23,7 +23,7 @@ const KINDS = {
     grizzly_bear: { len: 1.55, h: 1.08, fur: 0x6a4a30, belly: 0x5a3e28, ears: 'round', tail: 'stub', legs: 0.48, snout: 0.18, hump: true },
     sheep:        { len: 0.85, h: 0.62, fur: 0xe8e4da, belly: 0xd8d2c4, head: 0x2a2420, ears: 'side', tail: 'stub', legs: 0.3, wool: true },
     cow:          { len: 1.4, h: 1.0, fur: 0xf0ece4, belly: 0xe0dcd2, patches: 0x2a2220, ears: 'side', tail: 'thin', legs: 0.5, snout: 0.16, horns: 'short' },
-    pig:          { len: 0.85, h: 0.52, fur: 0xe8b0a0, belly: 0xe0a090, ears: 'flop', tail: 'curl', legs: 0.2, snout: 0.12 },
+    pig:          { len: 0.85, h: 0.44, girth: 1.3, fur: 0xe8b0a0, belly: 0xe0a090, ears: 'flop', tail: 'curl', legs: 0.2, snout: 0.12 },   // (lower and stockier — the user's note: "pigs have shorter legs")
     goat:         { len: 0.75, h: 0.62, fur: 0xd8ccb8, belly: 0xc8bca8, ears: 'side', tail: 'stub', legs: 0.34, horns: 'curve', beard: true },
     squirrel:     { len: 0.24, h: 0.15, fur: 0xa0522d, belly: 0xe8d8c0, ears: 'point', tail: 'bushy', legs: 0.06, snout: 0.03 },
     chipmunk:     { len: 0.17, h: 0.11, fur: 0x9a6a3a, belly: 0xeadcc4, ears: 'round', tail: 'bushy', legs: 0.05, snout: 0.025, stripes: 0x2a1c12 },
@@ -82,7 +82,7 @@ function buildClassic(kind) {
         return { root, body, parts, K };
     }
     body.position.y = K.h;
-    const torso = add(new THREE.CapsuleGeometry(K.h * 0.38, K.len * 0.75, 4, 8).rotateX(Math.PI / 2), M.fur);
+    const torso = add(new THREE.CapsuleGeometry(K.h * 0.38 * (K.girth ?? 1), K.len * 0.75, 4, 8).rotateX(Math.PI / 2), M.fur);
     torso.scale.set(K.wool ? 1.25 : 1, K.wool ? 1.2 : 1, 1);
     add(new THREE.BoxGeometry(K.h * 0.5, K.h * 0.2, K.len * 0.7), M.belly, 0, -K.h * 0.3, 0);
     if (K.hump) add(new THREE.SphereGeometry(K.h * 0.32, 8, 6), M.fur, 0, K.h * 0.35, K.len * 0.25);
@@ -93,12 +93,12 @@ function buildClassic(kind) {
     if (K.bristle) for (let i = 0; i < 5; i++) add(new THREE.ConeGeometry(0.03, 0.12, 4), M.dark, 0, K.h * 0.38, -K.len * 0.3 + i * K.len * 0.15);
     // head
     parts.head = new THREE.Group(); parts.head.position.set(0, K.h * 0.25, K.len * 0.55); body.add(parts.head);
-    const hs = K.h * 0.34;
+    const hs = K.h * 0.34 * Math.sqrt(K.girth ?? 1);
     add(new THREE.SphereGeometry(hs, 8, 6), M.head, 0, 0, 0, parts.head).scale.set(0.9, 0.9, 1.1);
     if (K.snout) add(new THREE.CylinderGeometry(hs * 0.45, hs * 0.6, K.snout + hs * 0.4, 6).rotateX(Math.PI / 2), M.head, 0, -hs * 0.2, hs * 0.85, parts.head);
     add(new THREE.SphereGeometry(hs * 0.18, 5, 4), M.dark, 0, -hs * 0.15, hs * (K.snout ? 1.4 : 0.95), parts.head);   // nose
     for (const s of [1, -1]) {
-        add(new THREE.SphereGeometry(hs * 0.1, 5, 4), M.dark, s * hs * 0.45, hs * 0.25, hs * 0.7, parts.head);       // eyes
+        add(new THREE.SphereGeometry(hs * 0.13, 5, 4), M.dark, s * hs * 0.48, hs * 0.25, hs * 0.72, parts.head);       // eyes
         const ear = K.ears;
         if (ear === 'long') { const e = add(new THREE.BoxGeometry(0.03, 0.16, 0.05), M.fur, s * 0.04, hs + 0.07, -0.02, parts.head); e.rotation.z = s * 0.15; }
         else if (ear === 'point') add(new THREE.ConeGeometry(hs * 0.32, hs * 0.8, 4), M.fur, s * hs * 0.5, hs * 0.9, -hs * 0.1, parts.head);
@@ -112,14 +112,14 @@ function buildClassic(kind) {
     if (K.beard) add(new THREE.ConeGeometry(0.03, 0.1, 4), M.belly, 0, -hs * 0.8, hs * 0.6, parts.head).rotation.x = Math.PI;
     // legs
     for (const [x, z, ph] of [[1, 1, 0], [-1, 1, Math.PI], [1, -1, Math.PI], [-1, -1, 0]]) {
-        const g = new THREE.Group(); g.position.set(x * K.h * 0.25, -K.h * 0.25, z * K.len * 0.35); body.add(g);
+        const g = new THREE.Group(); g.position.set(x * K.h * 0.25 * (K.girth ?? 1), -K.h * 0.25, z * K.len * 0.35); body.add(g);
         add(new THREE.CylinderGeometry(K.legs * 0.28, K.legs * 0.22, K.h * 0.78, 6).translate(0, -K.h * 0.39, 0), M.fur, 0, 0, 0, g);
         add(new THREE.CylinderGeometry(K.legs * 0.26, K.legs * 0.26, 0.05, 6), M.dark, 0, -K.h * 0.76, 0, g);
         parts.legs.push({ g, ph });
     }
     // tail
     parts.tail = new THREE.Group(); parts.tail.position.set(0, K.h * 0.15, -K.len * (K.tail === 'thick' ? 0.42 : 0.55)); body.add(parts.tail);   // (a crocodile's tail grows out of its body)
-    if (K.tail === 'brush') { const t = add(new THREE.ConeGeometry(0.09, 0.45, 6).rotateX(Math.PI).translate(0, -0.225, 0)   /* (wide at the body, the tip away — cones were backward) */, M.fur, 0, 0, 0, parts.tail); t.rotation.x = -2.2; add(new THREE.SphereGeometry(0.05, 5, 4), M.belly, 0, -0.42, 0, t); }   // (the white tip at the tail's end — it hung in the air)
+    if (K.tail === 'brush') { const t = add(new THREE.ConeGeometry(0.09, 0.45, 6).rotateX(Math.PI).translate(0, -0.225, 0)   /* (wide at the body, the tip away — cones were backward) */, M.fur, 0, 0, 0, parts.tail); t.rotation.x = -2.2; add(new THREE.ConeGeometry(0.038, 0.16, 6).rotateX(Math.PI), M.belly, 0, -0.38, 0, t); }   // (the white tip at the tail's end — it hung in the air)
     else if (K.tail === 'bushy') { const L = K.len, t = add(new THREE.CylinderGeometry(L * 0.2, L * 0.08, L * 1.2, 6).translate(0, L * 0.6, 0), M.fur, 0, 0, 0, parts.tail); t.rotation.x = -0.35; }   // (big, up over the back)
     else if (K.tail === 'long') { const t = add(new THREE.CylinderGeometry(0.01, 0.004, K.len * 1.1, 4).translate(0, -K.len * 0.55, 0), flat(0xc89a8a), 0, 0, 0, parts.tail); t.rotation.x = 1.3; }
     else if (K.tail === 'thick') { const t = add(new THREE.ConeGeometry(K.h * 0.32, K.len * 0.75, 6).rotateX(Math.PI).translate(0, -K.len * 0.375, 0), M.fur, 0, 0, 0, parts.tail); t.rotation.x = 1.62; }

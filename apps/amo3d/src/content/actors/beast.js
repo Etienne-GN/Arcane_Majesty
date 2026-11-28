@@ -148,13 +148,21 @@ function body(type, layer = null) {   // (layer: a Library clone's own, where it
         }
         add(new THREE.ConeGeometry(0.16, 0.45, 4).rotateX(-Math.PI / 2), M, 0, 0, -0.55);
         parts.eyes = add(new THREE.BoxGeometry(0.18, 0.03, 0.02), new THREE.MeshBasicMaterial({ color: 0xffd040, toneMapped: false }), 0, 0.17, 0.56);
-    } else if (type === 'frost_shade') {
-        const M = new THREE.MeshStandardMaterial({ color: 0xcfe8ff, emissive: 0x6ab0ff, emissiveIntensity: 0.4, transparent: true, opacity: 0.35, flatShading: true, depthWrite: false });
+    } else if (type === 'frost_shade') {   // (2026-11-27, the user's note: "a cone with a ball for a head and two cones for arms… NO!")
+        // a tall wraith of ice and frost-mist: the v2 man in pale translucent ice under a hood, a ragged robe trailing into wisps
+        // where its legs would be, shards of ice on its shoulders, long icy claws reaching for you, two cold eyes in the hood's dark
+        const M = new THREE.MeshStandardMaterial({ color: 0xcfe8ff, emissive: 0x6ab0ff, emissiveIntensity: 0.4, transparent: true, opacity: 0.35, flatShading: true, depthWrite: false, side: THREE.DoubleSide });
         parts.mat = M;
-        add(new THREE.ConeGeometry(0.42, 1.5, 7, 1, true).translate(0, 0.75, 0), M);
-        add(new THREE.SphereGeometry(0.2, 8, 6), M, 0, 1.65, 0);
-        for (const s of [1, -1]) { const a = add(new THREE.ConeGeometry(0.08, 0.8, 5), M, s * 0.38, 1.1, 0.1); a.rotation.z = s * 2.4; }
-        parts.eyes = add(new THREE.BoxGeometry(0.2, 0.03, 0.02), new THREE.MeshBasicMaterial({ color: 0x9ae8ff, toneMapped: false, transparent: true }), 0, 1.68, 0.18);
+        const R = humanV2({ scale: 1.08, skin: '#cfe8ff', cloth: '#a8c8e8', tune: r => { for (const sd of ['L', 'R']) r.arms[sd].fore.position.y = -0.34; } }); root.add(R.root);
+        R.root.traverse(o => { if (o.isMesh) o.material = Array.isArray(o.material) ? o.material.map(() => M) : M; });   // (all of it ice: the body, its eyes and mouth)
+        for (const [sd, sx] of [['L', 1], ['R', -1]]) { R.arms[sd].upper.rotation.set(-0.85, 0, sx * 0.25); R.arms[sd].fore.rotation.set(-0.45, 0, 0); }   // reaching
+        const hood = add(new THREE.SphereGeometry(0.16, 9, 7, Math.PI / 2 + 0.75, Math.PI * 2 - 1.5, 0, Math.PI * 0.72), M, 0, 0.15, -0.01, R.head); hood.scale.set(1.1, 1.25, 1.2);
+        const robe = add(new THREE.CylinderGeometry(0.2, 0.46, 0.95, 10, 1, true).translate(0, -0.47, 0), M, 0, 0, 0, R.hips);
+        for (let k = 0; k < 9; k++) { const a = (k / 9) * Math.PI * 2, len = 0.3 + (k % 3) * 0.14, rag = add(new THREE.PlaneGeometry(0.2, len).translate(0, -len / 2, 0), M, Math.sin(a) * 0.42, -0.9, Math.cos(a) * 0.42, R.hips); rag.rotation.y = a; rag.rotation.x = 0.12; }   // the robe's tatters, trailing into mist
+        void robe;
+        for (const sx of [1, -1]) for (let k = 0; k < 3; k++) { const c = add(new THREE.ConeGeometry(0.035, 0.22 + k * 0.06, 4), M, sx * (0.17 + k * 0.05), 0.55 + k * 0.03, -0.03 - k * 0.02, R.spine); c.rotation.z = -sx * (0.5 + k * 0.25); }   // shards on the shoulders
+        for (const sd of ['L', 'R']) for (let k = -1; k <= 1; k++) { const cl = add(new THREE.ConeGeometry(0.014, 0.2, 4).rotateX(Math.PI).translate(0, -0.1, 0), M, k * 0.025, -0.4, 0.02, R.arms[sd].fore); cl.rotation.x = 0.25; }   // the claws (tips away)
+        parts.eyes = add(new THREE.BoxGeometry(0.11, 0.022, 0.02), new THREE.MeshBasicMaterial({ color: 0x9ae8ff, toneMapped: false, transparent: true }), 0, 0.155, 0.11, R.head);
     } else if (type === 'void_stalker') {   // a lean shadow-hound with glowing violet spines and eyes
         const h = buildHound({ coat: 0x1e1828, belly: 0x2a2236, dark: 0x0e0a14, eyeColor: 0xc86aff, mawColor: 0x9a4aff, spines: 0x6a2aaa, scale: 1.1 });
         root.add(h.root); Object.assign(parts, { legs: h.legs, lowers: h.lowers, jaw: h.jaw, tail: h.tail, eyes: h.eyes });

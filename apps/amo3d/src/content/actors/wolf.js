@@ -217,7 +217,7 @@ function createWolf({ scene, map, rng, home, tint, layer = 'wolf' }) {
         for (const L of d.legs) {
             const off = gallop > 0.5 ? (L.front ? 0 : Math.PI * 0.6) : (L.front === (L.upper.position.x > 0) ? 0 : Math.PI);
             L.upper.rotation.x = Math.sin(ai.phase + off) * (0.5 + gallop * 0.4) * amp;
-            L.lower.rotation.x = (L.front ? 1 : -1) * Math.max(0, Math.cos(ai.phase + off)) * 0.7 * amp;
+            L.lower.rotation.x = Math.max(0, -Math.cos(ai.phase + off)) * (L.front ? 0.8 : 0.6) * amp;   // (2026-11-27, the user: "he walks weirdly" — the paw lifted while the leg pushed back, and the hind ones kicked forward: now lifted as the leg swings forward, folding back)
         }
         const crouch = ai.state === 'windup' ? 1 : 0;
         d.body.position.y = 0.62 - crouch * 0.16 + gallop * Math.abs(Math.sin(ai.phase)) * 0.08;

@@ -268,7 +268,7 @@ export function buildAnimalV2(d, kind, layer = kind) {
             sk.section('tail');
             { const P = (x, y, z) => ({ p: V(body, x, y, z), w: [[body, 1]] }); slab(sk, [P(-L * 0.08, 0.02, -L * 0.42), P(L * 0.08, 0.02, -L * 0.42), P(L * 0.22, 0.09, -L * 0.88), P(-L * 0.22, 0.09, -L * 0.88)], fur, L * 0.08); }   // (a fan with thickness)
         } else {
-            const hl = K.len * 0.5, w0 = K.wool ? 1.25 : 1, r = K.h * 0.38, hs = K.h * 0.34, B = [[body, 1]];
+            const hl = K.len * 0.5, w0 = (K.wool ? 1.25 : 1) * (K.girth ?? 1), r = K.h * 0.38, hs = K.h * 0.34 * Math.sqrt(K.girth ?? 1), B = [[body, 1]];   // (girth: a stocky body over short legs — the pig)
             const side = () => fur;   // (the cow's patches are painted after the build: irregular spots, not ring by ring — "it looks like a chess board")
             sk.section('torso');
             const rings = [
@@ -298,7 +298,7 @@ export function buildAnimalV2(d, kind, layer = kind) {
             sk.section('face');
             for (const s of [1, -1]) {
                 const P = (x, y, z) => ({ p: V(head, s * x, y, z), w: [[head, 1]] }), c = V(head, 0, 0, 0);
-                sk.poly([P(0.62 * hs, 0.32 * hs, 0.38 * hs), P(0.6 * hs, 0.2 * hs, 0.5 * hs), P(0.62 * hs, 0.14 * hs, 0.36 * hs)], dark, c);   // an eye
+                sk.poly([P(0.66 * hs, 0.36 * hs, 0.4 * hs), P(0.62 * hs, 0.26 * hs, 0.56 * hs), P(0.66 * hs, 0.14 * hs, 0.42 * hs), P(0.68 * hs, 0.22 * hs, 0.3 * hs)], dark, c);   // an eye (a little larger and set out from the face: "small eyes" — the fox had none to see)
                 const ear = K.ears, E = (pts, col = fur) => slab(sk, pts.map(([x, y, z]) => P(x * hs, y * hs, z * hs)), col, hs * 0.12);   // (ears with thickness)
                 if (ear === 'long') E([[0.24, 0.75, -0.05], [0.48, 0.75, -0.12], [0.5, 1.6, -0.22], [0.42, 2.05, -0.26], [0.32, 1.6, -0.2]]);
                 else if (ear === 'point') E([[0.3, 0.7, -0.05], [0.68, 0.64, -0.14], [0.55, 1.38, -0.17]]);
@@ -343,7 +343,7 @@ export function buildAnimalV2(d, kind, layer = kind) {
             sk.section('tail');
             if (tail) {
                 const T = (pts, col = fur) => sk.tube(pts.map(([x, y, z, rr, c2]) => ({ c: V(tail, x, y, z), r: rr, w: [[tail, 1]], col: c2 ?? col })), { seg: 6, cap: true, mat: 'double' });
-                if (K.tail === 'brush') T([[0, 0, 0.02, 0.05], [0, -0.08, -0.16, 0.085], [0, -0.16, -0.34, 0.07], [0, -0.2, -0.44, 0.02, belly]]);
+                if (K.tail === 'brush') T([[0, 0, 0.02, 0.05], [0, -0.08, -0.16, 0.085], [0, -0.13, -0.27, 0.08], [0, -0.16, -0.34, 0.07, belly], [0, -0.2, -0.44, 0.02, belly]]);   // (its last third white: the user's note on the fox)
                 else if (K.tail === 'thin') T([[0, 0, 0, 0.034], [0, -K.len * 0.3, -K.len * 0.12, 0.026], [0, -K.len * 0.45, -K.len * 0.15, 0.04, dark], [0, -K.len * 0.55, -K.len * 0.17, 0.02, dark]]);   // (thick enough to see; a tuft)
                 else if (K.tail === 'bushy') { const L = K.len; T([[0, 0, 0, L * 0.08], [0, L * 0.35, -L * 0.3, L * 0.2], [0, L * 0.8, -L * 0.3, L * 0.24], [0, L * 1.15, -L * 0.05, L * 0.18], [0, L * 1.3, L * 0.12, L * 0.04]]); }   // (a squirrel's: big, curled up over its back)
                 else if (K.tail === 'long') T([[0, 0, 0, 0.011], [0, -0.02, -K.len * 0.5, 0.008], [0, -0.03, -K.len * 1.0, 0.005], [0, -0.03, -K.len * 1.2, 0.002]], '#c89a8a');   // (a rat's: long and bare)
