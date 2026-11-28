@@ -21,5 +21,5 @@ Every sheet is 896×1200. The Sculptor shows a body's sheet in its reference win
 | Sheet | What it shows |
 |---|---|
 | horse_reference.jpg | the horse (saddled) |
-| wolf_reference.jpg, fox_reference.jpg, cow_reference.jpg, pig_reference.jpg, chicken_reference.jpg, rat_reference.jpg, cat_reference.jpg, deer_reference.jpg (a stag), crow_reference.jpg | front (sitting), front three-quarter (sitting), side (standing), back (standing) — the "companion" in their titles is not meaningful |
+| wolf_reference.jpg, fox_reference.jpg, cow_reference.jpg, pig_reference.jpg, chicken_reference.jpg, rat_reference.jpg, cat_reference.jpg, deer_reference.jpg (a stag), crow_reference.jpg, grizzly_bear_reference.jpg, black_bear_reference.jpg, goat_reference.jpg, sheep_reference.jpg, squirrel_reference.jpg, chipmunk_reference.jpg, snake_reference.jpg (a corn snake: orange blotches, cream belly), crocodile_reference.jpg | front (sitting), front three-quarter (sitting), side (standing), back (standing) — the "companion" in their titles is not meaningful |
 | shadow_balrog_reference.jpg | the Shadow Balrog (front three-quarter, back) |
