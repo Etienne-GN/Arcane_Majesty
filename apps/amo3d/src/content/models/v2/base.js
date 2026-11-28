@@ -6,7 +6,7 @@
 // ears. Underwear (dark shorts; a top for the female) is coloured into the mesh. Hair is part of it too.
 // buildBase(ctx, { sex }) → { mesh, update }.
 import * as THREE from 'three';
-import { createSkin, blend, profile, ringPts, pointKey } from './skin.js';
+import { createSkin, blend, profile, ringPts, pointKey, applyPaint, stackPaint } from './skin.js';
 // The shape layers (docs/3d/characters/LAYERS_PLAN.md): models/v2/layers/<layer>.json — { structural key: [dx, dy, dz] },
 // offsets in the frame of the bone each point follows, so they land right on every body's proportions. Stacked
 // common → sex (male | female) → age (boy | girl | old_man | old_woman) → the character's own override (look.sculpt.points); look.sculpt.swap replaces a layer (the Sculptor's alternates).
@@ -43,6 +43,8 @@ export function stackTopo(ctx, sex) {
     return Ls.flatMap(L => (Array.isArray(L?.['@topo']) ? L['@topo'].filter(TOPO_OK) : [])).slice(0, 2000);
 }
 const EDIT_CACHE = new Map();
+// the painted faces of a body's layer stack (as stackTopo: the raw layers, an alternate swapped in, the character's own last)
+function paintOf(ctx, sex) { const sc = ctx.look?.sculpt, swap = sc?.swap ?? {}; return stackPaint([...layerNames(ctx, sex).map(n => (Object.hasOwn(swap, n) && swap[n] && typeof swap[n] === 'object' ? swap[n] : LAYERS[n])), sc?.points]); }
 export function buildBase(ctx, opts = {}) {
     const { root, head } = ctx;
     if (!ctx._v2Head) { ctx._v2Head = true; head.position.z += 0.024; head.position.y += 0.005; }   // (2026-11-23: lowered 2.5 cm — it sat too high on the neck; carried a little forward of the shoulders, the neck leaning to it, as the reference)
@@ -53,7 +55,7 @@ export function buildBase(ctx, opts = {}) {
     const O = opts.outfit, reshapes = !!(O && (O.armTube || O.legTube || O.armLoose || O.legLoose));
     const P = ctx.preset ?? {}, B = ctx.look?.body ?? {};
     const ckey = !ctx.look?.sculpt && !reshapes ? [opts.sex, ctx.look?.body?.preset, B.height, B.width, P.height, P.width, opts.headK ?? 1, opts.footK ?? 1, ctx.look?.hair?.style === 'bald' || opts.bald ? 1 : 0].join('|') : null;
-    if (ckey && EDIT_CACHE.has(ckey)) { const out = genBase(ctx, opts, { edits: EDIT_CACHE.get(ckey), topo }); if (out?.mesh) out.mesh.userData.layers = layerNames(ctx, opts.sex); return out; }
+    if (ckey && EDIT_CACHE.has(ckey)) { const out = genBase(ctx, opts, { edits: EDIT_CACHE.get(ckey), topo }); if (out?.mesh) { out.mesh.userData.layers = layerNames(ctx, opts.sex); applyPaint(out.mesh, paintOf(ctx, opts.sex)); } return out; }
     const plain = genBase(ctx, { ...opts, outfit: null }, { dry: true, topo });
     const dressed = opts.outfit && reshapes ? genBase(ctx, opts, { dry: true, topo }) : plain;
     const stack = layerStack(ctx, opts.sex), edits = {};
@@ -72,7 +74,8 @@ export function buildBase(ctx, opts = {}) {
     }
     if (ckey) { if (EDIT_CACHE.size > 64) EDIT_CACHE.clear(); EDIT_CACHE.set(ckey, edits); }
     const out = genBase(ctx, opts, { edits, topo });
-    if (out?.mesh) out.mesh.userData.layers = layerNames(ctx, opts.sex);   // (the Sculptor's layer picker: which layers this body stacks)
+    if (out?.mesh) out.mesh.userData.layers = layerNames(ctx, opts.sex);
+    if (out?.mesh) applyPaint(out.mesh, paintOf(ctx, opts.sex));   // (painted faces: the layers' "@paint", the character's own last)   // (the Sculptor's layer picker: which layers this body stacks)
     return out;
 }
 

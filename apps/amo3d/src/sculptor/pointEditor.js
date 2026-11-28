@@ -16,7 +16,7 @@ import REF_COW from './ref_cow.jpg';
 import REF_PIG from './ref_pig.jpg';
 import REF_WOLF from './ref_wolf.jpg';
 import REF_FOX from './ref_fox.jpg';   // (2026-11-27, the user's animal sheets: docs/3d/creatures/<kind>_reference.jpg — front and three-quarter sitting, side and back standing)
-import { layerFromPositions } from '../content/models/v2/skin.js';
+import { layerFromPositions, faceKey } from '../content/models/v2/skin.js';
 // Where each view sits on the sheet: [x0, y0, x1, y1] — the whole figure, and its head
 const REF = {
     male: { front: [[17, 75, 359, 615], [130, 70, 250, 215]], side: [[380, 75, 545, 615], [395, 70, 520, 215]], back: [[548, 75, 891, 615], [650, 70, 770, 215]] },   // (2026-11-27: the body boxes hold the whole figure, hands included — measured on the sheet, +12 px)
@@ -48,6 +48,7 @@ const ICON = {
     edge: svg('<path d="M4 26L20 6M4 6l16 20" stroke-dasharray="2 3"/><path d="M4 26L20 6" stroke-width="2.6"/><circle cx="4" cy="26" r="2.6" fill="currentColor"/><circle cx="20" cy="6" r="2.6" fill="currentColor"/>'),
     group: svg('<rect x="3" y="8" width="18" height="16" rx="2" stroke-dasharray="3 2"/><circle cx="9" cy="14" r="2.2" fill="currentColor"/><circle cx="15" cy="18" r="2.2" fill="currentColor"/><circle cx="15" cy="12" r="2.2" fill="currentColor"/>'),
     fuse: svg('<circle cx="5" cy="10" r="2.6" fill="currentColor"/><circle cx="19" cy="10" r="2.6" fill="currentColor"/><path d="M7 12l4 8M17 12l-4 8"/><circle cx="12" cy="24" r="3.4" fill="currentColor"/>'),
+    paint: svg('<path d="M14 4l6 6-9 9-6-6z"/><path d="M5 13c-2 2-3 5-2 9 4 1 7 0 9-2" fill="currentColor" fill-opacity=".5"/>'),
     remove: svg('<circle cx="12" cy="20" r="3.5" fill="currentColor"/><path d="M8 9h8" stroke-width="2.4"/>'),
     orbit: svg('<path d="M20 12a8.5 8.5 0 1 0 1 7"/><path d="M21 6v6h-6"/><circle cx="12" cy="16" r="2" fill="currentColor"/>'),
     polish: svg('<path d="M2 16c3-6 7-9 10-9s7 3 10 9c-3 6-7 9-10 9s-7-3-10-9z"/><circle cx="12" cy="16" r="3.5" fill="currentColor"/>'),
@@ -240,7 +241,7 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
     // ---- the tool palette ----
     const tools = make('div', 'pe pe-tools', document.body);
     const cap = (parent, text) => make('div', 'pe-cap', parent, text);   // (a group's name: Tool, View, Frame, Show)
-    const TOOLS = [['move', ICON.move, 'Move points (V): pick a dot and drag it (its mirror follows)'], ['add', ICON.add, 'Add a point (A): pick a dot, then a neighbour — a new point halfway between them'], ['remove', ICON.remove, 'Remove a point (X): it merges into its nearest neighbour'], ['fuse', ICON.fuse, 'Fuse (F): pick a point, then the point it joins — the two become one, the faces between them go (its mirror too)'], ['edge', ICON.edge, 'Turn a line (E): pick the two ends of a line between two triangles — it turns to join their other two corners (its mirror too, where it is the same line)'], ['group', ICON.group, 'Group (G): tap points to add or remove them, or drag a box round them; drag any of them to move them all (their mirrors follow). Esc clears the group'], ['orbit', ICON.orbit, 'Turn the view (O)'], ['pan', ICON.pan, 'Move the view (P): strafe, up and down']];
+    const TOOLS = [['move', ICON.move, 'Move points (V): pick a dot and drag it (its mirror follows)'], ['add', ICON.add, 'Add a point (A): pick a dot, then a neighbour — a new point halfway between them'], ['remove', ICON.remove, 'Remove a point (X): it merges into its nearest neighbour'], ['fuse', ICON.fuse, 'Fuse (F): pick a point, then the point it joins — the two become one, the faces between them go (its mirror too)'], ['edge', ICON.edge, 'Turn a line (E): pick the two ends of a line between two triangles — it turns to join their other two corners (its mirror too, where it is the same line)'], ['paint', ICON.paint, 'Paint (B): tap or drag over faces to paint them the colour chosen in the panel (Paint section: brush, eraser, eyedropper) — the fox\'s tail tip'], ['group', ICON.group, 'Group (G): tap points to add or remove them, or drag a box round them; drag any of them to move them all (their mirrors follow). Esc clears the group'], ['orbit', ICON.orbit, 'Turn the view (O)'], ['pan', ICON.pan, 'Move the view (P): strafe, up and down']];
     const toolBtns = {};
     cap(tools, 'Tool');
     for (const [id, icon, title] of TOOLS) toolBtns[id] = button(tools, icon, () => setTool(id), title);
@@ -310,6 +311,18 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
     opacity.oninput = () => { prefs.refOpacity = +opacity.value; if (seeThrough()) prefs.refOn = true; keep(); layoutRef(); };
     const fitRow = make('div', 'pe-row', panel);
     button(fitRow, 'Fit the view to the reference', () => fitToRef(), 'Move the view so the model stands exactly on the reference figure (its height, its feet, its middle)').classList.add('wide');
+    // ---- Paint (2026-11-27, the user: "a way for me to paint the models, like the fox's tail tips") ----
+    make('h4', '', panel, 'Paint');
+    const paintRow = make('div', 'pe-row', panel);
+    const paintCol = make('input', '', paintRow); Object.assign(paintCol, { type: 'color', value: prefs.paintColor ?? '#ffffff', title: 'The colour the brush paints' });
+    paintCol.style.cssText = 'width:100%;height:38px;padding:0;border-radius:8px;border:1px solid var(--line2);background:none';
+    paintCol.oninput = () => { prefs.paintColor = paintCol.value; keep(); };
+    let paintMode = 'brush';
+    const modeBtns = {};
+    for (const [m, t, title] of [['brush', 'Brush', 'Paint the faces you touch'], ['erase', 'Eraser', 'Give the faces you touch back their own colour'], ['pick', 'Eyedropper', 'Take the colour of the face you touch']]) {
+        modeBtns[m] = button(paintRow, t, () => { paintMode = m; for (const [k, b] of Object.entries(modeBtns)) b.classList.toggle('on', k === m); if (prefs.tool !== 'paint') setTool('paint'); }, title);
+    }
+    modeBtns.brush.classList.add('on');
     make('h4', '', panel, 'Point');
     const ptRow = make('div', 'pe-row', panel);
     button(ptRow, 'Fuse overlapping points', () => fuseOverlapping(), 'Every pair of points within 3 mm of each other becomes one point (the faces between them go): fewer polygons, the same shape').classList.add('wide');
@@ -603,7 +616,7 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
     }
     function load(s, keepView = false) {   // (keepView: a live rebuild — the view, the region and the layer stay as they were)
         who = s; B = getBody(s); T = B.table;
-        { const go0 = B.go; B.go = ch => { stashView(); go0(ch); }; }   /* (every reload keeps the view and the settings: restored below) */ bodyMesh = B.mesh; sex = bodyMesh.userData.editSex ?? 'male'; sel = -1; hover = -1; undo.length = 0; redo.length = 0;
+        { const go0 = B.go; B.go = ch => { stashView(); go0(ch); }; }   /* (every reload keeps the view and the settings: restored below) */ bodyMesh = B.mesh; sex = bodyMesh.userData.editSex ?? 'male'; sel = -1; hover = -1; undo.length = 0; redo.length = 0; paintEdits = {};
         bodySel.value = String(s); showDress();
         const Ls = stackOf(); if (!Ls.includes(layer)) layer = Ls.at(-1); showLayers();   // (by default the body's own: its age layer, else its sex)
         group.clear();
@@ -631,7 +644,7 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
             hairOn = st.hairOn; eyesOn = st.eyesOn; mouthOn = st.mouthOn; cmpOn = st.cmpOn; Object.assign(showPart, st.showPart ?? {});
             if (st.n === T.keys.length) { if (st.sel >= 0 && st.sel < T.keys.length) sel = st.sel; for (const i of st.group ?? []) if (i < T.keys.length) groupSel.add(i); }
         }
-        applyHair(); show(); if (st?.polish) setPolish(true); if (st) { showDress(); placeDots(); describe(); }   // (the hair and the hidden parts as they were set)
+        applyHair(); show(); drawPaint(); if (st?.polish) setPolish(true); if (st) { showDress(); placeDots(); describe(); }   // (the hair and the hidden parts as they were set)
     }
     let dotIds = [];
     function buildDots() {
@@ -641,7 +654,42 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
         dots = new THREE.InstancedMesh(new THREE.SphereGeometry(r, 8, 6), new THREE.MeshBasicMaterial({ depthTest: true }), dotIds.length);
         dots.renderOrder = 5; dots.visible = !polish; group.add(dots); placeDots();
     }
+    // painted faces: what the layers give (the body's userData.paint) and what is painted here, not saved yet (paintEdits:
+    // face key → colour, or null for erased); drawn over the model as their own faces (the model's points are shared
+    // between faces: one face's colour cannot show on them)
+    let paintEdits = {}, paintMesh = null;
+    const facePts = f => { const I = geo.index.array; return [I[f * 3], I[f * 3 + 1], I[f * 3 + 2]]; };
+    const keyOfFace = ids => { const pm = bodyMesh.userData.points, ts = ids.map(i => pm?.get(T.keys[i])?.t); return ts.every(Boolean) ? faceKey(ts) : null; };
+    function paintNow() { const P = { ...(bodyMesh?.userData.paint ?? {}) }; for (const [k, v] of Object.entries(paintEdits)) { if (v === null) delete P[k]; else P[k] = v; } return P; }
+    function drawPaint() {
+        if (paintMesh) { group.remove(paintMesh); paintMesh.geometry.dispose(); paintMesh = null; }
+        if (!geo?.index) return; const P = paintNow(); if (!Object.keys(P).length) return;
+        const pos = geo.attributes.position, I = geo.index.array, vp = [], vc = [], c = new THREE.Color();
+        for (let f = 0; f < I.length / 3; f++) { const ids = [I[f * 3], I[f * 3 + 1], I[f * 3 + 2]], k = keyOfFace(ids), hex = k && P[k]; if (!hex) continue; c.set(hex); for (const i of ids) { vp.push(pos.getX(i), pos.getY(i), pos.getZ(i)); vc.push(c.r, c.g, c.b); } }
+        if (!vp.length) return;
+        const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(vp, 3)); g.setAttribute('color', new THREE.Float32BufferAttribute(vc, 3));
+        paintMesh = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.85, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 }));
+        group.add(paintMesh);
+    }
+    let paintStroke = null;   // (one undo step per stroke)
+    function paintAt(e) {
+        const r = area(); ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+        ray.setFromCamera(ndc, camera); const hit = ray.intersectObject(mesh, false)[0]; if (!hit) return;
+        const ids = facePts(hit.faceIndex), k = keyOfFace(ids); if (!k) return;
+        if (paintMode === 'pick') { const cur = paintNow()[k]; const C = T.C, avg = [0, 1, 2].map(j => ids.reduce((a, i) => a + C[i * 3 + j], 0) / 3); paintCol.value = cur ?? `#${new THREE.Color(avg[0], avg[1], avg[2]).getHexString()}`; prefs.paintColor = paintCol.value; keep(); info.textContent = `Eyedropper: ${paintCol.value}`; return; }
+        const want = paintMode === 'erase' ? null : paintCol.value;
+        const mk = mirrorFace(ids);   // (its mirror too, as the points)
+        for (const fk of [k, mk].filter(Boolean)) {
+            if ((paintNow()[fk] ?? null) === want) continue;
+            if (paintStroke && !paintStroke.has(fk)) paintStroke.set(fk, Object.hasOwn(paintEdits, fk) ? paintEdits[fk] : undefined);
+            paintEdits[fk] = want;
+        }
+        drawPaint(); describe();
+    }
+    function mirrorFace(ids) { const m = ids.map(i => (mirrorOf[i] === -2 ? i : mirrorOf[i])); return m.every(i => i >= 0) ? keyOfFace(m) : null; }
+    function setPaintEdit(k, v) { if (v === undefined) delete paintEdits[k]; else paintEdits[k] = v; }
     function placeDots() {
+        if (paintMesh || Object.keys(paintEdits).length || Object.keys(bodyMesh?.userData.paint ?? {}).length) drawPaint();   // (the painted faces follow the points)
         const p = geo.attributes.position;
         dotIds.forEach((i, n) => {
             const big = i === hover || i === sel || (sel >= 0 && i === mirrorOf[sel]) || i === addFrom || i === edgeFrom || i === fuseFrom || groupSel.has(i);
@@ -666,8 +714,10 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
     function snapshotIds(ids) { const all = new Set(); for (const i of ids) { all.add(i); if (mirrorOf[i] >= 0) all.add(mirrorOf[i]); } undo.push([...all].map(i => [i, bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2]])); if (undo.length > 200) undo.shift(); redo.length = 0; }
     function snapshot() { const ids = [sel, mirrorOf[sel]].filter(i => i >= 0); undo.push(ids.map(i => [i, bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2]])); if (undo.length > 200) undo.shift(); redo.length = 0; }   // (a new move: nothing left to redo)
     const stateOf = s => s.map(([i]) => [i, bind[i * 3], bind[i * 3 + 1], bind[i * 3 + 2]]);
-    function doRedo() { const s = redo.pop(); if (!s) { info.textContent = 'Nothing to redo.'; return; } undo.push(stateOf(s)); for (const [i, x, y, z] of s) setPoint(i, x, y, z); geo.attributes.position.needsUpdate = true; placeDots(); describe(); }
-    function doUndo() { const s = undo.pop(); if (!s) { info.textContent = 'No unsaved move to undo (⤺ Save takes back a save).'; return; } redo.push(stateOf(s)); for (const [i, x, y, z] of s) setPoint(i, x, y, z); geo.attributes.position.needsUpdate = true; placeDots(); describe(); }
+    function doRedo() { const s0 = redo.at(-1); if (s0?.paint) { redo.pop(); undo.push({ paint: s0.paint.map(([k]) => [k, Object.hasOwn(paintEdits, k) ? paintEdits[k] : undefined]) }); for (const [k, v] of s0.paint) setPaintEdit(k, v); drawPaint(); describe(); return; }
+        const s = redo.pop(); if (!s) { info.textContent = 'Nothing to redo.'; return; } undo.push(stateOf(s)); for (const [i, x, y, z] of s) setPoint(i, x, y, z); geo.attributes.position.needsUpdate = true; placeDots(); describe(); }
+    function doUndo() { const s0 = undo.at(-1); if (s0?.paint) { undo.pop(); redo.push({ paint: s0.paint.map(([k]) => [k, Object.hasOwn(paintEdits, k) ? paintEdits[k] : undefined]) }); for (const [k, v] of s0.paint) setPaintEdit(k, v); drawPaint(); describe(); return; }
+        const s = undo.pop(); if (!s) { info.textContent = 'No unsaved move to undo (⤺ Save takes back a save).'; return; } redo.push(stateOf(s)); for (const [i, x, y, z] of s) setPoint(i, x, y, z); geo.attributes.position.needsUpdate = true; placeDots(); describe(); }
     function resetSel() { if (sel < 0) return; snapshot(); for (const i of [sel, mirrorOf[sel]].filter(i => i >= 0)) { const [x, y, z] = keyPos(T.keys[i]); setPoint(i, x, y, z); } geo.attributes.position.needsUpdate = true; placeDots(); describe(); }
     function resetAll() { for (let i = 0; i < T.keys.length; i++) { const [x, y, z] = keyPos(T.keys[i]); setPoint(i, x, y, z); } geo.attributes.position.needsUpdate = true; undo.length = 0; redo.length = 0; placeDots(); describe(); }
     function describe() {
@@ -677,7 +727,7 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
         if (sel < 0) { info.textContent = `${toolName} · ${where} · ${n} unsaved`; return; }
         info.textContent = `${toolName} · point ${sel}${mirrorOf[sel] === -2 ? ' (centre)' : ''} x ${bind[sel * 3].toFixed(3)} y ${bind[sel * 3 + 1].toFixed(3)} z ${bind[sel * 3 + 2].toFixed(3)} · ${where} · ${n} unsaved`;
     }
-    const sessionMoves = () => { let c = 0; for (let i = 0; i < (T?.keys.length ?? 0); i++) if (Math.hypot(bind[i * 3] - loaded[i * 3], bind[i * 3 + 1] - loaded[i * 3 + 1], bind[i * 3 + 2] - loaded[i * 3 + 2]) > 1e-6) c++; return c; };
+    const sessionMoves = () => { let c = Object.keys(paintEdits).length; for (let i = 0; i < (T?.keys.length ?? 0); i++) if (Math.hypot(bind[i * 3] - loaded[i * 3], bind[i * 3 + 1] - loaded[i * 3 + 1], bind[i * 3 + 2] - loaded[i * 3 + 2]) > 1e-6) c++; return c; };
     // a layer read and written: the shared layers through /api/v2layer; 'override' (the character's own) through getBody's io
     const readL = n => (n === 'override' ? B.io.read() : fetch(`/api/v2layer?${src(n)}`).then(r => r.json()));
     const writeL = (n, points, alt) => (n === 'override' ? B.io.write(points) : fetch('/api/v2layer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ layer: n, points, ...(alt ? { alt } : {}) }) }));
@@ -737,6 +787,7 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
             if (Math.hypot(...v) < 1e-6) delete points[r0.t]; else points[r0.t] = v.map(x => +x.toFixed(6));
             changed++;
         }
+        if (Object.keys(paintEdits).length) { const P = { ...(points['@paint'] ?? {}) }; for (const [k, v] of Object.entries(paintEdits)) { if (v === null && !Object.values(others).some(L => L?.['@paint']?.[k])) delete P[k]; else P[k] = v; } if (Object.keys(P).length) points['@paint'] = P; else delete points['@paint']; changed += Object.keys(paintEdits).length; paintEdits = {}; }   // (painted faces: into this layer; erasing a face another layer paints keeps a null that clears it)
         if (topoAdd) points['@topo'] = [...(points['@topo'] ?? []), ...topoAdd];
         if (replace) Object.assign(points, replace);
         if (Array.isArray(points['@topo']) && !points['@topo'].length) delete points['@topo'];
@@ -776,6 +827,7 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
         if (t === 'orbit' || t === 'pan') return { kind: t, x: e.clientX, y: e.clientY };
         const i = pick(e, reachOf(e));
         if (t === 'remove') { if (i >= 0) removeAt(i); return null; }
+        if (t === 'paint') { paintStroke = new Map(); paintAt(e); return { kind: 'paint' }; }
         if (t === 'fuse') {   // (2026-11-27, the user: "attach points together, fuse some of them — cut some polygons") the point that goes, then the one it joins
             if (i < 0) return null;
             if (fuseFrom < 0) { fuseFrom = i; sel = i; placeDots(); info.textContent = 'Fuse: now the point it joins.'; return null; }
@@ -837,10 +889,11 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
             const cx = (a[0] + b2[0]) / 2, cy = (a[1] + b2[1]) / 2; panBy(cx - pinch.cx, cy - pinch.cy); pinch.cx = cx; pinch.cy = cy; return;
         }
         if (!drag) {   // a pen hovering (or a mouse): the point it would take
-            if ((e.pointerType === 'pen' || e.pointerType === 'mouse') && !e.buttons && ['move', 'add', 'remove', 'fuse', 'edge', 'group'].includes(prefs.tool) && dots) { const h = pick(e, reachOf(e)); if (h !== hover) { hover = h; placeDots(); } }
+            if ((e.pointerType === 'pen' || e.pointerType === 'mouse') && !e.buttons && ['move', 'add', 'remove', 'fuse', 'edge', 'group'].includes(prefs.tool) && prefs.tool !== 'paint' && dots) { const h = pick(e, reachOf(e)); if (h !== hover) { hover = h; placeDots(); } }
             return;
         }
         e.stopImmediatePropagation();
+        if (drag.kind === 'paint') { paintAt(e); return; }
         if (drag.kind === 'box') { showBox(drag.x0, drag.y0, e.clientX, e.clientY); return; }
         if (drag.kind === 'gpoint' && !drag.live) { if (Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < (e.pointerType === 'pen' ? 3 : 8)) return; drag.live = true; }
         if (drag.kind === 'point' && !drag.live) { if (Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < (e.pointerType === 'pen' ? 3 : 8)) return; drag.live = true; }   // (a tap selects; the point moves once the pen or finger does)
@@ -874,6 +927,7 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
         }
     }
     const lift = e => {
+        if (on && paintStroke) { if (paintStroke.size) { undo.push({ paint: [...paintStroke] }); redo.length = 0; } paintStroke = null; }
         if (on) endGroupDrag(e);
         if (e.pointerType === 'pen') penDown = false;
         touches.delete(e.pointerId); if (touches.size < 2) pinch = null;
@@ -890,7 +944,7 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
         if (e.code === 'Escape' && fuseFrom >= 0) { fuseFrom = -1; placeDots(); info.textContent = 'Fuse cancelled.'; return; }
         if (e.code === 'Escape' && edgeFrom >= 0) { edgeFrom = -1; placeDots(); info.textContent = 'Turn cancelled.'; return; }
         if (e.code === 'Escape' && groupSel.size) { groupSel.clear(); placeDots(); info.textContent = 'Group cleared.'; return; }
-        const key = { KeyV: 'move', KeyA: 'add', KeyX: 'remove', KeyF: 'fuse', KeyE: 'edge', KeyG: 'group', KeyO: 'orbit', KeyP: 'pan' }[e.code]; if (key && !e.ctrlKey && !e.metaKey) { setTool(key); return; }
+        const key = { KeyV: 'move', KeyA: 'add', KeyX: 'remove', KeyF: 'fuse', KeyB: 'paint', KeyE: 'edge', KeyG: 'group', KeyO: 'orbit', KeyP: 'pan' }[e.code]; if (key && !e.ctrlKey && !e.metaKey) { setTool(key); return; }
         if (sel < 0 || !/^Arrow/.test(e.code)) return;
         e.preventDefault();
         nudge(e.shiftKey ? (e.code === 'ArrowUp' ? 'in' : e.code === 'ArrowDown' ? 'out' : null) : e.code, e.altKey);
@@ -913,6 +967,6 @@ export function createPointEditor({ refAlias = {}, hairless = false, THREE, scen
             camera.position.set(target.x + Math.sin(yaw) * Math.cos(pitch) * dk, target.y + Math.sin(pitch) * dk, target.z + Math.cos(yaw) * Math.cos(pitch) * dk); camera.lookAt(target);
             if (lens) { const r = area(); camera.setViewOffset(r.width, r.height, -lens.x, -lens.y, r.width, r.height); } else if (camera.view?.enabled) camera.clearViewOffset();
         },
-        state: () => ({ who, sex, layer, sel, region, tool: prefs.tool, points: T?.keys.length ?? 0 }), _move: (i, dx, dy, dz) => { sel = i; snapshot(); movePoint(i, dx, dy, dz); }, _save: save, _saveAs: saveTo, _topo: topoOp, _neighbours: i => neighbours(i), _pad: padAct, _target: () => target.toArray(),
+        state: () => ({ who, sex, layer, sel, region, tool: prefs.tool, points: T?.keys.length ?? 0 }), _move: (i, dx, dy, dz) => { sel = i; snapshot(); movePoint(i, dx, dy, dz); }, _save: save, _saveAs: saveTo, _topo: topoOp, _neighbours: i => neighbours(i), _pad: padAct, _target: () => target.toArray(), _paintAround: (i, hex) => { const I = geo.index.array; let n = 0; for (let f = 0; f < I.length / 3; f++) { const ids = [I[f * 3], I[f * 3 + 1], I[f * 3 + 2]]; if (!ids.includes(i)) continue; const k = keyOfFace(ids); if (k) { paintEdits[k] = hex; n++; } } drawPaint(); describe(); return n; },
     };
 }

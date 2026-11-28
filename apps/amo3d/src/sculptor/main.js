@@ -197,7 +197,7 @@ window.__lab = { ground: () => models.map(m => [-0.4, -0.45, -0.48].map(y => m.r
 // the UV's u), edit it in Blender moving points only, Import the .glb back: each moved point is saved by its key ----
 function bodyMesh(i) { let sm = null; models[i].root.traverse(o => { if (!sm && o.isSkinnedMesh && o.userData.editSex) sm = o; }); return sm; }   // (the body itself: not a coat's or the eyes' mesh)
 function pointTable(sm) {   // unique points (by key) in vertex order, their current positions and the triangles
-    const keys = sm.userData.editKeys, pos = sm.geometry.attributes.position, col = sm.geometry.attributes.color, ids = new Map(), P = [], C = [], idx = [], firstV = [];
+    const keys = sm.userData.editKeys, pos = sm.geometry.attributes.position, col = sm.geometry.attributes.colorBase ?? sm.geometry.attributes.color,   /* (the colours before painting: painted faces are drawn over them by the editor) */ ids = new Map(), P = [], C = [], idx = [], firstV = [];
     for (let v = 0; v < keys.length; v++) {
         let k = ids.get(keys[v]);
         if (k === undefined) { k = ids.size; ids.set(keys[v], k); P.push(pos.getX(v), pos.getY(v), pos.getZ(v)); C.push(col.getX(v), col.getY(v), col.getZ(v)); firstV.push(v); }

@@ -20,6 +20,28 @@ export const pointKey = p => `${p.x.toFixed(4)},${p.y.toFixed(4)},${p.z.toFixed(
 // the points tA and tB, keyed addKey(tA, tB); unmoved, it stays halfway between them as they are shaped) | ['remove', tA, tB]
 // (tA merged into its neighbour tB: the faces between them go)], by structural key; applied to the faces once made.
 export const addKey = (a, b) => { const s = [a, b].sort().join('|'); let h = 0x811c9dc5; for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 0x01000193) >>> 0; return `add.${h.toString(16).padStart(8, '0')}`; };
+// Painted faces (2026-11-27, the user: "find a way for me to paint the models, like the fox's tail tips"): a layer's
+// "@paint" — { 'tA|tB|tC' (the face's three structural keys, sorted): '#hex' } — recolours those faces after the build.
+// The colours before it are kept as the geometry's colorBase (the Sculptor shows the points in them).
+export const faceKey = ts => [...ts].sort().join('|');
+export function applyPaint(mesh, paint) {
+    const geo = mesh?.geometry, col = geo?.attributes?.color, keys = mesh?.userData?.editKeys, pts = mesh?.userData?.points;
+    if (!col || !keys || !pts) return;
+    if (!geo.attributes.colorBase) geo.setAttribute('colorBase', col.clone());
+    else col.copy(geo.attributes.colorBase);   // (painted again from the plain colours)
+    mesh.userData.paint = paint && typeof paint === 'object' ? { ...paint } : {};
+    const n = Object.keys(mesh.userData.paint).length; if (!n) { col.needsUpdate = true; return; }
+    const c = new THREE.Color();
+    for (let v = 0; v + 2 < keys.length; v += 3) {
+        const ts = [keys[v], keys[v + 1], keys[v + 2]].map(k => pts.get(k)?.t); if (ts.some(t => !t)) continue;
+        const hex = mesh.userData.paint[faceKey(ts)]; if (!hex) continue;
+        c.set(hex); for (let j = 0; j < 3; j++) col.setXYZ(v + j, c.r, c.g, c.b);
+    }
+    col.needsUpdate = true;
+}
+const PAINT_RE = /^#[0-9a-f]{6}$/i;
+// the "@paint" of layers, merged in stack order (a later layer's face over an earlier one's; null clears it)
+export function stackPaint(layers) { const out = {}; for (const L of layers) { const P = L?.['@paint']; if (P && typeof P === 'object') for (const [k, v] of Object.entries(P)) { if (v === null) delete out[k]; else if (PAINT_RE.test(v)) out[k] = v; } } return out; }
 export function createSkin(root, bones, { edits = null, share = null, dry = false, topo = null } = {}) {
     root.updateMatrixWorld(true);
     let sect = 'body', calls = 0;

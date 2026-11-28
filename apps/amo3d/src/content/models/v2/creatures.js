@@ -6,7 +6,7 @@
 // the build, and shaped by the kind's layer (models/v2/layers/<kind>.json, edited in the Sculptor) — the same machinery as
 // the characters' (skin.js; buildBase's layer passes). The wolf first; the others kind by kind.
 import * as THREE from 'three';
-import { createSkin } from './skin.js';
+import { createSkin, applyPaint, stackPaint } from './skin.js';
 import { LAYERS } from './base.js';
 
 // The kind's layer turned into positions for this body, then the real build (as buildBase: a dry pass maps the points).
@@ -24,6 +24,7 @@ export function buildLayered(root, kind, gen, layer = kind) {
         for (const [k, r] of plain.points) { const v = L[r.t]; if (!Array.isArray(v)) continue; d.set(v[0], v[1], v[2]).applyMatrix3(M[r.bone]); edits[k] = [r.p.x + d.x, r.p.y + d.y, r.p.z + d.z]; }
     }
     const out = gen({ edits, topo });
+    if (out?.mesh) applyPaint(out.mesh, stackPaint([L]));   // (its painted faces)
     if (out?.mesh) { out.mesh.userData.editSex = layer; out.mesh.userData.layers = [layer]; out.mesh.name = `v2_${layer}`; }
     return out;
 }

@@ -150,6 +150,10 @@ function v2EditsApi() {
                         const keyRe = /^[a-z]+\.[A-Za-z0-9.?-]{1,40}$/, out = {}, entries = Object.entries(points);
                         if (entries.length > 20000) return send(400, { error: 'too many points' });
                         for (const [k, v] of entries) {
+                            if (k === '@paint') {   // painted faces: { 'key|key|key': '#rrggbb' | null } (2026-11-27)
+                                if (!v || typeof v !== 'object' || Array.isArray(v) || Object.keys(v).length > 20000 || !Object.entries(v).every(([fk, c]) => fk.split('|').length === 3 && fk.split('|').every(t => keyRe.test(t)) && (c === null || /^#[0-9a-f]{6}$/i.test(c)))) return send(400, { error: 'bad @paint' });
+                                out[k] = v; continue;
+                            }
                             if (k === '@topo') {   // the added and removed points: [['add' | 'remove', key, key]…]
                                 if (!Array.isArray(v) || v.length > 2000 || !v.every(op => Array.isArray(op) && (op.length === 3 || (op.length === 4 && Number.isSafeInteger(op[3]))) && ['add', 'remove', 'flip'].includes(op[0]) && keyRe.test(op[1]) && keyRe.test(op[2]))) return send(400, { error: 'bad @topo' });
                                 out[k] = v; continue;

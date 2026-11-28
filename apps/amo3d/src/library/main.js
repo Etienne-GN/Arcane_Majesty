@@ -119,7 +119,7 @@ renderer.setAnimationLoop(() => {
     if (mode === 'attack') dummy.pos.set(0, 0, 2.2); else if (mode === 'walk') dummy.pos.set(Math.sin(clock.elapsedTime * 0.6) * 5, 0, 7); else dummy.pos.set(0, 0, 60);
     for (const a of actors) {
         try { a.update?.(dt, ctx); } catch { /* a creature that needs more of the world: frozen */ }
-        if (a.pos && Math.hypot(a.pos.x, a.pos.z) > 4) a.pos.multiplyScalar(4 / Math.hypot(a.pos.x, a.pos.z));   // stay on the turntable
+        if (a.pos && Math.hypot(a.pos.x, a.pos.z) > 0.8) { const k = 0.8 / Math.hypot(a.pos.x, a.pos.z); a.pos.x *= k; a.pos.z *= k; }   // stay in the middle of the turntable (a wandering fox left the frame)
     }
     if (frameIn > 0 && --frameIn === 0 && holder) {   // frame it once it has taken its pose
         const box = new THREE.Box3(); holder.traverse(o => { if (o.isMesh && o.visible) box.expandByObject(o); });
