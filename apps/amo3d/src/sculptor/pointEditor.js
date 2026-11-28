@@ -15,7 +15,12 @@ import REF_HORSE from './ref_horse.jpg';   // (the user's horse sheet, docs/3d/c
 import REF_COW from './ref_cow.jpg';
 import REF_PIG from './ref_pig.jpg';
 import REF_WOLF from './ref_wolf.jpg';
-import REF_FOX from './ref_fox.jpg';   // (2026-11-27, the user's animal sheets: docs/3d/creatures/<kind>_reference.jpg — front and three-quarter sitting, side and back standing)
+import REF_FOX from './ref_fox.jpg';
+import REF_CHICKEN from './ref_chicken.jpg';
+import REF_RAT from './ref_rat.jpg';
+import REF_CAT from './ref_cat.jpg';
+import REF_DEER from './ref_deer.jpg';
+import REF_CROW from './ref_crow.jpg';   // (2026-11-27, the user's animal sheets: docs/3d/creatures/<kind>_reference.jpg — front and three-quarter sitting, side and back standing)
 import { layerFromPositions, faceKey } from '../content/models/v2/skin.js';
 // Where each view sits on the sheet: [x0, y0, x1, y1] — the whole figure, and its head
 const REF = {
@@ -27,8 +32,14 @@ const REF = {
     pig: { front: [[160, 132, 344, 520], [165, 125, 340, 330]], side: [[48, 640, 458, 992], [40, 640, 200, 800]], back: [[608, 630, 776, 1104], [600, 625, 785, 780]] },
     wolf: { front: [[100, 120, 326, 524], [160, 115, 320, 320]], side: [[54, 620, 510, 994], [40, 620, 220, 800]], back: [[600, 615, 790, 1106], [600, 610, 790, 760]] },
     forest_fox: { front: [[92, 112, 342, 522], [150, 105, 330, 300]], side: [[58, 620, 524, 972], [40, 620, 210, 790]], back: [[570, 615, 790, 1110], [570, 610, 790, 760]] },
+    // (2026-11-27, the second set: chicken, rat, cat, deer, crow — measured, +12 px)
+    chicken: { front: [[144, 128, 340, 520], [144, 128, 340, 316]], side: [[84, 642, 426, 996], [84, 642, 227, 819]], back: [[588, 648, 778, 1064], [588, 648, 778, 797]] },
+    rat: { front: [[106, 134, 352, 516], [106, 134, 352, 317]], side: [[40, 682, 538, 992], [40, 682, 249, 837]], back: [[512, 634, 824, 1080], [512, 634, 824, 794]] },
+    cat: { front: [[114, 132, 342, 524], [114, 132, 342, 320]], side: [[64, 654, 536, 994], [64, 654, 262, 824]], back: [[518, 634, 802, 1104], [518, 634, 802, 803]] },
+    deer: { front: [[146, 122, 340, 522], [146, 122, 340, 314]], side: [[62, 642, 444, 990], [62, 642, 222, 816]], back: [[614, 632, 762, 1086], [614, 632, 762, 795]] },
+    crow: { front: [[150, 152, 350, 522], [150, 152, 350, 329]], side: [[60, 650, 492, 996], [60, 650, 241, 823]], back: [[592, 656, 790, 1064], [592, 656, 790, 802]] },
 };
-const REF_IMG = { horse: REF_HORSE, cow: REF_COW, pig: REF_PIG, wolf: REF_WOLF, forest_fox: REF_FOX };
+const REF_IMG = { horse: REF_HORSE, cow: REF_COW, pig: REF_PIG, wolf: REF_WOLF, forest_fox: REF_FOX, chicken: REF_CHICKEN, rat: REF_RAT, cat: REF_CAT, deer: REF_DEER, crow: REF_CROW };   // ('cat': the Library's Cat clone — its own id finds it)
 const HUMAN = s => s === 'male' || s === 'female';   // (the characters' bodies; anything else is a creature, framed by its own size)   // (a kind's own sheet; the characters share the base sheet)
 // The palette's icons (2026-11-26: "a small stickman to preview the view"): a stick figure seen from each view, and one
 // lit where each region is (the rest dim) — inline SVG, in the button's own colour
