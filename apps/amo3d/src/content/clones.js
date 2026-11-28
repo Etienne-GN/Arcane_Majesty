@@ -3,5 +3,7 @@
 // it reads their base kind: a cloned monster is a beast kind of its own (a region's { type: 'beasts', kind: '<clone id>' }).
 const FILES = import.meta.glob('./library/*.json', { eager: true, import: 'default' });
 export const CLONES = Object.fromEntries(Object.values(FILES).filter(c => c?.id && c.base).map(c => [c.id, c]));
+// an original's own colours (the Library's palette saved on a built-in entry): recolor_<id>.json — { id, of, colors }
+export const RECOLORS = Object.fromEntries(Object.values(FILES).filter(c => c?.of && c.colors).map(c => [c.of, c.colors]));
 // a clone of a monster: its base beast kind (the Library id of a monster is its kind)
 export function beastClone(kind) { const c = CLONES[kind]; return c && c.cls?.[0] === 'Creatures' ? c : null; }

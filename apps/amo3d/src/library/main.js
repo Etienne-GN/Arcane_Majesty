@@ -26,6 +26,7 @@ import { buildHouse, buildProp } from '../content/models/buildings.js';
 import { treeKinds } from '../content/models/flora.js';
 import { npcCast } from '../content/castList.js';
 import { buildChest } from '../game/chest.js';
+import { paletteOf, applyPalette } from '../content/palette.js';
 import { settings, setSetting } from '../engine/settings.js';
 
 const ET = worldMap.ENEMY_TYPES, LORE = BS.BESTIARY_LORE ?? {};
@@ -92,11 +93,23 @@ const map = { id: 'library', heightAt: () => 0, groundAt: () => 0, resolve() {},
 const dummy = { pos: new THREE.Vector3(0, 0, 60), dead: false };
 const ctx = { camera, player: dummy, hurtPlayer: () => false, floater() {}, message() {}, shake() {}, hour: 12, weather: 'clear', flags: {}, voidMult: 1, dropLoot() {}, onKill() {} };
 let current = null, holder = null, actors = [], mode = 'idle', frameIn = 0, buildError = null;
-function show(e) {
+// the palette (2026-11-27): an original's swatches are taken on its plain build, a clone's on its base as the game shows
+// it (the base's own colours applied); the working colours = what is saved + what is being changed (pending)
+const recolors = {};   // an original's saved colours (recolor_<id>.json): id → { hex: hex }
+let pending = {}, swatches = [];
+const savedColors = e => (e.clone ? e.clone.colors : recolors[e.id]) ?? {};
+function show(e, keepView = false) {
+    if (current !== e) pending = {};
     if (holder) { scene.remove(holder); holder.traverse(o => { if (o.isMesh) o.geometry?.dispose?.(); }); }
     holder = new THREE.Group(); scene.add(holder); map.hittables = []; buildError = null;
     try { actors = e.make(holder, map) ?? []; } catch (err) { actors = []; buildError = err.message; }
-    map.hittables = actors; current = e; frameIn = 8;
+    try {
+        if (e.clone) applyPalette(holder, recolors[e.baseEntry.id]);
+        swatches = paletteOf(holder);
+        applyPalette(holder, { ...savedColors(e), ...pending });
+    } catch (err) { swatches = []; }
+    map.hittables = actors; current = e; if (!keepView) frameIn = 8;
+    if (keepView) return renderPalette();
     history.replaceState(null, '', `#${e.id}`);
     renderSide(); renderList(); document.body.classList.remove('list-on');
 }
@@ -178,6 +191,7 @@ function renderSide() {
     if (e.clone) { const del = el('button', { title: 'Delete this clone (its file goes)' }, 'Delete'); del.onclick = () => deleteClone(e); acts.append(del); }
     side.append(acts);
     if (e.clone) cloneCard(side, e);
+    side.append(paletteBox = el('div')); renderPalette();
     if (e.cls[0] === 'Creatures') {
         side.append(el('div', { className: 'meta' }, 'Show it'));
         const chips = el('div', { className: 'chips' });
@@ -206,6 +220,47 @@ function renderSide() {
     }
 }
 
+// ---------- the palette panel ----------
+let paletteBox = null;
+function renderPalette() {
+    const e = current, box = paletteBox; if (!box || !e) return; box.textContent = '';
+    if (!swatches.length) return;
+    const working = { ...savedColors(e), ...pending }, changed = Object.keys(pending).length;
+    box.append(el('div', { className: 'meta' }, `Palette — ${swatches.length} colours${e.clone ? '' : recolors[e.id] ? ' (its own colours, saved)' : ''}`));
+    const row = el('div', { style: 'display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px' });
+    for (const sw of swatches) {
+        const cur = working[sw.hex] ?? sw.hex, inp = el('input', { type: 'color', value: cur, title: `${sw.hex}${cur !== sw.hex ? ` → ${cur}` : ''} (${sw.count})` });
+        inp.style.cssText = `width:38px;height:38px;padding:0;border-radius:8px;border:2px solid ${cur !== sw.hex ? '#f3d88b' : '#eee6d244'};background:none;cursor:pointer`;
+        inp.oninput = () => { pending[sw.hex] = inp.value; show(e, true); };   // (rebuilt with the new colour, the view kept)
+        row.append(inp);
+    }
+    box.append(row);
+    const acts = el('div', { className: 'acts' });
+    const btn = (t, fn, title, dis = false) => { const b = el('button', { title, disabled: dis }, t); b.onclick = fn; acts.append(b); };
+    if (e.clone) btn('Save the colours', async () => { await saveCloneColors(e, working); }, 'Into this clone', !changed);
+    else {
+        btn('Save as its colours', async () => { if (!confirm(`Give ${e.name} these colours everywhere (the game too)?`)) return; await saveRecolor(e, working); }, 'Change the original: the game draws it in these colours', !changed);
+        btn('Save as a clone', () => cloneOf(e, working), 'A new entry in these colours; the original stays', !changed);
+        if (recolors[e.id]) btn('Back to the game\'s colours', async () => { await saveRecolor(e, null); }, 'Forget its saved colours');
+    }
+    btn('Undo changes', () => { pending = {}; show(e, true); }, 'Back to the colours as saved', !changed);
+    box.append(acts);
+}
+async function saveRecolor(e, colors) {
+    const id = `recolor_${e.id}`.slice(0, 40), r = colors && Object.keys(colors).length
+        ? await fetch('api/library', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, of: e.id, colors }) })
+        : await fetch('api/library', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) });
+    if (!r.ok && r.status !== 404) { status(`Not saved: ${(await r.json().catch(() => ({}))).error ?? r.status}`, true); return; }
+    if (colors && Object.keys(colors).length) recolors[e.id] = colors; else delete recolors[e.id];
+    pending = {}; show(e, true); status(colors ? 'Its colours are saved.' : 'Back to the game\'s colours.');
+}
+async function saveCloneColors(e, colors) {
+    const next = { ...e.clone, colors };
+    const r = await fetch('api/library', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(next) });
+    if (!r.ok) { status(`Not saved: ${(await r.json().catch(() => ({}))).error ?? r.status}`, true); return; }
+    e.clone.colors = colors; pending = {}; show(e, true); status('The clone\'s colours are saved.');
+}
+
 // ---------- clones (LIBRARY_PLAN phase 2): src/content/library/<id>.json, through /api/library ----------
 // a clone: its base entry's build, its own name, size and (a monster) numbers; listed beside its base. The game reads it
 // where it reads its base kind (content/clones.js: a cloned monster is a beast kind of its own). A person's clone is a new
@@ -217,9 +272,9 @@ function cloneEntry(c) {
         make: (s2, m) => { const g = new THREE.Group(); s2.add(g); const a = base.make(g, m) ?? []; g.scale.setScalar(c.scale ?? 1); return a; } };
 }
 async function loadClones() {
-    try { for (const c of await (await fetch('api/library')).json()) { const e = cloneEntry(c); if (e) ENTRIES.splice(ENTRIES.indexOf(e.baseEntry) + 1, 0, e); } } catch { /* no dev API */ }
+    try { for (const c of await (await fetch('api/library')).json()) { if (c.of && c.colors) { recolors[c.of] = c.colors; continue; } const e = cloneEntry(c); if (e) ENTRIES.splice(ENTRIES.indexOf(e.baseEntry) + 1, 0, e); } } catch { /* no dev API */ }
 }
-async function cloneOf(e) {
+async function cloneOf(e, colors = null) {
     const base = e.baseEntry ?? e, name = prompt(`A name for the copy of ${e.name}:`, `${e.name} (copy)`); if (!name) return;
     let id = slug(name) || 'clone', n = 2; while (ENTRIES.some(x => x.id === id || x.id === `cast_${id}`)) id = `${slug(name).slice(0, 30)}_${n++}`;
     try {
@@ -229,7 +284,8 @@ async function cloneOf(e) {
             if (!r.ok) throw new Error((await r.json()).error);
             const p = person(`cast_${id}`, name, 'Heroes & cast', look, { look }); ENTRIES.splice(ENTRIES.findIndex(x => x.cls[1] === 'Heroes & cast'), 0, p); show(p);
         } else {
-            const c = { id, base: base.id, cls: base.cls, name, scale: e.clone?.scale ?? 1, ...(e.clone?.stats ? { stats: { ...e.clone.stats } } : {}), created: new Date().toISOString() };
+            const cols = colors ?? e.clone?.colors ?? recolors[base.id] ?? null;   // (its colours as shown; keyed on the base's plain build when cloned from the original)
+            const c = { id, base: base.id, cls: base.cls, name, scale: e.clone?.scale ?? 1, ...(e.clone?.stats ? { stats: { ...e.clone.stats } } : {}), ...(cols && Object.keys(cols).length && !e.clone && !recolors[base.id] ? { colors: cols } : e.clone?.colors ? { colors: { ...e.clone.colors } } : {}), created: new Date().toISOString() };
             const r = await fetch('api/library', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(c) });
             if (!r.ok) throw new Error((await r.json()).error);
             const ce = cloneEntry(c); ENTRIES.splice(ENTRIES.indexOf(base) + 1, 0, ce); show(ce);

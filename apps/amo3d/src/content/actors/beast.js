@@ -16,7 +16,8 @@ import { buildHound } from '../models/hound.js';
 import { buildRobed } from '../models/robed.js';
 import { settings } from '../../engine/settings.js';
 import { humanV2, walkLegs } from './humanRig.js';
-import { beastClone } from '../clones.js';
+import { beastClone, RECOLORS } from '../clones.js';
+import { applyPalette } from '../palette.js';
 import { buildWolf } from './wolf.js';
 export const NAMES = { ...NAMES2, grave_wraith: 'Grave-Wraith', cursed_knight: 'Cursed Knight', lava_elemental: 'Magma-Eater', ember_imp: 'Cinder-Soul', stone_golem: 'Obsidian Golem', cave_bat: 'Cave Bat', blind_stalker: 'Blind Stalker', deep_horror: 'Deep Horror', gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
 const TUNE = { sight: 2.6, reach: 2, speed: 1.4 };
@@ -231,6 +232,7 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
     const C = beastClone(type);   // (a Library clone: its base kind's body and AI, its own name, size and numbers)
     if (C) { type = C.base; name ??= C.name; }
     const { root, parts } = body(type);
+    applyPalette(root, RECOLORS[type]); if (C?.colors) applyPalette(root, C.colors);   // (the Library's palettes: the kind's own colours, then the clone's)
     scene.add(root);
     root.scale.setScalar((elite ? (elite.boss ? 1.7 : 1.2) : 1) * (C?.scale ?? 1));
     const pos = new THREE.Vector3(home.x, map.heightAt(home.x, home.z), home.z);
