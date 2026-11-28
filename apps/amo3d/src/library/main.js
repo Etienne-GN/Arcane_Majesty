@@ -51,7 +51,7 @@ const ENTRIES = [
 // people: a character from its look (the game's own builder)
 const person = (id, name, group, look, extra = {}) => ({ id, cls: ['People', group], name, make: s => { const c = createCharacter(look); s.add(c.root); return [{ update: dt => c.update(dt, { speed: 0, sprinting: false, hopK: null }) }]; }, notes: 'npc', ...extra });
 const SCULPT_CAST = new Set(['eldrin', 'seraphina', 'seraphina_rebel', 'anya']);
-for (const p of npcCast()) ENTRIES.push(person(p.id, p.name, p.group === 'Story' ? 'The story' : p.group === 'Thaloria' ? 'Thaloria' : `Villagers — ${p.group}`, p.look));
+for (const p of npcCast()) ENTRIES.push(person(p.id, p.name, p.group === 'Story' ? 'The story' : p.group === 'Thaloria' ? 'Thaloria' : `Villagers — ${p.group}`, p.look, { look: p.look }));
 // world objects
 const TREE_COL = { pine: 0x2f5a34, broad: 0x4a7a3a, birch: 0x8aa84a, dead: null };
 for (const [k] of Object.entries(treeKinds())) ENTRIES.push({ id: `tree_${k}`, cls: ['World', 'Trees'], name: `${title(k)} tree`, notes: 'item', make: s => { const K = treeKinds()[k]; const g = new THREE.Group(); const t = new THREE.Mesh(K.trunk, flat(K.trunkColor ?? 0x5e4630)); t.castShadow = true; g.add(t); if (K.crown && TREE_COL[k] !== null) { const c = new THREE.Mesh(K.crown, flat(TREE_COL[k] ?? 0x4a7a3a)); c.castShadow = true; g.add(c); } s.add(g); return []; } });
@@ -153,6 +153,7 @@ function renderList() {
                 const row = el('div', { className: `row${current === e ? ' on' : ''}` }); row.append(el('span', {}, e.name));
                 const ns = noteOf(e)?.notes ?? [], open = ns.filter(n => n.status !== 'done').length;
                 if (open) row.append(el('span', { className: 'badge' }, String(open))); else if (ns.length) row.append(el('span', { className: 'badge done' }, '✓'));
+                else if (e.clone) row.append(el('span', { className: 'tag', title: `A clone of ${e.baseEntry.name}` }, 'copy'));
                 else if (e.sculpt) row.append(el('span', { className: 'tag', title: 'Editable in the Sculptor' }, 'S'));
                 row.onclick = () => show(e); d.append(row);
             }
@@ -173,8 +174,10 @@ function renderSide() {
     const acts = el('div', { className: 'acts' });
     const sculpt = el('a', { className: `btn${e.sculpt ? '' : ' off'}`, href: e.sculpt ?? '#', title: e.sculpt ? 'Shape it in the Sculptor' : 'Not in the Sculptor yet (LIBRARY_PLAN phase 3)' }, '✎ Edit in the Sculptor'); acts.append(sculpt);
     if (e.cls[0] === 'People') acts.append(el('a', { className: 'btn', href: e.forge ?? 'forge.html', title: 'Dress and create characters' }, 'Open the Forge'));
-    acts.append(el('button', { disabled: true, title: 'Coming next (LIBRARY_PLAN phase 2)' }, 'Clone'));
+    const cl = el('button', { title: e.cls[0] === 'People' ? 'Copy this person into a new cast member (a cast file: in the Forge and the game)' : 'Copy it into a new entry of its own, to change and use in the game' }, '⧉ Clone'); cl.onclick = () => cloneOf(e); acts.append(cl);
+    if (e.clone) { const del = el('button', { title: 'Delete this clone (its file goes)' }, 'Delete'); del.onclick = () => deleteClone(e); acts.append(del); }
     side.append(acts);
+    if (e.clone) cloneCard(side, e);
     if (e.cls[0] === 'Creatures') {
         side.append(el('div', { className: 'meta' }, 'Show it'));
         const chips = el('div', { className: 'chips' });
@@ -203,17 +206,78 @@ function renderSide() {
     }
 }
 
+// ---------- clones (LIBRARY_PLAN phase 2): src/content/library/<id>.json, through /api/library ----------
+// a clone: its base entry's build, its own name, size and (a monster) numbers; listed beside its base. The game reads it
+// where it reads its base kind (content/clones.js: a cloned monster is a beast kind of its own). A person's clone is a new
+// cast member instead (a cast file: the Forge's cast list, the game).
+const slug = s2 => String(s2).toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 34);
+function cloneEntry(c) {
+    const base = ENTRIES.find(x => x.id === c.base); if (!base) return null;
+    return { ...base, id: c.id, name: c.name, clone: c, baseEntry: base, sculpt: null,
+        make: (s2, m) => { const g = new THREE.Group(); s2.add(g); const a = base.make(g, m) ?? []; g.scale.setScalar(c.scale ?? 1); return a; } };
+}
+async function loadClones() {
+    try { for (const c of await (await fetch('api/library')).json()) { const e = cloneEntry(c); if (e) ENTRIES.splice(ENTRIES.indexOf(e.baseEntry) + 1, 0, e); } } catch { /* no dev API */ }
+}
+async function cloneOf(e) {
+    const base = e.baseEntry ?? e, name = prompt(`A name for the copy of ${e.name}:`, `${e.name} (copy)`); if (!name) return;
+    let id = slug(name) || 'clone', n = 2; while (ENTRIES.some(x => x.id === id || x.id === `cast_${id}`)) id = `${slug(name).slice(0, 30)}_${n++}`;
+    try {
+        if (e.cls[0] === 'People') {   // a person: a new cast member with the same look
+            const look = structuredClone(e.look ?? null); if (!look) throw new Error('no look to copy');
+            const r = await fetch('api/cast', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, name, lore: `A copy of ${e.name}, made in the Library.`, look }) });
+            if (!r.ok) throw new Error((await r.json()).error);
+            const p = person(`cast_${id}`, name, 'Heroes & cast', look, { look }); ENTRIES.splice(ENTRIES.findIndex(x => x.cls[1] === 'Heroes & cast'), 0, p); show(p);
+        } else {
+            const c = { id, base: base.id, cls: base.cls, name, scale: e.clone?.scale ?? 1, ...(e.clone?.stats ? { stats: { ...e.clone.stats } } : {}), created: new Date().toISOString() };
+            const r = await fetch('api/library', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(c) });
+            if (!r.ok) throw new Error((await r.json()).error);
+            const ce = cloneEntry(c); ENTRIES.splice(ENTRIES.indexOf(base) + 1, 0, ce); show(ce);
+        }
+        status(`Cloned as "${name}" (${id}).`);
+    } catch (err) { alert(`Could not clone: ${err.message}`); }
+}
+async function deleteClone(e) {
+    if (!confirm(`Delete the clone "${e.name}"? Its file goes (git still has it if it was committed).`)) return;
+    const r = await fetch('api/library', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: e.id }) });
+    if (!r.ok) { alert(`Not deleted: ${(await r.json().catch(() => ({}))).error ?? r.status}`); return; }
+    ENTRIES.splice(ENTRIES.indexOf(e), 1); show(e.baseEntry);
+}
+// a clone's card: its name, its size, a monster's numbers — saved into its file
+function cloneCard(side, e) {
+    const c = e.clone, box = el('div', { className: 'note' });
+    box.append(el('div', { className: 'meta' }, `A clone of ${e.baseEntry.name} — saved in src/content/library/${c.id}.json${e.cls[1] === 'Monsters' ? ` · in a region: { "type": "beasts", "kind": "${c.id}" }` : ''}`));
+    const field = (label, input) => { const r = el('label', { style: 'display:grid;grid-template-columns:90px 1fr;gap:8px;align-items:center;margin:6px 0;font-size:13px' }); r.append(el('span', {}, label), input); box.append(r); return input; };
+    const nameIn = field('Name', el('input', { value: c.name, style: 'padding:6px;border-radius:6px;border:1px solid #eee6d244;background:#0008;color:#eee6d2;font:14px Georgia,serif' }));
+    const sizeIn = field(`Size ×${(c.scale ?? 1).toFixed(2)}`, el('input', { type: 'range', min: 0.3, max: 3, step: 0.05, value: c.scale ?? 1 }));
+    sizeIn.oninput = () => { sizeIn.previousSibling.textContent = `Size ×${(+sizeIn.value).toFixed(2)}`; const g = holder?.children[0]; if (g) g.scale.setScalar(+sizeIn.value); };
+    const stats = {};
+    const B = ET[e.baseEntry.id];
+    if (e.cls[1] === 'Monsters' && B) for (const k of ['health', 'damage', 'speed', 'xpReward']) stats[k] = field(title(k), el('input', { type: 'number', min: 0, value: c.stats?.[k] ?? B[k] ?? 0, style: 'padding:6px;border-radius:6px;border:1px solid #eee6d244;background:#0008;color:#eee6d2;font:14px Georgia,serif;width:110px' }));
+    const save = el('button', {}, 'Save the clone'); box.append(save);
+    save.onclick = async () => {
+        const next = { ...c, name: nameIn.value.trim() || c.name, scale: +sizeIn.value };
+        const st = Object.fromEntries(Object.entries(stats).map(([k, inp]) => [k, +inp.value]).filter(([k, v]) => Number.isFinite(v) && v !== B?.[k]));
+        if (Object.keys(st).length) next.stats = st; else delete next.stats;
+        const r = await fetch('api/library', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(next) });
+        if (!r.ok) { status(`Not saved: ${(await r.json().catch(() => ({}))).error ?? r.status}`, true); return; }
+        Object.assign(c, next); if (!next.stats) delete c.stats; e.name = c.name; renderList(); renderSide(); status('Clone saved.');
+    };
+    side.append(box);
+}
+
 // the heroes and cast from the Forge (their files): loaded, added to People › Heroes & cast
 async function loadCast() {
     try {
         for (const c of await (await fetch('api/cast')).json()) {
             if (!c?.id || !c.look) continue;
-            ENTRIES.push(person(`cast_${c.id}`, c.name ?? title(c.id), 'Heroes & cast', c.look, { sculpt: SCULPT_CAST.has(c.id) ? `sculptor.html?a=base_male:new&b=${c.id}:new&edit=1` : null, notes: 'npc', lore: c.lore }));
+            ENTRIES.push(person(`cast_${c.id}`, c.name ?? title(c.id), 'Heroes & cast', c.look, { look: c.look, sculpt: SCULPT_CAST.has(c.id) ? `sculptor.html?a=base_male:new&b=${c.id}:new&edit=1` : null, notes: 'npc', lore: c.lore }));
         }
     } catch { /* no dev API: the built-in people only */ }
 }
 await Promise.all([loadNotes(), loadCast()]);
 ENTRIES.sort((a, b) => CLASS_ORDER.indexOf(a.cls[0]) - CLASS_ORDER.indexOf(b.cls[0]) || (a.cls[1] === 'Heroes & cast' ? -1 : b.cls[1] === 'Heroes & cast' ? 1 : 0));
+await loadClones();   // (after the sort: each clone right after its base)
 const want = location.hash.slice(1);
 show(ENTRIES.find(e => e.id === want) ?? ENTRIES.find(e => e.id === `cast_${want}`) ?? ENTRIES[0]);
 window.__library = { ENTRIES, get actors() { return actors; }, get holder() { return holder; }, show: id => show(ENTRIES.find(e => e.id === id)), get current() { return current; }, get error() { return buildError; } };

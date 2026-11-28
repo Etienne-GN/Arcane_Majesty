@@ -9,6 +9,7 @@ const castDir = fileURLToPath(new URL('./src/content/cast', import.meta.url));
 const regionDir = fileURLToPath(new URL('./src/content/regions', import.meta.url));
 const mobNotesDir = fileURLToPath(new URL('./src/content/mob_notes', import.meta.url));   // the Bestiary page's notes
 const npcNotesDir = fileURLToPath(new URL('./src/content/npc_notes', import.meta.url));
+const libraryDir = fileURLToPath(new URL('./src/content/library', import.meta.url));   // the Library's clones (LIBRARY_PLAN phase 2)
 const itemNotesDir = fileURLToPath(new URL('./src/content/item_notes', import.meta.url));   // the Library's notes on world objects and equipment   // the Forge's notes on each NPC
 const biomesDir = fileURLToPath(new URL('./src/content/world/biomes', import.meta.url));
 const biomeMapsDir = fileURLToPath(new URL('./src/content/world/biome_maps', import.meta.url));
@@ -45,7 +46,13 @@ function v2EditsApi() {
         name: 'v2-edits-api',
         // (2026-11-27, the user: "make the Sculptor reload less often — live"): a layer written by the Sculptor reloads no
         // page — the Sculptor puts it into the running page itself (models/v2/base.js applyLayer)
-        handleHotUpdate(ctx) { if (/[\\/]models[\\/]v2[\\/]layers[\\/].*\.json$/.test(ctx.file)) return []; },
+        handleHotUpdate(ctx) {   // (the layers and the Library's clones: their cached modules refreshed — a later page load gets the new file — but no page reloaded: the Sculptor and the Library apply them themselves)
+            if (/[\\/]models[\\/]v2[\\/]layers[\\/].*\.json$/.test(ctx.file) || /[\\/]content[\\/]library[\\/].*\.json$/.test(ctx.file)) {
+                const G = ctx.server.moduleGraph, owners = [join(v2Dir, 'base.js'), fileURLToPath(new URL('./src/content/clones.js', import.meta.url))];   // (the files that list them: their glob re-read — a new file too)
+                for (const m of [...ctx.modules, ...owners.flatMap(f => [...(G.getModulesByFile(f) ?? [])])]) { G.invalidateModule(m); for (const imp of m.importers) G.invalidateModule(imp); }
+                return [];
+            }
+        },
         configureServer(server) {
             server.middlewares.use('/api/v2edits', (req, res) => {
                 const send = (code, body) => { res.statusCode = code; res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(body)); };
@@ -203,7 +210,7 @@ function jsonDirApi(route, dir, label) {
                     const list = readdirSync(dir).filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(join(dir, f), 'utf8')));
                     return send(200, list);
                 }
-                if (req.method === 'POST') {
+                if (req.method === 'POST' || req.method === 'DELETE') {
                     // Only our own pages may write: a JSON body (cross-site forms can't send that without a
                     // CORS preflight, which this server doesn't answer) from this server's own origin.
                     const origin = req.headers.origin;
@@ -215,6 +222,12 @@ function jsonDirApi(route, dir, label) {
                     if (!local(req.headers.host)) return send(403, { error: 'writes only to this machine' });
                     if (origin && !local(new URL(origin).host)) return send(403, { error: 'cross-origin write refused' });
                     if (!/^application\/json\b/.test(req.headers['content-type'] ?? '')) return send(415, { error: 'JSON only' });
+                    if (req.method === 'DELETE') {   // (2026-11-27: the Library deletes its clones) — a JSON body { id }
+                        if (origin && new URL(origin).host !== req.headers.host) return send(403, { error: 'cross-origin write refused' });
+                        let rawD = ''; req.on('data', c => { rawD += c; if (rawD.length > 1000) req.destroy(); });
+                        req.on('end', () => { try { const { id } = JSON.parse(rawD); if (!/^[a-z0-9_]{1,40}$/.test(id ?? '')) return send(400, { error: 'bad id' }); const f = join(dir, `${id}.json`); if (!existsSync(f)) return send(404, { error: 'no such file' }); unlinkSync(f); send(200, { deleted: id }); } catch (e) { send(400, { error: String(e.message) }); } });
+                        return;
+                    }
                     if (origin && new URL(origin).host !== req.headers.host) return send(403, { error: 'cross-origin write refused' });
                     let raw = '';
                     req.on('data', c => { raw += c; if (raw.length > 100_000) req.destroy(); });
@@ -228,7 +241,7 @@ function jsonDirApi(route, dir, label) {
                     });
                     return;
                 }
-                send(405, { error: 'GET or POST' });
+                send(405, { error: 'GET, POST or DELETE' });
             });
         },
     };
@@ -240,7 +253,7 @@ export default defineConfig({
         // amo's engine-free rules, shared through packages/rules — no copies.
         alias: { '@rules': rules },
     },
-    plugins: [v2EditsApi(), mapBakeApi(), jsonDirApi('/api/cast', castDir, 'cast'), jsonDirApi('/api/region', regionDir, 'regions'), jsonDirApi('/api/mobnotes', mobNotesDir, 'mob_notes'), jsonDirApi('/api/npcnotes', npcNotesDir, 'npc_notes'), jsonDirApi('/api/itemnotes', itemNotesDir, 'item_notes'), jsonDirApi('/api/biomes', biomesDir, 'biomes'), jsonDirApi('/api/biomemaps', biomeMapsDir, 'biome_maps')],
+    plugins: [v2EditsApi(), mapBakeApi(), jsonDirApi('/api/cast', castDir, 'cast'), jsonDirApi('/api/region', regionDir, 'regions'), jsonDirApi('/api/mobnotes', mobNotesDir, 'mob_notes'), jsonDirApi('/api/npcnotes', npcNotesDir, 'npc_notes'), jsonDirApi('/api/itemnotes', itemNotesDir, 'item_notes'), jsonDirApi('/api/library', libraryDir, 'library'), jsonDirApi('/api/biomes', biomesDir, 'biomes'), jsonDirApi('/api/biomemaps', biomeMapsDir, 'biome_maps')],
     build: {
         // (the Sculptor, the Land Editor and its biomes page: dev server only — not in the phone or desktop builds)
         rollupOptions: { input: { main: 'index.html', forge: 'forge.html', bestiary: 'bestiary.html', library: 'library.html', manual: 'manual.html' } },

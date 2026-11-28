@@ -8,13 +8,15 @@ import { sfx } from '../../engine/sfx.js';
 import * as THREE from 'three';
 import { createEnemyCore, PX, SIGHT } from './enemyCore.js';
 import { flat } from '../../engine/lib.js';
-import { elites as EL } from '@rules';
+import { elites as EL, enemies as ENM } from '@rules';
+const worldMapTypes = () => ENM.ENEMY_TYPES;
 
 import { body2, NAMES2, FLYERS2, PLATE2 } from './bodies2.js';
 import { buildHound } from '../models/hound.js';
 import { buildRobed } from '../models/robed.js';
 import { settings } from '../../engine/settings.js';
 import { humanV2, walkLegs } from './humanRig.js';
+import { beastClone } from '../clones.js';
 import { buildWolf } from './wolf.js';
 export const NAMES = { ...NAMES2, grave_wraith: 'Grave-Wraith', cursed_knight: 'Cursed Knight', lava_elemental: 'Magma-Eater', ember_imp: 'Cinder-Soul', stone_golem: 'Obsidian Golem', cave_bat: 'Cave Bat', blind_stalker: 'Blind Stalker', deep_horror: 'Deep Horror', gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
 const TUNE = { sight: 2.6, reach: 2, speed: 1.4 };
@@ -226,11 +228,13 @@ export function createBeasts({ scene, map, rng, type, posts, rareFrom = null }) 
 }
 
 function createBeast({ scene, map, rng, type, home, elite = null, name = null }) {
+    const C = beastClone(type);   // (a Library clone: its base kind's body and AI, its own name, size and numbers)
+    if (C) { type = C.base; name ??= C.name; }
     const { root, parts } = body(type);
     scene.add(root);
-    if (elite) root.scale.setScalar(elite.boss ? 1.7 : 1.2);
+    root.scale.setScalar((elite ? (elite.boss ? 1.7 : 1.2) : 1) * (C?.scale ?? 1));
     const pos = new THREE.Vector3(home.x, map.heightAt(home.x, home.z), home.z);
-    const core = createEnemyCore({ type, name: name ?? NAMES[type] ?? type, pos, rng, respawnS: elite?.boss ? 1e9 : 30, elite });   // a boss stays dead
+    const core = createEnemyCore({ type, name: name ?? NAMES[type] ?? type, pos, rng, respawnS: elite?.boss ? 1e9 : 30, elite, def: C?.stats ? { ...worldMapTypes()[type], ...C.stats } : null });   // a boss stays dead
     const DEF = core.DEF, s = core.s;
     const SIGHT = (DEF.sightRange / PX) * TUNE.sight, REACH0 = (DEF.attackRange / PX) * TUNE.reach + (['crag_fiend', 'blight_ent', 'corrupted_sentinel', 'deep_horror', 'lava_elemental', 'stone_golem', 'cursed_knight'].includes(type) ? 0.6 : 0);
     const REACH = NAMES2[type] ? Math.min(REACH0, 2.8) : REACH0;   // casters with a long amo range strike only up close (their spells do the rest)
