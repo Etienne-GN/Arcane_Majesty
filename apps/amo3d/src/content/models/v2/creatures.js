@@ -31,7 +31,7 @@ export function buildLayered(root, kind, gen, layer = kind) {
 
 // The wolf: a long ribcage tapering to a tucked waist and the haunches, a neck rising into a wedge head with a long muzzle,
 // upright ears, legs with a knee and a paw, a brush of a tail. d: buildWolf's joints { root, body, head, tail, legs[] }.
-export function buildWolfV2(d, { fur = '#6b6862', belly = '#b8b0a2', dark = '#1c1a18', layer = 'wolf' } = {}) {
+export function buildWolfV2(d, { fur = '#4c505a', belly = '#e0dcd4', dark = '#1c1a18', layer = 'wolf' } = {}) {
     const { root, body, head, tail, legs } = d;
     const bones = [body, head, tail, ...legs.flatMap(l => [l.upper, l.lower])];
     const gen = ({ edits = null, dry = false, topo = null } = {}) => {
@@ -220,7 +220,7 @@ function slab(sk, pts, col, thick) {
 }
 export function buildAnimalV2(d, kind, layer = kind) {
     const { root, body, parts, K } = d, head = parts.head, tail = parts.tail;
-    const fur = hex(K.fur), belly = hex(K.belly ?? K.fur), headC = hex(K.head ?? K.fur), dark = '#1a1410', horn = '#d8ccb0';
+    const fur = hex(K.fur), belly = hex(K.belly ?? K.fur), headC = hex(K.head ?? K.fur), dark = '#1a1410', horn = hex(K.hornC ?? 0xd8ccb0), legC = hex(K.legC ?? K.fur), tailC = hex(K.tailC ?? K.fur);   // (2026-11-28, after the sheets: legs, tail and horns their own colours — a sheep's grey legs, a squirrel's darker tail, a goat's grey horns)
     const bones = [body, head, ...(tail ? [tail] : []), ...parts.legs.map(l => l.g), ...(parts.wingL ? [parts.wingL, parts.wingR] : []), ...(parts.spine ?? [])];
     const N = K.patches ? 16 : 10;   // (a cow: a finer body, so its patches are blobs, not bands)
     const ring = (sk, g, cx, cy, cz, rx, ry, w, col) => {
@@ -325,28 +325,28 @@ export function buildAnimalV2(d, kind, layer = kind) {
                 // (sized to the body — at most about half its girth, inside the rump's line: "balloons" otherwise)
                 const hr = Math.min(lr * 1.7, r * 0.55 * w0), tr = Math.min(lr * 1.45, r * 0.46 * w0);
                 const top = hind
-                    ? [{ c: V(g, ix, 0.24 * H, -0.01 * H), r: lr * 1.1, w: [[body, 1]], col: fur },
-                        { c: V(g, ix * 0.4, 0.03 * H, -0.035 * H), r: hr, rz: hr * 1.15, w: [[body, 0.6], [g, 0.4]], col: fur },   // the haunch
-                        { c: V(g, 0, -0.16 * H, -0.035 * H), r: tr, rz: tr * 1.12, w: [[g, 1]], col: fur },   // the thigh, deep front to back
-                        { c: V(g, 0, -0.33 * H, -0.015 * H), r: lr * 1.0, rz: lr * 1.1, w: [[g, 1]], col: fur }]   // into the hock
-                    : [{ c: V(g, ix, 0.22 * H, 0), r: lr * 0.8, w: [[body, 1]], col: fur },
-                        { c: V(g, ix * 0.4, 0.02 * H, 0.01 * H), r: lr * 1.15, w: [[body, 0.6], [g, 0.4]], col: fur },
-                        { c: V(g, 0, -0.17 * H, 0.01 * H), r: lr * 1.0, w: [[g, 1]], col: fur }];   // the shoulder, the forearm
+                    ? [{ c: V(g, ix, 0.24 * H, -0.01 * H), r: lr * 1.1, w: [[body, 1]], col: legC },
+                        { c: V(g, ix * 0.4, 0.03 * H, -0.035 * H), r: hr, rz: hr * 1.15, w: [[body, 0.6], [g, 0.4]], col: legC },   // the haunch
+                        { c: V(g, 0, -0.16 * H, -0.035 * H), r: tr, rz: tr * 1.12, w: [[g, 1]], col: legC },   // the thigh, deep front to back
+                        { c: V(g, 0, -0.33 * H, -0.015 * H), r: lr * 1.0, rz: lr * 1.1, w: [[g, 1]], col: legC }]   // into the hock
+                    : [{ c: V(g, ix, 0.22 * H, 0), r: lr * 0.8, w: [[body, 1]], col: legC },
+                        { c: V(g, ix * 0.4, 0.02 * H, 0.01 * H), r: lr * 1.15, w: [[body, 0.6], [g, 0.4]], col: legC },
+                        { c: V(g, 0, -0.17 * H, 0.01 * H), r: lr * 1.0, w: [[g, 1]], col: legC }];   // the shoulder, the forearm
                 sk.tube([
                     ...top,
-                    { c: V(g, 0, -0.45 * H, 0), r: lr * (hind ? 0.8 : 0.85), w: [[g, 1]], col: fur },
-                    { c: V(g, 0, -0.7 * H, 0), r: lr * 0.8, w: [[g, 1]], col: fur },
+                    { c: V(g, 0, -0.45 * H, 0), r: lr * (hind ? 0.8 : 0.85), w: [[g, 1]], col: legC },
+                    { c: V(g, 0, -0.7 * H, 0), r: lr * 0.8, w: [[g, 1]], col: legC },
                     { c: V(g, 0, -0.74 * H, 0.01), r: lr * 0.95, w: [[g, 1]], col: dark },   // the hoof or paw
                     { c: V(g, 0, -0.78 * H, 0.015), r: lr, w: [[g, 1]], col: dark },
                 ], { seg: 6, cap: true, mat: 'double' });
             }
             sk.section('tail');
             if (tail) {
-                const T = (pts, col = fur) => sk.tube(pts.map(([x, y, z, rr, c2]) => ({ c: V(tail, x, y, z), r: rr, w: [[tail, 1]], col: c2 ?? col })), { seg: 6, cap: true, mat: 'double' });
+                const T = (pts, col = tailC) => sk.tube(pts.map(([x, y, z, rr, c2]) => ({ c: V(tail, x, y, z), r: rr, w: [[tail, 1]], col: c2 ?? col })), { seg: 6, cap: true, mat: 'double' });
                 if (K.tail === 'brush') T([[0, 0, 0.02, 0.05], [0, -0.08, -0.16, 0.085], [0, -0.13, -0.27, 0.08], [0, -0.16, -0.34, 0.07, belly], [0, -0.2, -0.44, 0.02, belly]]);   // (its last third white: the user's note on the fox)
                 else if (K.tail === 'thin') T([[0, 0, 0, 0.034], [0, -K.len * 0.3, -K.len * 0.12, 0.026], [0, -K.len * 0.45, -K.len * 0.15, 0.04, dark], [0, -K.len * 0.55, -K.len * 0.17, 0.02, dark]]);   // (thick enough to see; a tuft)
-                else if (K.tail === 'bushy') { const L = K.len; T([[0, 0, 0, L * 0.08], [0, L * 0.35, -L * 0.3, L * 0.2], [0, L * 0.8, -L * 0.3, L * 0.24], [0, L * 1.15, -L * 0.05, L * 0.18], [0, L * 1.3, L * 0.12, L * 0.04]]); }   // (a squirrel's: big, curled up over its back)
-                else if (K.tail === 'long') T([[0, 0, 0, 0.011], [0, -0.02, -K.len * 0.5, 0.008], [0, -0.03, -K.len * 1.0, 0.005], [0, -0.03, -K.len * 1.2, 0.002]], '#c89a8a');   // (a rat's: long and bare)
+                else if (K.tail === 'bushy') { const L = K.len * (K.tailK ?? 1); T([[0, 0, 0, L * 0.08], [0, L * 0.35, -L * 0.32, L * 0.24], [0, L * 0.85, -L * 0.38, L * 0.3], [0, L * 1.25, -L * 0.15, L * 0.26], [0, L * 1.42, L * 0.12, L * 0.12], [0, L * 1.4, L * 0.24, L * 0.03]]); }   // (fuller, curling over at its end: the sheets' squirrel)   // (a squirrel's: big, curled up over its back)
+                else if (K.tail === 'long') T([[0, 0, 0, 0.011], [0, -0.02, -K.len * 0.5, 0.008], [0, -0.03, -K.len * 1.0, 0.005], [0, -0.03, -K.len * 1.2, 0.002]], K.tailC ? tailC : '#c89a8a');   // (the sheet's rat: a dark grey tail)   // (a rat's: long and bare)
                 else if (K.tail === 'thick') { const r0 = K.h * 0.34; T([[0, 0, 0, r0], [0, -0.04, -K.len * 0.25, r0 * 0.8], [0, -0.08, -K.len * 0.5, r0 * 0.5], [0, -0.1, -K.len * 0.72, r0 * 0.2], [0, -0.1, -K.len * 0.85, 0.01]]); }   // (a crocodile's)
                 else if (K.tail === 'curl') T([[0, 0, 0, 0.026], [0, 0.045, -0.045, 0.024], [0, 0.08, 0.0, 0.022], [0, 0.045, 0.035, 0.018]]);
                 else if (K.tail === 'puff') T([[0, 0, 0.0, 0.03, belly], [0, 0.01, -0.04, 0.055, belly], [0, 0.01, -0.07, 0.02, belly]]);
@@ -357,10 +357,10 @@ export function buildAnimalV2(d, kind, layer = kind) {
         return { mesh: sk.build() };
     };
     const out = buildLayered(root, kind, gen, layer);
-    if (out?.mesh && (K.patches || K.saddle || K.stripes)) {   // (markings painted on the body's own colours — kept under the Sculptor's paint)
+    if (out?.mesh && (K.patches || K.saddle || K.stripes || K.underside)) {   // (markings painted on the body's own colours — kept under the Sculptor's paint)
         const col = out.mesh.geometry.attributes.color, base = out.mesh.geometry.attributes.colorBase; if (base) col.copy(base);
         if (K.patches) paintPatches(out.mesh, root, body, K, hex(K.patches), fur, head, parts.legs.map(l => l.g));
-        if (K.saddle || K.stripes) paintMarkings(out.mesh, root, body, K);
+        if (K.saddle || K.stripes || K.underside) paintMarkings(out.mesh, root, body, K);
         if (base) { base.copy(col); applyPaint(out.mesh, out.mesh.userData.paint); }
     }
     return out;
@@ -378,6 +378,8 @@ function paintMarkings(mesh, root, body, K) {
         if (K.saddle && sec === 'torso' && c.y > r * 0.2 && c.z > -hl * 0.95 && c.z < hl * 0.7) to = dark;   // the saddle: the back, from the rump to behind the shoulders
         if (K.saddle && sec === 'tail' && c.y > -r * 0.2) to = dark;
         if (K.stripes && sec === 'torso' && c.y > 0 && c.z > -hl && c.z < hl * 0.9) { const ax = Math.abs(c.x) / r; to = ax < 0.12 || (ax > 0.42 && ax < 0.55) ? dark : ax >= 0.55 && ax < 0.72 ? light : null; }   // a dark stripe down the spine, light and dark ones at the sides
+        if (!to && K.underside && sec === 'torso' && c.y < -r * 0.35 && c.z < hl * 1.1) to = light;   // (a pale belly and chest, as the sheets: the rat, the squirrel, the crocodile…)
+        if (!to && K.underside && sec === 'torso' && c.z > hl * 0.55 && c.y < r * 0.1 && Math.abs(c.x) < r * 0.55) to = light;   // (the chest and throat)
         if (to) for (let j = 0; j < 3; j++) col.setXYZ(f + j, to.r, to.g, to.b);
     }
     col.needsUpdate = true;

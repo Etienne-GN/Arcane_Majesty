@@ -20,7 +20,7 @@ function limb(len, r0, r1, m) {
 const part = (g, geo, m, x = 0, y = 0, z = 0) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); g.add(o); return o; };
 
 export function buildWolf(tint, { layer = 'wolf' } = {}) {   // (layer: a Library clone's own)
-    const M = { fur: flat(tint), belly: flat(0xb8b0a2), dark: flat(0x1c1a18),
+    const M = { fur: flat(tint), belly: flat(0xe0dcd4), dark: flat(0x1c1a18),
         eye: new THREE.MeshBasicMaterial({ color: 0xffd060, toneMapped: false }) };
     const root = new THREE.Group();
     const body = new THREE.Group();
@@ -75,7 +75,7 @@ export function buildWolf(tint, { layer = 'wolf' } = {}) {   // (layer: a Librar
 
 export function createWolves({ scene, map, rng, den, count = 3, layer = 'wolf' }) {
     return Array.from({ length: count }, (_, i) => {
-        const tint = [0x6b6862, 0x56524c, 0x7c7468][i % 3];
+        const tint = [0x4c505a, 0x444852, 0x5a5860][i % 3];   // (2026-11-28, after the sheet: dark blue-grey, a pale belly)
         const home = { x: den.x + Math.cos(i * 2.1) * 2.5, z: den.z + Math.sin(i * 2.1) * 2.5 };
         return createWolf({ scene, map, rng, home, tint, layer });
     });

@@ -15,24 +15,24 @@ export const NAMES = { rabbit: 'Rabbit', forest_fox: 'Fox', crow: 'Crow', feral_
 // size (body length), height of the back, colours, and a few features
 const KINDS = {
     rabbit:       { len: 0.32, h: 0.22, fur: 0x9a8a72, belly: 0xe0d6c4, ears: 'long', tail: 'puff', legs: 0.08 },
-    forest_fox:   { len: 0.6, h: 0.38, fur: 0xc8642a, belly: 0xf0e6d8, ears: 'point', tail: 'brush', legs: 0.2, snout: 0.16 },
+    forest_fox:    { len: 0.6, h: 0.38, fur: 0xc0582a, belly: 0xf0e2c8, legC: 0x3a2418, ears: 'point', tail: 'brush', legs: 0.2, snout: 0.16, underside: true },
     feral_boar:   { len: 0.95, h: 0.62, fur: 0x4a3a2c, belly: 0x3a2e24, ears: 'small', tail: 'thin', legs: 0.26, snout: 0.18, tusks: true, bristle: true },
-    black_bear:   { len: 1.35, h: 0.95, fur: 0x1e1a18, belly: 0x2a2420, ears: 'round', tail: 'stub', legs: 0.42, snout: 0.16 },
+    black_bear:    { len: 1.35, h: 0.95, fur: 0x24242c, belly: 0x2e2c32, head: 0x2a2a32, ears: 'round', tail: 'stub', legs: 0.42, snout: 0.16, hump: true },
     plague_rat:   { len: 0.72, h: 0.4, fur: 0x5a5a3e, belly: 0x4a4a32, ears: 'round', tail: 'thin', legs: 0.14, snout: 0.15 },   // (the Plague Rat's v2 body — beasts, bodies2.js)
     frost_bear:   { len: 1.95, h: 1.36, fur: 0xe8eef4, belly: 0xd4dee8, ears: 'round', tail: 'stub', legs: 0.58, snout: 0.2, hump: true },   // (the Frost Bear's v2 body — beasts, bodies2.js; not an animal of the world)
-    grizzly_bear: { len: 1.55, h: 1.08, fur: 0x6a4a30, belly: 0x5a3e28, ears: 'round', tail: 'stub', legs: 0.48, snout: 0.18, hump: true },
-    sheep:        { len: 0.85, h: 0.62, fur: 0xe8e4da, belly: 0xd8d2c4, head: 0x2a2420, ears: 'side', tail: 'stub', legs: 0.3, wool: true },
+    grizzly_bear:  { len: 1.55, h: 1.08, fur: 0x5e4232, belly: 0x4a3426, head: 0x7a5a40, legC: 0x4a3226, ears: 'round', tail: 'stub', legs: 0.48, snout: 0.18, hump: true },
+    sheep:         { len: 0.85, h: 0.62, fur: 0xeee6d6, belly: 0xe2dac8, head: 0x6a625c, legC: 0x6a625c, ears: 'side', tail: 'stub', legs: 0.3, wool: true },
     cow:          { len: 1.4, h: 1.0, fur: 0xf0ece4, belly: 0xe0dcd2, patches: 0x2a2220, ears: 'side', tail: 'thin', legs: 0.5, snout: 0.16, horns: 'short' },
     pig:          { len: 0.85, h: 0.44, girth: 1.3, fur: 0xe8b0a0, belly: 0xe0a090, ears: 'flop', tail: 'curl', legs: 0.2, snout: 0.12 },   // (lower and stockier — the user's note: "pigs have shorter legs")
-    goat:         { len: 0.75, h: 0.62, fur: 0xd8ccb8, belly: 0xc8bca8, ears: 'side', tail: 'stub', legs: 0.34, horns: 'curve', beard: true },
-    squirrel:     { len: 0.24, h: 0.15, fur: 0xa0522d, belly: 0xe8d8c0, ears: 'point', tail: 'bushy', legs: 0.06, snout: 0.03 },
-    chipmunk:     { len: 0.17, h: 0.11, fur: 0x9a6a3a, belly: 0xeadcc4, ears: 'round', tail: 'bushy', legs: 0.05, snout: 0.025, stripes: 0x2a1c12 },
-    rat:          { len: 0.22, h: 0.11, fur: 0x6a625a, belly: 0xb0a898, ears: 'round', tail: 'long', legs: 0.05, snout: 0.05 },
+    goat:          { len: 0.75, h: 0.62, fur: 0xe8e2d2, belly: 0xd8d0be, legC: 0xd8d0be, hornC: 0x6a665e, ears: 'side', tail: 'stub', legs: 0.34, horns: 'curve', beard: true },
+    squirrel:      { len: 0.24, h: 0.15, fur: 0xb4562e, belly: 0xf0e2c8, tailC: 0x8a3a22, ears: 'point', tail: 'bushy', tailK: 1.25, legs: 0.06, snout: 0.03, underside: true },
+    chipmunk:      { len: 0.17, h: 0.11, fur: 0xb86a3e, belly: 0xece0c8, tailC: 0x8a847c, ears: 'round', tail: 'bushy', tailK: 0.8, legs: 0.05, snout: 0.025, stripes: 0x3a2c22, underside: true },
+    rat:           { len: 0.22, h: 0.11, fur: 0x7a6e64, belly: 0xc4bcb0, ears: 'round', tail: 'long', tailC: 0x4a4850, legs: 0.05, snout: 0.05, underside: true },
     dog:          { len: 0.85, h: 0.6, fur: 0xb5793c, belly: 0xd8a868, ears: 'point', tail: 'brush', legs: 0.2, snout: 0.2, saddle: 0x1c1612 },   // (a German shepherd: tan, a black saddle)
-    crocodile:    { len: 1.9, h: 0.3, fur: 0x4a5a32, belly: 0xc8c08a, ears: 'none', tail: 'thick', legs: 0.13, snout: 0.5, flathead: true, scutes: 0x34421f },
-    snake:        { snake: true, len: 1.3, h: 0.05, fur: 0x5a6a2a, belly: 0xd8d0a0, pattern: 0x2a3014 },
-    chicken:      { bird: true, len: 0.24, h: 0.26, fur: 0xf0ece0, comb: 0xc82a2a },
-    crow:         { bird: true, len: 0.26, h: 0.24, fur: 0x1a1a20, beakC: 0x2a2a2a, flies: true },
+    crocodile:     { len: 1.9, h: 0.32, girth: 1.15, fur: 0x4e5e36, belly: 0xc8c08a, ears: 'none', tail: 'thick', legs: 0.14, snout: 0.5, flathead: true, scutes: 0x34421f, underside: true },
+    snake:         { snake: true, len: 1.3, h: 0.05, fur: 0xd2662c, belly: 0xe8d0a0, pattern: 0x8a2e1a },
+    chicken:       { bird: true, len: 0.24, h: 0.26, fur: 0xb8682e, comb: 0xc82a2a, beakC: 0xe0b040 },
+    crow:          { bird: true, len: 0.26, h: 0.24, fur: 0x2a2e38, beakC: 0x34363e, flies: true },
 };
 const FIGHTERS = new Set(['feral_boar', 'black_bear', 'grizzly_bear', 'snake', 'crocodile']);
 
@@ -51,7 +51,7 @@ export function build(kind, { layer = kind } = {}) {   // (layer: a Library clon
 function buildClassic(kind) {
     const K = KINDS[kind], root = new THREE.Group(), body = new THREE.Group(), parts = { legs: [] };
     root.add(body);
-    const M = { fur: flat(K.fur), belly: flat(K.belly ?? K.fur), dark: flat(0x1a1410), head: flat(K.head ?? K.fur), horn: flat(0xd8ccb0) };
+    const M = { fur: flat(K.fur), belly: flat(K.belly ?? K.fur), dark: flat(0x1a1410), head: flat(K.head ?? K.fur), horn: flat(K.hornC ?? 0xd8ccb0), leg: flat(K.legC ?? K.fur), tail: flat(K.tailC ?? K.fur) };
     const add = (geo, m, x = 0, y = 0, z = 0, parent = body) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; parent.add(o); return o; };
     if (K.bird) {
         body.position.y = K.h * 0.55;
@@ -113,20 +113,20 @@ function buildClassic(kind) {
     // legs
     for (const [x, z, ph] of [[1, 1, 0], [-1, 1, Math.PI], [1, -1, Math.PI], [-1, -1, 0]]) {
         const g = new THREE.Group(); g.position.set(x * K.h * 0.25 * (K.girth ?? 1), -K.h * 0.25, z * K.len * 0.35); body.add(g);
-        add(new THREE.CylinderGeometry(K.legs * 0.28, K.legs * 0.22, K.h * 0.78, 6).translate(0, -K.h * 0.39, 0), M.fur, 0, 0, 0, g);
+        add(new THREE.CylinderGeometry(K.legs * 0.28, K.legs * 0.22, K.h * 0.78, 6).translate(0, -K.h * 0.39, 0), M.leg, 0, 0, 0, g);
         add(new THREE.CylinderGeometry(K.legs * 0.26, K.legs * 0.26, 0.05, 6), M.dark, 0, -K.h * 0.76, 0, g);
         parts.legs.push({ g, ph });
     }
     // tail
     parts.tail = new THREE.Group(); parts.tail.position.set(0, K.h * 0.15, -K.len * (K.tail === 'thick' ? 0.42 : 0.55)); body.add(parts.tail);   // (a crocodile's tail grows out of its body)
-    if (K.tail === 'brush') { const t = add(new THREE.ConeGeometry(0.09, 0.45, 6).rotateX(Math.PI).translate(0, -0.225, 0)   /* (wide at the body, the tip away — cones were backward) */, M.fur, 0, 0, 0, parts.tail); t.rotation.x = -2.2; add(new THREE.ConeGeometry(0.038, 0.16, 6).rotateX(Math.PI), M.belly, 0, -0.38, 0, t); }   // (the white tip at the tail's end — it hung in the air)
-    else if (K.tail === 'bushy') { const L = K.len, t = add(new THREE.CylinderGeometry(L * 0.2, L * 0.08, L * 1.2, 6).translate(0, L * 0.6, 0), M.fur, 0, 0, 0, parts.tail); t.rotation.x = -0.35; }   // (big, up over the back)
-    else if (K.tail === 'long') { const t = add(new THREE.CylinderGeometry(0.01, 0.004, K.len * 1.1, 4).translate(0, -K.len * 0.55, 0), flat(0xc89a8a), 0, 0, 0, parts.tail); t.rotation.x = 1.3; }
-    else if (K.tail === 'thick') { const t = add(new THREE.ConeGeometry(K.h * 0.32, K.len * 0.75, 6).rotateX(Math.PI).translate(0, -K.len * 0.375, 0), M.fur, 0, 0, 0, parts.tail); t.rotation.x = 1.62; }
+    if (K.tail === 'brush') { const t = add(new THREE.ConeGeometry(0.09, 0.45, 6).rotateX(Math.PI).translate(0, -0.225, 0)   /* (wide at the body, the tip away — cones were backward) */, M.tail, 0, 0, 0, parts.tail); t.rotation.x = -2.2; add(new THREE.ConeGeometry(0.038, 0.16, 6).rotateX(Math.PI), M.belly, 0, -0.38, 0, t); }   // (the white tip at the tail's end — it hung in the air)
+    else if (K.tail === 'bushy') { const L = K.len, t = add(new THREE.CylinderGeometry(L * 0.2, L * 0.08, L * 1.2, 6).translate(0, L * 0.6, 0), M.tail, 0, 0, 0, parts.tail); t.rotation.x = -0.35; }   // (big, up over the back)
+    else if (K.tail === 'long') { const t = add(new THREE.CylinderGeometry(0.01, 0.004, K.len * 1.1, 4).translate(0, -K.len * 0.55, 0), flat(K.tailC ?? 0xc89a8a), 0, 0, 0, parts.tail); t.rotation.x = 1.3; }
+    else if (K.tail === 'thick') { const t = add(new THREE.ConeGeometry(K.h * 0.32, K.len * 0.75, 6).rotateX(Math.PI).translate(0, -K.len * 0.375, 0), M.tail, 0, 0, 0, parts.tail); t.rotation.x = 1.62; }
     else if (K.tail === 'puff') add(new THREE.SphereGeometry(0.05, 6, 4), M.belly, 0, 0, -0.02, parts.tail);
-    else if (K.tail === 'curl') add(new THREE.TorusGeometry(0.04, 0.012, 4, 8), M.fur, 0, 0, -0.02, parts.tail);
-    else if (K.tail === 'thin') { const t = add(new THREE.CylinderGeometry(0.02, 0.012, K.len * 0.5, 4).translate(0, -K.len * 0.25, 0), M.fur, 0, 0, 0, parts.tail); t.rotation.x = 0.4; }
-    else add(new THREE.SphereGeometry(0.05, 5, 4), M.fur, 0, 0, -0.02, parts.tail);
+    else if (K.tail === 'curl') add(new THREE.TorusGeometry(0.04, 0.012, 4, 8), M.tail, 0, 0, -0.02, parts.tail);
+    else if (K.tail === 'thin') { const t = add(new THREE.CylinderGeometry(0.02, 0.012, K.len * 0.5, 4).translate(0, -K.len * 0.25, 0), M.tail, 0, 0, 0, parts.tail); t.rotation.x = 0.4; }
+    else add(new THREE.SphereGeometry(0.05, 5, 4), M.tail, 0, 0, -0.02, parts.tail);
     return { root, body, parts, K };
 }
 

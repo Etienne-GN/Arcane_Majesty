@@ -46,7 +46,7 @@ const SUBJECTS = { base_male: { name: 'Male base', look: () => baseLook('adult_m
     base_old_man: { name: 'Old man base', look: () => baseLook('elder_male', 'base_male'), sex: 'male', vers: ['new'] },
     base_old_woman: { name: 'Old woman base', look: () => baseLook('elder_female', 'base_female'), sex: 'female', vers: ['new'] } };
 // the creatures (LAYERS_PLAN step 6): each kind's v2 body, shaped in its own layer — the wolf first
-const CREATURES = { wolf: { name: 'Wolf', build: () => import('../content/actors/wolf.js').then(m => m.buildWolf(0x6b6862)) },
+const CREATURES = { wolf: { name: 'Wolf', build: () => import('../content/actors/wolf.js').then(m => m.buildWolf(0x4c505a)) },
     horse: { name: 'Horse', build: () => import('../content/models/horse.js').then(m => m.buildHorse()) } };
 // the animals (animals.js), each kind its own subject and layer
 for (const [k, n] of Object.entries({ rabbit: 'Rabbit', forest_fox: 'Fox', feral_boar: 'Feral boar', black_bear: 'Black bear', grizzly_bear: 'Grizzly bear', sheep: 'Sheep', cow: 'Cow', pig: 'Pig', goat: 'Goat', chicken: 'Chicken', crow: 'Crow', squirrel: 'Squirrel', chipmunk: 'Chipmunk', rat: 'Rat', dog: 'Dog', snake: 'Snake', crocodile: 'Crocodile' }))
@@ -72,7 +72,7 @@ for (const c of LIBRARY) {
     const kind = CLONE_LAYER_OF[c.base]; if (!c.base || !kind) continue;
     const build = async () => {
         await cloneLayer(c);
-        const d = kind === 'wolf' ? (await import('../content/actors/wolf.js')).buildWolf(0x6b6862, { layer: c.id })
+        const d = kind === 'wolf' ? (await import('../content/actors/wolf.js')).buildWolf(0x4c505a, { layer: c.id })
             : kind === 'horse' ? (await import('../content/models/horse.js')).buildHorse({ layer: c.id })
             : (await import('../content/actors/animals.js')).build(kind, { layer: c.id });
         applyPalette(d.root, RECOLOR[c.base]); applyPalette(d.root, c.colors);   // (in its own colours, as the Library and the game show it — the user: "the cat has the fox's colours")
